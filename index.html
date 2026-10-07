@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff7a45">
+<title>Week 5 考卷特訓</title>
+<style>
+:root{--bg:#fff7ee;--card:#ffffff;--ink:#2a2733;--mute:#6f6a7c;--pri:#ff7a45;--pri-d:#e8602b;--ok:#22a05b;--ok-bg:#e6f7ed;--bad:#e5484d;--bad-bg:#fdecec;--line:#eee2d3;--tag:#fff0e2;--t:#c2410c;--n:#2563eb;--hi:#fff1a8;--why:#eef5ff;--shadow:0 2px 10px rgba(80,50,20,.08)}
+@media (prefers-color-scheme:dark){:root{--bg:#1d1b22;--card:#29262f;--ink:#f1edf5;--mute:#a7a1b3;--line:#3b3743;--tag:#3a2e26;--t:#ff9a66;--n:#7fb0ff;--hi:#5b4e12;--why:#23304a;--ok-bg:#163826;--bad-bg:#43201f;--shadow:none}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+#app{max-width:680px;margin:0 auto;padding:0 16px 48px}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{display:block;width:100%;min-height:52px;margin:10px 0;padding:10px 16px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+.btn.big{font-size:19px;min-height:58px}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;margin:0 -16px 12px;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.back{border:0;background:var(--card);border-radius:12px;padding:8px 12px;font-weight:700;box-shadow:var(--shadow)}
+.bt{font-weight:800;font-size:18px}
+.hero{text-align:center;padding:28px 0 10px}
+.hero h1{margin:4px 0;font-size:34px}
+.h-sm{color:var(--pri-d);font-weight:800;letter-spacing:.5px}
+.h-sub{color:var(--mute)}
+.steps{display:grid;gap:12px;margin-top:14px}
+.step{display:flex;gap:14px;align-items:center;text-align:left;padding:16px;border:0;border-radius:20px;background:var(--card);box-shadow:var(--shadow);border-left:8px solid var(--pri)}
+.step.s2{border-left-color:#3b82f6}.step.s3{border-left-color:#22a05b}
+.step.lock{opacity:.55}
+.si{font-size:36px}
+.sb{flex:1}.sn{font-size:21px;font-weight:800}.sd{color:var(--mute);font-size:15px}.sp{font-size:14px;font-weight:700;margin-top:4px}
+.mini{height:8px;border-radius:8px;background:var(--line);margin-top:8px;overflow:hidden}.mini div{height:100%;background:var(--pri)}
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.tool{border:0;background:var(--card);border-radius:16px;padding:14px 4px;font-size:26px;box-shadow:var(--shadow)}
+.tool span{display:block;font-size:15px;font-weight:700}
+.foot{text-align:center;color:var(--mute);font-size:14px;margin-top:20px}
+.lg{padding:0 2px}
+.card{background:var(--card);border-radius:20px;padding:18px;margin:12px 0;box-shadow:var(--shadow)}
+.card.c{text-align:center}
+.ctitle{margin:0 0 10px;font-size:22px}
+section{border-top:1px dashed var(--line);padding-top:12px;margin-top:14px}
+section h3{margin:0 0 8px;font-size:17px}
+section h3 small,.lab{color:var(--mute);font-weight:600;font-size:13px}
+.whead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.bigword{font-size:40px;font-weight:800;line-height:1.1;letter-spacing:.5px;word-break:break-word}
+.wmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.tag{display:inline-block;background:var(--tag);color:var(--pri-d);border-radius:8px;padding:1px 8px;font-size:14px;font-weight:700}
+.zhbig{font-size:22px;font-weight:800}
+.forms{color:var(--mute);font-size:15px;margin-top:4px}
+.spcol{display:flex;flex-direction:column;gap:8px}
+.spk{border:0;background:var(--tag);border-radius:12px;min-width:44px;min-height:44px;font-size:20px;vertical-align:middle}
+.sent,.qsent{font-size:20px;line-height:1.9}
+.w{cursor:pointer;border-radius:5px;padding:0 1px}
+.w:active{background:var(--hi)}
+.wt{font-weight:800;color:var(--t)}
+.wn{text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--n);text-decoration-thickness:2px;text-underline-offset:4px}
+.hi{background:var(--hi)}
+.blank{display:inline-block;min-width:90px;border-bottom:3px solid var(--ink);color:transparent}
+.blank.num{color:var(--pri-d);font-weight:800;text-align:center;font-size:16px}
+.mbin{display:grid;gap:8px;margin-top:14px}
+.mbrow{display:flex;align-items:center;gap:8px}.mbrow span{font-weight:800;color:var(--pri-d);min-width:30px}
+.retype .rt{margin-bottom:6px}
+.mbx{font-size:16px}
+.chip small{color:var(--bad);font-weight:800}
+.chunks{display:grid;gap:6px;margin:6px 0}
+.ck{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;background:var(--bg);border-radius:12px;padding:8px 12px;align-items:center}
+.cke{font-size:17px}.ckz{color:var(--mute);font-size:15px}
+.zhline{font-size:18px;font-weight:700;margin:8px 0}
+.why{background:var(--why);border-radius:14px;padding:12px 14px;font-size:16px;margin-top:8px}
+.tip{background:var(--tag);border-radius:14px;padding:12px 14px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:8px 14px;font-weight:700;min-height:44px}
+.note{color:var(--mute);font-size:15px}.note.c{text-align:center}
+.lnav{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px}
+.lnav .btn{margin:0;font-size:15px}
+.dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:120px}
+.d{width:9px;height:9px;border-radius:50%;background:var(--line)}.d.ok{background:var(--ok)}.d.cur{outline:2px solid var(--pri);outline-offset:1px}
+.chkh{margin:22px 0 4px}
+.pbar{height:12px;border-radius:12px;background:var(--line);overflow:hidden;margin-top:6px}.pbar div{height:100%;background:linear-gradient(90deg,var(--pri),#ffb347);transition:width .3s}
+.pmeta{color:var(--mute);font-size:14px;margin:6px 0;font-weight:600}
+.qcard{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+#chk .qcard{background:var(--bg);box-shadow:none}
+.qlab{color:var(--mute);font-weight:700;font-size:15px;margin-bottom:6px}
+.qword{font-size:34px;font-weight:800}
+.qzh{font-size:28px;font-weight:800}
+.qpos{color:var(--mute)}
+.hint{font-family:ui-monospace,Menlo,monospace;font-size:20px;letter-spacing:1px;margin-top:6px}
+.bigspk{display:flex;gap:10px}.bigspk .btn{margin:6px 0}
+.spkbig{background:var(--tag);border-color:transparent}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{text-align:left;padding:14px 16px;min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-size:17px;font-weight:600}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}.opt.bad{border-color:var(--bad);background:var(--bad-bg)}.opt.sel{border-color:var(--pri);background:var(--tag)}
+.posrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pos{min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-size:19px;font-weight:800}
+.pos small{display:block;font-size:12px;color:var(--mute);font-weight:600}
+.pos.sel{border-color:var(--pri);background:var(--tag)}
+.ansrow{display:flex;gap:8px;margin-top:14px}
+.ansrow .btn{width:auto;margin:0;flex:none}
+input.ans,input.rt{flex:1;min-width:0;width:100%;font:inherit;font-size:22px;padding:10px 14px;border:2px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink)}
+input.ok{border-color:var(--ok);background:var(--ok-bg)}input.bad{border-color:var(--bad);background:var(--bad-bg)}
+.fb{margin-top:14px;border-radius:14px;padding:12px 14px}
+.fb.good{background:var(--ok-bg);color:var(--ok);font-weight:800;text-align:center;font-size:19px}
+.badbox{background:var(--bad-bg)}
+.fbt{font-weight:800;color:var(--bad);margin-bottom:4px}
+.right{font-size:18px;margin:4px 0}.right b{color:var(--ok);font-size:21px}
+.exp{background:var(--card);border-radius:12px;padding:10px 12px;margin:8px 0}
+.retype{margin:10px 0}
+.winfo .wi1 b{font-size:22px}.wi2{font-size:18px;font-weight:700}.wi3{color:var(--mute);font-size:14px}
+.done{text-align:center;font-size:22px;font-weight:800;padding:14px;background:var(--ok-bg);border-radius:18px;margin-top:16px}
+.done .btn{font-size:17px}
+.done.big{padding:24px 16px}
+.ds{font-size:16px;font-weight:600;color:var(--mute);margin:6px 0}
+.intro{color:var(--mute)}
+.rlist{display:grid;gap:10px}
+.rr{display:flex;align-items:center;gap:12px;text-align:left;border:0;border-radius:18px;padding:14px;background:var(--card);box-shadow:var(--shadow)}
+.rr.rd{background:var(--ok-bg)}.rr.lock{opacity:.5}
+.ri{font-size:30px}.rb{flex:1}.rn{font-weight:800;font-size:18px}.rd2{color:var(--mute);font-size:14px}.rp{color:var(--pri-d);font-size:13px;font-weight:700}.rs{font-size:22px}
+.tb{width:100%;border-collapse:collapse;font-size:15px;text-align:left}
+.tb th,.tb td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.tb th{color:var(--mute);font-size:13px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vs>div{background:var(--bg);border-radius:14px;padding:12px;font-size:15px}
+.vs b.w{font-size:19px}
+.ex{font-size:15px}
+.score{font-size:72px;font-weight:900;color:var(--pri-d);line-height:1}.score small{font-size:24px}.score.hi{color:var(--ok)}
+.msg{font-size:20px;font-weight:800;margin:8px 0}
+.meta{color:var(--mute);font-size:15px;margin-bottom:8px}
+.sech{margin:22px 4px 6px;font-size:18px}
+.wr .sec{color:var(--mute);font-size:13px;font-weight:700}
+.qlab.sm{display:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stats>div{background:var(--card);border-radius:16px;padding:14px 6px;text-align:center;box-shadow:var(--shadow)}
+.stats b{display:block;font-size:30px;color:var(--pri-d)}.stats span{font-size:13px;color:var(--mute)}
+.chart{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:8px}
+.col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.cb{width:100%;max-width:34px;background:var(--pri);border-radius:8px 8px 4px 4px}.cb.full{background:var(--ok)}
+.cv{font-size:12px;font-weight:700}
+.lnk{border:0;background:none;color:var(--n);font-weight:700;padding:4px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border-radius:14px;padding:4px;gap:4px}
+.seg button{border:0;background:none;border-radius:10px;padding:10px 4px;font-weight:700}.seg .on{background:var(--pri);color:#fff}
+.wl{padding:6px 12px}
+.wrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.wrow:last-child{border:0}
+.we{font-weight:800;font-size:18px;flex:1;min-width:0}
+.wz{text-align:right;font-size:15px;max-width:55%}.wz small{display:block;color:var(--mute);font-size:12px}
+.wrow.hz:not(.open) .wz,.wrow.he:not(.open) .we{color:transparent;background:var(--line);border-radius:8px}
+.wrow.he:not(.open) [data-say]{visibility:hidden}
+.sheet.hidden{display:none}
+.sh-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20}
+.sh{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:680px;margin:0 auto;background:var(--card);border-radius:24px 24px 0 0;padding:16px 20px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -6px 30px rgba(0,0,0,.2);animation:up .18s ease-out;max-height:80vh;overflow:auto}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.sh-top{display:flex;justify-content:space-between;align-items:center}
+.x{border:0;background:var(--bg);border-radius:50%;width:40px;height:40px;font-size:18px}
+.badge{border-radius:8px;padding:2px 10px;font-size:13px;font-weight:800}
+.badge.bT{background:var(--tag);color:var(--t)}.badge.bn{background:var(--why);color:var(--n)}.badge.bb{background:var(--bg);color:var(--mute)}
+.sh-w{font-size:36px;font-weight:800;margin:6px 0}
+.sh-btns{display:flex;gap:10px}.sh-btns .btn{margin:4px 0}
+.sh-pos{color:var(--mute);font-weight:700;margin-top:6px}
+.sh-zh{font-size:24px;font-weight:800}
+.sh-f{color:var(--mute)}
+.sh-def{background:var(--bg);border-radius:12px;padding:10px 12px;margin-top:10px}.zh2{color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:30}
+@media (max-width:420px){.bigword{font-size:34px}.sent,.qsent{font-size:18px}.ck{grid-template-columns:1fr}.vs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="sheet" class="sheet hidden"></div>
+<script>
+// ===== 字典：T=本課單字 N=句子生字(要會背) B=基本字(可查) =====
+const DICT_RAW=[
+["weathering","n.","風化（作用）","T"],
+["crisis","n.","危機","T","單數 crisis · 複數 crises",["crises"]],
+["severe","adj.","嚴重的；猛烈的","T"],
+["unpredictable","adj.","難以預測的","T"],
+["erosion","n.","侵蝕（作用）","T"],
+["collapse","v.","倒塌；崩塌","T","collapse · collapsed · collapsed",["collapsed","collapses"]],
+["hazard","n.","危險（的東西）；危害","T","",["hazards"]],
+["destruction","n.","破壞；毀滅","T"],
+["substantial","adj.","相當大的；可觀的","T"],
+["alter","v.","改變；修改","T","alter · altered · altered",["altered","alters"]],
+
+["breakdown","n.","分解；故障","N"],
+["rock","n.","岩石","N","",["rocks"]],
+["due to","phr.","由於；因為","N"],
+["important","adj.","重要的","N"],
+["cause","v. / n.","造成（動詞）；原因（名詞）","N","cause · caused · caused",["caused","causes"]],
+["difficult","adj.","困難的","N"],
+["dangerous","adj.","危險的","N"],
+["situation","n.","處境；情況","N"],
+["company","n.","公司","N"],
+["struggle","v.","努力掙扎；奮鬥","N","struggle · struggled · struggled",["struggled"]],
+["survive","v.","存活；撐過","N"],
+["financial","adj.","金融的；和錢有關的","N"],
+["harsh","adj.","嚴酷的；嚴厲的","N"],
+["serious","adj.","嚴重的；認真的","N"],
+["suffer","v.","遭受；受苦","N","suffer · suffered · suffered",["suffered"]],
+["damage","n.","損害；損壞","N"],
+["typhoon","n.","颱風","N"],
+["able","adj.","能夠的（be able to 能夠做…）","N"],
+["tell","v.","得知；分辨（本課的意思）；告訴","N","tell · told · told",["told"]],
+["beforehand","adv.","事先；預先","N"],
+["movement","n.","移動；運動","N"],
+["broken-down","adj.","破碎的；壞掉的","N"],
+["slowly","adv.","慢慢地","N"],
+["wear away","phr.","（慢慢）磨掉；侵蝕掉","N","wear · wore · worn",["worn away","wore away","wears away"]],
+["riverbank","n.","河岸","N"],
+["fall down","phr.","倒下；跌倒","N"],
+["cave in","phr.","塌陷；坍塌","N"],
+["building","n.","建築物；大樓","N"],
+["earthquake","n.","地震","N","",["earthquakes"]],
+["harm","n.","傷害","N"],
+["injury","n.","受傷；傷害","N"],
+["wet","adj.","濕的","N"],
+["floor","n.","地板","N","",["floors"]],
+["slip","v.","滑倒；滑","N","slip · slipped · slipped",["slipped"]],
+["might","aux.","可能（會）","N"],
+["ruin","n. / v.","毀壞；廢墟","N"],
+["forest","n.","森林","N"],
+["wildfire","n.","野火；森林大火","N"],
+["because of","phr.","因為；由於（後面接名詞）","N"],
+["amount","n.","數量","N"],
+["size","n.","大小；尺寸","N"],
+["repair","v.","修理","N"],
+["different","adj.","不同的","N"],
+["plan","n.","計畫","N","",["plans"]],
+["have to","phr.","必須（had to 是過去式）","N","",["had to","has to"]],
+
+["the","art.","這個；那個（指特定的東西）","B"],
+["a","art.","一個","B","",["an"]],
+["of","prep.","…的","B"],
+["by","prep.","由；被","B"],
+["not","adv.","不；沒有","B"],
+["to","prep.","到；（放在動詞前，表示「去做…」）","B"],
+["or","conj.","或；或者","B"],
+["and","conj.","和；而且","B"],
+["very","adv.","非常","B"],
+["great","adj.","巨大的；很棒的","B"],
+["can","aux.","可以；可能","B"],
+["be","v.","是；成為","B","be · was/were · been",["is","are","was","were"]],
+["because","conj.","因為（後面接句子）","B"],
+["people","n.","人們","B"],
+["fall","v.","跌倒；落下","B","fall · fell · fallen",["fell"]],
+["wind","n.","風","B","",["winds"]],
+["rain","n. / v.","雨；下雨","B"],
+["sun","n.","太陽","B"],
+["two","num.","二；兩個","B"],
+["in","prep.","在…裡面","B"],
+["has","aux.","已經（has + 過去分詞）；有","B"],
+["had","v.","有；得了（have 的過去式）","B"],
+["make","v.","使；做","B"],
+["something","pron.","某個東西","B"],
+["that","pron. / conj.","那個；（連接後面的說明）","B"],
+["we","pron.","我們","B"],
+["need","v.","需要","B"],
+["money","n.","錢","B"],
+["our","pron.","我們的","B"],
+["city","n.","城市","B"],
+["after","prep.","在…之後","B"],
+["weather","n.","天氣","B"],
+["mountain","n.","山","B","",["mountains"]],
+["bad","adj.","壞的；不好的","B"],
+["change","v.","改變","B"],
+["strong","adj.","強烈的；強壯的","B"],
+["broken","adj.","壞掉的；破的","B"],
+["step","n.","台階；一步","B"],
+["old","adj.","老的；舊的","B"],
+["for","prep.","對…來說；為了；（持續）…之久","B"],
+["ice","n.","冰","B"],
+["on","prep.","在…上面","B"],
+["road","n.","馬路","B"],
+["driver","n.","駕駛人；司機","B","",["drivers"]],
+["over","prep.","經過（over many years 經過很多年）；在…上方","B"],
+["many","adj.","很多的","B"],
+["year","n.","年","B","",["years"]],
+["break","v.","打破；弄碎","B","break · broke · broken",["breaks","broke"]],
+["big","adj.","大的","B"],
+["into","prep.","進入；變成","B"],
+["small","adj.","小的","B"],
+["piece","n.","碎片；一塊","B","",["pieces"]],
+["all","adv.","全部；都","B"],
+["storm","n.","暴風雨","B"],
+["see","v.","看見","B","see · saw · seen",["saw"]],
+["a lot of","phr.","很多的","B"],
+["he","pron.","他","B"],
+["eat","v.","吃","B","eat · ate · eaten",["ate"]],
+["lunch","n.","午餐","B"],
+["so","conj. / adv.","所以；那麼地（so…that 太…以致於）","B"],
+["hungry","adj.","餓的","B"],
+["there","adv.","（there was = 有）；那裡","B"],
+["this","pron.","這；這個","B"],
+["week","n.","星期；週","B"],
+["river","n.","河","B"],
+["carry","v.","搬運；帶","B","carry · carried · carried",["carried"]],
+["away","adv.","離開；（帶）走","B"],
+["call","v.","稱為；叫","B","",["called"]],
+["tree","n.","樹","B","",["trees"]],
+["help","v.","幫忙","B"],
+["stop","v.","阻止；停止","B"],
+["land","n.","陸地；土地","B"],
+["cold","n.","感冒","B"],
+["stay","v.","待著；停留","B","",["stayed"]],
+["home","n.","家","B"],
+["window","n.","窗戶","B","",["windows"]],
+["my","pron.","我的","B"],
+["little","adj.","小的；年紀小的","B"],
+["brother","n.","兄弟（little brother 弟弟）","B"],
+["i","pron.","我","B"],
+["never","adv.","從不；永遠不","B"],
+["know","v.","知道","B"],
+["what","pron.","什麼","B"],
+["will","aux.","將會","B"],
+["do","v.","做；（did not = 沒有）","B","do · did · done",["did"]],
+["must","aux.","必須","B"],
+["ready","adj.","準備好的","B"],
+["mom","n.","媽媽","B"],
+["pants","n.","褲子","B"],
+["they","pron.","他們；它們","B"],
+["too","adv.","太","B"],
+["long","adj.","長的","B"],
+["may","aux.","可能；也許","B"],
+["game","n.","比賽；遊戲","B"],
+["time","n.","時間","B"],
+["water","n.","水","B"],
+["it","pron.","它","B"],
+["month","n.","月","B","",["months"]],
+["doctor","n.","醫生","B","",["doctors"]],
+["work","v.","工作","B"],
+["hard","adv.","努力地","B"],
+["during","prep.","在…期間","B"],
+["health","n.","健康","B"],
+["bridge","n.","橋","B"],
+["if","conj.","如果","B"],
+["car","n.","汽車","B","",["cars"]],
+["go","v.","去；開（車）上去","B"],
+["snow","n.","雪","B"],
+["heavy","adj.","重的","B"],
+["roof","n.","屋頂","B"]
+];
+
+// ===== 本課 10 個單字（照考卷 Part 1 順序）=====
+const T=[
+{k:"weathering",src:"課本定義",c:2,
+ def:"the breakdown of rocks due to rain, wind and sun",defZh:"岩石因為雨、風和太陽而分解（變碎）",
+ defChunks:[["the breakdown of rocks","岩石的分解（變碎）"],["due to rain, wind and sun","由於雨、風和太陽"]],
+ sent:"Wind and rain are two important causes of weathering.",ans:"weathering",sentZh:"風和雨是造成風化的兩個重要原因。",
+ sentChunks:[["Wind and rain","風和雨"],["are two important causes","是兩個重要的原因"],["of weathering.","（造成）風化的"]],
+ why:"causes of ___ ＝「…的原因」，of 後面要放<b>名詞</b>。風和雨會讓岩石慢慢裂開、變碎 → 這就是 weathering（風化）。<br>⚠️ 不是 erosion：weathering 是岩石被「弄碎」，erosion 是碎石被「搬走」。",
+ tip:"weather（天氣）+ ing → 天氣對岩石做的事 → 風化，把岩石弄碎。",
+ nw:["breakdown","rock","due to","important","cause"],
+ news:[{en:"Over many years, weathering breaks big rocks into small pieces.",ans:"weathering",zh:"經過很多年，風化作用會把大岩石弄碎成小碎片。"},
+       {en:"Sun, wind and rain all cause weathering.",ans:"weathering",zh:"太陽、風和雨都會造成風化。"}]},
+{k:"crisis",src:"課本定義",c:9,
+ def:"a difficult or dangerous situation",defZh:"困難或危險的處境",
+ defChunks:[["a difficult or dangerous","一個困難或危險的"],["situation","處境；情況"]],
+ sent:"The company struggled to survive the financial crisis.",ans:"crisis",sentZh:"這家公司努力想撐過這場金融危機。",
+ sentChunks:[["The company","這家公司"],["struggled to survive","努力掙扎，想要撐過"],["the financial crisis.","這場金融危機"]],
+ why:"financial（金融的、和錢有關的）後面要接<b>名詞</b>。公司因為錢出問題，陷入「很困難、很危險的處境」→ financial crisis 金融危機。<br>⚠️ 考卷上寫成 destruction：公司不是被「打壞、燒毀」，而是「處境很危險」，所以是 crisis。",
+ tip:"發音 crai-sis，兩個 s 音。複數是 crises。記：crisis = 很危險、很難熬的時候。",
+ nw:["difficult","dangerous","situation","company","struggle","survive","financial"],
+ news:[{en:"There was a water crisis because it did not rain for months.",ans:"crisis",zh:"因為好幾個月沒下雨，發生了缺水危機。"},
+       {en:"Doctors work hard during a health crisis.",ans:"crisis",zh:"在健康危機期間，醫生們努力工作。"}]},
+{k:"severe",src:"考卷 B5",c:6,
+ def:"very harsh or serious",defZh:"非常嚴酷或嚴重",
+ defChunks:[["very harsh","非常嚴酷"],["or serious","或嚴重"]],
+ sent:"The city suffered severe damage after the typhoon.",ans:"severe",sentZh:"颱風過後，這座城市遭受了嚴重的損害。",
+ sentChunks:[["The city suffered","這座城市遭受了"],["severe damage","嚴重的損害"],["after the typhoon.","在颱風過後"]],
+ why:"空格在 damage（損害，名詞）的前面 → 要放<b>形容詞</b>，說明損害「有多嚴重」→ severe damage 嚴重的損害。<br>⚠️ 考卷上寫 crisis：crisis 是名詞，不能放在另一個名詞前面形容它。",
+ tip:"severe 常跟壞事一起出現：severe damage（嚴重損害）、severe weather（惡劣天氣）。拼字結尾是 -ere：se-vere，不是 sever！",
+ nw:["harsh","serious","suffer","damage","typhoon"],
+ news:[{en:"He had a severe cold and stayed home.",ans:"severe",zh:"他得了重感冒，待在家裡。"},
+       {en:"The severe storm broke many windows.",ans:"severe",zh:"猛烈的暴風雨打破了很多窗戶。"}]},
+{k:"unpredictable",src:"考卷 B2",c:7,
+ def:"not able to tell beforehand",defZh:"無法事先知道",
+ defChunks:[["not able to","不能夠"],["tell beforehand","事先得知"]],
+ sent:"The weather in the mountains can be very unpredictable.",ans:"unpredictable",sentZh:"山區的天氣可能非常難以預測。",
+ sentChunks:[["The weather in the mountains","山區的天氣"],["can be very unpredictable.","可能非常難以預測"]],
+ why:"can be very ___：very（非常）後面放<b>形容詞</b>。山上的天氣一下晴、一下下雨，沒辦法事先知道 → unpredictable。",
+ tip:"拆開記：un（不）+ predict（預測）+ able（能夠…的）＝ 不能被預測的。",
+ nw:["able","tell","beforehand"],
+ news:[{en:"My little brother is unpredictable; I never know what he will do.",ans:"unpredictable",zh:"我弟弟很難預測，我永遠不知道他會做什麼。"},
+       {en:"Earthquakes are unpredictable, so we must be ready.",ans:"unpredictable",zh:"地震難以預測，所以我們必須做好準備。"}]},
+{k:"erosion",src:"考卷 B1",c:5,
+ def:"the movement of broken-down rocks caused by weathering",defZh:"被風化弄碎的岩石被移動（搬走）",
+ defChunks:[["the movement","移動"],["of broken-down rocks","破碎岩石的"],["caused by weathering","由風化造成的"]],
+ sent:"Erosion has slowly worn away the riverbank.",ans:"Erosion",sentZh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",
+ sentChunks:[["Erosion","侵蝕作用"],["has slowly worn away","已經慢慢地磨掉了"],["the riverbank.","河岸"]],
+ why:"空格在句子最前面，是「做這件事的那一個」（主詞）→ 要放<b>名詞</b>。worn away（慢慢磨掉、帶走）＋ riverbank（河岸）＝ 水把河岸的土石慢慢帶走 → erosion。<br>⚠️ 考卷上寫 substantial：那是形容詞，不能當主詞。",
+ tip:"weathering 和 erosion 是一組：先 weathering（岩石被弄碎），再 erosion（碎石被水或風搬走）。",
+ nw:["movement","broken-down","slowly","wear away","riverbank"],
+ news:[{en:"The river carried the rocks away. This is called erosion.",ans:"erosion",zh:"河水把岩石帶走了。這叫做侵蝕作用。"},
+       {en:"Trees can help stop erosion of the land.",ans:"erosion",zh:"樹木可以幫忙阻止土地被侵蝕。"}]},
+{k:"collapse",src:"考卷 B3",c:10,
+ def:"to fall down or cave in",defZh:"倒下或塌陷",
+ defChunks:[["to fall down","倒下"],["or cave in","或塌陷"]],
+ sent:"The building collapsed after the strong earthquake.",ans:"collapsed",sentZh:"強烈地震過後，這棟建築物倒塌了。",
+ sentChunks:[["The building collapsed","這棟建築物倒塌了"],["after the strong earthquake.","在強烈地震之後"]],
+ why:"地震「已經」發生了（after the strong earthquake 在地震之後），說的是過去的事 → 動詞要用<b>過去式 collapsed</b>。<br>⚠️ 考卷上寫 collapse，少了 -d 被扣分。",
+ tip:"三態：collapse · collapsed · collapsed。說過去的事，記得加 -d！",
+ nw:["fall down","cave in","building","earthquake"],
+ news:[{en:"The old bridge may collapse if too many cars go on it.",ans:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。"},
+       {en:"The snow was so heavy that the roof collapsed.",ans:"collapsed",zh:"雪太重了，屋頂倒塌了。"}]},
+{k:"hazard",src:"課本定義",c:1,
+ def:"something that can cause harm or injury",defZh:"可能造成傷害或受傷的東西",
+ defChunks:[["something","某個東西"],["that can cause","可能造成"],["harm or injury","傷害或受傷"]],
+ sent:"Wet floors can be a hazard because people might slip and fall.",ans:"hazard",sentZh:"濕的地板可能是一種危險，因為人可能會滑倒摔跤。",
+ sentChunks:[["Wet floors","濕的地板"],["can be a hazard","可能是一種危險"],["because people might slip and fall.","因為人可能會滑倒、跌倒"]],
+ why:"a ___：a 後面要接<b>名詞</b>。because 後面說出原因：人會滑倒受傷 →「可能造成傷害的東西」＝ hazard。hazard 是「還沒發生」、但有危險的東西。",
+ tip:"拼字 haz-ard，結尾是 -ard。記：hazard = 小心！會害你受傷的東西。",
+ nw:["harm","injury","wet","floor","slip","might"],
+ news:[{en:"A broken step is a hazard for old people.",ans:"hazard",zh:"壞掉的台階對老人來說是一種危險。"},
+       {en:"Ice on the road is a hazard to drivers.",ans:"hazard",zh:"路上的冰對駕駛人來說是一種危險。"}]},
+{k:"destruction",src:"考卷 B4",c:3,
+ def:"great damage or ruin",defZh:"巨大的損害或毀壞",
+ defChunks:[["great damage","巨大的損害"],["or ruin","或毀壞"]],
+ sent:"The forest suffered destruction because of the wildfire.",ans:"destruction",sentZh:"這片森林因為野火而遭受破壞。",
+ sentChunks:[["The forest suffered destruction","這片森林遭受了破壞"],["because of the wildfire.","因為野火"]],
+ why:"suffered（遭受）後面接<b>名詞</b>，說「遭受了什麼」。野火把森林燒毀了 → destruction（破壞）。<br>⚠️ 考卷上寫 erosion：erosion 是水和風「慢慢」把土石搬走；野火是「一下子」把東西燒壞。",
+ tip:"拼字：d-e-s-t-<b>r</b>-u-c-t-i-o-n，考卷上兩次都漏掉 r！它是 destroy（破壞，動詞）的名詞：destroy → destruction，都有 str。",
+ nw:["ruin","forest","wildfire","because of"],
+ news:[{en:"The earthquake caused great destruction in the city.",ans:"destruction",zh:"地震在這座城市造成了巨大的破壞。"},
+       {en:"After the storm, we saw a lot of destruction.",ans:"destruction",zh:"暴風雨過後，我們看到很多破壞。"}]},
+{k:"substantial",src:"課本定義",c:4,
+ def:"great amount or size",defZh:"很大的數量或大小",
+ defChunks:[["great amount","很大的數量"],["or size","或大小"]],
+ sent:"We need a substantial amount of money to repair the building.",ans:"substantial",sentZh:"我們需要一大筆錢來修理這棟建築物。",
+ sentChunks:[["We need","我們需要"],["a substantial amount of money","相當大數量的錢（一大筆錢）"],["to repair the building.","來修理這棟建築物"]],
+ why:"a ___ amount：空格在 amount（數量）前面，要放<b>形容詞</b>說數量「有多大」→ substantial。<br>⚠️ 考卷上寫 severe：severe 是「嚴重的」，用在壞事（damage、weather）；說數量很大要用 substantial。",
+ tip:"拼字 sub-stan-tial，結尾 -tial 念「秀」。記：substantial = 份量很大。",
+ nw:["amount","size","repair"],
+ news:[{en:"He ate a substantial lunch, so he was not hungry.",ans:"substantial",zh:"他吃了一頓分量很大的午餐，所以他不餓。"},
+       {en:"There was a substantial amount of rain this week.",ans:"substantial",zh:"這個星期下了相當大量的雨。"}]},
+{k:"alter",src:"課本定義",c:8,
+ def:"to make different or change",defZh:"使變得不同，或改變",
+ defChunks:[["to make different","使變得不同"],["or change","或改變"]],
+ sent:"We had to alter our plans because of the bad weather.",ans:"alter",sentZh:"因為天氣不好，我們必須改變計畫。",
+ sentChunks:[["We had to alter our plans","我們必須改變我們的計畫"],["because of the bad weather.","因為壞天氣"]],
+ why:"had to（必須）後面一定接<b>原形動詞</b>。had 已經表示過去了，所以寫 alter，不能寫 altered。<br>⚠️ 考卷上就是寫成 altered 被扣分。",
+ tip:"三態：alter · altered · altered。但只要前面是 to（to alter、had to alter），永遠用原形 alter。",
+ nw:["different","plan","have to"],
+ news:[{en:"Mom had to alter my pants because they were too long.",ans:"alter",zh:"媽媽必須修改我的褲子，因為它們太長了。"},
+       {en:"The rain may alter the game time.",ans:"alter",zh:"這場雨可能會改變比賽的時間。"}]}
+];
+
+// ===== 易混字檢查 =====
+const CF=[
+ {p:"還沒發生，但「可能」讓人受傷的東西（例如：濕地板）",a:"hazard",o:["hazard","crisis","destruction","weathering","erosion"]},
+ {p:"很困難、很危險的「處境」（例如：公司快沒錢了）",a:"crisis",o:["hazard","crisis","destruction","erosion"]},
+ {p:"東西被嚴重毀掉的「結果」（例如：森林被野火燒毀）",a:"destruction",o:["destruction","erosion","crisis","hazard"]},
+ {p:"岩石被雨、風、太陽「弄碎」",a:"weathering",o:["weathering","erosion","destruction","hazard"]},
+ {p:"碎掉的土石被水或風「慢慢帶走」",a:"erosion",o:["erosion","weathering","destruction","crisis"]},
+ {p:"「數量」或「大小」很大（例如：一大筆錢）",a:"substantial",o:["substantial","severe","unpredictable","dangerous"]},
+ {p:"很「嚴重」的（形容壞事，例如：嚴重的損害）",a:"severe",o:["severe","substantial","unpredictable","important"]},
+ {p:"We had to ____ our plans.",a:"alter",o:["alter","altered","alters","altering"]},
+ {p:"The building ____ after the earthquake.（地震已經發生了）",a:"collapsed",o:["collapse","collapsed","collapses","collapsing"]},
+ {p:"The city suffered ____ damage. 空格在名詞 damage 前面，要放哪一種字？",a:"形容詞",o:["形容詞","名詞","動詞"]}
+];
+
+// ===== 新增基本字 =====
+DICT_RAW.push(
+["them","pron.","他們；它們（受詞）","B"],
+["you","pron.","你；你們","B"],
+["their","pron.","他們的；它們的","B"],
+["but","conj.","但是","B"],
+["last","adj.","上一個的（last week 上週、last year 去年）","B"],
+["yesterday","adv.","昨天","B"]
+);
+const EXTRA_SURF={wear:"wear away",wore:"wear away",worn:"wear away",carries:"carry",needed:"need",storms:"storm",buildings:"building"};
+
+// ===== 多格填空（答案依出現順序）=====
+const MB=[
+ {en:"The severe typhoon caused great destruction, and the old bridge collapsed.",ans:["severe","destruction","collapsed"],zh:"猛烈的颱風造成了巨大的破壞，那座舊橋也倒塌了。"},
+ {en:"Weathering breaks rocks into small pieces, and erosion carries them away.",ans:["Weathering","erosion"],zh:"風化把岩石弄成小碎片，侵蝕再把它們帶走。"},
+ {en:"The weather was unpredictable, so we had to alter our plans.",ans:["unpredictable","alter"],zh:"天氣難以預測，所以我們必須改變計畫。"},
+ {en:"The company needed a substantial amount of money to survive the financial crisis.",ans:["substantial","crisis"],zh:"這家公司需要一大筆錢來撐過金融危機。"},
+ {en:"Severe weather can be a hazard to people on the road.",ans:["Severe","hazard"],zh:"惡劣的天氣對路上的人來說可能是一種危險。"},
+ {en:"Over many years, erosion can alter the riverbank.",ans:["erosion","alter"],zh:"經過很多年，侵蝕作用可以改變河岸。"},
+ {en:"After the earthquake, many buildings collapsed and the city was in a crisis.",ans:["collapsed","crisis"],zh:"地震過後，很多建築物倒塌了，這座城市陷入危機。"},
+ {en:"The wildfire caused substantial destruction to the forest.",ans:["substantial","destruction"],zh:"野火對森林造成了相當大的破壞。"},
+ {en:"Storms in the mountains are unpredictable and can be severe.",ans:["unpredictable","severe"],zh:"山區的暴風雨難以預測，而且可能很猛烈。"},
+ {en:"A wet floor is a hazard; if you slip, you might suffer a severe injury.",ans:["hazard","severe"],zh:"濕地板是一種危險；如果你滑倒，可能會受到嚴重的傷。"},
+ {en:"Weathering and erosion slowly alter the land.",ans:["Weathering","erosion","alter"],zh:"風化和侵蝕慢慢地改變土地。"},
+ {en:"The building did not collapse, but it suffered severe damage.",ans:["collapse","severe"],zh:"這棟建築物沒有倒塌，但是它遭受了嚴重的損害。"},
+ {en:"The earthquake was unpredictable, and the destruction was substantial.",ans:["unpredictable","destruction","substantial"],zh:"這場地震難以預測，造成的破壞也相當大。"},
+ {en:"Ice on the road is a hazard, so the drivers had to alter their plans.",ans:["hazard","alter"],zh:"路上的冰是一種危險，所以駕駛人必須改變他們的計畫。"}
+];
+
+// ===== 動詞形式填空 =====
+const TF=[
+ {en:"The roof ____ (collapse) after the heavy snow.",ans:"collapsed",k:"collapse",zh:"大雪過後，屋頂倒塌了。",why:"after the heavy snow（大雪過後）→ 事情已經發生 → 過去式 collapsed。"},
+ {en:"We had to ____ (alter) the time of the game.",ans:"alter",k:"alter",zh:"我們必須改變比賽的時間。",why:"had to 後面一定用原形動詞 → alter。"},
+ {en:"Mom ____ (alter) my pants yesterday.",ans:"altered",k:"alter",zh:"媽媽昨天修改了我的褲子。",why:"yesterday（昨天）→ 過去式 altered。"},
+ {en:"The old bridge may ____ (collapse) if too many cars go on it.",ans:"collapse",k:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。",why:"may（可能）後面用原形動詞 → collapse。"},
+ {en:"The storm last week ____ (cause) great destruction.",ans:"caused",k:"cause",zh:"上週的暴風雨造成了巨大的破壞。",why:"last week（上週）→ 過去式 caused。"},
+ {en:"Last year, the company ____ (struggle) to survive the crisis.",ans:"struggled",k:"struggle",zh:"去年，這家公司努力撐過危機。",why:"last year（去年）→ 過去式 struggled。"},
+ {en:"Last year, the forest ____ (suffer) destruction because of a wildfire.",ans:"suffered",k:"suffer",zh:"去年，這片森林因為野火而遭受破壞。",why:"last year（去年）→ 過去式 suffered。"},
+ {en:"Erosion has slowly ____ (wear) away the riverbank.",ans:"worn",k:"wear away",zh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",why:"has + 過去分詞。wear · wore · worn → has worn away。"}
+];
+
+// ===== 基本工具 =====
+const D={},SURF={},PHR={};
+DICT_RAW.forEach(([k,pos,zh,tier,forms,s])=>{
+  D[k]={k,w:k,pos,zh,tier,forms:forms||""};
+  if(k.includes(" "))PHR[k]=k;
+  (s||[]).forEach(x=>{SURF[x]=k;if(x.includes(" "))PHR[x]=k;});
+});
+Object.assign(SURF,EXTRA_SURF);
+const NW=[];T.forEach(t=>t.nw.forEach(k=>{if(!NW.includes(k))NW.push(k)}));
+const TK=T.map(t=>t.k);
+const NEWS=[];T.forEach(t=>t.news.forEach((n,i)=>NEWS.push({t:t.k,i,...n})));
+// 生字填空題庫：從定義與考卷句子中找出每個生字
+const NB=[];
+T.forEach(t=>[[t.def,t.defZh],[t.sent,t.sentZh]].forEach(([text,zh])=>{
+  t.nw.concat(T.flatMap(x=>x.nw)).filter((k,i,a)=>a.indexOf(k)===i).forEach(k=>{
+    const surf=[k,...Object.keys(SURF).filter(x=>SURF[x]===k)].sort((a,b)=>b.length-a.length);
+    for(const sf of surf){const m=text.match(new RegExp("\\b"+sf.replace(/-/g,"\\-")+"\\b","i"));
+      if(m){if(!NB.some(x=>x.k===k&&x.text===text))NB.push({k,ans:m[0],text,zh,t:t.k});break;}}
+  });
+}));
+const POSZH={"n.":"名詞","v.":"動詞","adj.":"形容詞","adv.":"副詞","phr.":"片語","aux.":"助動詞","prep.":"介系詞","conj.":"連接詞","pron.":"代名詞","art.":"冠詞","num.":"數字"};
+const posZh=p=>p.split(" / ").map(x=>POSZH[x]||x).join(" / ");
+const app=document.getElementById("app");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+const sample=(a,n)=>shuffle(a).slice(0,n);
+const tgt=k=>T.find(t=>t.k===k);
+const norm=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/-/g," ").replace(/[.,!?;:"]/g,"").replace(/\s+/g," ").trim();
+const keyOf=s=>{const l=s.toLowerCase();return SURF[l]||(D[l]?l:null);};
+
+// ===== 發音 =====
+let VOICE=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();VOICE=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google US|Aria|Jenny|Allison|Ava/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){}}
+if("speechSynthesis" in window){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+function speak(t,slow){if(!("speechSynthesis" in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";if(VOICE)u.voice=VOICE;u.rate=slow?0.6:0.9;speechSynthesis.speak(u);}catch(e){}}
+
+// ===== 存檔 =====
+const KEY="w5-exam-v1";
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return s;}catch(e){}return{v:1,learn:{},rounds:{},tests:[],unlock:false};}
+let S=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const LEARN_N=T.length+1;
+const learnCount=()=>Object.keys(S.learn).filter(k=>S.learn[k]).length;
+const learnDone=()=>learnCount()>=LEARN_N;
+const ROUNDS=[
+ {id:"r1",ico:"🔤",name:"生字意思",desc:"看英文選中文（全部 "+(TK.length+NW.length)+" 個字）",ids:()=>[...TK,...NW].map(k=>"vm:"+k)},
+ {id:"r2",ico:"🤔",name:"句子理解",desc:"每個定義和考卷句子都要懂意思",ids:()=>T.flatMap(t=>["sm:"+t.k+":def","sm:"+t.k+":sent"])},
+ {id:"r3",ico:"📖",name:"看定義寫單字",desc:"像考卷 B 部分",ids:()=>TK.map(k=>"dw:"+k)},
+ {id:"r4",ico:"✏️",name:"考卷句子填空",desc:"像考卷 C 部分，注意 -ed",ids:()=>TK.map(k=>"fb:"+k)},
+ {id:"r5",ico:"🧠",name:"生字背誦拼寫",desc:"看中文寫英文，全部生字都要會",ids:()=>[...TK,...NW].map(k=>"sp:"+k)}
+];
+const roundDone=id=>S.rounds[id]&&S.rounds[id].done;
+const reviewCount=()=>ROUNDS.filter(r=>roundDone(r.id)).length;
+const reviewDone=()=>reviewCount()>=ROUNDS.length;
+
+// ===== 可點選文字 =====
+function wspan(raw,k,o){
+  const e=D[k];
+  if(!o.click)return o.hi===k?`<b class="hi">${esc(raw)}</b>`:esc(raw);
+  const cls="w"+(e.tier==="T"?" wt":e.tier==="N"?" wn":"")+(o.hi===k?" hi":"");
+  return `<span class="${cls}" data-k="${esc(k)}">${esc(raw)}</span>`;
+}
+function rt(text,opt){
+  const o=Object.assign({click:true,hi:null,blank:null},opt||{});
+  text=text.replace(/_{3,}/g,"\u0000");
+  if(o.blank)[].concat(o.blank).forEach(b=>{text=text.replace(new RegExp("\\b"+b+"\\b"),"\u0000");});
+  let bn=0;const multi=Array.isArray(o.blank)&&o.blank.length>1;
+  const toks=text.match(/[A-Za-z]+(?:[-'][A-Za-z]+)*|\u0000|[^A-Za-z\u0000]+/g)||[];
+  let out="";
+  for(let i=0;i<toks.length;i++){
+    const t=toks[i];
+    if(t==="\u0000"){bn++;out+=multi?`<span class="blank num">(${bn})</span>`:'<span class="blank">________</span>';continue;}
+    if(!/^[A-Za-z]/.test(t)){out+=esc(t);continue;}
+    let done=false;
+    for(const n of [3,2]){
+      const idx=[i];
+      while(idx.length<n){const l=idx[idx.length-1];if(toks[l+1]===" "&&toks[l+2]&&/^[A-Za-z]/.test(toks[l+2]))idx.push(l+2);else break;}
+      if(idx.length===n){const ph=idx.map(x=>toks[x].toLowerCase()).join(" ");const k=PHR[ph];
+        if(k){out+=wspan(toks.slice(i,idx[n-1]+1).join(""),k,o);i=idx[n-1];done=true;break;}}
+    }
+    if(done)continue;
+    const k=keyOf(t);out+=k?wspan(t,k,o):esc(t);
+  }
+  return out;
+}
+const spk=(t,slow)=>`<button class="spk" data-say="${esc(t)}"${slow?' data-slow="1"':""} aria-label="發音">${slow?"🐢":"🔊"}</button>`;
+function chunksHtml(ch){return `<div class="chunks">${ch.map(([e,z])=>`<div class="ck"><div class="cke">${rt(e)}</div><div class="ckz">${esc(z)}</div></div>`).join("")}</div>`;}
+function wordInfo(k){const e=D[k];return `<div class="winfo"><div class="wi1"><b>${esc(e.w)}</b> ${spk(e.w)}${spk(e.w,1)} <span class="tag">${e.pos} ${posZh(e.pos)}</span></div><div class="wi2">${esc(e.zh)}</div>${e.forms?`<div class="wi3">${esc(e.forms)}</div>`:""}</div>`;}
+
+// ===== 點字小視窗 =====
+const sheet=document.getElementById("sheet");
+function openSheet(k){
+  const e=D[k];if(!e)return;const t=tgt(k);
+  const tag=e.tier==="T"?'<span class="badge bT">本課單字</span>':e.tier==="N"?'<span class="badge bn">要會背的生字</span>':'<span class="badge bb">基本字</span>';
+  sheet.innerHTML=`<div class="sh-bg"></div><div class="sh">
+   <div class="sh-top">${tag}<button class="x" aria-label="關閉">✕</button></div>
+   <div class="sh-w">${esc(e.w)}</div>
+   <div class="sh-btns"><button class="btn spkbig" data-say="${esc(e.w)}">🔊 發音</button><button class="btn spkbig" data-say="${esc(e.w)}" data-slow="1">🐢 慢速</button></div>
+   <div class="sh-pos">${e.pos}　${posZh(e.pos)}</div>
+   <div class="sh-zh">${esc(e.zh)}</div>
+   ${e.forms?`<div class="sh-f">${esc(e.forms)}</div>`:""}
+   ${t?`<div class="sh-def"><div class="lab">英文定義</div>${esc(t.def)}<div class="zh2">${esc(t.defZh)}</div></div>`:""}
+  </div>`;
+  sheet.classList.remove("hidden");speak(e.w);
+}
+function closeSheet(){sheet.classList.add("hidden");}
+document.addEventListener("click",ev=>{
+  const s=ev.target.closest("[data-say]");if(s){speak(s.dataset.say,!!s.dataset.slow);ev.stopPropagation();return;}
+  const w=ev.target.closest("[data-k]");if(w&&w.classList.contains("w")){openSheet(w.dataset.k);return;}
+  if(ev.target.closest(".x")||ev.target.classList.contains("sh-bg"))closeSheet();
+});
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1600);}
+
+// ===== 題目 =====
+function hintOf(w){return w.split("").map((c,i)=>c===" "?"　":c==="-"?"-":i===0?c:"_").join(" ");}
+function buildQ(id){
+  const [ty,a,b]=id.split(":");
+  if(ty==="vm"){const e=D[a];const pool=Object.values(D).filter(x=>x.tier===e.tier&&x.k!==a&&x.zh!==e.zh);
+    return{kind:"mc",prompt:`<div class="qlab">這個字是什麼意思？</div><div class="qword">${esc(e.w)} ${spk(e.w)}</div><div class="qpos">${e.pos} ${posZh(e.pos)}</div>`,
+      opts:shuffle([e.zh,...sample(pool,3).map(x=>x.zh)]),ans:e.zh,say:e.w,autoSay:true,explain:wordInfo(a)};}
+  if(ty==="sm"){
+    let text,zh,pool,ch=null;const t=tgt(a);
+    if(b==="def"){text=t.def;zh=t.defZh;ch=t.defChunks;pool=T.filter(x=>x!==t).map(x=>x.defZh);}
+    else if(b==="sent"){text=t.sent;zh=t.sentZh;ch=t.sentChunks;pool=T.filter(x=>x!==t).map(x=>x.sentZh);}
+    else{const n=t.news[+b.slice(3)];text=n.en;zh=n.zh;pool=NEWS.filter(x=>x.en!==n.en).map(x=>x.zh);}
+    return{kind:"mc",prompt:`<div class="qlab">🤔 這句英文是什麼意思？</div><div class="qsent">${rt(text,{click:false})} ${spk(text)}</div>`,
+      opts:shuffle([zh,...sample(pool,3)]),ans:zh,
+      explain:(ch?chunksHtml(ch):`<div class="qsent">${rt(text)}</div>`)+`<div class="zhline">👉 ${esc(zh)}</div>`};}
+  if(ty==="dw"){const t=tgt(a);
+    return{kind:"type",prompt:`<div class="qlab">📖 看英文定義，寫出是哪個單字（${t.src}）</div><div class="qsent">${rt(t.def,{click:false})}</div>`,
+      ans:t.k,explain:`<div class="qsent">${rt(t.def)}</div><div class="zhline">👉 ${esc(t.defZh)}</div>`+wordInfo(t.k)};}
+  if(ty==="fb"){const t=tgt(a);
+    return{kind:"type",prompt:`<div class="qlab">✏️ 原考卷 C${t.c}：填入正確的單字（注意單字的形式）</div><div class="qsent">${rt(t.sent,{click:false,blank:t.ans})}</div>`,
+      ans:t.ans,explain:`<div class="qsent">${rt(t.sent,{hi:t.k})}</div><div class="zhline">👉 ${esc(t.sentZh)}</div><div class="why">${t.why}</div>`};}
+  if(ty==="nf"){const t=tgt(a),n=t.news[+b];
+    return{kind:"type",prompt:`<div class="qlab">✏️ 新句子填空：填入正確的單字（注意形式）</div><div class="qsent">${rt(n.en,{click:false,blank:n.ans})}</div>`,
+      ans:n.ans,explain:`<div class="qsent">${rt(n.en,{hi:t.k})}</div><div class="zhline">👉 ${esc(n.zh)}</div>`+wordInfo(t.k)};}
+  if(ty==="mb"){const m=MB[+a];const filled=m.en;
+    return{kind:"multi",answers:m.ans,prompt:`<div class="qlab">✏️ 多格填空：每一格都對才得分（注意形式）</div><div class="qsent">${rt(m.en,{click:false,blank:m.ans})}</div>`,
+      explain:`<div class="qsent">${rt(filled)}</div><div class="zhline">👉 ${esc(m.zh)}</div>`+m.ans.map((x,i)=>{const k=keyOf(x);return `<div class="mbx">(${i+1}) <b>${esc(x)}</b>　${k?esc(D[k].zh):""}</div>`;}).join("")};}
+  if(ty==="tf"){const f=TF[+a];const filled=f.en.replace(/_{3,}/,f.ans).replace(/ \([a-z]+\)/,"");
+    return{kind:"type",ans:f.ans,prompt:`<div class="qlab">🔄 動詞形式：用括號裡的字，寫出正確的形式</div><div class="qsent">${rt(f.en,{click:false})}</div>`,
+      explain:`<div class="qsent">${rt(filled)}</div><div class="zhline">👉 ${esc(f.zh)}</div><div class="why">${f.why}</div>`+wordInfo(f.k)};}
+  if(ty==="nb"){const n=NB[+a];const e=D[n.k];
+    return{kind:"type",ans:n.ans,prompt:`<div class="qlab">🆕 生字填空：照中文提示填入生字${norm(n.ans)!==norm(n.k)?"（注意形式）":""}</div><div class="qsent">${rt(n.text,{click:false,blank:n.ans})}</div><div class="hint">中文：${esc(e.zh)}　提示：${esc(hintOf(n.ans))}</div>`,
+      explain:`<div class="qsent">${rt(n.text,{hi:n.k})}</div><div class="zhline">👉 ${esc(n.zh)}</div>`+wordInfo(n.k)};}
+  if(ty==="sp"){const e=D[a];
+    return{kind:"type",prompt:`<div class="qlab">🧠 背背看：寫出英文</div><div class="qzh">${esc(e.zh)}</div><div class="qpos">${e.pos} ${posZh(e.pos)}</div><div class="hint">提示：${esc(hintOf(e.w))}</div>`,
+      ans:e.w,explain:wordInfo(a)};}
+  if(ty==="dict"){const t=tgt(a);
+    return{kind:"dict",prompt:`<div class="qlab">🎧 聽寫：聽發音寫出單字，再選詞性</div><div class="bigspk"><button class="btn spkbig" data-say="${esc(t.k)}">🔊 再聽一次</button><button class="btn spkbig" data-say="${esc(t.k)}" data-slow="1">🐢 慢速</button></div>`,
+      ans:t.k,pos:D[t.k].pos,say:t.k,autoSay:true,explain:wordInfo(t.k)};}
+  if(ty==="cf"){const c=CF[+a];const t=tgt(c.a)||tgt(c.a.replace(/d$/,""));
+    return{kind:"mc",prompt:`<div class="qlab">🔍 分清楚：選出最適合的答案</div><div class="qsent">${esc(c.p)}</div>`,
+      opts:shuffle(c.o.length>4?[c.a,...sample(c.o.filter(x=>x!==c.a),3)]:c.o),ans:c.a,explain:t?wordInfo(t.k):""};}
+}
+const ansShow=q=>q.kind==="dict"?q.ans+"（"+q.pos+"）":q.kind==="multi"?q.answers.map((x,i)=>`(${i+1}) ${x}`).join("　"):q.ans;
+const ansList=q=>q.answers||[q.ans];
+// 常錯字統計
+function keysOfQ(id){const [ty,a]=id.split(":");
+  if(ty==="mb")return MB[+a].ans.map(keyOf).filter(Boolean);
+  if(ty==="tf")return[TF[+a].k];if(ty==="nb")return[NB[+a].k];
+  if(ty==="cf"){const c=CF[+a];const k=keyOf(c.a);return k?[k]:[];}
+  return D[a]?[a]:[];}
+function addMiss(id){S.miss=S.miss||{};keysOfQ(id).forEach(k=>S.miss[k]=(S.miss[k]||0)+1);save();}
+const missOf=k=>(S.miss&&S.miss[k])||0;
+
+function renderQ(box,q,cb,quiet){
+  let h=`<div class="qprompt">${q.prompt}</div>`;
+  if(q.kind==="mc")h+=`<div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join("")}</div>`;
+  else{
+    if(q.kind==="dict")h+=`<div class="posrow">${["n.","v.","adj."].map(p=>`<button class="pos" data-p="${p}">${p}<small>${POSZH[p]}</small></button>`).join("")}</div>`;
+    if(q.kind==="multi")h+=`<div class="mbin">${q.answers.map((_,i)=>`<label class="mbrow"><span>(${i+1})</span><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>`).join("")}</div><button class="btn pri big go">確定</button>`;
+    else h+=`<div class="ansrow"><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="在這裡輸入英文"><button class="btn pri go">確定</button></div>`;
+  }
+  box.innerHTML=h;let done=false;
+  if(q.kind==="mc"){
+    const bs=[...box.querySelectorAll(".opt")];
+    bs.forEach(b=>b.onclick=()=>{if(done)return;done=true;const o=q.opts[+b.dataset.i];const ok=o===q.ans;
+      bs.forEach(x=>x.disabled=true);
+      if(quiet)b.classList.add("sel");else{b.classList.add(ok?"ok":"bad");if(!ok)bs.forEach(x=>{if(q.opts[+x.dataset.i]===q.ans)x.classList.add("ok");});}
+      cb(ok,o);});
+  }else{
+    const ins=[...box.querySelectorAll(".ans")];const inp=ins[0];let pos=null;
+    box.querySelectorAll(".pos").forEach(b=>b.onclick=()=>{if(done)return;pos=b.dataset.p;box.querySelectorAll(".pos").forEach(x=>x.classList.toggle("sel",x===b));});
+    const submit=()=>{if(done)return;
+      if(q.kind==="multi"){const em=ins.find(x=>!x.value.trim());if(em){em.focus();toast("每一格都要填");return;}
+        done=true;ins.forEach(x=>x.disabled=true);box.querySelector(".go").disabled=true;
+        const oks=ins.map((x,i)=>norm(x.value)===norm(q.answers[i]));if(!quiet)ins.forEach((x,i)=>x.classList.add(oks[i]?"ok":"bad"));
+        cb(oks.every(Boolean),ins.map((x,i)=>`(${i+1}) ${x.value.trim()}`).join("　"));return;}
+      const v=inp.value;if(!v.trim()){inp.focus();return;}
+      if(q.kind==="dict"&&!pos){toast("請選詞性 n. / v. / adj.");return;}
+      done=true;inp.disabled=true;box.querySelector(".go").disabled=true;box.querySelectorAll(".pos").forEach(x=>x.disabled=true);
+      let ok=norm(v)===norm(q.ans);if(q.kind==="dict")ok=ok&&pos===q.pos;
+      if(!quiet)inp.classList.add(ok?"ok":"bad");
+      cb(ok,q.kind==="dict"?v.trim()+"（"+pos+"）":v.trim());};
+    box.querySelector(".go").onclick=submit;
+    ins.forEach((x,i)=>x.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();if(i<ins.length-1)ins[i+1].focus();else submit();}});
+    setTimeout(()=>{try{inp.focus({preventScroll:true});}catch(e){}},80);
+  }
+  if(q.autoSay&&q.say)setTimeout(()=>speak(q.say),250);
+}
+
+// 練習模式：答錯會再出現，全部答對才過關
+function runPractice(el,ids,opt){
+  const o=opt||{};let st;
+  if(o.key&&S.rounds[o.key]&&S.rounds[o.key].queue)st=S.rounds[o.key];
+  else{st={queue:shuffle(ids),total:ids.length,cleared:0,wrong:0};if(o.key){S.rounds[o.key]=st;save();}}
+  function next(){
+    if(!st.queue.length){if(o.key){S.rounds[o.key]={done:true,total:st.total,wrong:st.wrong,at:Date.now()};save();}o.onDone&&o.onDone(st);return;}
+    const id=st.queue[0];const q=buildQ(id);
+    const pct=Math.round(st.cleared/st.total*100);
+    el.innerHTML=`<div class="pbar"><div style="width:${pct}%"></div></div><div class="pmeta">${o.label||""} 答對 ${st.cleared} / ${st.total}${st.wrong?` · 答錯過 ${st.wrong} 次`:""}</div><div class="qcard"></div>`;
+    const qc=el.querySelector(".qcard");
+    renderQ(qc,q,(ok,given)=>{
+      if(ok){st.queue.shift();st.cleared++;if(o.key)save();qc.insertAdjacentHTML("beforeend",'<div class="fb good">✅ 答對了！</div>');setTimeout(next,700);}
+      else{st.wrong++;addMiss(id);const cur=st.queue.shift();st.queue.splice(Math.min(3,st.queue.length),0,cur);if(o.key)save();showWrong(qc,q,given,next);}
+    });
+  }
+  next();
+}
+function showWrong(qc,q,given,cont){
+  const typed=q.kind!=="mc";
+  qc.insertAdjacentHTML("beforeend",`<div class="fb badbox">
+    <div class="fbt">❌ 沒關係，這題等一下會再出現</div>
+    ${typed?`<div>你寫的：<s>${esc(given)}</s></div>`:""}
+    <div class="right">正確答案：<b>${esc(ansShow(q))}</b></div>
+    <div class="exp">${q.explain||""}</div>
+    ${typed?`<div class="retype"><div class="lab">照著正確答案打一次，記起來：</div>${ansList(q).map((a,i)=>`<input class="rt" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="${ansList(q).length>1?"("+(i+1)+") ":""}${esc(a)}">`).join("")}</div>`:""}
+    <button class="btn pri big nx" ${typed?"disabled":""}>${typed?"打對了才能繼續":"我懂了，下一題 →"}</button></div>`);
+  const nx=qc.querySelector(".nx");nx.onclick=cont;
+  if(typed){const rs=[...qc.querySelectorAll(".rt")];const al=ansList(q);
+    const chk=()=>{let all=true;rs.forEach((r,i)=>{const ok=norm(r.value)===norm(al[i]);r.classList.toggle("ok",ok);if(!ok)all=false;});nx.disabled=!all;nx.textContent=all?"我記住了，下一題 →":"打對了才能繼續";};
+    rs.forEach((r,i)=>{r.oninput=chk;r.onkeydown=e=>{if(e.key==="Enter"){if(!nx.disabled)cont();else if(rs[i+1])rs[i+1].focus();}};});
+    setTimeout(()=>{try{rs[0].focus({preventScroll:true});}catch(e){}},80);}
+  nx.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+// ===== 測驗 =====
+const SEC={dict:"一、聽寫＋詞性",dw:"二、原考卷 B：看定義寫單字",fb:"三、原考卷 C：句子填空",nf:"四、新句子填空",tf:"五、動詞形式填空",mb:"六、多格填空",nb:"七、生字填空",sm:"句子意思",sp:"生字拼寫",vm:"生字意思",cf:"易混字"};
+// 依常錯程度加權抽題（錯越多次越容易被抽到）
+function wsample(items,n,keysFn){const pool=items.map(x=>({x,w:1+3*keysFn(x).reduce((s,k)=>s+missOf(k),0)}));const out=[];
+  while(out.length<n&&pool.length){let r=Math.random()*pool.reduce((s,p)=>s+p.w,0);let i=0;for(;i<pool.length-1;i++){r-=pool[i].w;if(r<=0)break;}out.push(pool.splice(i,1)[0].x);}
+  return out;}
+function genTest(){
+  const ids=[];
+  wsample(TK,3,k=>[k]).forEach(k=>ids.push("dict:"+k));
+  shuffle(TK).forEach(k=>ids.push("dw:"+k));
+  shuffle(TK).forEach(k=>ids.push("fb:"+k));
+  wsample(NEWS,10,x=>[x.t]).forEach(x=>ids.push("nf:"+x.t+":"+x.i));
+  wsample(TF.map((_,i)=>i),4,i=>[TF[i].k]).forEach(i=>ids.push("tf:"+i));
+  wsample(MB.map((_,i)=>i),8,i=>MB[i].ans.map(keyOf).filter(Boolean)).forEach(i=>ids.push("mb:"+i));
+  const nbk=wsample(NW.filter(k=>NB.some(n=>n.k===k)),5,k=>[k]);
+  nbk.forEach(k=>{const c=NB.map((n,i)=>({n,i})).filter(o=>o.n.k===k);ids.push("nb:"+c[Math.random()*c.length|0].i);});
+  return ids;
+}
+const topMiss=n=>Object.entries(S.miss||{}).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,n);
+let inTest=false;
+function runTest(el){
+  const ids=genTest(),ans=[],t0=Date.now();let i=0;inTest=true;
+  function next(){
+    if(i>=ids.length)return finish();
+    const id=ids[i],q=buildQ(id);
+    el.innerHTML=`<div class="pbar"><div style="width:${i/ids.length*100}%"></div></div><div class="pmeta">第 ${i+1} / ${ids.length} 題 · ${SEC[id.split(":")[0]]}</div><div class="qcard"></div>`;
+    renderQ(el.querySelector(".qcard"),q,(ok,given)=>{ans.push({id,ok,given});i++;setTimeout(next,350);},true);
+  }
+  function finish(){inTest=false;const score=ans.filter(a=>a.ok).length*2;ans.filter(a=>!a.ok).forEach(a=>addMiss(a.id));
+    S.tests.push({at:Date.now(),score,dur:Math.round((Date.now()-t0)/1000),ans});save();go("result",S.tests.length-1);}
+  next();
+}
+
+// ===== 畫面 =====
+function topBar(title,back){return `<header class="bar"><button class="back" onclick="${back||"go('home')"}">‹ 回首頁</button><div class="bt">${title}</div></header>`;}
+function fmtDate(ms){const d=new Date(ms);return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;}
+function fmtDur(s){return Math.floor(s/60)+" 分 "+(s%60)+" 秒";}
+const best=()=>S.tests.length?Math.max(...S.tests.map(t=>t.score)):null;
+
+function go(v,arg){
+  if(inTest&&!confirm("測驗還沒做完，離開的話這次不算分。確定要離開嗎？"))return;
+  inTest=false;closeSheet();window.scrollTo(0,0);
+  ({home:vHome,learn:vLearn,review:vReview,round:vRound,test:vTest,result:vResult,words:vWords,scores:vScores,settings:vSettings,practice:vPractice})[v](arg);
+}
+
+function vHome(){
+  const L=learnCount(),R=reviewCount(),rOpen=learnDone()||S.unlock,tOpen=reviewDone()||S.unlock,b=best();
+  app.innerHTML=`<div class="hero"><div class="h-sm">Week 5 · A World of Change</div><h1>考卷特訓</h1><div class="h-sub">讀懂每一句，記住每一個字</div></div>
+  <div class="steps">
+   <button class="step s1" onclick="go('learn',${Math.min(L,LEARN_N-1)})"><div class="si">📘</div><div class="sb"><div class="sn">1. 學習</div><div class="sd">一張一張讀懂單字、定義、考卷句子</div><div class="mini"><div style="width:${L/LEARN_N*100}%"></div></div><div class="sp">${L} / ${LEARN_N} 張${L>=LEARN_N?" ✅":""}</div></div></button>
+   <button class="step s2 ${rOpen?"":"lock"}" onclick="${rOpen?"go('review')":"toast('先完成全部學習卡才能複習')"}"><div class="si">${rOpen?"🔁":"🔒"}</div><div class="sb"><div class="sn">2. 複習</div><div class="sd">五關，答錯會再出現，全對才過關</div><div class="mini"><div style="width:${R/ROUNDS.length*100}%"></div></div><div class="sp">${R} / ${ROUNDS.length} 關${R>=ROUNDS.length?" ✅":""}</div></div></button>
+   <button class="step s3 ${tOpen?"":"lock"}" onclick="${tOpen?"go('test')":"toast('先完成複習五關才能測驗')"}"><div class="si">${tOpen?"📝":"🔒"}</div><div class="sb"><div class="sn">3. 測驗</div><div class="sd">50 題 100 分，以填空為主，常錯的字會多考</div><div class="sp">已考 ${S.tests.length} 次${b!==null?" · 最高 "+b+" 分":""}</div></div></button>
+  </div>
+  <div class="tools"><button class="tool" onclick="go('words')">📋<span>生字表</span></button><button class="tool" onclick="go('scores')">🏆<span>成績紀錄</span></button><button class="tool" onclick="go('settings')">⚙️<span>設定</span></button></div>
+  <p class="foot">所有英文字都可以點，會出現中文、詞性和發音。<br><span class="lg wt">粗體</span>＝本課單字　<span class="lg wn">底線</span>＝要會背的生字</p>`;
+}
+
+function vLearn(i){
+  i=+i;const nav=`<div class="lnav"><button class="btn" ${i===0?"disabled":""} onclick="go('learn',${i-1})">‹ 上一張</button><div class="dots">${Array.from({length:LEARN_N},(_,j)=>`<span class="${S.learn[j]?"d ok":"d"}${j===i?" cur":""}"></span>`).join("")}</div><button class="btn" ${(i>=LEARN_N-1||!S.learn[i])?"disabled":""} onclick="go('learn',${i+1})">下一張 ›</button></div>`;
+  let body;
+  if(i===T.length){
+    const row=(k,d,c)=>`<tr><td><span class="w wt" data-k="${k}">${k}</span></td><td>${d}</td><td>C${c}</td></tr>`;
+    body=`<div class="card"><h2 class="ctitle">🔍 易混字：這次考卷錯在這裡</h2>
+    <section><h3>1. 五個「壞事」名詞，怎麼分？</h3>
+     <table class="tb"><tr><th>單字</th><th>意思重點</th><th>考卷</th></tr>
+     ${row("hazard","還沒發生，但「可能」讓人受傷的東西",1)}${row("crisis","很困難、很危險的「處境」",9)}${row("destruction","東西被嚴重毀掉的「結果」",3)}${row("weathering","岩石被雨、風、太陽「弄碎」",2)}${row("erosion","碎掉的土石被水或風「慢慢帶走」",5)}</table>
+     <p class="note">順序記法：岩石先被 <b>weathering</b> 弄碎 → 再被 <b>erosion</b> 帶走。野火、地震一下子把東西毀掉 → <b>destruction</b>。</p></section>
+    <section><h3>2. severe 還是 substantial？</h3>
+     <div class="vs"><div><b class="w wt" data-k="severe">severe</b><br>嚴重的（形容<b>壞事</b>）<br><span class="ex">${rt("severe damage, severe weather")}</span></div><div><b class="w wt" data-k="substantial">substantial</b><br><b>數量、大小</b>很大<br><span class="ex">${rt("a substantial amount of money")}</span></div></div></section>
+    <section><h3>3. 看空格位置，就知道要哪一種字</h3>
+     <table class="tb"><tr><th>空格位置</th><th>要放</th></tr>
+     <tr><td>a / the ＿＿</td><td>名詞</td></tr><tr><td>＿＿ ＋ 名詞（＿＿ damage）</td><td>形容詞</td></tr><tr><td>very ＿＿ / can be ＿＿</td><td>形容詞</td></tr><tr><td>to ＿＿ / had to ＿＿</td><td>原形動詞（alter）</td></tr><tr><td>已經發生的事</td><td>過去式（collapsed）</td></tr></table></section>
+    <div id="chk"></div></div>`;
+  }else{
+    const t=T[i],e=D[t.k];
+    body=`<div class="card">
+     <div class="whead"><div><div class="bigword">${t.k}</div><div class="wmeta"><span class="tag">${e.pos} ${posZh(e.pos)}</span><span class="zhbig">${esc(e.zh)}</span></div>${e.forms?`<div class="forms">${esc(e.forms)}</div>`:""}</div><div class="spcol">${spk(t.k)}${spk(t.k,1)}</div></div>
+     <section><h3>📖 英文定義 <small>${t.src}</small></h3><div class="sent">${rt(t.def)} ${spk(t.def)}</div><div class="lab">一段一段看懂：</div>${chunksHtml(t.defChunks)}<div class="zhline">👉 ${esc(t.defZh)}</div></section>
+     <section><h3>✏️ 考卷句子 <small>考卷 C${t.c}</small></h3><div class="sent">${rt(t.sent,{hi:t.k})} ${spk(t.sent)}</div><div class="lab">一段一段看懂：</div>${chunksHtml(t.sentChunks)}<div class="zhline">👉 ${esc(t.sentZh)}</div><div class="why"><b>為什麼是 ${t.ans}？</b><br>${t.why}</div></section>
+     <section><h3>💡 記憶小撇步</h3><p class="tip">${t.tip}</p></section>
+     <section><h3>🆕 這張卡要會背的生字 <small>點一下看意思</small></h3><div class="chips">${t.nw.map(k=>`<button class="chip w" data-k="${esc(k)}">${esc(k)}</button>`).join("")}</div></section>
+     <div id="chk"></div></div>`;
+  }
+  app.innerHTML=topBar(`學習 ${i+1} / ${LEARN_N}`)+body+nav;
+  const chk=document.getElementById("chk");
+  const ids=i===T.length?CF.map((_,j)=>"cf:"+j):["sm:"+T[i].k+":def","sm:"+T[i].k+":sent","vm:"+T[i].k,...T[i].nw.map(k=>"vm:"+k)];
+  const doneHtml=()=>`<div class="done">🎉 這張卡完成了！${i<LEARN_N-1?`<button class="btn pri big" onclick="go('learn',${i+1})">下一張 →</button>`:`<button class="btn pri big" onclick="go('home')">學習全部完成！回首頁開始複習 →</button>`}<button class="btn ghost" id="again">再檢查一次</button></div>`;
+  const startCheck=()=>{chk.innerHTML='<h3 class="chkh">✅ 理解檢查（全部答對才算完成）</h3><div id="pz"></div>';
+    runPractice(document.getElementById("pz"),ids,{label:"檢查",onDone:()=>{S.learn[i]=true;save();chk.innerHTML=doneHtml();bindAgain();
+      vLearnNavRefresh(i);chk.scrollIntoView({behavior:"smooth",block:"center"});}});};
+  const bindAgain=()=>{const a=document.getElementById("again");if(a)a.onclick=startCheck;};
+  if(S.learn[i]){chk.innerHTML=doneHtml();bindAgain();}
+  else{chk.innerHTML=`<button class="btn pri big" id="startchk">我讀懂了，開始理解檢查 ✅</button><p class="note c">每個英文字都可以點。全部看懂了再按，檢查全對這張卡才算完成。</p>`;
+    document.getElementById("startchk").onclick=startCheck;}
+}
+function vLearnNavRefresh(i){const n=document.querySelector(".lnav");if(!n)return;const b=n.querySelectorAll("button")[1];if(b&&i<LEARN_N-1)b.disabled=false;
+  const d=n.querySelectorAll(".d")[i];if(d)d.classList.add("ok");}
+
+function vReview(){
+  app.innerHTML=topBar("複習五關")+`<p class="intro">每一關答錯的題目會再出現，<b>全部答對</b>才過關。中途離開會記住進度。</p>
+  <div class="rlist">${ROUNDS.map((r,j)=>{const st=S.rounds[r.id];const d=st&&st.done;const prog=st&&st.queue?`進行中 ${st.cleared}/${st.total}`:"";const open=j===0||roundDone(ROUNDS[j-1].id)||S.unlock;
+    return `<button class="rr ${d?"rd":""} ${open?"":"lock"}" onclick="${open?`go('round','${r.id}')`:"toast('先過前一關')"}"><div class="ri">${open?r.ico:"🔒"}</div><div class="rb"><div class="rn">第 ${j+1} 關 · ${r.name}</div><div class="rd2">${r.desc}</div>${prog?`<div class="rp">${prog}</div>`:""}</div><div class="rs">${d?"✅":"›"}</div></button>`;}).join("")}</div>`;
+}
+function vRound(id){
+  const r=ROUNDS.find(x=>x.id===id);const st=S.rounds[id];
+  app.innerHTML=topBar(r.ico+" "+r.name,"go('review')")+`<div id="pz" class="pwrap"></div>`;
+  const pz=document.getElementById("pz");
+  const start=()=>runPractice(pz,r.ids(),{key:id,label:r.name,onDone:()=>{const s=S.rounds[id];
+    pz.innerHTML=`<div class="done big">🏅 第 ${ROUNDS.indexOf(r)+1} 關過關！<div class="ds">共 ${s.total} 題全部答對${s.wrong?`（過程中答錯過 ${s.wrong} 次）`:"，一次都沒錯！"}</div><button class="btn pri big" onclick="go('review')">回複習關卡 →</button></div>`;}});
+  if(st&&st.done){pz.innerHTML=`<div class="done big">✅ 這關已經過關了<div class="ds">要再練一次嗎？</div><button class="btn pri big" id="redo">再練一次</button><button class="btn ghost" onclick="go('review')">回複習關卡</button></div>`;
+    document.getElementById("redo").onclick=()=>runPractice(pz,r.ids(),{label:r.name+"（再練）",onDone:()=>{pz.innerHTML=`<div class="done big">👍 再練一次也全對了！<button class="btn pri big" onclick="go('review')">回複習關卡 →</button></div>`;}});
+    return;}
+  start();
+}
+function vPractice(ids){
+  app.innerHTML=topBar("🔁 錯題練習","go('scores')")+`<div id="pz" class="pwrap"></div>`;
+  runPractice(document.getElementById("pz"),ids,{label:"錯題",onDone:()=>{document.getElementById("pz").innerHTML=`<div class="done big">💪 這次的錯題全部練對了！<button class="btn pri big" onclick="go('home')">回首頁</button></div>`;}});
+}
+function vTest(){
+  const b=best();const tm=topMiss(6);
+  app.innerHTML=topBar("📝 測驗")+`<div class="card c">
+   <h2 class="ctitle">準備好了嗎？</h2>
+   <table class="tb"><tr><th>題型</th><th>題數</th></tr>
+   <tr><td>一、聽寫＋詞性</td><td>3</td></tr><tr><td>二、原考卷 B：看定義寫單字</td><td>10</td></tr><tr><td>三、原考卷 C：句子填空</td><td>10</td></tr>
+   <tr><td>四、新句子填空</td><td>10</td></tr><tr><td>五、動詞形式填空（-ed、原形）</td><td>4</td></tr><tr><td>六、多格填空（每格都對才得分）</td><td>8</td></tr><tr><td>七、生字填空</td><td>5</td></tr></table>
+   <p class="note">共 50 題，每題 2 分，滿分 100 分。測驗中不會告訴你對錯，考完才看。原考卷題目每次都考，其他題目每次都不一樣，<b>常錯的字會比較常出現</b>。</p>
+   ${tm.length?`<p class="note">這次會加強：${tm.map(([k])=>`<b>${esc(k)}</b>`).join("、")}</p>`:""}
+   ${b!==null?`<p class="note">目前最高分：<b>${b}</b> 分（考過 ${S.tests.length} 次）</p>`:""}
+   <button class="btn pri big" id="go">開始測驗 🚀</button></div>`;
+  document.getElementById("go").onclick=()=>{app.innerHTML=`<header class="bar"><button class="back" onclick="go('home')">‹ 離開</button><div class="bt">📝 測驗中</div></header><div id="tz" class="pwrap"></div>`;runTest(document.getElementById("tz"));};
+}
+function vResult(n){
+  const r=S.tests[+n];const wrong=r.ans.filter(a=>!a.ok);const prev=S.tests.slice(0,+n).map(t=>t.score);const pb=prev.length?Math.max(...prev):null;
+  const msg=r.score===100?"🏆 滿分！太厲害了！":r.score>=90?"🌟 很棒！只差一點點":r.score>=76?"👍 進步中，把錯的練起來":"💪 再加油，先把錯題練熟";
+  app.innerHTML=topBar("測驗結果")+`<div class="card c"><div class="score ${r.score>=90?"hi":""}">${r.score}<small>分</small></div><div class="msg">${msg}</div>
+   <div class="meta">答對 ${r.ans.length-wrong.length} / ${r.ans.length} 題 · 用時 ${fmtDur(r.dur)}${pb!==null?` · 之前最高 ${pb} 分${r.score>pb?"（新紀錄！）":""}`:""}</div>
+   ${wrong.length?`<button class="btn pri big" id="pw">把這次錯的 ${wrong.length} 題練到全對</button>`:""}
+   <button class="btn" onclick="go('test')">再考一次（新題目）</button></div>
+   ${wrong.length?`<h3 class="sech">❌ 錯的題目（看懂再練）</h3>${wrong.map(a=>{const q=buildQ(a.id);return `<div class="card wr"><div class="sec">${SEC[a.id.split(":")[0]]}</div>${q.prompt.replace(/class="qlab"/,'class="qlab sm"')}<div>你的答案：<s>${esc(a.given)}</s></div><div class="right">正確答案：<b>${esc(ansShow(q))}</b></div><div class="exp">${q.explain}</div></div>`;}).join("")}`:""}`;
+  const pw=document.getElementById("pw");if(pw)pw.onclick=()=>go("practice",wrong.map(a=>a.id));
+}
+function vScores(){
+  const ts=S.tests;const b=best();const avg=ts.length?Math.round(ts.reduce((s,t)=>s+t.score,0)/ts.length):null;const last=ts.slice(-10);
+  app.innerHTML=topBar("🏆 成績紀錄")+(ts.length?`<div class="stats"><div><b>${ts.length}</b><span>考試次數</span></div><div><b>${b}</b><span>最高分</span></div><div><b>${avg}</b><span>平均</span></div></div>
+   <div class="card"><div class="lab">最近 ${last.length} 次</div><div class="chart">${last.map(t=>`<div class="col"><div class="cv">${t.score}</div><div class="cb ${t.score===100?"full":""}" style="height:${Math.max(4,t.score)}%"></div></div>`).join("")}</div></div>
+   ${topMiss(10).length?`<div class="card"><div class="lab">常錯字（複習和測驗累計答錯次數）</div><div class="chips">${topMiss(10).map(([k,n])=>`<button class="chip w" data-k="${esc(k)}">${esc(k)} <small>×${n}</small></button>`).join("")}</div></div>`:""}
+   <div class="card"><table class="tb"><tr><th>#</th><th>時間</th><th>分數</th><th>用時</th><th></th></tr>${ts.map((t,j)=>({t,j})).reverse().map(({t,j})=>`<tr><td>${j+1}</td><td>${fmtDate(t.at)}</td><td><b>${t.score}</b></td><td>${fmtDur(t.dur)}</td><td><button class="lnk" onclick="go('result',${j})">看錯題</button></td></tr>`).join("")}</table></div>`
+   :`<div class="card c"><p>還沒有測驗紀錄。</p><p class="note">完成學習和複習後就可以測驗。</p></div>`);
+}
+function vWords(){
+  let hide=null;
+  const row=k=>{const e=D[k];return `<div class="wrow" data-row="${esc(k)}"><button class="spk" data-say="${esc(k)}">🔊</button><div class="we">${esc(k)}</div><div class="wz">${esc(e.zh)}<small>${e.pos}</small></div></div>`;};
+  app.innerHTML=topBar("📋 生字表")+`<div class="seg"><button data-h="" class="on">全部顯示</button><button data-h="zh">遮中文</button><button data-h="en">遮英文</button></div>
+   <p class="note c">遮住後自己背，點那一行就會打開答案。</p>
+   <h3 class="sech">⭐ 本課單字（${TK.length}）</h3><div class="card wl">${TK.map(row).join("")}</div>
+   <h3 class="sech">🆕 句子裡的生字（${NW.length}）— 都要會背</h3><div class="card wl">${NW.map(row).join("")}</div>`;
+  const seg=app.querySelectorAll(".seg button");
+  seg.forEach(b=>b.onclick=()=>{hide=b.dataset.h;seg.forEach(x=>x.classList.toggle("on",x===b));app.querySelectorAll(".wrow").forEach(r=>{r.classList.remove("hz","he","open");if(hide)r.classList.add(hide==="zh"?"hz":"he");});});
+  app.querySelectorAll(".wrow").forEach(r=>r.onclick=e=>{if(e.target.closest("[data-say]"))return;if(r.classList.contains("hz")||r.classList.contains("he"))r.classList.toggle("open");else openSheet(r.dataset.row);});
+}
+function vSettings(){
+  app.innerHTML=topBar("⚙️ 設定")+`<div class="card"><h3>家長專區</h3>
+   <p class="note">進度和成績存在這台裝置的瀏覽器裡。</p>
+   <button class="btn" id="ul">${S.unlock?"✅ 已解鎖全部（再按一下取消）":"🔓 解鎖全部（不用照順序）"}</button>
+   <button class="btn danger" id="rs">🗑️ 清除全部進度和成績</button></div>`;
+  document.getElementById("ul").onclick=()=>{S.unlock=!S.unlock;save();vSettings();};
+  document.getElementById("rs").onclick=()=>{if(confirm("確定要清除全部學習進度和測驗成績嗎？清除後無法復原。")){S={v:1,learn:{},rounds:{},tests:[],unlock:false};save();go("home");}};
+}
+go("home");
+
+</script>
+</body>
+</html>
