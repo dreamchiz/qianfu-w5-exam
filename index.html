@@ -8,905 +8,177 @@
 <style>
 :root{--bg:#fff7ee;--card:#ffffff;--ink:#2a2733;--mute:#6f6a7c;--pri:#ff7a45;--pri-d:#e8602b;--ok:#22a05b;--ok-bg:#e6f7ed;--bad:#e5484d;--bad-bg:#fdecec;--line:#eee2d3;--tag:#fff0e2;--t:#c2410c;--n:#2563eb;--hi:#fff1a8;--why:#eef5ff;--shadow:0 2px 10px rgba(80,50,20,.08)}
 @media (prefers-color-scheme:dark){:root{--bg:#1d1b22;--card:#29262f;--ink:#f1edf5;--mute:#a7a1b3;--line:#3b3743;--tag:#3a2e26;--t:#ff9a66;--n:#7fb0ff;--hi:#5b4e12;--why:#23304a;--ok-bg:#163826;--bad-bg:#43201f;--shadow:none}}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+*{-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#fff7ee;background:var(--bg);color:#2a2733;color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
 #app{max-width:680px;margin:0 auto;padding:0 16px 48px}
 button{font:inherit;color:inherit;cursor:pointer}
-.btn{display:block;width:100%;min-height:52px;margin:10px 0;padding:10px 16px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-weight:700}
+.btn{display:block;width:100%;min-height:52px;margin:10px 0;padding:10px 16px;border:2px solid #eee2d3;border:2px solid var(--line);border-radius:14px;background:#ffffff;background:var(--card);font-weight:700}
 .btn:disabled{opacity:.45;cursor:default}
-.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+.btn.pri{background:#ff7a45;background:var(--pri);border-color:#ff7a45;border-color:var(--pri);color:#fff}
 .btn.big{font-size:19px;min-height:58px}
 .btn.ghost{background:transparent}
-.btn.danger{color:var(--bad);border-color:var(--bad)}
-.bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;margin:0 -16px 12px;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-.back{border:0;background:var(--card);border-radius:12px;padding:8px 12px;font-weight:700;box-shadow:var(--shadow)}
+.btn.danger{color:#e5484d;color:var(--bad);border-color:#e5484d;border-color:var(--bad)}
+.bar{position:-webkit-sticky;position:sticky;top:0;z-index:5;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;gap:8px;margin:0 -16px 12px;padding:10px 16px;background:#fff7ee;background:var(--bg);border-bottom:1px solid #eee2d3;border-bottom:1px solid var(--line)}
+.back{border:0;background:#ffffff;background:var(--card);border-radius:12px;padding:8px 12px;font-weight:700;-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
 .bt{font-weight:800;font-size:18px}
 .hero{text-align:center;padding:28px 0 10px}
 .hero h1{margin:4px 0;font-size:34px}
-.h-sm{color:var(--pri-d);font-weight:800;letter-spacing:.5px}
-.h-sub{color:var(--mute)}
+.h-sm{color:#e8602b;color:var(--pri-d);font-weight:800;letter-spacing:.5px}
+.h-sub{color:#6f6a7c;color:var(--mute)}
 .steps{display:grid;gap:12px;margin-top:14px}
-.step{display:flex;gap:14px;align-items:center;text-align:left;padding:16px;border:0;border-radius:20px;background:var(--card);box-shadow:var(--shadow);border-left:8px solid var(--pri)}
+.step{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:14px;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;text-align:left;padding:16px;border:0;border-radius:20px;background:#ffffff;background:var(--card);-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow);border-left:8px solid #ff7a45;border-left:8px solid var(--pri)}
 .step.s2{border-left-color:#3b82f6}.step.s3{border-left-color:#22a05b}
 .step.lock{opacity:.55}
 .si{font-size:36px}
-.sb{flex:1}.sn{font-size:21px;font-weight:800}.sd{color:var(--mute);font-size:15px}.sp{font-size:14px;font-weight:700;margin-top:4px}
-.mini{height:8px;border-radius:8px;background:var(--line);margin-top:8px;overflow:hidden}.mini div{height:100%;background:var(--pri)}
+.sb{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.sn{font-size:21px;font-weight:800}.sd{color:#6f6a7c;color:var(--mute);font-size:15px}.sp{font-size:14px;font-weight:700;margin-top:4px}
+.mini{height:8px;border-radius:8px;background:#eee2d3;background:var(--line);margin-top:8px;overflow:hidden}.mini div{height:100%;background:#ff7a45;background:var(--pri)}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.tool{border:0;background:var(--card);border-radius:16px;padding:14px 4px;font-size:26px;box-shadow:var(--shadow)}
+.tool{border:0;background:#ffffff;background:var(--card);border-radius:16px;padding:14px 4px;font-size:26px;-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
 .tool span{display:block;font-size:15px;font-weight:700}
-.foot{text-align:center;color:var(--mute);font-size:14px;margin-top:20px}
+.foot{text-align:center;color:#6f6a7c;color:var(--mute);font-size:14px;margin-top:20px}
 .lg{padding:0 2px}
-.card{background:var(--card);border-radius:20px;padding:18px;margin:12px 0;box-shadow:var(--shadow)}
+.card{background:#ffffff;background:var(--card);border-radius:20px;padding:18px;margin:12px 0;-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
 .card.c{text-align:center}
 .ctitle{margin:0 0 10px;font-size:22px}
-section{border-top:1px dashed var(--line);padding-top:12px;margin-top:14px}
+section{border-top:1px dashed #eee2d3;border-top:1px dashed var(--line);padding-top:12px;margin-top:14px}
 section h3{margin:0 0 8px;font-size:17px}
-section h3 small,.lab{color:var(--mute);font-weight:600;font-size:13px}
-.whead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+section h3 small,.lab{color:#6f6a7c;color:var(--mute);font-weight:600;font-size:13px}
+.whead{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;gap:10px}
 .bigword{font-size:40px;font-weight:800;line-height:1.1;letter-spacing:.5px;word-break:break-word}
-.wmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
-.tag{display:inline-block;background:var(--tag);color:var(--pri-d);border-radius:8px;padding:1px 8px;font-size:14px;font-weight:700}
+.wmeta{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;gap:8px;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;margin-top:6px}
+.tag{display:inline-block;background:#fff0e2;background:var(--tag);color:#e8602b;color:var(--pri-d);border-radius:8px;padding:1px 8px;font-size:14px;font-weight:700}
 .zhbig{font-size:22px;font-weight:800}
-.forms{color:var(--mute);font-size:15px;margin-top:4px}
-.spcol{display:flex;flex-direction:column;gap:8px}
-.spk{border:0;background:var(--tag);border-radius:12px;min-width:44px;min-height:44px;font-size:20px;vertical-align:middle}
+.forms{color:#6f6a7c;color:var(--mute);font-size:15px;margin-top:4px}
+.spcol{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;gap:8px}
+.spk{border:0;background:#fff0e2;background:var(--tag);border-radius:12px;min-width:44px;min-height:44px;font-size:20px;vertical-align:middle}
 .sent,.qsent{font-size:20px;line-height:1.9}
 .w{cursor:pointer;border-radius:5px;padding:0 1px}
-.w:active{background:var(--hi)}
-.wt{font-weight:800;color:var(--t)}
-.wn{text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--n);text-decoration-thickness:2px;text-underline-offset:4px}
-.hi{background:var(--hi)}
-.blank{display:inline-block;min-width:90px;border-bottom:3px solid var(--ink);color:transparent}
-.blank.num{color:var(--pri-d);font-weight:800;text-align:center;font-size:16px}
+.w:active{background:#fff1a8;background:var(--hi)}
+.wt{font-weight:800;color:#c2410c;color:var(--t)}
+.wn{text-decoration:underline;-webkit-text-decoration-style:dotted;text-decoration-style:dotted;-webkit-text-decoration-color:#2563eb;text-decoration-color:#2563eb;-webkit-text-decoration-color:var(--n);text-decoration-color:var(--n);text-decoration-thickness:2px;text-underline-offset:4px}
+.hi{background:#fff1a8;background:var(--hi)}
+.blank{display:inline-block;min-width:90px;border-bottom:3px solid #2a2733;border-bottom:3px solid var(--ink);color:transparent}
+.blank.num{color:#e8602b;color:var(--pri-d);font-weight:800;text-align:center;font-size:16px}
 .mbin{display:grid;gap:8px;margin-top:14px}
-.mbrow{display:flex;align-items:center;gap:8px}.mbrow span{font-weight:800;color:var(--pri-d);min-width:30px}
+.mbrow{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;gap:8px}.mbrow span{font-weight:800;color:#e8602b;color:var(--pri-d);min-width:30px}
 .retype .rt{margin-bottom:6px}
 .mbx{font-size:16px}
-.chip small{color:var(--bad);font-weight:800}
+.chip small{color:#e5484d;color:var(--bad);font-weight:800}
 .chunks{display:grid;gap:6px;margin:6px 0}
-.ck{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;background:var(--bg);border-radius:12px;padding:8px 12px;align-items:center}
-.cke{font-size:17px}.ckz{color:var(--mute);font-size:15px}
+.ck{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;background:#fff7ee;background:var(--bg);border-radius:12px;padding:8px 12px;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+.cke{font-size:17px}.ckz{color:#6f6a7c;color:var(--mute);font-size:15px}
 .zhline{font-size:18px;font-weight:700;margin:8px 0}
-.why{background:var(--why);border-radius:14px;padding:12px 14px;font-size:16px;margin-top:8px}
-.tip{background:var(--tag);border-radius:14px;padding:12px 14px;margin:0}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:8px 14px;font-weight:700;min-height:44px}
-.note{color:var(--mute);font-size:15px}.note.c{text-align:center}
-.lnav{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px}
+.why{background:#eef5ff;background:var(--why);border-radius:14px;padding:12px 14px;font-size:16px;margin-top:8px}
+.tip{background:#fff0e2;background:var(--tag);border-radius:14px;padding:12px 14px;margin:0}
+.chips{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid #eee2d3;border:2px solid var(--line);background:#fff7ee;background:var(--bg);border-radius:999px;padding:8px 14px;font-weight:700;min-height:44px}
+.note{color:#6f6a7c;color:var(--mute);font-size:15px}.note.c{text-align:center}
+.lnav{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;margin-top:8px}
 .lnav .btn{margin:0;font-size:15px}
-.dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:120px}
-.d{width:9px;height:9px;border-radius:50%;background:var(--line)}.d.ok{background:var(--ok)}.d.cur{outline:2px solid var(--pri);outline-offset:1px}
+.dots{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:4px;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;max-width:120px}
+.d{width:9px;height:9px;border-radius:50%;background:#eee2d3;background:var(--line)}.d.ok{background:#22a05b;background:var(--ok)}.d.cur{outline:2px solid #ff7a45;outline:2px solid var(--pri);outline-offset:1px}
 .chkh{margin:22px 0 4px}
-.pbar{height:12px;border-radius:12px;background:var(--line);overflow:hidden;margin-top:6px}.pbar div{height:100%;background:linear-gradient(90deg,var(--pri),#ffb347);transition:width .3s}
-.pmeta{color:var(--mute);font-size:14px;margin:6px 0;font-weight:600}
-.qcard{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
-#chk .qcard{background:var(--bg);box-shadow:none}
-.qlab{color:var(--mute);font-weight:700;font-size:15px;margin-bottom:6px}
+.pbar{height:12px;border-radius:12px;background:#eee2d3;background:var(--line);overflow:hidden;margin-top:6px}.pbar div{height:100%;background:-webkit-gradient(linear,left top, right top,from(#ff7a45),to(#ffb347));background:linear-gradient(90deg,#ff7a45,#ffb347);background:linear-gradient(90deg,var(--pri),#ffb347);-webkit-transition:width .3s;transition:width .3s}
+.pmeta{color:#6f6a7c;color:var(--mute);font-size:14px;margin:6px 0;font-weight:600}
+.qcard{background:#ffffff;background:var(--card);border-radius:20px;padding:18px;-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
+#chk .qcard{background:#fff7ee;background:var(--bg);-webkit-box-shadow:none;box-shadow:none}
+.qlab{color:#6f6a7c;color:var(--mute);font-weight:700;font-size:15px;margin-bottom:6px}
 .qword{font-size:34px;font-weight:800}
 .qzh{font-size:28px;font-weight:800}
-.qpos{color:var(--mute)}
+.qpos{color:#6f6a7c;color:var(--mute)}
 .hint{font-family:ui-monospace,Menlo,monospace;font-size:20px;letter-spacing:1px;margin-top:6px}
-.bigspk{display:flex;gap:10px}.bigspk .btn{margin:6px 0}
-.spkbig{background:var(--tag);border-color:transparent}
+.bigspk{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:10px}.bigspk .btn{margin:6px 0}
+.spkbig{background:#fff0e2;background:var(--tag);border-color:transparent}
 .opts{display:grid;gap:10px;margin-top:14px}
-.opt{text-align:left;padding:14px 16px;min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-size:17px;font-weight:600}
-.opt.ok{border-color:var(--ok);background:var(--ok-bg)}.opt.bad{border-color:var(--bad);background:var(--bad-bg)}.opt.sel{border-color:var(--pri);background:var(--tag)}
+.opt{text-align:left;padding:14px 16px;min-height:56px;border:2px solid #eee2d3;border:2px solid var(--line);border-radius:14px;background:#ffffff;background:var(--card);font-size:17px;font-weight:600}
+.opt.ok{border-color:#22a05b;border-color:var(--ok);background:#e6f7ed;background:var(--ok-bg)}.opt.bad{border-color:#e5484d;border-color:var(--bad);background:#fdecec;background:var(--bad-bg)}.opt.sel{border-color:#ff7a45;border-color:var(--pri);background:#fff0e2;background:var(--tag)}
 .posrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.pos{min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--card);font-size:19px;font-weight:800}
-.pos small{display:block;font-size:12px;color:var(--mute);font-weight:600}
-.pos.sel{border-color:var(--pri);background:var(--tag)}
-.ansrow{display:flex;gap:8px;margin-top:14px}
-.ansrow .btn{width:auto;margin:0;flex:none}
-input.ans,input.rt{flex:1;min-width:0;width:100%;font:inherit;font-size:22px;padding:10px 14px;border:2px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink)}
-input.ok{border-color:var(--ok);background:var(--ok-bg)}input.bad{border-color:var(--bad);background:var(--bad-bg)}
+.pos{min-height:56px;border:2px solid #eee2d3;border:2px solid var(--line);border-radius:14px;background:#ffffff;background:var(--card);font-size:19px;font-weight:800}
+.pos small{display:block;font-size:12px;color:#6f6a7c;color:var(--mute);font-weight:600}
+.pos.sel{border-color:#ff7a45;border-color:var(--pri);background:#fff0e2;background:var(--tag)}
+.ansrow{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:8px;margin-top:14px}
+.ansrow .btn{width:auto;margin:0;-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none}
+input.ans,input.rt{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;min-width:0;width:100%;font:inherit;font-size:22px;padding:10px 14px;border:2px solid #eee2d3;border:2px solid var(--line);border-radius:14px;background:#fff7ee;background:var(--bg);color:#2a2733;color:var(--ink)}
+input.ok{border-color:#22a05b;border-color:var(--ok);background:#e6f7ed;background:var(--ok-bg)}input.bad{border-color:#e5484d;border-color:var(--bad);background:#fdecec;background:var(--bad-bg)}
 .fb{margin-top:14px;border-radius:14px;padding:12px 14px}
-.fb.good{background:var(--ok-bg);color:var(--ok);font-weight:800;text-align:center;font-size:19px}
-.badbox{background:var(--bad-bg)}
-.fbt{font-weight:800;color:var(--bad);margin-bottom:4px}
-.right{font-size:18px;margin:4px 0}.right b{color:var(--ok);font-size:21px}
-.exp{background:var(--card);border-radius:12px;padding:10px 12px;margin:8px 0}
+.fb.good{background:#e6f7ed;background:var(--ok-bg);color:#22a05b;color:var(--ok);font-weight:800;text-align:center;font-size:19px}
+.badbox{background:#fdecec;background:var(--bad-bg)}
+.fbt{font-weight:800;color:#e5484d;color:var(--bad);margin-bottom:4px}
+.right{font-size:18px;margin:4px 0}.right b{color:#22a05b;color:var(--ok);font-size:21px}
+.exp{background:#ffffff;background:var(--card);border-radius:12px;padding:10px 12px;margin:8px 0}
 .retype{margin:10px 0}
-.winfo .wi1 b{font-size:22px}.wi2{font-size:18px;font-weight:700}.wi3{color:var(--mute);font-size:14px}
-.done{text-align:center;font-size:22px;font-weight:800;padding:14px;background:var(--ok-bg);border-radius:18px;margin-top:16px}
+.winfo .wi1 b{font-size:22px}.wi2{font-size:18px;font-weight:700}.wi3{color:#6f6a7c;color:var(--mute);font-size:14px}
+.done{text-align:center;font-size:22px;font-weight:800;padding:14px;background:#e6f7ed;background:var(--ok-bg);border-radius:18px;margin-top:16px}
 .done .btn{font-size:17px}
 .done.big{padding:24px 16px}
-.ds{font-size:16px;font-weight:600;color:var(--mute);margin:6px 0}
-.intro{color:var(--mute)}
+.ds{font-size:16px;font-weight:600;color:#6f6a7c;color:var(--mute);margin:6px 0}
+.intro{color:#6f6a7c;color:var(--mute)}
 .rlist{display:grid;gap:10px}
-.rr{display:flex;align-items:center;gap:12px;text-align:left;border:0;border-radius:18px;padding:14px;background:var(--card);box-shadow:var(--shadow)}
-.rr.rd{background:var(--ok-bg)}.rr.lock{opacity:.5}
-.ri{font-size:30px}.rb{flex:1}.rn{font-weight:800;font-size:18px}.rd2{color:var(--mute);font-size:14px}.rp{color:var(--pri-d);font-size:13px;font-weight:700}.rs{font-size:22px}
+.rr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;gap:12px;text-align:left;border:0;border-radius:18px;padding:14px;background:#ffffff;background:var(--card);-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
+.rr.rd{background:#e6f7ed;background:var(--ok-bg)}.rr.lock{opacity:.5}
+.ri{font-size:30px}.rb{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.rn{font-weight:800;font-size:18px}.rd2{color:#6f6a7c;color:var(--mute);font-size:14px}.rp{color:#e8602b;color:var(--pri-d);font-size:13px;font-weight:700}.rs{font-size:22px}
 .tb{width:100%;border-collapse:collapse;font-size:15px;text-align:left}
-.tb th,.tb td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-.tb th{color:var(--mute);font-size:13px}
+.tb th,.tb td{padding:8px 6px;border-bottom:1px solid #eee2d3;border-bottom:1px solid var(--line);vertical-align:top}
+.tb th{color:#6f6a7c;color:var(--mute);font-size:13px}
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.vs>div{background:var(--bg);border-radius:14px;padding:12px;font-size:15px}
+.vs>div{background:#fff7ee;background:var(--bg);border-radius:14px;padding:12px;font-size:15px}
 .vs b.w{font-size:19px}
 .ex{font-size:15px}
-.score{font-size:72px;font-weight:900;color:var(--pri-d);line-height:1}.score small{font-size:24px}.score.hi{color:var(--ok)}
+.score{font-size:72px;font-weight:900;color:#e8602b;color:var(--pri-d);line-height:1}.score small{font-size:24px}.score.hi{color:#22a05b;color:var(--ok)}
 .msg{font-size:20px;font-weight:800;margin:8px 0}
-.meta{color:var(--mute);font-size:15px;margin-bottom:8px}
+.meta{color:#6f6a7c;color:var(--mute);font-size:15px;margin-bottom:8px}
 .sech{margin:22px 4px 6px;font-size:18px}
-.wr .sec{color:var(--mute);font-size:13px;font-weight:700}
+.wr .sec{color:#6f6a7c;color:var(--mute);font-size:13px;font-weight:700}
 .qlab.sm{display:none}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stats>div{background:var(--card);border-radius:16px;padding:14px 6px;text-align:center;box-shadow:var(--shadow)}
-.stats b{display:block;font-size:30px;color:var(--pri-d)}.stats span{font-size:13px;color:var(--mute)}
-.chart{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:8px}
-.col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
-.cb{width:100%;max-width:34px;background:var(--pri);border-radius:8px 8px 4px 4px}.cb.full{background:var(--ok)}
+.stats>div{background:#ffffff;background:var(--card);border-radius:16px;padding:14px 6px;text-align:center;-webkit-box-shadow:0 2px 10px rgba(80,50,20,.08);box-shadow:0 2px 10px rgba(80,50,20,.08);-webkit-box-shadow:var(--shadow);box-shadow:var(--shadow)}
+.stats b{display:block;font-size:30px;color:#e8602b;color:var(--pri-d)}.stats span{font-size:13px;color:#6f6a7c;color:var(--mute)}
+.chart{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:end;-webkit-align-items:flex-end;-ms-flex-align:end;align-items:flex-end;gap:6px;height:150px;margin-top:8px}
+.col{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+.cb{width:100%;max-width:34px;background:#ff7a45;background:var(--pri);border-radius:8px 8px 4px 4px}.cb.full{background:#22a05b;background:var(--ok)}
 .cv{font-size:12px;font-weight:700}
-.lnk{border:0;background:none;color:var(--n);font-weight:700;padding:4px}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border-radius:14px;padding:4px;gap:4px}
-.seg button{border:0;background:none;border-radius:10px;padding:10px 4px;font-weight:700}.seg .on{background:var(--pri);color:#fff}
+.lnk{border:0;background:none;color:#2563eb;color:var(--n);font-weight:700;padding:4px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:#ffffff;background:var(--card);border-radius:14px;padding:4px;gap:4px}
+.seg button{border:0;background:none;border-radius:10px;padding:10px 4px;font-weight:700}.seg .on{background:#ff7a45;background:var(--pri);color:#fff}
 .wl{padding:6px 12px}
-.wrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.wrow{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee2d3;border-bottom:1px solid var(--line);cursor:pointer}
 .wrow:last-child{border:0}
-.we{font-weight:800;font-size:18px;flex:1;min-width:0}
-.wz{text-align:right;font-size:15px;max-width:55%}.wz small{display:block;color:var(--mute);font-size:12px}
-.wrow.hz:not(.open) .wz,.wrow.he:not(.open) .we{color:transparent;background:var(--line);border-radius:8px}
+.we{font-weight:800;font-size:18px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;min-width:0}
+.wz{text-align:right;font-size:15px;max-width:55%}.wz small{display:block;color:#6f6a7c;color:var(--mute);font-size:12px}
+.wrow.hz:not(.open) .wz,.wrow.he:not(.open) .we{color:transparent;background:#eee2d3;background:var(--line);border-radius:8px}
 .wrow.he:not(.open) [data-say]{visibility:hidden}
 .sheet.hidden{display:none}
-.sh-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20}
-.sh{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:680px;margin:0 auto;background:var(--card);border-radius:24px 24px 0 0;padding:16px 20px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -6px 30px rgba(0,0,0,.2);animation:up .18s ease-out;max-height:80vh;overflow:auto}
-@keyframes up{from{transform:translateY(40px);opacity:.4}}
-.sh-top{display:flex;justify-content:space-between;align-items:center}
-.x{border:0;background:var(--bg);border-radius:50%;width:40px;height:40px;font-size:18px}
+.sh-bg{position:fixed;top:0;left:0;right:0;bottom:0;cursor:pointer;background:rgba(0,0,0,.35);z-index:20}
+.sh{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:680px;margin:0 auto;background:#ffffff;background:var(--card);border-radius:24px 24px 0 0;padding:16px 20px 24px;padding:16px 20px -webkit-calc(24px + env(safe-area-inset-bottom));padding:16px 20px calc(24px + env(safe-area-inset-bottom));-webkit-box-shadow:0 -6px 30px rgba(0,0,0,.2);box-shadow:0 -6px 30px rgba(0,0,0,.2);-webkit-animation:up .18s ease-out;animation:up .18s ease-out;max-height:400px;max-height:80vh;overflow:auto;-webkit-overflow-scrolling:touch}
+@-webkit-keyframes up{from{-webkit-transform:translateY(40px);transform:translateY(40px);opacity:.4}}
+@keyframes up{from{-webkit-transform:translateY(40px);transform:translateY(40px);opacity:.4}}
+.sh-top{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+.x{border:0;background:#fff7ee;background:var(--bg);border-radius:50%;width:40px;height:40px;font-size:18px}
 .badge{border-radius:8px;padding:2px 10px;font-size:13px;font-weight:800}
-.badge.bT{background:var(--tag);color:var(--t)}.badge.bn{background:var(--why);color:var(--n)}.badge.bb{background:var(--bg);color:var(--mute)}
+.badge.bT{background:#fff0e2;background:var(--tag);color:#c2410c;color:var(--t)}.badge.bn{background:#eef5ff;background:var(--why);color:#2563eb;color:var(--n)}.badge.bb{background:#fff7ee;background:var(--bg);color:#6f6a7c;color:var(--mute)}
 .sh-w{font-size:36px;font-weight:800;margin:6px 0}
-.sh-btns{display:flex;gap:10px}.sh-btns .btn{margin:4px 0}
-.sh-pos{color:var(--mute);font-weight:700;margin-top:6px}
+.sh-btns{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:10px}.sh-btns .btn{margin:4px 0}
+.sh-pos{color:#6f6a7c;color:var(--mute);font-weight:700;margin-top:6px}
 .sh-zh{font-size:24px;font-weight:800}
-.sh-f{color:var(--mute)}
-.sh-def{background:var(--bg);border-radius:12px;padding:10px 12px;margin-top:10px}.zh2{color:var(--mute)}
-.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:30}
+.sh-f{color:#6f6a7c;color:var(--mute)}
+.sh-def{background:#fff7ee;background:var(--bg);border-radius:12px;padding:10px 12px;margin-top:10px}.zh2{color:#6f6a7c;color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:30px;-webkit-transform:translateX(-50%);transform:translateX(-50%);background:#2a2733;background:var(--ink);color:#fff7ee;color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:30}
 @media (max-width:420px){.bigword{font-size:34px}.sent,.qsent{font-size:18px}.ck{grid-template-columns:1fr}.vs{grid-template-columns:1fr}}
+
+/* 舊瀏覽器（不支援 grid）的版面 */
+.old .steps>*,.old .opts>*,.old .mbin>*,.old .rlist>*,.old .chunks>*{display:block;width:100%;margin-bottom:10px}
+.old .tools>*,.old .posrow>*,.old .stats>*,.old .seg>*{display:inline-block;width:31%;margin:0 1% 8px;vertical-align:top}
+.old .ck{display:block}.old .cke,.old .ckz{display:block}
+.old .vs>div{display:block;margin-bottom:10px}
+.old .lnav{display:block;text-align:center}.old .lnav .btn{display:inline-block;width:46%;margin:4px 1%}.old .dots{display:block;max-width:none;margin:6px 0}
+.old .chips,.old .dots,.old .wmeta,.old .sh-btns,.old .bigspk{display:block}.old .chip,.old .d,.old .wmeta>*{display:inline-block;margin:0 6px 6px 0}
+.old .sh-btns .btn,.old .bigspk .btn{display:inline-block;width:46%;margin:4px 1%}
+.old .spcol .spk{display:block;margin-bottom:8px}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <div id="sheet" class="sheet hidden"></div>
-<script>
-// ===== 字典：T=本課單字 N=句子生字(要會背) B=基本字(可查) =====
-const DICT_RAW=[
-["weathering","n.","風化（作用）","T"],
-["crisis","n.","危機","T","單數 crisis · 複數 crises",["crises"]],
-["severe","adj.","嚴重的；猛烈的","T"],
-["unpredictable","adj.","難以預測的","T"],
-["erosion","n.","侵蝕（作用）","T"],
-["collapse","v.","倒塌；崩塌","T","collapse · collapsed · collapsed",["collapsed","collapses"]],
-["hazard","n.","危險（的東西）；危害","T","",["hazards"]],
-["destruction","n.","破壞；毀滅","T"],
-["substantial","adj.","相當大的；可觀的","T"],
-["alter","v.","改變；修改","T","alter · altered · altered",["altered","alters"]],
-
-["breakdown","n.","分解；故障","N"],
-["rock","n.","岩石","N","",["rocks"]],
-["due to","phr.","由於；因為","N"],
-["important","adj.","重要的","N"],
-["cause","v. / n.","造成（動詞）；原因（名詞）","N","cause · caused · caused",["caused","causes"]],
-["difficult","adj.","困難的","N"],
-["dangerous","adj.","危險的","N"],
-["situation","n.","處境；情況","N"],
-["company","n.","公司","N"],
-["struggle","v.","努力掙扎；奮鬥","N","struggle · struggled · struggled",["struggled"]],
-["survive","v.","存活；撐過","N"],
-["financial","adj.","金融的；和錢有關的","N"],
-["harsh","adj.","嚴酷的；嚴厲的","N"],
-["serious","adj.","嚴重的；認真的","N"],
-["suffer","v.","遭受；受苦","N","suffer · suffered · suffered",["suffered"]],
-["damage","n.","損害；損壞","N"],
-["typhoon","n.","颱風","N"],
-["able","adj.","能夠的（be able to 能夠做…）","N"],
-["tell","v.","得知；分辨（本課的意思）；告訴","N","tell · told · told",["told"]],
-["beforehand","adv.","事先；預先","N"],
-["movement","n.","移動；運動","N"],
-["broken-down","adj.","破碎的；壞掉的","N"],
-["slowly","adv.","慢慢地","N"],
-["wear away","phr.","（慢慢）磨掉；侵蝕掉","N","wear · wore · worn",["worn away","wore away","wears away"]],
-["riverbank","n.","河岸","N"],
-["fall down","phr.","倒下；跌倒","N"],
-["cave in","phr.","塌陷；坍塌","N"],
-["building","n.","建築物；大樓","N"],
-["earthquake","n.","地震","N","",["earthquakes"]],
-["harm","n.","傷害","N"],
-["injury","n.","受傷；傷害","N"],
-["wet","adj.","濕的","N"],
-["floor","n.","地板","N","",["floors"]],
-["slip","v.","滑倒；滑","N","slip · slipped · slipped",["slipped"]],
-["might","aux.","可能（會）","N"],
-["ruin","n. / v.","毀壞；廢墟","N"],
-["forest","n.","森林","N"],
-["wildfire","n.","野火；森林大火","N"],
-["because of","phr.","因為；由於（後面接名詞）","N"],
-["amount","n.","數量","N"],
-["size","n.","大小；尺寸","N"],
-["repair","v.","修理","N"],
-["different","adj.","不同的","N"],
-["plan","n.","計畫","N","",["plans"]],
-["have to","phr.","必須（had to 是過去式）","N","",["had to","has to"]],
-
-["the","art.","這個；那個（指特定的東西）","B"],
-["a","art.","一個","B","",["an"]],
-["of","prep.","…的","B"],
-["by","prep.","由；被","B"],
-["not","adv.","不；沒有","B"],
-["to","prep.","到；（放在動詞前，表示「去做…」）","B"],
-["or","conj.","或；或者","B"],
-["and","conj.","和；而且","B"],
-["very","adv.","非常","B"],
-["great","adj.","巨大的；很棒的","B"],
-["can","aux.","可以；可能","B"],
-["be","v.","是；成為","B","be · was/were · been",["is","are","was","were"]],
-["because","conj.","因為（後面接句子）","B"],
-["people","n.","人們","B"],
-["fall","v.","跌倒；落下","B","fall · fell · fallen",["fell"]],
-["wind","n.","風","B","",["winds"]],
-["rain","n. / v.","雨；下雨","B"],
-["sun","n.","太陽","B"],
-["two","num.","二；兩個","B"],
-["in","prep.","在…裡面","B"],
-["has","aux.","已經（has + 過去分詞）；有","B"],
-["had","v.","有；得了（have 的過去式）","B"],
-["make","v.","使；做","B"],
-["something","pron.","某個東西","B"],
-["that","pron. / conj.","那個；（連接後面的說明）","B"],
-["we","pron.","我們","B"],
-["need","v.","需要","B"],
-["money","n.","錢","B"],
-["our","pron.","我們的","B"],
-["city","n.","城市","B"],
-["after","prep.","在…之後","B"],
-["weather","n.","天氣","B"],
-["mountain","n.","山","B","",["mountains"]],
-["bad","adj.","壞的；不好的","B"],
-["change","v.","改變","B"],
-["strong","adj.","強烈的；強壯的","B"],
-["broken","adj.","壞掉的；破的","B"],
-["step","n.","台階；一步","B"],
-["old","adj.","老的；舊的","B"],
-["for","prep.","對…來說；為了；（持續）…之久","B"],
-["ice","n.","冰","B"],
-["on","prep.","在…上面","B"],
-["road","n.","馬路","B"],
-["driver","n.","駕駛人；司機","B","",["drivers"]],
-["over","prep.","經過（over many years 經過很多年）；在…上方","B"],
-["many","adj.","很多的","B"],
-["year","n.","年","B","",["years"]],
-["break","v.","打破；弄碎","B","break · broke · broken",["breaks","broke"]],
-["big","adj.","大的","B"],
-["into","prep.","進入；變成","B"],
-["small","adj.","小的","B"],
-["piece","n.","碎片；一塊","B","",["pieces"]],
-["all","adv.","全部；都","B"],
-["storm","n.","暴風雨","B"],
-["see","v.","看見","B","see · saw · seen",["saw"]],
-["a lot of","phr.","很多的","B"],
-["he","pron.","他","B"],
-["eat","v.","吃","B","eat · ate · eaten",["ate"]],
-["lunch","n.","午餐","B"],
-["so","conj. / adv.","所以；那麼地（so…that 太…以致於）","B"],
-["hungry","adj.","餓的","B"],
-["there","adv.","（there was = 有）；那裡","B"],
-["this","pron.","這；這個","B"],
-["week","n.","星期；週","B"],
-["river","n.","河","B"],
-["carry","v.","搬運；帶","B","carry · carried · carried",["carried"]],
-["away","adv.","離開；（帶）走","B"],
-["call","v.","稱為；叫","B","",["called"]],
-["tree","n.","樹","B","",["trees"]],
-["help","v.","幫忙","B"],
-["stop","v.","阻止；停止","B"],
-["land","n.","陸地；土地","B"],
-["cold","n.","感冒","B"],
-["stay","v.","待著；停留","B","",["stayed"]],
-["home","n.","家","B"],
-["window","n.","窗戶","B","",["windows"]],
-["my","pron.","我的","B"],
-["little","adj.","小的；年紀小的","B"],
-["brother","n.","兄弟（little brother 弟弟）","B"],
-["i","pron.","我","B"],
-["never","adv.","從不；永遠不","B"],
-["know","v.","知道","B"],
-["what","pron.","什麼","B"],
-["will","aux.","將會","B"],
-["do","v.","做；（did not = 沒有）","B","do · did · done",["did"]],
-["must","aux.","必須","B"],
-["ready","adj.","準備好的","B"],
-["mom","n.","媽媽","B"],
-["pants","n.","褲子","B"],
-["they","pron.","他們；它們","B"],
-["too","adv.","太","B"],
-["long","adj.","長的","B"],
-["may","aux.","可能；也許","B"],
-["game","n.","比賽；遊戲","B"],
-["time","n.","時間","B"],
-["water","n.","水","B"],
-["it","pron.","它","B"],
-["month","n.","月","B","",["months"]],
-["doctor","n.","醫生","B","",["doctors"]],
-["work","v.","工作","B"],
-["hard","adv.","努力地","B"],
-["during","prep.","在…期間","B"],
-["health","n.","健康","B"],
-["bridge","n.","橋","B"],
-["if","conj.","如果","B"],
-["car","n.","汽車","B","",["cars"]],
-["go","v.","去；開（車）上去","B"],
-["snow","n.","雪","B"],
-["heavy","adj.","重的","B"],
-["roof","n.","屋頂","B"]
-];
-
-// ===== 本課 10 個單字（照考卷 Part 1 順序）=====
-const T=[
-{k:"weathering",src:"課本定義",c:2,
- def:"the breakdown of rocks due to rain, wind and sun",defZh:"岩石因為雨、風和太陽而分解（變碎）",
- defChunks:[["the breakdown of rocks","岩石的分解（變碎）"],["due to rain, wind and sun","由於雨、風和太陽"]],
- sent:"Wind and rain are two important causes of weathering.",ans:"weathering",sentZh:"風和雨是造成風化的兩個重要原因。",
- sentChunks:[["Wind and rain","風和雨"],["are two important causes","是兩個重要的原因"],["of weathering.","（造成）風化的"]],
- why:"causes of ___ ＝「…的原因」，of 後面要放<b>名詞</b>。風和雨會讓岩石慢慢裂開、變碎 → 這就是 weathering（風化）。<br>⚠️ 不是 erosion：weathering 是岩石被「弄碎」，erosion 是碎石被「搬走」。",
- tip:"weather（天氣）+ ing → 天氣對岩石做的事 → 風化，把岩石弄碎。",
- nw:["breakdown","rock","due to","important","cause"],
- news:[{en:"Over many years, weathering breaks big rocks into small pieces.",ans:"weathering",zh:"經過很多年，風化作用會把大岩石弄碎成小碎片。"},
-       {en:"Sun, wind and rain all cause weathering.",ans:"weathering",zh:"太陽、風和雨都會造成風化。"}]},
-{k:"crisis",src:"課本定義",c:9,
- def:"a difficult or dangerous situation",defZh:"困難或危險的處境",
- defChunks:[["a difficult or dangerous","一個困難或危險的"],["situation","處境；情況"]],
- sent:"The company struggled to survive the financial crisis.",ans:"crisis",sentZh:"這家公司努力想撐過這場金融危機。",
- sentChunks:[["The company","這家公司"],["struggled to survive","努力掙扎，想要撐過"],["the financial crisis.","這場金融危機"]],
- why:"financial（金融的、和錢有關的）後面要接<b>名詞</b>。公司因為錢出問題，陷入「很困難、很危險的處境」→ financial crisis 金融危機。<br>⚠️ 考卷上寫成 destruction：公司不是被「打壞、燒毀」，而是「處境很危險」，所以是 crisis。",
- tip:"發音 crai-sis，兩個 s 音。複數是 crises。記：crisis = 很危險、很難熬的時候。",
- nw:["difficult","dangerous","situation","company","struggle","survive","financial"],
- news:[{en:"There was a water crisis because it did not rain for months.",ans:"crisis",zh:"因為好幾個月沒下雨，發生了缺水危機。"},
-       {en:"Doctors work hard during a health crisis.",ans:"crisis",zh:"在健康危機期間，醫生們努力工作。"}]},
-{k:"severe",src:"考卷 B5",c:6,
- def:"very harsh or serious",defZh:"非常嚴酷或嚴重",
- defChunks:[["very harsh","非常嚴酷"],["or serious","或嚴重"]],
- sent:"The city suffered severe damage after the typhoon.",ans:"severe",sentZh:"颱風過後，這座城市遭受了嚴重的損害。",
- sentChunks:[["The city suffered","這座城市遭受了"],["severe damage","嚴重的損害"],["after the typhoon.","在颱風過後"]],
- why:"空格在 damage（損害，名詞）的前面 → 要放<b>形容詞</b>，說明損害「有多嚴重」→ severe damage 嚴重的損害。<br>⚠️ 考卷上寫 crisis：crisis 是名詞，不能放在另一個名詞前面形容它。",
- tip:"severe 常跟壞事一起出現：severe damage（嚴重損害）、severe weather（惡劣天氣）。拼字結尾是 -ere：se-vere，不是 sever！",
- nw:["harsh","serious","suffer","damage","typhoon"],
- news:[{en:"He had a severe cold and stayed home.",ans:"severe",zh:"他得了重感冒，待在家裡。"},
-       {en:"The severe storm broke many windows.",ans:"severe",zh:"猛烈的暴風雨打破了很多窗戶。"}]},
-{k:"unpredictable",src:"考卷 B2",c:7,
- def:"not able to tell beforehand",defZh:"無法事先知道",
- defChunks:[["not able to","不能夠"],["tell beforehand","事先得知"]],
- sent:"The weather in the mountains can be very unpredictable.",ans:"unpredictable",sentZh:"山區的天氣可能非常難以預測。",
- sentChunks:[["The weather in the mountains","山區的天氣"],["can be very unpredictable.","可能非常難以預測"]],
- why:"can be very ___：very（非常）後面放<b>形容詞</b>。山上的天氣一下晴、一下下雨，沒辦法事先知道 → unpredictable。",
- tip:"拆開記：un（不）+ predict（預測）+ able（能夠…的）＝ 不能被預測的。",
- nw:["able","tell","beforehand"],
- news:[{en:"My little brother is unpredictable; I never know what he will do.",ans:"unpredictable",zh:"我弟弟很難預測，我永遠不知道他會做什麼。"},
-       {en:"Earthquakes are unpredictable, so we must be ready.",ans:"unpredictable",zh:"地震難以預測，所以我們必須做好準備。"}]},
-{k:"erosion",src:"考卷 B1",c:5,
- def:"the movement of broken-down rocks caused by weathering",defZh:"被風化弄碎的岩石被移動（搬走）",
- defChunks:[["the movement","移動"],["of broken-down rocks","破碎岩石的"],["caused by weathering","由風化造成的"]],
- sent:"Erosion has slowly worn away the riverbank.",ans:"Erosion",sentZh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",
- sentChunks:[["Erosion","侵蝕作用"],["has slowly worn away","已經慢慢地磨掉了"],["the riverbank.","河岸"]],
- why:"空格在句子最前面，是「做這件事的那一個」（主詞）→ 要放<b>名詞</b>。worn away（慢慢磨掉、帶走）＋ riverbank（河岸）＝ 水把河岸的土石慢慢帶走 → erosion。<br>⚠️ 考卷上寫 substantial：那是形容詞，不能當主詞。",
- tip:"weathering 和 erosion 是一組：先 weathering（岩石被弄碎），再 erosion（碎石被水或風搬走）。",
- nw:["movement","broken-down","slowly","wear away","riverbank"],
- news:[{en:"The river carried the rocks away. This is called erosion.",ans:"erosion",zh:"河水把岩石帶走了。這叫做侵蝕作用。"},
-       {en:"Trees can help stop erosion of the land.",ans:"erosion",zh:"樹木可以幫忙阻止土地被侵蝕。"}]},
-{k:"collapse",src:"考卷 B3",c:10,
- def:"to fall down or cave in",defZh:"倒下或塌陷",
- defChunks:[["to fall down","倒下"],["or cave in","或塌陷"]],
- sent:"The building collapsed after the strong earthquake.",ans:"collapsed",sentZh:"強烈地震過後，這棟建築物倒塌了。",
- sentChunks:[["The building collapsed","這棟建築物倒塌了"],["after the strong earthquake.","在強烈地震之後"]],
- why:"地震「已經」發生了（after the strong earthquake 在地震之後），說的是過去的事 → 動詞要用<b>過去式 collapsed</b>。<br>⚠️ 考卷上寫 collapse，少了 -d 被扣分。",
- tip:"三態：collapse · collapsed · collapsed。說過去的事，記得加 -d！",
- nw:["fall down","cave in","building","earthquake"],
- news:[{en:"The old bridge may collapse if too many cars go on it.",ans:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。"},
-       {en:"The snow was so heavy that the roof collapsed.",ans:"collapsed",zh:"雪太重了，屋頂倒塌了。"}]},
-{k:"hazard",src:"課本定義",c:1,
- def:"something that can cause harm or injury",defZh:"可能造成傷害或受傷的東西",
- defChunks:[["something","某個東西"],["that can cause","可能造成"],["harm or injury","傷害或受傷"]],
- sent:"Wet floors can be a hazard because people might slip and fall.",ans:"hazard",sentZh:"濕的地板可能是一種危險，因為人可能會滑倒摔跤。",
- sentChunks:[["Wet floors","濕的地板"],["can be a hazard","可能是一種危險"],["because people might slip and fall.","因為人可能會滑倒、跌倒"]],
- why:"a ___：a 後面要接<b>名詞</b>。because 後面說出原因：人會滑倒受傷 →「可能造成傷害的東西」＝ hazard。hazard 是「還沒發生」、但有危險的東西。",
- tip:"拼字 haz-ard，結尾是 -ard。記：hazard = 小心！會害你受傷的東西。",
- nw:["harm","injury","wet","floor","slip","might"],
- news:[{en:"A broken step is a hazard for old people.",ans:"hazard",zh:"壞掉的台階對老人來說是一種危險。"},
-       {en:"Ice on the road is a hazard to drivers.",ans:"hazard",zh:"路上的冰對駕駛人來說是一種危險。"}]},
-{k:"destruction",src:"考卷 B4",c:3,
- def:"great damage or ruin",defZh:"巨大的損害或毀壞",
- defChunks:[["great damage","巨大的損害"],["or ruin","或毀壞"]],
- sent:"The forest suffered destruction because of the wildfire.",ans:"destruction",sentZh:"這片森林因為野火而遭受破壞。",
- sentChunks:[["The forest suffered destruction","這片森林遭受了破壞"],["because of the wildfire.","因為野火"]],
- why:"suffered（遭受）後面接<b>名詞</b>，說「遭受了什麼」。野火把森林燒毀了 → destruction（破壞）。<br>⚠️ 考卷上寫 erosion：erosion 是水和風「慢慢」把土石搬走；野火是「一下子」把東西燒壞。",
- tip:"拼字：d-e-s-t-<b>r</b>-u-c-t-i-o-n，考卷上兩次都漏掉 r！它是 destroy（破壞，動詞）的名詞：destroy → destruction，都有 str。",
- nw:["ruin","forest","wildfire","because of"],
- news:[{en:"The earthquake caused great destruction in the city.",ans:"destruction",zh:"地震在這座城市造成了巨大的破壞。"},
-       {en:"After the storm, we saw a lot of destruction.",ans:"destruction",zh:"暴風雨過後，我們看到很多破壞。"}]},
-{k:"substantial",src:"課本定義",c:4,
- def:"great amount or size",defZh:"很大的數量或大小",
- defChunks:[["great amount","很大的數量"],["or size","或大小"]],
- sent:"We need a substantial amount of money to repair the building.",ans:"substantial",sentZh:"我們需要一大筆錢來修理這棟建築物。",
- sentChunks:[["We need","我們需要"],["a substantial amount of money","相當大數量的錢（一大筆錢）"],["to repair the building.","來修理這棟建築物"]],
- why:"a ___ amount：空格在 amount（數量）前面，要放<b>形容詞</b>說數量「有多大」→ substantial。<br>⚠️ 考卷上寫 severe：severe 是「嚴重的」，用在壞事（damage、weather）；說數量很大要用 substantial。",
- tip:"拼字 sub-stan-tial，結尾 -tial 念「秀」。記：substantial = 份量很大。",
- nw:["amount","size","repair"],
- news:[{en:"He ate a substantial lunch, so he was not hungry.",ans:"substantial",zh:"他吃了一頓分量很大的午餐，所以他不餓。"},
-       {en:"There was a substantial amount of rain this week.",ans:"substantial",zh:"這個星期下了相當大量的雨。"}]},
-{k:"alter",src:"課本定義",c:8,
- def:"to make different or change",defZh:"使變得不同，或改變",
- defChunks:[["to make different","使變得不同"],["or change","或改變"]],
- sent:"We had to alter our plans because of the bad weather.",ans:"alter",sentZh:"因為天氣不好，我們必須改變計畫。",
- sentChunks:[["We had to alter our plans","我們必須改變我們的計畫"],["because of the bad weather.","因為壞天氣"]],
- why:"had to（必須）後面一定接<b>原形動詞</b>。had 已經表示過去了，所以寫 alter，不能寫 altered。<br>⚠️ 考卷上就是寫成 altered 被扣分。",
- tip:"三態：alter · altered · altered。但只要前面是 to（to alter、had to alter），永遠用原形 alter。",
- nw:["different","plan","have to"],
- news:[{en:"Mom had to alter my pants because they were too long.",ans:"alter",zh:"媽媽必須修改我的褲子，因為它們太長了。"},
-       {en:"The rain may alter the game time.",ans:"alter",zh:"這場雨可能會改變比賽的時間。"}]}
-];
-
-// ===== 易混字檢查 =====
-const CF=[
- {p:"還沒發生，但「可能」讓人受傷的東西（例如：濕地板）",a:"hazard",o:["hazard","crisis","destruction","weathering","erosion"]},
- {p:"很困難、很危險的「處境」（例如：公司快沒錢了）",a:"crisis",o:["hazard","crisis","destruction","erosion"]},
- {p:"東西被嚴重毀掉的「結果」（例如：森林被野火燒毀）",a:"destruction",o:["destruction","erosion","crisis","hazard"]},
- {p:"岩石被雨、風、太陽「弄碎」",a:"weathering",o:["weathering","erosion","destruction","hazard"]},
- {p:"碎掉的土石被水或風「慢慢帶走」",a:"erosion",o:["erosion","weathering","destruction","crisis"]},
- {p:"「數量」或「大小」很大（例如：一大筆錢）",a:"substantial",o:["substantial","severe","unpredictable","dangerous"]},
- {p:"很「嚴重」的（形容壞事，例如：嚴重的損害）",a:"severe",o:["severe","substantial","unpredictable","important"]},
- {p:"We had to ____ our plans.",a:"alter",o:["alter","altered","alters","altering"]},
- {p:"The building ____ after the earthquake.（地震已經發生了）",a:"collapsed",o:["collapse","collapsed","collapses","collapsing"]},
- {p:"The city suffered ____ damage. 空格在名詞 damage 前面，要放哪一種字？",a:"形容詞",o:["形容詞","名詞","動詞"]}
-];
-
-// ===== 新增基本字 =====
-DICT_RAW.push(
-["them","pron.","他們；它們（受詞）","B"],
-["you","pron.","你；你們","B"],
-["their","pron.","他們的；它們的","B"],
-["but","conj.","但是","B"],
-["last","adj.","上一個的（last week 上週、last year 去年）","B"],
-["yesterday","adv.","昨天","B"]
-);
-const EXTRA_SURF={wear:"wear away",wore:"wear away",worn:"wear away",carries:"carry",needed:"need",storms:"storm",buildings:"building"};
-
-// ===== 多格填空（答案依出現順序）=====
-const MB=[
- {en:"The severe typhoon caused great destruction, and the old bridge collapsed.",ans:["severe","destruction","collapsed"],zh:"猛烈的颱風造成了巨大的破壞，那座舊橋也倒塌了。"},
- {en:"Weathering breaks rocks into small pieces, and erosion carries them away.",ans:["Weathering","erosion"],zh:"風化把岩石弄成小碎片，侵蝕再把它們帶走。"},
- {en:"The weather was unpredictable, so we had to alter our plans.",ans:["unpredictable","alter"],zh:"天氣難以預測，所以我們必須改變計畫。"},
- {en:"The company needed a substantial amount of money to survive the financial crisis.",ans:["substantial","crisis"],zh:"這家公司需要一大筆錢來撐過金融危機。"},
- {en:"Severe weather can be a hazard to people on the road.",ans:["Severe","hazard"],zh:"惡劣的天氣對路上的人來說可能是一種危險。"},
- {en:"Over many years, erosion can alter the riverbank.",ans:["erosion","alter"],zh:"經過很多年，侵蝕作用可以改變河岸。"},
- {en:"After the earthquake, many buildings collapsed and the city was in a crisis.",ans:["collapsed","crisis"],zh:"地震過後，很多建築物倒塌了，這座城市陷入危機。"},
- {en:"The wildfire caused substantial destruction to the forest.",ans:["substantial","destruction"],zh:"野火對森林造成了相當大的破壞。"},
- {en:"Storms in the mountains are unpredictable and can be severe.",ans:["unpredictable","severe"],zh:"山區的暴風雨難以預測，而且可能很猛烈。"},
- {en:"A wet floor is a hazard; if you slip, you might suffer a severe injury.",ans:["hazard","severe"],zh:"濕地板是一種危險；如果你滑倒，可能會受到嚴重的傷。"},
- {en:"Weathering and erosion slowly alter the land.",ans:["Weathering","erosion","alter"],zh:"風化和侵蝕慢慢地改變土地。"},
- {en:"The building did not collapse, but it suffered severe damage.",ans:["collapse","severe"],zh:"這棟建築物沒有倒塌，但是它遭受了嚴重的損害。"},
- {en:"The earthquake was unpredictable, and the destruction was substantial.",ans:["unpredictable","destruction","substantial"],zh:"這場地震難以預測，造成的破壞也相當大。"},
- {en:"Ice on the road is a hazard, so the drivers had to alter their plans.",ans:["hazard","alter"],zh:"路上的冰是一種危險，所以駕駛人必須改變他們的計畫。"}
-];
-
-// ===== 動詞形式填空 =====
-const TF=[
- {en:"The roof ____ (collapse) after the heavy snow.",ans:"collapsed",k:"collapse",zh:"大雪過後，屋頂倒塌了。",why:"after the heavy snow（大雪過後）→ 事情已經發生 → 過去式 collapsed。"},
- {en:"We had to ____ (alter) the time of the game.",ans:"alter",k:"alter",zh:"我們必須改變比賽的時間。",why:"had to 後面一定用原形動詞 → alter。"},
- {en:"Mom ____ (alter) my pants yesterday.",ans:"altered",k:"alter",zh:"媽媽昨天修改了我的褲子。",why:"yesterday（昨天）→ 過去式 altered。"},
- {en:"The old bridge may ____ (collapse) if too many cars go on it.",ans:"collapse",k:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。",why:"may（可能）後面用原形動詞 → collapse。"},
- {en:"The storm last week ____ (cause) great destruction.",ans:"caused",k:"cause",zh:"上週的暴風雨造成了巨大的破壞。",why:"last week（上週）→ 過去式 caused。"},
- {en:"Last year, the company ____ (struggle) to survive the crisis.",ans:"struggled",k:"struggle",zh:"去年，這家公司努力撐過危機。",why:"last year（去年）→ 過去式 struggled。"},
- {en:"Last year, the forest ____ (suffer) destruction because of a wildfire.",ans:"suffered",k:"suffer",zh:"去年，這片森林因為野火而遭受破壞。",why:"last year（去年）→ 過去式 suffered。"},
- {en:"Erosion has slowly ____ (wear) away the riverbank.",ans:"worn",k:"wear away",zh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",why:"has + 過去分詞。wear · wore · worn → has worn away。"}
-];
-
-// ===== 基本工具 =====
-const D={},SURF={},PHR={};
-DICT_RAW.forEach(([k,pos,zh,tier,forms,s])=>{
-  D[k]={k,w:k,pos,zh,tier,forms:forms||""};
-  if(k.includes(" "))PHR[k]=k;
-  (s||[]).forEach(x=>{SURF[x]=k;if(x.includes(" "))PHR[x]=k;});
-});
-Object.assign(SURF,EXTRA_SURF);
-const NW=[];T.forEach(t=>t.nw.forEach(k=>{if(!NW.includes(k))NW.push(k)}));
-const TK=T.map(t=>t.k);
-const NEWS=[];T.forEach(t=>t.news.forEach((n,i)=>NEWS.push({t:t.k,i,...n})));
-// 生字填空題庫：從定義與考卷句子中找出每個生字
-const NB=[];
-T.forEach(t=>[[t.def,t.defZh],[t.sent,t.sentZh]].forEach(([text,zh])=>{
-  t.nw.concat(T.flatMap(x=>x.nw)).filter((k,i,a)=>a.indexOf(k)===i).forEach(k=>{
-    const surf=[k,...Object.keys(SURF).filter(x=>SURF[x]===k)].sort((a,b)=>b.length-a.length);
-    for(const sf of surf){const m=text.match(new RegExp("\\b"+sf.replace(/-/g,"\\-")+"\\b","i"));
-      if(m){if(!NB.some(x=>x.k===k&&x.text===text))NB.push({k,ans:m[0],text,zh,t:t.k});break;}}
-  });
-}));
-const POSZH={"n.":"名詞","v.":"動詞","adj.":"形容詞","adv.":"副詞","phr.":"片語","aux.":"助動詞","prep.":"介系詞","conj.":"連接詞","pron.":"代名詞","art.":"冠詞","num.":"數字"};
-const posZh=p=>p.split(" / ").map(x=>POSZH[x]||x).join(" / ");
-const app=document.getElementById("app");
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
-const sample=(a,n)=>shuffle(a).slice(0,n);
-const tgt=k=>T.find(t=>t.k===k);
-const norm=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/-/g," ").replace(/[.,!?;:"]/g,"").replace(/\s+/g," ").trim();
-const keyOf=s=>{const l=s.toLowerCase();return SURF[l]||(D[l]?l:null);};
-
-// ===== 發音 =====
-let VOICE=null;
-function pickVoice(){try{const vs=speechSynthesis.getVoices();VOICE=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google US|Aria|Jenny|Allison|Ava/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){}}
-if("speechSynthesis" in window){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
-function speak(t,slow){if(!("speechSynthesis" in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";if(VOICE)u.voice=VOICE;u.rate=slow?0.6:0.9;speechSynthesis.speak(u);}catch(e){}}
-
-// ===== 存檔 =====
-const KEY="w5-exam-v1";
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return s;}catch(e){}return{v:1,learn:{},rounds:{},tests:[],unlock:false};}
-let S=load();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
-const LEARN_N=T.length+1;
-const learnCount=()=>Object.keys(S.learn).filter(k=>S.learn[k]).length;
-const learnDone=()=>learnCount()>=LEARN_N;
-const ROUNDS=[
- {id:"r1",ico:"🔤",name:"生字意思",desc:"看英文選中文（全部 "+(TK.length+NW.length)+" 個字）",ids:()=>[...TK,...NW].map(k=>"vm:"+k)},
- {id:"r2",ico:"🤔",name:"句子理解",desc:"每個定義和考卷句子都要懂意思",ids:()=>T.flatMap(t=>["sm:"+t.k+":def","sm:"+t.k+":sent"])},
- {id:"r3",ico:"📖",name:"看定義寫單字",desc:"像考卷 B 部分",ids:()=>TK.map(k=>"dw:"+k)},
- {id:"r4",ico:"✏️",name:"考卷句子填空",desc:"像考卷 C 部分，注意 -ed",ids:()=>TK.map(k=>"fb:"+k)},
- {id:"r5",ico:"🧠",name:"生字背誦拼寫",desc:"看中文寫英文，全部生字都要會",ids:()=>[...TK,...NW].map(k=>"sp:"+k)}
-];
-const roundDone=id=>S.rounds[id]&&S.rounds[id].done;
-const reviewCount=()=>ROUNDS.filter(r=>roundDone(r.id)).length;
-const reviewDone=()=>reviewCount()>=ROUNDS.length;
-
-// ===== 可點選文字 =====
-function wspan(raw,k,o){
-  const e=D[k];
-  if(!o.click)return o.hi===k?`<b class="hi">${esc(raw)}</b>`:esc(raw);
-  const cls="w"+(e.tier==="T"?" wt":e.tier==="N"?" wn":"")+(o.hi===k?" hi":"");
-  return `<span class="${cls}" data-k="${esc(k)}">${esc(raw)}</span>`;
-}
-function rt(text,opt){
-  const o=Object.assign({click:true,hi:null,blank:null},opt||{});
-  text=text.replace(/_{3,}/g,"\u0000");
-  if(o.blank)[].concat(o.blank).forEach(b=>{text=text.replace(new RegExp("\\b"+b+"\\b"),"\u0000");});
-  let bn=0;const multi=Array.isArray(o.blank)&&o.blank.length>1;
-  const toks=text.match(/[A-Za-z]+(?:[-'][A-Za-z]+)*|\u0000|[^A-Za-z\u0000]+/g)||[];
-  let out="";
-  for(let i=0;i<toks.length;i++){
-    const t=toks[i];
-    if(t==="\u0000"){bn++;out+=multi?`<span class="blank num">(${bn})</span>`:'<span class="blank">________</span>';continue;}
-    if(!/^[A-Za-z]/.test(t)){out+=esc(t);continue;}
-    let done=false;
-    for(const n of [3,2]){
-      const idx=[i];
-      while(idx.length<n){const l=idx[idx.length-1];if(toks[l+1]===" "&&toks[l+2]&&/^[A-Za-z]/.test(toks[l+2]))idx.push(l+2);else break;}
-      if(idx.length===n){const ph=idx.map(x=>toks[x].toLowerCase()).join(" ");const k=PHR[ph];
-        if(k){out+=wspan(toks.slice(i,idx[n-1]+1).join(""),k,o);i=idx[n-1];done=true;break;}}
-    }
-    if(done)continue;
-    const k=keyOf(t);out+=k?wspan(t,k,o):esc(t);
-  }
-  return out;
-}
-const spk=(t,slow)=>`<button class="spk" data-say="${esc(t)}"${slow?' data-slow="1"':""} aria-label="發音">${slow?"🐢":"🔊"}</button>`;
-function chunksHtml(ch){return `<div class="chunks">${ch.map(([e,z])=>`<div class="ck"><div class="cke">${rt(e)}</div><div class="ckz">${esc(z)}</div></div>`).join("")}</div>`;}
-function wordInfo(k){const e=D[k];return `<div class="winfo"><div class="wi1"><b>${esc(e.w)}</b> ${spk(e.w)}${spk(e.w,1)} <span class="tag">${e.pos} ${posZh(e.pos)}</span></div><div class="wi2">${esc(e.zh)}</div>${e.forms?`<div class="wi3">${esc(e.forms)}</div>`:""}</div>`;}
-
-// ===== 點字小視窗 =====
-const sheet=document.getElementById("sheet");
-function openSheet(k){
-  const e=D[k];if(!e)return;const t=tgt(k);
-  const tag=e.tier==="T"?'<span class="badge bT">本課單字</span>':e.tier==="N"?'<span class="badge bn">要會背的生字</span>':'<span class="badge bb">基本字</span>';
-  sheet.innerHTML=`<div class="sh-bg"></div><div class="sh">
-   <div class="sh-top">${tag}<button class="x" aria-label="關閉">✕</button></div>
-   <div class="sh-w">${esc(e.w)}</div>
-   <div class="sh-btns"><button class="btn spkbig" data-say="${esc(e.w)}">🔊 發音</button><button class="btn spkbig" data-say="${esc(e.w)}" data-slow="1">🐢 慢速</button></div>
-   <div class="sh-pos">${e.pos}　${posZh(e.pos)}</div>
-   <div class="sh-zh">${esc(e.zh)}</div>
-   ${e.forms?`<div class="sh-f">${esc(e.forms)}</div>`:""}
-   ${t?`<div class="sh-def"><div class="lab">英文定義</div>${esc(t.def)}<div class="zh2">${esc(t.defZh)}</div></div>`:""}
-  </div>`;
-  sheet.classList.remove("hidden");speak(e.w);
-}
-function closeSheet(){sheet.classList.add("hidden");}
-document.addEventListener("click",ev=>{
-  const s=ev.target.closest("[data-say]");if(s){speak(s.dataset.say,!!s.dataset.slow);ev.stopPropagation();return;}
-  const w=ev.target.closest("[data-k]");if(w&&w.classList.contains("w")){openSheet(w.dataset.k);return;}
-  if(ev.target.closest(".x")||ev.target.classList.contains("sh-bg"))closeSheet();
-});
-function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1600);}
-
-// ===== 題目 =====
-function hintOf(w){return w.split("").map((c,i)=>c===" "?"　":c==="-"?"-":i===0?c:"_").join(" ");}
-function buildQ(id){
-  const [ty,a,b]=id.split(":");
-  if(ty==="vm"){const e=D[a];const pool=Object.values(D).filter(x=>x.tier===e.tier&&x.k!==a&&x.zh!==e.zh);
-    return{kind:"mc",prompt:`<div class="qlab">這個字是什麼意思？</div><div class="qword">${esc(e.w)} ${spk(e.w)}</div><div class="qpos">${e.pos} ${posZh(e.pos)}</div>`,
-      opts:shuffle([e.zh,...sample(pool,3).map(x=>x.zh)]),ans:e.zh,say:e.w,autoSay:true,explain:wordInfo(a)};}
-  if(ty==="sm"){
-    let text,zh,pool,ch=null;const t=tgt(a);
-    if(b==="def"){text=t.def;zh=t.defZh;ch=t.defChunks;pool=T.filter(x=>x!==t).map(x=>x.defZh);}
-    else if(b==="sent"){text=t.sent;zh=t.sentZh;ch=t.sentChunks;pool=T.filter(x=>x!==t).map(x=>x.sentZh);}
-    else{const n=t.news[+b.slice(3)];text=n.en;zh=n.zh;pool=NEWS.filter(x=>x.en!==n.en).map(x=>x.zh);}
-    return{kind:"mc",prompt:`<div class="qlab">🤔 這句英文是什麼意思？</div><div class="qsent">${rt(text,{click:false})} ${spk(text)}</div>`,
-      opts:shuffle([zh,...sample(pool,3)]),ans:zh,
-      explain:(ch?chunksHtml(ch):`<div class="qsent">${rt(text)}</div>`)+`<div class="zhline">👉 ${esc(zh)}</div>`};}
-  if(ty==="dw"){const t=tgt(a);
-    return{kind:"type",prompt:`<div class="qlab">📖 看英文定義，寫出是哪個單字（${t.src}）</div><div class="qsent">${rt(t.def,{click:false})}</div>`,
-      ans:t.k,explain:`<div class="qsent">${rt(t.def)}</div><div class="zhline">👉 ${esc(t.defZh)}</div>`+wordInfo(t.k)};}
-  if(ty==="fb"){const t=tgt(a);
-    return{kind:"type",prompt:`<div class="qlab">✏️ 原考卷 C${t.c}：填入正確的單字（注意單字的形式）</div><div class="qsent">${rt(t.sent,{click:false,blank:t.ans})}</div>`,
-      ans:t.ans,explain:`<div class="qsent">${rt(t.sent,{hi:t.k})}</div><div class="zhline">👉 ${esc(t.sentZh)}</div><div class="why">${t.why}</div>`};}
-  if(ty==="nf"){const t=tgt(a),n=t.news[+b];
-    return{kind:"type",prompt:`<div class="qlab">✏️ 新句子填空：填入正確的單字（注意形式）</div><div class="qsent">${rt(n.en,{click:false,blank:n.ans})}</div>`,
-      ans:n.ans,explain:`<div class="qsent">${rt(n.en,{hi:t.k})}</div><div class="zhline">👉 ${esc(n.zh)}</div>`+wordInfo(t.k)};}
-  if(ty==="mb"){const m=MB[+a];const filled=m.en;
-    return{kind:"multi",answers:m.ans,prompt:`<div class="qlab">✏️ 多格填空：每一格都對才得分（注意形式）</div><div class="qsent">${rt(m.en,{click:false,blank:m.ans})}</div>`,
-      explain:`<div class="qsent">${rt(filled)}</div><div class="zhline">👉 ${esc(m.zh)}</div>`+m.ans.map((x,i)=>{const k=keyOf(x);return `<div class="mbx">(${i+1}) <b>${esc(x)}</b>　${k?esc(D[k].zh):""}</div>`;}).join("")};}
-  if(ty==="tf"){const f=TF[+a];const filled=f.en.replace(/_{3,}/,f.ans).replace(/ \([a-z]+\)/,"");
-    return{kind:"type",ans:f.ans,prompt:`<div class="qlab">🔄 動詞形式：用括號裡的字，寫出正確的形式</div><div class="qsent">${rt(f.en,{click:false})}</div>`,
-      explain:`<div class="qsent">${rt(filled)}</div><div class="zhline">👉 ${esc(f.zh)}</div><div class="why">${f.why}</div>`+wordInfo(f.k)};}
-  if(ty==="nb"){const n=NB[+a];const e=D[n.k];
-    return{kind:"type",ans:n.ans,prompt:`<div class="qlab">🆕 生字填空：照中文提示填入生字${norm(n.ans)!==norm(n.k)?"（注意形式）":""}</div><div class="qsent">${rt(n.text,{click:false,blank:n.ans})}</div><div class="hint">中文：${esc(e.zh)}　提示：${esc(hintOf(n.ans))}</div>`,
-      explain:`<div class="qsent">${rt(n.text,{hi:n.k})}</div><div class="zhline">👉 ${esc(n.zh)}</div>`+wordInfo(n.k)};}
-  if(ty==="sp"){const e=D[a];
-    return{kind:"type",prompt:`<div class="qlab">🧠 背背看：寫出英文</div><div class="qzh">${esc(e.zh)}</div><div class="qpos">${e.pos} ${posZh(e.pos)}</div><div class="hint">提示：${esc(hintOf(e.w))}</div>`,
-      ans:e.w,explain:wordInfo(a)};}
-  if(ty==="dict"){const t=tgt(a);
-    return{kind:"dict",prompt:`<div class="qlab">🎧 聽寫：聽發音寫出單字，再選詞性</div><div class="bigspk"><button class="btn spkbig" data-say="${esc(t.k)}">🔊 再聽一次</button><button class="btn spkbig" data-say="${esc(t.k)}" data-slow="1">🐢 慢速</button></div>`,
-      ans:t.k,pos:D[t.k].pos,say:t.k,autoSay:true,explain:wordInfo(t.k)};}
-  if(ty==="cf"){const c=CF[+a];const t=tgt(c.a)||tgt(c.a.replace(/d$/,""));
-    return{kind:"mc",prompt:`<div class="qlab">🔍 分清楚：選出最適合的答案</div><div class="qsent">${esc(c.p)}</div>`,
-      opts:shuffle(c.o.length>4?[c.a,...sample(c.o.filter(x=>x!==c.a),3)]:c.o),ans:c.a,explain:t?wordInfo(t.k):""};}
-}
-const ansShow=q=>q.kind==="dict"?q.ans+"（"+q.pos+"）":q.kind==="multi"?q.answers.map((x,i)=>`(${i+1}) ${x}`).join("　"):q.ans;
-const ansList=q=>q.answers||[q.ans];
-// 常錯字統計
-function keysOfQ(id){const [ty,a]=id.split(":");
-  if(ty==="mb")return MB[+a].ans.map(keyOf).filter(Boolean);
-  if(ty==="tf")return[TF[+a].k];if(ty==="nb")return[NB[+a].k];
-  if(ty==="cf"){const c=CF[+a];const k=keyOf(c.a);return k?[k]:[];}
-  return D[a]?[a]:[];}
-function addMiss(id){S.miss=S.miss||{};keysOfQ(id).forEach(k=>S.miss[k]=(S.miss[k]||0)+1);save();}
-const missOf=k=>(S.miss&&S.miss[k])||0;
-
-function renderQ(box,q,cb,quiet){
-  let h=`<div class="qprompt">${q.prompt}</div>`;
-  if(q.kind==="mc")h+=`<div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join("")}</div>`;
-  else{
-    if(q.kind==="dict")h+=`<div class="posrow">${["n.","v.","adj."].map(p=>`<button class="pos" data-p="${p}">${p}<small>${POSZH[p]}</small></button>`).join("")}</div>`;
-    if(q.kind==="multi")h+=`<div class="mbin">${q.answers.map((_,i)=>`<label class="mbrow"><span>(${i+1})</span><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>`).join("")}</div><button class="btn pri big go">確定</button>`;
-    else h+=`<div class="ansrow"><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="在這裡輸入英文"><button class="btn pri go">確定</button></div>`;
-  }
-  box.innerHTML=h;let done=false;
-  if(q.kind==="mc"){
-    const bs=[...box.querySelectorAll(".opt")];
-    bs.forEach(b=>b.onclick=()=>{if(done)return;done=true;const o=q.opts[+b.dataset.i];const ok=o===q.ans;
-      bs.forEach(x=>x.disabled=true);
-      if(quiet)b.classList.add("sel");else{b.classList.add(ok?"ok":"bad");if(!ok)bs.forEach(x=>{if(q.opts[+x.dataset.i]===q.ans)x.classList.add("ok");});}
-      cb(ok,o);});
-  }else{
-    const ins=[...box.querySelectorAll(".ans")];const inp=ins[0];let pos=null;
-    box.querySelectorAll(".pos").forEach(b=>b.onclick=()=>{if(done)return;pos=b.dataset.p;box.querySelectorAll(".pos").forEach(x=>x.classList.toggle("sel",x===b));});
-    const submit=()=>{if(done)return;
-      if(q.kind==="multi"){const em=ins.find(x=>!x.value.trim());if(em){em.focus();toast("每一格都要填");return;}
-        done=true;ins.forEach(x=>x.disabled=true);box.querySelector(".go").disabled=true;
-        const oks=ins.map((x,i)=>norm(x.value)===norm(q.answers[i]));if(!quiet)ins.forEach((x,i)=>x.classList.add(oks[i]?"ok":"bad"));
-        cb(oks.every(Boolean),ins.map((x,i)=>`(${i+1}) ${x.value.trim()}`).join("　"));return;}
-      const v=inp.value;if(!v.trim()){inp.focus();return;}
-      if(q.kind==="dict"&&!pos){toast("請選詞性 n. / v. / adj.");return;}
-      done=true;inp.disabled=true;box.querySelector(".go").disabled=true;box.querySelectorAll(".pos").forEach(x=>x.disabled=true);
-      let ok=norm(v)===norm(q.ans);if(q.kind==="dict")ok=ok&&pos===q.pos;
-      if(!quiet)inp.classList.add(ok?"ok":"bad");
-      cb(ok,q.kind==="dict"?v.trim()+"（"+pos+"）":v.trim());};
-    box.querySelector(".go").onclick=submit;
-    ins.forEach((x,i)=>x.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();if(i<ins.length-1)ins[i+1].focus();else submit();}});
-    setTimeout(()=>{try{inp.focus({preventScroll:true});}catch(e){}},80);
-  }
-  if(q.autoSay&&q.say)setTimeout(()=>speak(q.say),250);
-}
-
-// 練習模式：答錯會再出現，全部答對才過關
-function runPractice(el,ids,opt){
-  const o=opt||{};let st;
-  if(o.key&&S.rounds[o.key]&&S.rounds[o.key].queue)st=S.rounds[o.key];
-  else{st={queue:shuffle(ids),total:ids.length,cleared:0,wrong:0};if(o.key){S.rounds[o.key]=st;save();}}
-  function next(){
-    if(!st.queue.length){if(o.key){S.rounds[o.key]={done:true,total:st.total,wrong:st.wrong,at:Date.now()};save();}o.onDone&&o.onDone(st);return;}
-    const id=st.queue[0];const q=buildQ(id);
-    const pct=Math.round(st.cleared/st.total*100);
-    el.innerHTML=`<div class="pbar"><div style="width:${pct}%"></div></div><div class="pmeta">${o.label||""} 答對 ${st.cleared} / ${st.total}${st.wrong?` · 答錯過 ${st.wrong} 次`:""}</div><div class="qcard"></div>`;
-    const qc=el.querySelector(".qcard");
-    renderQ(qc,q,(ok,given)=>{
-      if(ok){st.queue.shift();st.cleared++;if(o.key)save();qc.insertAdjacentHTML("beforeend",'<div class="fb good">✅ 答對了！</div>');setTimeout(next,700);}
-      else{st.wrong++;addMiss(id);const cur=st.queue.shift();st.queue.splice(Math.min(3,st.queue.length),0,cur);if(o.key)save();showWrong(qc,q,given,next);}
-    });
-  }
-  next();
-}
-function showWrong(qc,q,given,cont){
-  const typed=q.kind!=="mc";
-  qc.insertAdjacentHTML("beforeend",`<div class="fb badbox">
-    <div class="fbt">❌ 沒關係，這題等一下會再出現</div>
-    ${typed?`<div>你寫的：<s>${esc(given)}</s></div>`:""}
-    <div class="right">正確答案：<b>${esc(ansShow(q))}</b></div>
-    <div class="exp">${q.explain||""}</div>
-    ${typed?`<div class="retype"><div class="lab">照著正確答案打一次，記起來：</div>${ansList(q).map((a,i)=>`<input class="rt" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="${ansList(q).length>1?"("+(i+1)+") ":""}${esc(a)}">`).join("")}</div>`:""}
-    <button class="btn pri big nx" ${typed?"disabled":""}>${typed?"打對了才能繼續":"我懂了，下一題 →"}</button></div>`);
-  const nx=qc.querySelector(".nx");nx.onclick=cont;
-  if(typed){const rs=[...qc.querySelectorAll(".rt")];const al=ansList(q);
-    const chk=()=>{let all=true;rs.forEach((r,i)=>{const ok=norm(r.value)===norm(al[i]);r.classList.toggle("ok",ok);if(!ok)all=false;});nx.disabled=!all;nx.textContent=all?"我記住了，下一題 →":"打對了才能繼續";};
-    rs.forEach((r,i)=>{r.oninput=chk;r.onkeydown=e=>{if(e.key==="Enter"){if(!nx.disabled)cont();else if(rs[i+1])rs[i+1].focus();}};});
-    setTimeout(()=>{try{rs[0].focus({preventScroll:true});}catch(e){}},80);}
-  nx.scrollIntoView({behavior:"smooth",block:"nearest"});
-}
-
-// ===== 測驗 =====
-const SEC={dict:"一、聽寫＋詞性",dw:"二、原考卷 B：看定義寫單字",fb:"三、原考卷 C：句子填空",nf:"四、新句子填空",tf:"五、動詞形式填空",mb:"六、多格填空",nb:"七、生字填空",sm:"句子意思",sp:"生字拼寫",vm:"生字意思",cf:"易混字"};
-// 依常錯程度加權抽題（錯越多次越容易被抽到）
-function wsample(items,n,keysFn){const pool=items.map(x=>({x,w:1+3*keysFn(x).reduce((s,k)=>s+missOf(k),0)}));const out=[];
-  while(out.length<n&&pool.length){let r=Math.random()*pool.reduce((s,p)=>s+p.w,0);let i=0;for(;i<pool.length-1;i++){r-=pool[i].w;if(r<=0)break;}out.push(pool.splice(i,1)[0].x);}
-  return out;}
-function genTest(){
-  const ids=[];
-  wsample(TK,3,k=>[k]).forEach(k=>ids.push("dict:"+k));
-  shuffle(TK).forEach(k=>ids.push("dw:"+k));
-  shuffle(TK).forEach(k=>ids.push("fb:"+k));
-  wsample(NEWS,10,x=>[x.t]).forEach(x=>ids.push("nf:"+x.t+":"+x.i));
-  wsample(TF.map((_,i)=>i),4,i=>[TF[i].k]).forEach(i=>ids.push("tf:"+i));
-  wsample(MB.map((_,i)=>i),8,i=>MB[i].ans.map(keyOf).filter(Boolean)).forEach(i=>ids.push("mb:"+i));
-  const nbk=wsample(NW.filter(k=>NB.some(n=>n.k===k)),5,k=>[k]);
-  nbk.forEach(k=>{const c=NB.map((n,i)=>({n,i})).filter(o=>o.n.k===k);ids.push("nb:"+c[Math.random()*c.length|0].i);});
-  return ids;
-}
-const topMiss=n=>Object.entries(S.miss||{}).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,n);
-let inTest=false;
-function runTest(el){
-  const ids=genTest(),ans=[],t0=Date.now();let i=0;inTest=true;
-  function next(){
-    if(i>=ids.length)return finish();
-    const id=ids[i],q=buildQ(id);
-    el.innerHTML=`<div class="pbar"><div style="width:${i/ids.length*100}%"></div></div><div class="pmeta">第 ${i+1} / ${ids.length} 題 · ${SEC[id.split(":")[0]]}</div><div class="qcard"></div>`;
-    renderQ(el.querySelector(".qcard"),q,(ok,given)=>{ans.push({id,ok,given});i++;setTimeout(next,350);},true);
-  }
-  function finish(){inTest=false;const score=ans.filter(a=>a.ok).length*2;ans.filter(a=>!a.ok).forEach(a=>addMiss(a.id));
-    S.tests.push({at:Date.now(),score,dur:Math.round((Date.now()-t0)/1000),ans});save();go("result",S.tests.length-1);}
-  next();
-}
-
-// ===== 畫面 =====
-function topBar(title,back){return `<header class="bar"><button class="back" onclick="${back||"go('home')"}">‹ 回首頁</button><div class="bt">${title}</div></header>`;}
-function fmtDate(ms){const d=new Date(ms);return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;}
-function fmtDur(s){return Math.floor(s/60)+" 分 "+(s%60)+" 秒";}
-const best=()=>S.tests.length?Math.max(...S.tests.map(t=>t.score)):null;
-
-function go(v,arg){
-  if(inTest&&!confirm("測驗還沒做完，離開的話這次不算分。確定要離開嗎？"))return;
-  inTest=false;closeSheet();window.scrollTo(0,0);
-  ({home:vHome,learn:vLearn,review:vReview,round:vRound,test:vTest,result:vResult,words:vWords,scores:vScores,settings:vSettings,practice:vPractice})[v](arg);
-}
-
-function vHome(){
-  const L=learnCount(),R=reviewCount(),rOpen=learnDone()||S.unlock,tOpen=reviewDone()||S.unlock,b=best();
-  app.innerHTML=`<div class="hero"><div class="h-sm">Week 5 · A World of Change</div><h1>考卷特訓</h1><div class="h-sub">讀懂每一句，記住每一個字</div></div>
-  <div class="steps">
-   <button class="step s1" onclick="go('learn',${Math.min(L,LEARN_N-1)})"><div class="si">📘</div><div class="sb"><div class="sn">1. 學習</div><div class="sd">一張一張讀懂單字、定義、考卷句子</div><div class="mini"><div style="width:${L/LEARN_N*100}%"></div></div><div class="sp">${L} / ${LEARN_N} 張${L>=LEARN_N?" ✅":""}</div></div></button>
-   <button class="step s2 ${rOpen?"":"lock"}" onclick="${rOpen?"go('review')":"toast('先完成全部學習卡才能複習')"}"><div class="si">${rOpen?"🔁":"🔒"}</div><div class="sb"><div class="sn">2. 複習</div><div class="sd">五關，答錯會再出現，全對才過關</div><div class="mini"><div style="width:${R/ROUNDS.length*100}%"></div></div><div class="sp">${R} / ${ROUNDS.length} 關${R>=ROUNDS.length?" ✅":""}</div></div></button>
-   <button class="step s3 ${tOpen?"":"lock"}" onclick="${tOpen?"go('test')":"toast('先完成複習五關才能測驗')"}"><div class="si">${tOpen?"📝":"🔒"}</div><div class="sb"><div class="sn">3. 測驗</div><div class="sd">50 題 100 分，以填空為主，常錯的字會多考</div><div class="sp">已考 ${S.tests.length} 次${b!==null?" · 最高 "+b+" 分":""}</div></div></button>
-  </div>
-  <div class="tools"><button class="tool" onclick="go('words')">📋<span>生字表</span></button><button class="tool" onclick="go('scores')">🏆<span>成績紀錄</span></button><button class="tool" onclick="go('settings')">⚙️<span>設定</span></button></div>
-  <p class="foot">所有英文字都可以點，會出現中文、詞性和發音。<br><span class="lg wt">粗體</span>＝本課單字　<span class="lg wn">底線</span>＝要會背的生字</p>`;
-}
-
-function vLearn(i){
-  i=+i;const nav=`<div class="lnav"><button class="btn" ${i===0?"disabled":""} onclick="go('learn',${i-1})">‹ 上一張</button><div class="dots">${Array.from({length:LEARN_N},(_,j)=>`<span class="${S.learn[j]?"d ok":"d"}${j===i?" cur":""}"></span>`).join("")}</div><button class="btn" ${(i>=LEARN_N-1||!S.learn[i])?"disabled":""} onclick="go('learn',${i+1})">下一張 ›</button></div>`;
-  let body;
-  if(i===T.length){
-    const row=(k,d,c)=>`<tr><td><span class="w wt" data-k="${k}">${k}</span></td><td>${d}</td><td>C${c}</td></tr>`;
-    body=`<div class="card"><h2 class="ctitle">🔍 易混字：這次考卷錯在這裡</h2>
-    <section><h3>1. 五個「壞事」名詞，怎麼分？</h3>
-     <table class="tb"><tr><th>單字</th><th>意思重點</th><th>考卷</th></tr>
-     ${row("hazard","還沒發生，但「可能」讓人受傷的東西",1)}${row("crisis","很困難、很危險的「處境」",9)}${row("destruction","東西被嚴重毀掉的「結果」",3)}${row("weathering","岩石被雨、風、太陽「弄碎」",2)}${row("erosion","碎掉的土石被水或風「慢慢帶走」",5)}</table>
-     <p class="note">順序記法：岩石先被 <b>weathering</b> 弄碎 → 再被 <b>erosion</b> 帶走。野火、地震一下子把東西毀掉 → <b>destruction</b>。</p></section>
-    <section><h3>2. severe 還是 substantial？</h3>
-     <div class="vs"><div><b class="w wt" data-k="severe">severe</b><br>嚴重的（形容<b>壞事</b>）<br><span class="ex">${rt("severe damage, severe weather")}</span></div><div><b class="w wt" data-k="substantial">substantial</b><br><b>數量、大小</b>很大<br><span class="ex">${rt("a substantial amount of money")}</span></div></div></section>
-    <section><h3>3. 看空格位置，就知道要哪一種字</h3>
-     <table class="tb"><tr><th>空格位置</th><th>要放</th></tr>
-     <tr><td>a / the ＿＿</td><td>名詞</td></tr><tr><td>＿＿ ＋ 名詞（＿＿ damage）</td><td>形容詞</td></tr><tr><td>very ＿＿ / can be ＿＿</td><td>形容詞</td></tr><tr><td>to ＿＿ / had to ＿＿</td><td>原形動詞（alter）</td></tr><tr><td>已經發生的事</td><td>過去式（collapsed）</td></tr></table></section>
-    <div id="chk"></div></div>`;
-  }else{
-    const t=T[i],e=D[t.k];
-    body=`<div class="card">
-     <div class="whead"><div><div class="bigword">${t.k}</div><div class="wmeta"><span class="tag">${e.pos} ${posZh(e.pos)}</span><span class="zhbig">${esc(e.zh)}</span></div>${e.forms?`<div class="forms">${esc(e.forms)}</div>`:""}</div><div class="spcol">${spk(t.k)}${spk(t.k,1)}</div></div>
-     <section><h3>📖 英文定義 <small>${t.src}</small></h3><div class="sent">${rt(t.def)} ${spk(t.def)}</div><div class="lab">一段一段看懂：</div>${chunksHtml(t.defChunks)}<div class="zhline">👉 ${esc(t.defZh)}</div></section>
-     <section><h3>✏️ 考卷句子 <small>考卷 C${t.c}</small></h3><div class="sent">${rt(t.sent,{hi:t.k})} ${spk(t.sent)}</div><div class="lab">一段一段看懂：</div>${chunksHtml(t.sentChunks)}<div class="zhline">👉 ${esc(t.sentZh)}</div><div class="why"><b>為什麼是 ${t.ans}？</b><br>${t.why}</div></section>
-     <section><h3>💡 記憶小撇步</h3><p class="tip">${t.tip}</p></section>
-     <section><h3>🆕 這張卡要會背的生字 <small>點一下看意思</small></h3><div class="chips">${t.nw.map(k=>`<button class="chip w" data-k="${esc(k)}">${esc(k)}</button>`).join("")}</div></section>
-     <div id="chk"></div></div>`;
-  }
-  app.innerHTML=topBar(`學習 ${i+1} / ${LEARN_N}`)+body+nav;
-  const chk=document.getElementById("chk");
-  const ids=i===T.length?CF.map((_,j)=>"cf:"+j):["sm:"+T[i].k+":def","sm:"+T[i].k+":sent","vm:"+T[i].k,...T[i].nw.map(k=>"vm:"+k)];
-  const doneHtml=()=>`<div class="done">🎉 這張卡完成了！${i<LEARN_N-1?`<button class="btn pri big" onclick="go('learn',${i+1})">下一張 →</button>`:`<button class="btn pri big" onclick="go('home')">學習全部完成！回首頁開始複習 →</button>`}<button class="btn ghost" id="again">再檢查一次</button></div>`;
-  const startCheck=()=>{chk.innerHTML='<h3 class="chkh">✅ 理解檢查（全部答對才算完成）</h3><div id="pz"></div>';
-    runPractice(document.getElementById("pz"),ids,{label:"檢查",onDone:()=>{S.learn[i]=true;save();chk.innerHTML=doneHtml();bindAgain();
-      vLearnNavRefresh(i);chk.scrollIntoView({behavior:"smooth",block:"center"});}});};
-  const bindAgain=()=>{const a=document.getElementById("again");if(a)a.onclick=startCheck;};
-  if(S.learn[i]){chk.innerHTML=doneHtml();bindAgain();}
-  else{chk.innerHTML=`<button class="btn pri big" id="startchk">我讀懂了，開始理解檢查 ✅</button><p class="note c">每個英文字都可以點。全部看懂了再按，檢查全對這張卡才算完成。</p>`;
-    document.getElementById("startchk").onclick=startCheck;}
-}
-function vLearnNavRefresh(i){const n=document.querySelector(".lnav");if(!n)return;const b=n.querySelectorAll("button")[1];if(b&&i<LEARN_N-1)b.disabled=false;
-  const d=n.querySelectorAll(".d")[i];if(d)d.classList.add("ok");}
-
-function vReview(){
-  app.innerHTML=topBar("複習五關")+`<p class="intro">每一關答錯的題目會再出現，<b>全部答對</b>才過關。中途離開會記住進度。</p>
-  <div class="rlist">${ROUNDS.map((r,j)=>{const st=S.rounds[r.id];const d=st&&st.done;const prog=st&&st.queue?`進行中 ${st.cleared}/${st.total}`:"";const open=j===0||roundDone(ROUNDS[j-1].id)||S.unlock;
-    return `<button class="rr ${d?"rd":""} ${open?"":"lock"}" onclick="${open?`go('round','${r.id}')`:"toast('先過前一關')"}"><div class="ri">${open?r.ico:"🔒"}</div><div class="rb"><div class="rn">第 ${j+1} 關 · ${r.name}</div><div class="rd2">${r.desc}</div>${prog?`<div class="rp">${prog}</div>`:""}</div><div class="rs">${d?"✅":"›"}</div></button>`;}).join("")}</div>`;
-}
-function vRound(id){
-  const r=ROUNDS.find(x=>x.id===id);const st=S.rounds[id];
-  app.innerHTML=topBar(r.ico+" "+r.name,"go('review')")+`<div id="pz" class="pwrap"></div>`;
-  const pz=document.getElementById("pz");
-  const start=()=>runPractice(pz,r.ids(),{key:id,label:r.name,onDone:()=>{const s=S.rounds[id];
-    pz.innerHTML=`<div class="done big">🏅 第 ${ROUNDS.indexOf(r)+1} 關過關！<div class="ds">共 ${s.total} 題全部答對${s.wrong?`（過程中答錯過 ${s.wrong} 次）`:"，一次都沒錯！"}</div><button class="btn pri big" onclick="go('review')">回複習關卡 →</button></div>`;}});
-  if(st&&st.done){pz.innerHTML=`<div class="done big">✅ 這關已經過關了<div class="ds">要再練一次嗎？</div><button class="btn pri big" id="redo">再練一次</button><button class="btn ghost" onclick="go('review')">回複習關卡</button></div>`;
-    document.getElementById("redo").onclick=()=>runPractice(pz,r.ids(),{label:r.name+"（再練）",onDone:()=>{pz.innerHTML=`<div class="done big">👍 再練一次也全對了！<button class="btn pri big" onclick="go('review')">回複習關卡 →</button></div>`;}});
-    return;}
-  start();
-}
-function vPractice(ids){
-  app.innerHTML=topBar("🔁 錯題練習","go('scores')")+`<div id="pz" class="pwrap"></div>`;
-  runPractice(document.getElementById("pz"),ids,{label:"錯題",onDone:()=>{document.getElementById("pz").innerHTML=`<div class="done big">💪 這次的錯題全部練對了！<button class="btn pri big" onclick="go('home')">回首頁</button></div>`;}});
-}
-function vTest(){
-  const b=best();const tm=topMiss(6);
-  app.innerHTML=topBar("📝 測驗")+`<div class="card c">
-   <h2 class="ctitle">準備好了嗎？</h2>
-   <table class="tb"><tr><th>題型</th><th>題數</th></tr>
-   <tr><td>一、聽寫＋詞性</td><td>3</td></tr><tr><td>二、原考卷 B：看定義寫單字</td><td>10</td></tr><tr><td>三、原考卷 C：句子填空</td><td>10</td></tr>
-   <tr><td>四、新句子填空</td><td>10</td></tr><tr><td>五、動詞形式填空（-ed、原形）</td><td>4</td></tr><tr><td>六、多格填空（每格都對才得分）</td><td>8</td></tr><tr><td>七、生字填空</td><td>5</td></tr></table>
-   <p class="note">共 50 題，每題 2 分，滿分 100 分。測驗中不會告訴你對錯，考完才看。原考卷題目每次都考，其他題目每次都不一樣，<b>常錯的字會比較常出現</b>。</p>
-   ${tm.length?`<p class="note">這次會加強：${tm.map(([k])=>`<b>${esc(k)}</b>`).join("、")}</p>`:""}
-   ${b!==null?`<p class="note">目前最高分：<b>${b}</b> 分（考過 ${S.tests.length} 次）</p>`:""}
-   <button class="btn pri big" id="go">開始測驗 🚀</button></div>`;
-  document.getElementById("go").onclick=()=>{app.innerHTML=`<header class="bar"><button class="back" onclick="go('home')">‹ 離開</button><div class="bt">📝 測驗中</div></header><div id="tz" class="pwrap"></div>`;runTest(document.getElementById("tz"));};
-}
-function vResult(n){
-  const r=S.tests[+n];const wrong=r.ans.filter(a=>!a.ok);const prev=S.tests.slice(0,+n).map(t=>t.score);const pb=prev.length?Math.max(...prev):null;
-  const msg=r.score===100?"🏆 滿分！太厲害了！":r.score>=90?"🌟 很棒！只差一點點":r.score>=76?"👍 進步中，把錯的練起來":"💪 再加油，先把錯題練熟";
-  app.innerHTML=topBar("測驗結果")+`<div class="card c"><div class="score ${r.score>=90?"hi":""}">${r.score}<small>分</small></div><div class="msg">${msg}</div>
-   <div class="meta">答對 ${r.ans.length-wrong.length} / ${r.ans.length} 題 · 用時 ${fmtDur(r.dur)}${pb!==null?` · 之前最高 ${pb} 分${r.score>pb?"（新紀錄！）":""}`:""}</div>
-   ${wrong.length?`<button class="btn pri big" id="pw">把這次錯的 ${wrong.length} 題練到全對</button>`:""}
-   <button class="btn" onclick="go('test')">再考一次（新題目）</button></div>
-   ${wrong.length?`<h3 class="sech">❌ 錯的題目（看懂再練）</h3>${wrong.map(a=>{const q=buildQ(a.id);return `<div class="card wr"><div class="sec">${SEC[a.id.split(":")[0]]}</div>${q.prompt.replace(/class="qlab"/,'class="qlab sm"')}<div>你的答案：<s>${esc(a.given)}</s></div><div class="right">正確答案：<b>${esc(ansShow(q))}</b></div><div class="exp">${q.explain}</div></div>`;}).join("")}`:""}`;
-  const pw=document.getElementById("pw");if(pw)pw.onclick=()=>go("practice",wrong.map(a=>a.id));
-}
-function vScores(){
-  const ts=S.tests;const b=best();const avg=ts.length?Math.round(ts.reduce((s,t)=>s+t.score,0)/ts.length):null;const last=ts.slice(-10);
-  app.innerHTML=topBar("🏆 成績紀錄")+(ts.length?`<div class="stats"><div><b>${ts.length}</b><span>考試次數</span></div><div><b>${b}</b><span>最高分</span></div><div><b>${avg}</b><span>平均</span></div></div>
-   <div class="card"><div class="lab">最近 ${last.length} 次</div><div class="chart">${last.map(t=>`<div class="col"><div class="cv">${t.score}</div><div class="cb ${t.score===100?"full":""}" style="height:${Math.max(4,t.score)}%"></div></div>`).join("")}</div></div>
-   ${topMiss(10).length?`<div class="card"><div class="lab">常錯字（複習和測驗累計答錯次數）</div><div class="chips">${topMiss(10).map(([k,n])=>`<button class="chip w" data-k="${esc(k)}">${esc(k)} <small>×${n}</small></button>`).join("")}</div></div>`:""}
-   <div class="card"><table class="tb"><tr><th>#</th><th>時間</th><th>分數</th><th>用時</th><th></th></tr>${ts.map((t,j)=>({t,j})).reverse().map(({t,j})=>`<tr><td>${j+1}</td><td>${fmtDate(t.at)}</td><td><b>${t.score}</b></td><td>${fmtDur(t.dur)}</td><td><button class="lnk" onclick="go('result',${j})">看錯題</button></td></tr>`).join("")}</table></div>`
-   :`<div class="card c"><p>還沒有測驗紀錄。</p><p class="note">完成學習和複習後就可以測驗。</p></div>`);
-}
-function vWords(){
-  let hide=null;
-  const row=k=>{const e=D[k];return `<div class="wrow" data-row="${esc(k)}"><button class="spk" data-say="${esc(k)}">🔊</button><div class="we">${esc(k)}</div><div class="wz">${esc(e.zh)}<small>${e.pos}</small></div></div>`;};
-  app.innerHTML=topBar("📋 生字表")+`<div class="seg"><button data-h="" class="on">全部顯示</button><button data-h="zh">遮中文</button><button data-h="en">遮英文</button></div>
-   <p class="note c">遮住後自己背，點那一行就會打開答案。</p>
-   <h3 class="sech">⭐ 本課單字（${TK.length}）</h3><div class="card wl">${TK.map(row).join("")}</div>
-   <h3 class="sech">🆕 句子裡的生字（${NW.length}）— 都要會背</h3><div class="card wl">${NW.map(row).join("")}</div>`;
-  const seg=app.querySelectorAll(".seg button");
-  seg.forEach(b=>b.onclick=()=>{hide=b.dataset.h;seg.forEach(x=>x.classList.toggle("on",x===b));app.querySelectorAll(".wrow").forEach(r=>{r.classList.remove("hz","he","open");if(hide)r.classList.add(hide==="zh"?"hz":"he");});});
-  app.querySelectorAll(".wrow").forEach(r=>r.onclick=e=>{if(e.target.closest("[data-say]"))return;if(r.classList.contains("hz")||r.classList.contains("he"))r.classList.toggle("open");else openSheet(r.dataset.row);});
-}
-function vSettings(){
-  app.innerHTML=topBar("⚙️ 設定")+`<div class="card"><h3>家長專區</h3>
-   <p class="note">進度和成績存在這台裝置的瀏覽器裡。</p>
-   <button class="btn" id="ul">${S.unlock?"✅ 已解鎖全部（再按一下取消）":"🔓 解鎖全部（不用照順序）"}</button>
-   <button class="btn danger" id="rs">🗑️ 清除全部進度和成績</button></div>`;
-  document.getElementById("ul").onclick=()=>{S.unlock=!S.unlock;save();vSettings();};
-  document.getElementById("rs").onclick=()=>{if(confirm("確定要清除全部學習進度和測驗成績嗎？清除後無法復原。")){S={v:1,learn:{},rounds:{},tests:[],unlock:false};save();go("home");}};
-}
-go("home");
-
-</script>
+<script>function _typeof(t){return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},_typeof(t)}function _createForOfIteratorHelper(t,n){var e="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!e){if(Array.isArray(t)||(e=_unsupportedIterableToArray(t))||n&&t&&"number"==typeof t.length){e&&(t=e);var r=0,o=function(){};return{s:o,n:function(){return r>=t.length?{done:!0}:{done:!1,value:t[r++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,i,c=!0;return{s:function(){e=e.call(t)},n:function(){c=!0;var t=e.next();return t.done?{done:!0}:{value:t.value,done:c=!1}},e:function(t){a=!0,i=t},f:function(){try{c||null==e.return||e.return()}finally{if(a)throw i}}}}function _toConsumableArray(t){return _arrayWithoutHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableSpread()}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _arrayWithoutHoles(t){if(Array.isArray(t))return _arrayLikeToArray(t)}function ownKeys(t,n){var e=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);n&&(r=r.filter(function(n){return Object.getOwnPropertyDescriptor(t,n).enumerable})),e.push.apply(e,r)}return e}function _objectSpread(t){for(var n=1;n<arguments.length;n++){var e=null!=arguments[n]?arguments[n]:{};n%2?ownKeys(Object(e),!0).forEach(function(n){_defineProperty(t,n,e[n])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(e)):ownKeys(Object(e)).forEach(function(n){Object.defineProperty(t,n,Object.getOwnPropertyDescriptor(e,n))})}return t}function _defineProperty(t,n,e){return(n=_toPropertyKey(n))in t?Object.defineProperty(t,n,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[n]=e,t}function _toPropertyKey(t){var n=_toPrimitive(t,"string");return"symbol"==_typeof(n)?n:n+""}function _toPrimitive(t,n){if("object"!=_typeof(t)||!t)return t;var e;if("undefined"!=typeof Symbol&&void 0!==(e=t[Symbol.toPrimitive])){var r=e.call(t,n||"default");if("object"!=_typeof(r))return r;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===n?String:Number)(t)}function _slicedToArray(t,n){return _arrayWithHoles(t)||_iterableToArrayLimit(t,n)||_unsupportedIterableToArray(t,n)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(t,n){if(t){if("string"==typeof t)return _arrayLikeToArray(t,n);var e={}.toString.call(t).slice(8,-1);return"Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?_arrayLikeToArray(t,n):void 0}}function _arrayLikeToArray(t,n){(null==n||n>t.length)&&(n=t.length);for(var e=0,r=Array(n);e<n;e++)r[e]=t[e];return r}function _iterableToArrayLimit(t,n){var e=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=e){var r,o,a,i,c=[],s=!0,u=!1;try{if(a=(e=e.call(t)).next,0===n){if(Object(e)!==e)return;s=!1}else for(;!(s=(r=a.call(e)).done)&&(c.push(r.value),c.length!==n);s=!0);}catch(t){u=!0,o=t}finally{try{if(!s&&null!=e.return&&(i=e.return(),Object(i)!==i))return}finally{if(u)throw o}}return c}}function _arrayWithHoles(t){if(Array.isArray(t))return t}!function(t){"use strict";var n,e,r;n=[function(t,n,e){e(1),e(100),e(101),e(102),e(103),e(104),e(105),e(106),e(107),e(108),e(109),e(110),e(111),e(112),e(113),e(114),e(115),e(116),e(119),e(120),e(121),e(123),e(124),e(127),e(137),e(138),e(149),e(150),e(152),e(154),e(155),e(156),e(166),e(170),e(171),e(173),e(177),e(178),e(179),e(183),e(186),e(189),t.exports=e(194)},function(t,n,e){e(2),e(91),e(93),e(94),e(99)},function(n,e,r){var o=r(3),a=r(4),i=r(8),c=r(14),s=r(36),u=r(6),l=r(26),f=r(7),d=r(38),v=r(24),p=r(46),h=r(12),b=r(18),y=r(68),g=r(11),m=r(71),w=r(73),k=r(57),S=r(75),x=r(66),T=r(5),O=r(44),j=r(72),B=r(10),_=r(47),E=r(77),A=r(34),N=r(53),z=r(54),L=r(40),C=r(33),I=r(78),M=r(79),P=r(81),R=r(82),D=r(51),q=r(83).forEach,F=N("hidden"),W="Symbol",H="prototype",Z=D.set,U=D.getterFor(W),K=Object[H],V=a.Symbol,J=V&&V[H],G=a.RangeError,$=a.TypeError,Q=a.QObject,Y=T.f,X=O.f,tt=S.f,nt=B.f,et=c([].push),rt=A("symbols"),ot=A("op-symbols"),at=A("wks"),it=!Q||!Q[H]||!Q[H].findChild,ct=function(t,n,e){var r=Y(K,n);return r&&delete K[n],X(t,n,e),r&&t!==K&&X(K,n,r),t},st=u&&f(function(){return 7!==m(X({},"a",{get:function(){return X(this,"a",{value:7}).a}})).a})?ct:X,ut=function(t,n){var e=rt[t]=m(J);return Z(e,{type:W,tag:t,description:n}),u||(e.description=n),e},lt=function(t,n,e){t===K&&lt(ot,n,e),p(t);var r=b(n);return p(e),d(rt,r)?(("enumerable"in e?!e.enumerable:!d(t,r)||d(t,F)&&t[F][r])?(d(t,F)||X(t,F,g(1,m(null))),t[F][r]=!0):(d(t,F)&&t[F][r]&&(t[F][r]=!1),e=m(e,{enumerable:g(0,!1)})),st(t,r,e)):X(t,r,e)},ft=function(t,n){p(t);var e=h(n),r=w(e).concat(ht(e));return q(r,function(n){u&&!i(dt,e,n)||lt(t,n,e[n])}),t},dt=function(t){var n=b(t),e=i(nt,this,n);return!(this===K&&d(rt,n)&&!d(ot,n))&&(!(e||!d(this,n)||!d(rt,n)||d(this,F)&&this[F][n])||e)},vt=function(t,n){var e=h(t),r=b(n);if(e!==K||!d(rt,r)||d(ot,r)){var o=Y(e,r);return!o||!d(rt,r)||d(e,F)&&e[F][r]||(o.enumerable=!0),o}},pt=function(t){var n=tt(h(t)),e=[];return q(n,function(t){d(rt,t)||d(z,t)||et(e,t)}),e},ht=function(t){var n=t===K,e=tt(n?ot:h(t)),r=[];return q(e,function(t){!d(rt,t)||n&&!d(K,t)||et(r,rt[t])}),r};l||(V=function(){if(v(J,this))throw new $("Symbol is not a constructor");var n=arguments.length&&arguments[0]!==t?y(arguments[0]):t,e=L(n),r=function(n){var o=this===t?a:this;o===K&&i(r,ot,n),d(o,F)&&d(o[F],e)&&(o[F][e]=!1);var c=g(1,n);try{st(o,e,c)}catch(s){if(!(s instanceof G))throw s;ct(o,e,c)}};return u&&it&&st(K,e,{configurable:!0,set:r}),ut(e,n)},_(J=V[H],"toString",function(){return U(this).tag}),_(V,"withoutSetter",function(t){return ut(L(t),t)}),B.f=dt,O.f=lt,j.f=ft,T.f=vt,k.f=S.f=pt,x.f=ht,I.f=function(t){return ut(C(t),t)},u&&(E(J,"description",{configurable:!0,get:function(){return U(this).description}}),s||_(K,"propertyIsEnumerable",dt,{unsafe:!0}))),o({global:!0,constructor:!0,wrap:!0,forced:!l,sham:!l},{Symbol:V}),q(w(at),function(t){M(t)}),o({target:W,stat:!0,forced:!l},{useSetter:function(){it=!0},useSimple:function(){it=!1}}),o({target:"Object",stat:!0,forced:!l,sham:!u},{create:function(n,e){return e===t?m(n):ft(m(n),e)},defineProperty:lt,defineProperties:ft,getOwnPropertyDescriptor:vt}),o({target:"Object",stat:!0,forced:!l},{getOwnPropertyNames:pt}),P(),R(V,W),z[F]=!0},function(n,e,r){var o=r(4),a=r(5).f,i=r(43),c=r(47),s=r(37),u=r(55),l=r(67);n.exports=function(n,e){var r,f,d,v,p,h=n.target,b=n.global,y=n.stat;if(r=b?o:y?o[h]||s(h,{}):o[h]&&o[h].prototype)for(f in e){if(v=e[f],d=n.dontCallGetSet?(p=a(r,f))&&p.value:r[f],!l(b?f:h+(y?".":"#")+f,n.forced)&&d!==t){if(typeof v==typeof d)continue;u(v,d)}(n.sham||d&&d.sham)&&i(v,"sham",!0),c(r,f,v,n)}}},function(t,n,e){var r=function(t){return t&&t.Math===Math&&t};t.exports=r("object"==typeof globalThis&&globalThis)||r("object"==typeof window&&window)||r("object"==typeof self&&self)||r("object"==typeof global&&global)||r("object"==typeof this&&this)||function(){return this}()||Function("return this")()},function(t,n,e){var r=e(6),o=e(8),a=e(10),i=e(11),c=e(12),s=e(18),u=e(38),l=e(41),f=Object.getOwnPropertyDescriptor;n.f=r?f:function(t,n){if(t=c(t),n=s(n),l)try{return f(t,n)}catch(e){}if(u(t,n))return i(!o(a.f,t,n),t[n])}},function(t,n,e){var r=e(7);t.exports=!r(function(){return 7!==Object.defineProperty({},1,{get:function(){return 7}})[1]})},function(t,n,e){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n,e){var r=e(9),o=Function.prototype.call;t.exports=r?o.bind(o):function(){return o.apply(o,arguments)}},function(t,n,e){var r=e(7);t.exports=!r(function(){var t=function(){}.bind();return"function"!=typeof t||t.hasOwnProperty("prototype")})},function(t,n,e){var r={}.propertyIsEnumerable,o=Object.getOwnPropertyDescriptor,a=o&&!r.call({1:2},1);n.f=a?function(t){var n=o(this,t);return!!n&&n.enumerable}:r},function(t,n,e){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,e){var r=e(13),o=e(16);t.exports=function(t){return r(o(t))}},function(t,n,e){var r=e(14),o=e(7),a=e(15),i=Object,c=r("".split);t.exports=o(function(){return!i("z").propertyIsEnumerable(0)})?function(t){return"String"===a(t)?c(t,""):i(t)}:i},function(t,n,e){var r=e(9),o=Function.prototype,a=o.call,i=r&&o.bind.bind(a,a);t.exports=r?i:function(t){return function(){return a.apply(t,arguments)}}},function(t,n,e){var r=e(14),o=r({}.toString),a=r("".slice);t.exports=function(t){return a(o(t),8,-1)}},function(t,n,e){var r=e(17),o=TypeError;t.exports=function(t){if(r(t))throw new o("Can't call method on "+t);return t}},function(n,e,r){n.exports=function(n){return null===n||n===t}},function(t,n,e){var r=e(19),o=e(22);t.exports=function(t){var n=r(t,"string");return o(n)?n:n+""}},function(n,e,r){var o=r(8),a=r(20),i=r(22),c=r(29),s=r(32),u=r(33),l=TypeError,f=u("toPrimitive");n.exports=function(n,e){if(!a(n)||i(n))return n;var r,u=c(n,f);if(u){if(e===t&&(e="default"),r=o(u,n,e),!a(r)||i(r))return r;throw new l("Can't convert object to primitive value")}return e===t&&(e="number"),s(n,e)}},function(t,n,e){var r=e(21);t.exports=function(t){return"object"==typeof t?null!==t:r(t)}},function(n,e,r){var o="object"==typeof document&&document.all;n.exports=void 0===o&&o!==t?function(t){return"function"==typeof t||t===o}:function(t){return"function"==typeof t}},function(t,n,e){var r=e(23),o=e(21),a=e(24),i=e(25),c=Object;t.exports=i?function(t){return"symbol"==typeof t}:function(t){var n=r("Symbol");return o(n)&&a(n.prototype,c(t))}},function(n,e,r){var o=r(4),a=r(21);n.exports=function(n,e){return arguments.length<2?(r=o[n],a(r)?r:t):o[n]&&o[n][e];var r}},function(t,n,e){var r=e(14);t.exports=r({}.isPrototypeOf)},function(t,n,e){var r=e(26);t.exports=r&&!Symbol.sham&&"symbol"==typeof Symbol.iterator},function(t,n,e){var r=e(27),o=e(7),a=e(4).String;t.exports=!!Object.getOwnPropertySymbols&&!o(function(){var t=Symbol("symbol detection");return!a(t)||!(Object(t)instanceof Symbol)||!Symbol.sham&&r&&r<41})},function(t,n,e){var r,o,a=e(4),i=e(28),c=a.process,s=a.Deno,u=c&&c.versions||s&&s.version,l=u&&u.v8;l&&(o=(r=l.split("."))[0]>0&&r[0]<4?1:+(r[0]+r[1])),!o&&i&&(!(r=i.match(/Edge\/(\d+)/))||r[1]>=74)&&(r=i.match(/Chrome\/(\d+)/))&&(o=+r[1]),t.exports=o},function(t,n,e){var r=e(4).navigator,o=r&&r.userAgent;t.exports=o?String(o):""},function(n,e,r){var o=r(30),a=r(17);n.exports=function(n,e){var r=n[e];return a(r)?t:o(r)}},function(t,n,e){var r=e(21),o=e(31),a=TypeError;t.exports=function(t){if(r(t))return t;throw new a(o(t)+" is not a function")}},function(t,n,e){var r=String;t.exports=function(t){try{return r(t)}catch(n){return"Object"}}},function(t,n,e){var r=e(8),o=e(21),a=e(20),i=TypeError;t.exports=function(t,n){var e,c;if("string"===n&&o(e=t.toString)&&!a(c=r(e,t)))return c;if(o(e=t.valueOf)&&!a(c=r(e,t)))return c;if("string"!==n&&o(e=t.toString)&&!a(c=r(e,t)))return c;throw new i("Can't convert object to primitive value")}},function(t,n,e){var r=e(4),o=e(34),a=e(38),i=e(40),c=e(26),s=e(25),u=r.Symbol,l=o("wks"),f=s?u.for||u:u&&u.withoutSetter||i;t.exports=function(t){return a(l,t)||(l[t]=c&&a(u,t)?u[t]:f("Symbol."+t)),l[t]}},function(t,n,e){var r=e(35),o=Object.create||Object;t.exports=function(t,n){return r[t]||(r[t]=n||o(null))}},function(t,n,e){var r=e(36),o=e(4),a=e(37),i="__core-js_shared__",c=t.exports=o[i]||a(i,{});(c.versions||(c.versions=[])).push({version:"3.50.0",mode:r?"pure":"global",copyright:"© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.",license:"https://github.com/zloirock/core-js/blob/v3.50.0/LICENSE",source:"https://github.com/zloirock/core-js"})},function(t,n,e){t.exports=!1},function(t,n,e){var r=e(4),o=Object.defineProperty;t.exports=function(t,n){try{o(r,t,{value:n,configurable:!0,writable:!0})}catch(e){r[t]=n}return n}},function(t,n,e){var r=e(14),o=e(39),a=r({}.hasOwnProperty);t.exports=Object.hasOwn||function(t,n){return a(o(t),n)}},function(t,n,e){var r=e(16),o=Object;t.exports=function(t){return o(r(t))}},function(n,e,r){var o=r(14),a=0,i=Math.random(),c=o(1.1.toString);n.exports=function(n){return"Symbol("+(n===t?"":n)+")_"+c(++a+i,36)}},function(t,n,e){var r=e(6),o=e(7),a=e(42);t.exports=!r&&!o(function(){return 7!==Object.defineProperty(a("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(4),o=e(20),a=r.document,i=o(a)&&o(a.createElement);t.exports=function(t){return i?a.createElement(t):{}}},function(t,n,e){var r=e(6),o=e(44),a=e(11);t.exports=r?function(t,n,e){return o.f(t,n,a(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(6),o=e(41),a=e(45),i=e(46),c=e(18),s=TypeError,u=Object.defineProperty,l=Object.getOwnPropertyDescriptor,f="enumerable",d="configurable",v="writable";n.f=r?a?function(t,n,e){if(i(t),n=c(n),i(e),"function"==typeof t&&"prototype"===n&&"value"in e&&v in e&&!e[v]){var r=l(t,n);r&&r[v]&&(t[n]=e.value,e={configurable:d in e?e[d]:r[d],enumerable:f in e?e[f]:r[f],writable:!1})}return u(t,n,e)}:u:function(t,n,e){if(i(t),n=c(n),i(e),o)try{return u(t,n,e)}catch(r){}if("get"in e||"set"in e)throw new s("Accessors not supported");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(6),o=e(7);t.exports=r&&o(function(){return 42!==Object.defineProperty(function(){},"prototype",{value:42,writable:!1}).prototype})},function(t,n,e){var r=e(20),o=String,a=TypeError;t.exports=function(t){if(r(t))return t;throw new a(o(t)+" is not an object")}},function(n,e,r){var o=r(21),a=r(44),i=r(48),c=r(37);n.exports=function(n,e,r,s){s||(s={});var u=s.enumerable,l=s.name!==t?s.name:e;if(o(r)&&i(r,l,s),s.global)u?n[e]=r:c(e,r);else{try{s.unsafe?n[e]&&(u=!0):delete n[e]}catch(f){}u?n[e]=r:a.f(n,e,{value:r,enumerable:!1,configurable:!s.nonConfigurable,writable:!s.nonWritable})}return n}},function(n,e,r){var o=r(14),a=r(7),i=r(21),c=r(38),s=r(6),u=r(49).CONFIGURABLE,l=r(50),f=r(51),d=f.enforce,v=f.get,p=String,h=Object.defineProperty,b=o("".slice),y=o("".replace),g=o([].join),m=s&&!a(function(){return 8!==h(function(){},"length",{value:8}).length}),w=String(String).split("String"),k=n.exports=function(n,e,r){"Symbol("===b(p(e),0,7)&&(e="["+y(p(e),/^Symbol\(([^)]*)\).*$/,"$1")+"]"),r&&r.getter&&(e="get "+e),r&&r.setter&&(e="set "+e),(!c(n,"name")||u&&n.name!==e)&&(s?h(n,"name",{value:e,configurable:!0}):n.name=e),m&&r&&c(r,"arity")&&n.length!==r.arity&&h(n,"length",{value:r.arity});try{r&&c(r,"constructor")&&r.constructor?s&&h(n,"prototype",{writable:!1}):n.prototype&&(n.prototype=t)}catch(a){}var o=d(n);return c(o,"source")||(o.source=g(w,"string"==typeof e?e:"")),n};Function.prototype.toString=k(function(){return i(this)&&v(this).source||l(this)},"toString")},function(t,n,e){var r=e(6),o=e(38),a=Function.prototype,i=r&&Object.getOwnPropertyDescriptor,c=o(a,"name"),s=c&&"something"===function(){}.name,u=c&&(!r||r&&i(a,"name").configurable);t.exports={EXISTS:c,PROPER:s,CONFIGURABLE:u}},function(t,n,e){var r=e(14),o=e(21),a=e(35),i=r(Function.toString);o(a.inspectSource)||(a.inspectSource=function(t){return i(t)}),t.exports=a.inspectSource},function(t,n,e){var r,o,a,i=e(52),c=e(4),s=e(20),u=e(43),l=e(38),f=e(35),d=e(53),v=e(54),p="Object already initialized",h=c.TypeError,b=c.WeakMap;if(i||f.state){var y=f.state||(f.state=new b);y.get=y.get,y.has=y.has,y.set=y.set,r=function(t,n){if(y.has(t))throw new h(p);return n.facade=t,y.set(t,n),n},o=function(t){return y.get(t)||{}},a=function(t){return y.has(t)}}else{var g=d("state");v[g]=!0,r=function(t,n){if(l(t,g))throw new h(p);return n.facade=t,u(t,g,n),n},o=function(t){return l(t,g)?t[g]:{}},a=function(t){return l(t,g)}}t.exports={set:r,get:o,has:a,enforce:function(t){return a(t)?o(t):r(t,{})},getterFor:function(t){return function(n){var e;if(!s(n)||(e=o(n)).type!==t)throw new h("Incompatible receiver, "+t+" required");return e}}}},function(t,n,e){var r=e(4),o=e(21),a=r.WeakMap;t.exports=o(a)&&/native code/.test(String(a))},function(t,n,e){var r=e(34),o=e(40),a=r("keys");t.exports=function(t){return a[t]||(a[t]=o(t))}},function(t,n,e){t.exports={}},function(t,n,e){var r=e(38),o=e(56),a=e(5),i=e(44);t.exports=function(t,n,e){for(var c=o(n),s=i.f,u=a.f,l=0;l<c.length;l++){var f=c[l];r(t,f)||e&&r(e,f)||s(t,f,u(n,f))}}},function(t,n,e){var r=e(23),o=e(14),a=e(57),i=e(66),c=e(46),s=o([].concat);t.exports=r("Reflect","ownKeys")||function(t){var n=a.f(c(t)),e=i.f;return e?s(n,e(t)):n}},function(t,n,e){var r=e(58),o=e(65).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n,e){var r=e(14),o=e(38),a=e(12),i=e(59).indexOf,c=e(54),s=r([].push);t.exports=function(t,n){var e,r=a(t),u=0,l=[];for(e in r)!o(c,e)&&o(r,e)&&s(l,e);for(;n.length>u;)o(r,e=n[u++])&&(~i(l,e)||s(l,e));return l}},function(t,n,e){var r=e(12),o=e(60),a=e(63),i=function(t){return function(n,e,i){var c=r(n),s=a(c);if(0===s)return!t&&-1;var u,l=o(i,s);if(t&&e!=e){for(;s>l;)if((u=c[l++])!=u)return!0}else for(;s>l;l++)if((t||l in c)&&c[l]===e)return t||l||0;return!t&&-1}};t.exports={includes:i(!0),indexOf:i(!1)}},function(t,n,e){var r=e(61),o=Math.max,a=Math.min;t.exports=function(t,n){var e=r(t);return e<0?o(e+n,0):a(e,n)}},function(t,n,e){var r=e(62);t.exports=function(t){var n=+t;return n!=n||0===n?0:r(n)}},function(t,n,e){var r=Math.ceil,o=Math.floor;t.exports=Math.trunc||function(t){var n=+t;return(n>0?o:r)(n)}},function(t,n,e){var r=e(64);t.exports=function(t){return r(t.length)}},function(t,n,e){var r=e(61),o=Math.min;t.exports=function(t){var n=r(t);return n>0?o(n,9007199254740991):0}},function(t,n,e){t.exports=["constructor","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","toLocaleString","toString","valueOf"]},function(t,n,e){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(7),o=e(21),a=/#|\.prototype\./,i=function(t,n){var e=s[c(t)];return e===l||e!==u&&(o(n)?r(n):!!n)},c=i.normalize=function(t){return String(t).replace(a,".").toLowerCase()},s=i.data={},u=i.NATIVE="N",l=i.POLYFILL="P";t.exports=i},function(t,n,e){var r=e(69),o=String;t.exports=function(t){if("Symbol"===r(t))throw new TypeError("Cannot convert a Symbol value to a string");return o(t)}},function(n,e,r){var o=r(70),a=r(21),i=r(15),c=r(33)("toStringTag"),s=Object,u="Arguments"===i(function(){return arguments}());n.exports=o?i:function(n){var e,r,o;return n===t?"Undefined":null===n?"Null":"string"==typeof(r=function(t,n){try{return t[n]}catch(e){}}(e=s(n),c))?r:u?i(e):"Object"===(o=i(e))&&a(e.callee)?"Arguments":o}},function(t,n,e){var r={};r[e(33)("toStringTag")]="z",t.exports="[object z]"===String(r)},function(n,e,r){var o,a=r(46),i=r(72),c=r(65),s=r(54),u=r(74),l=r(42),f=r(53),d="prototype",v="script",p=f("IE_PROTO"),h=function(){},b=function(t){return"<"+v+">"+t+"</"+v+">"},y=function(t){t.write(b("")),t.close();var n=t.parentWindow.Object;return t=null,n},g=function(){try{o=new ActiveXObject("htmlfile")}catch(a){}var t,n,e;g="undefined"!=typeof document?document.domain&&o?y(o):(n=l("iframe"),e="java"+v+":",n.style.display="none",u.appendChild(n),n.src=String(e),(t=n.contentWindow.document).open(),t.write(b("document.F=Object")),t.close(),t.F):y(o);for(var r=c.length;r--;)delete g[d][c[r]];return g()};s[p]=!0,n.exports=Object.create||function(n,e){var r;return null!==n?(h[d]=a(n),r=new h,h[d]=null,r[p]=n):r=g(),e===t?r:i.f(r,e)}},function(t,n,e){var r=e(6),o=e(45),a=e(44),i=e(46),c=e(12),s=e(73);n.f=r&&!o?Object.defineProperties:function(t,n){i(t);for(var e,r=c(n),o=s(n),u=o.length,l=0;u>l;)a.f(t,e=o[l++],r[e]);return t}},function(t,n,e){var r=e(58),o=e(65);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(23);t.exports=r("document","documentElement")},function(t,n,e){var r=e(15),o=e(12),a=e(57).f,i=e(76),c="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[];t.exports.f=function(t){return c&&"Window"===r(t)?function(t){try{return a(t)}catch(n){return i(c)}}(t):a(o(t))}},function(t,n,e){var r=e(14);t.exports=r([].slice)},function(t,n,e){var r=e(48),o=e(44);t.exports=function(t,n,e){return e.get&&r(e.get,n,{getter:!0}),e.set&&r(e.set,n,{setter:!0}),o.f(t,n,e)}},function(t,n,e){var r=e(33);n.f=r},function(t,n,e){var r=e(80),o=e(38),a=e(78),i=e(44).f;t.exports=function(t){var n=r.Symbol||(r.Symbol={});o(n,t)||i(n,t,{value:a.f(t)})}},function(t,n,e){var r=e(4);t.exports=r},function(t,n,e){var r=e(8),o=e(23),a=e(33),i=e(47);t.exports=function(){var t=o("Symbol"),n=t&&t.prototype,e=n&&n.valueOf,c=a("toPrimitive");n&&!n[c]&&i(n,c,function(t){return r(e,this)},{arity:1})}},function(t,n,e){var r=e(44).f,o=e(38),a=e(33)("toStringTag");t.exports=function(t,n,e){t&&!e&&(t=t.prototype),t&&!o(t,a)&&r(t,a,{configurable:!0,value:n})}},function(n,e,r){var o=r(84),a=r(13),i=r(39),c=r(63),s=r(86),u=r(90),l=function(n){var e=1===n,r=2===n,l=3===n,f=4===n,d=6===n,v=7===n,p=5===n||d;return function(h,b,y){for(var g,m,w=i(h),k=a(w),S=c(k),x=o(b,y),T=0,O=0,j=e?s(h,S):r||v?s(h,0):t;S>T;T++)if((p||T in k)&&(m=x(g=k[T],T,w),n))if(e)u(j,T,m);else if(m)switch(n){case 3:return!0;case 5:return g;case 6:return T;case 2:u(j,O++,g)}else switch(n){case 4:return!1;case 7:u(j,O++,g)}return d?-1:l||f?f:j}};n.exports={forEach:l(0),map:l(1),filter:l(2),some:l(3),every:l(4),find:l(5),findIndex:l(6),filterReject:l(7)}},function(n,e,r){var o=r(85),a=r(30),i=r(9),c=o(o.bind);n.exports=function(n,e){return a(n),e===t?n:i?c(n,e):function(){return n.apply(e,arguments)}}},function(t,n,e){var r=e(15),o=e(14);t.exports=function(t){if("Function"===r(t))return o(t)}},function(t,n,e){var r=e(87);t.exports=function(t,n){return new(r(t))(0===n?0:n)}},function(n,e,r){var o=r(88),a=r(89),i=r(20),c=r(33)("species"),s=Array;n.exports=function(n){var e;return o(n)&&(e=n.constructor,(a(e)&&(e===s||o(e.prototype))||i(e)&&null===(e=e[c]))&&(e=t)),e===t?s:e}},function(t,n,e){var r=e(15);t.exports=Array.isArray||function(t){return"Array"===r(t)}},function(t,n,e){var r=e(14),o=e(7),a=e(21),i=e(69),c=e(23),s=e(50),u=function(){},l=c("Reflect","construct"),f=/^\s*(?:class|function)\b/,d=r(f.exec),v=!f.test(u),p=function(t){if(!a(t))return!1;try{return l(u,[],t),!0}catch(n){return!1}},h=function(t){if(!a(t))return!1;switch(i(t)){case"AsyncFunction":case"GeneratorFunction":case"AsyncGeneratorFunction":return!1}try{return v||!!d(f,s(t))}catch(n){return!0}};h.sham=!0,t.exports=!l||o(function(){var t;return p(p.call)||!p(Object)||!p(function(){t=!0})||t})?h:p},function(t,n,e){var r=e(6),o=e(44),a=e(11);t.exports=function(t,n,e){r?o.f(t,n,a(0,e)):t[n]=e}},function(t,n,e){var r=e(3),o=e(23),a=e(38),i=e(68),c=e(34),s=e(92),u=c("string-to-symbol-registry"),l=c("symbol-to-string-registry");r({target:"Symbol",stat:!0,forced:!s},{for:function(t){var n=i(t);if(a(u,n))return u[n];var e=o("Symbol")(n);return u[n]=e,l[e]=n,e}})},function(t,n,e){var r=e(26);t.exports=r&&!!Symbol.for&&!!Symbol.keyFor},function(t,n,e){var r=e(3),o=e(38),a=e(22),i=e(31),c=e(34),s=e(92),u=c("symbol-to-string-registry");r({target:"Symbol",stat:!0,forced:!s},{keyFor:function(t){if(!a(t))throw new TypeError(i(t)+" is not a symbol");if(o(u,t))return u[t]}})},function(n,e,r){var o=r(3),a=r(23),i=r(8),c=r(14),s=r(7),u=r(88),l=r(21),f=r(20),d=r(71),v=r(95),p=r(22),h=r(15),b=r(96),y=r(59).includes,g=r(38),m=r(68),w=r(97),k=r(40),S=r(26),x=r(98),T=String,O=TypeError,j=a("JSON","stringify"),B=a("BigInt"),_=c("".valueOf),E=c((!0).valueOf),A=B&&c(B.prototype.valueOf),N=c(/./.exec),z=c("".charAt),L=c("".charCodeAt),C=c("".replace),I=c("".slice),M=c([].push),P=c([].pop),R=c(1.1.toString),D=/[\uD800-\uDFFF]/g,q=/^[\uD800-\uDBFF]$/,F=/^[\uDC00-\uDFFF]$/,W=/^\d+$/,H=k(),Z=k(),U=k(),K=H.length,V=Z.length,J=!S||s(function(){var t=a("Symbol")("stringify detection");return"[null]"!==j([t])||"{}"!==j({a:t})||"{}"!==j(Object(t))}),G=s(function(){return'"\\udf06\\ud834"'!==j("\udf06\ud834")||'"\\udead"'!==j("\udead")}),$=x?a("JSON","isRawJSON"):v,Q=J?function(t,n,e){return j(t,function(t,e){var r=i(n,this,t,e);if(!p(r))return r},e)}:j,Y=function(t,n,e){var r=z(e,n-1),o=z(e,n+1);return N(q,t)&&!N(F,o)||N(F,t)&&!N(q,r)?"\\u"+R(L(t,0),16):t},X=function(t,n){try{return t(n),!0}catch(e){return!1}},tt=function(t,n){return{toJSON:function(){var e=t[n];if(f(e)||"bigint"==typeof e){var r=e.toJSON;l(r)&&(e=i(r,e,n))}return e}}};j&&o({target:"JSON",stat:!0,arity:3,forced:J||G||!x},{stringify:function(n,e,r){var o,a=l(e)?e:t,c=a?t:function(t){if(u(t)){for(var n=t.length,e=[],r=d(null),o=0;o<n;o++){var a,i=t[o];if("string"==typeof i)a=i;else{if("number"!=typeof i&&"Number"!==h(i)&&"String"!==h(i))continue;a=m(i)}g(r,a)||(r[a]=!0,M(e,a))}return e}}(e),s=c&&function(t){for(var n=0,e=t.length;n<e;n++)if(N(W,t[n]))return Z;return""}(c),v=[],p=[],k=[],S=!1,j=!0,B=Q(n,function(t,n){if(t=T(t),c){if(t===U)return P(p),void(o=P(k));if(j)j=!1;else if(this!==o&&!u(this)&&!y(c,t))return}else a&&(n=i(a,this,t,n));if($(n))return x?n:(S=!0,H+(M(v,n.rawJSON)-1));if(c&&function(t){if(!f(t)||l(t)||u(t))return!1;try{return!function(t){var n=h(t);return"Number"===n&&X(b,t)||"String"===n&&X(_,t)||"Boolean"===n&&X(E,t)||!!A&&"BigInt"===n&&X(A,t)}(t)}catch(n){return!0}}(n)){if(y(p,n))throw new O("Converting circular structure to JSON");var e=function(t,n,e){for(var r=d(null),o=0,a=n.length;o<a;o++){var i=n[o];r[e+i]=tt(t,i)}return r[U]=null,r}(n,c,s);return M(p,n),M(k,o),o=e,s&&(S=!0),e}return n},r);if("string"!=typeof B)return B;if(G&&(B=C(B,D,Y)),!S)return B;for(var L="",R=B.length,q=0;q<R;q++){var F=z(B,q);if('"'===F){var J=w(B,++q).end-1,nt=I(B,q,J);I(nt,0,K)===H?L+=v[I(nt,K)]:I(nt,0,V)===Z?L+='"'+I(nt,V)+'"':L+='"'+nt+'"',q=J}else L+=F}return L}})},function(t,n,e){var r=e(20),o=e(51).get;t.exports=function(t){if(!r(t))return!1;var n=o(t);return!!n&&"RawJSON"===n.type}},function(t,n,e){var r=e(14);t.exports=r(1.1.valueOf)},function(t,n,e){var r=e(14),o=e(38),a=SyntaxError,i=parseInt,c=String.fromCharCode,s=r("".charAt),u=r("".slice),l=r(/./.exec),f={'\\"':'"',"\\\\":"\\","\\/":"/","\\b":"\b","\\f":"\f","\\n":"\n","\\r":"\r","\\t":"\t"},d=/^[\da-f]{4}$/i,v=/^[\u0000-\u001F]$/;t.exports=function(t,n){for(var e=!0,r="";n<t.length;){var p=s(t,n);if("\\"===p){var h=u(t,n,n+2);if(o(f,h))r+=f[h],n+=2;else{if("\\u"!==h)throw new a('Unknown escape sequence: "'+h+'"');var b=u(t,n+=2,n+4);if(!l(d,b))throw new a("Bad Unicode escape at: "+n);r+=c(i(b,16)),n+=4}}else{if('"'===p){e=!1,n++;break}if(l(v,p))throw new a("Bad control character in string literal at: "+n);r+=p,n++}}if(e)throw new a("Unterminated string at: "+n);return{value:r,end:n}}},function(t,n,e){var r=e(7);t.exports=!r(function(){var t="9007199254740993",n=JSON.rawJSON(t);return!JSON.isRawJSON(n)||JSON.stringify(n)!==t})},function(t,n,e){var r=e(3),o=e(26),a=e(7),i=e(66),c=e(39);r({target:"Object",stat:!0,forced:!o||a(function(){i.f(1)})},{getOwnPropertySymbols:function(t){var n=i.f;return n?n(c(t)):[]}})},function(n,e,r){var o=r(3),a=r(6),i=r(4),c=r(8),s=r(14),u=r(38),l=r(21),f=r(24),d=r(68),v=r(77),p=r(55),h=i.Symbol,b=h&&h.prototype;if(a&&l(h)&&(!("description"in b)||h().description!==t)){var y={},g=function(){var n=arguments.length<1||arguments[0]===t?t:d(arguments[0]),e=f(b,this)?new h(n):n===t?h():h(n);return""===n&&(y[e]=!0),e};p(g,h);var m=g.for;g.for={for:function(t){var n=d(t),e=c(m,this,n);return""===n&&(y[e]=!0),e}}.for,g.prototype=b,b.constructor=g;var w="Symbol(description detection)"===String(h("description detection")),k=s(b.valueOf),S=s(b.toString),x=/^Symbol\((.*)\)[^)]+$/,T=s("".replace),O=s("".slice);v(b,"description",{configurable:!0,get:function(){var n=k(this);if(u(y,n))return"";var e=S(n),r=w?O(e,7,-1):T(e,x,"$1");return""===r?t:r}}),o({global:!0,constructor:!0,forced:!0},{Symbol:g})}},function(t,n,e){var r=e(4),o=e(79),a=e(44).f,i=e(5).f,c=r.Symbol;if(o("asyncDispose"),c){var s=i(c,"asyncDispose");s.enumerable&&s.configurable&&s.writable&&a(c,"asyncDispose",{value:s.value,enumerable:!1,configurable:!1,writable:!1})}},function(t,n,e){e(79)("asyncIterator")},function(t,n,e){var r=e(4),o=e(79),a=e(44).f,i=e(5).f,c=r.Symbol;if(o("dispose"),c){var s=i(c,"dispose");s.enumerable&&s.configurable&&s.writable&&a(c,"dispose",{value:s.value,enumerable:!1,configurable:!1,writable:!1})}},function(t,n,e){e(79)("hasInstance")},function(t,n,e){e(79)("isConcatSpreadable")},function(t,n,e){e(79)("iterator")},function(t,n,e){e(79)("match")},function(t,n,e){e(79)("matchAll")},function(t,n,e){e(79)("replace")},function(t,n,e){e(79)("search")},function(t,n,e){e(79)("species")},function(t,n,e){e(79)("split")},function(t,n,e){var r=e(79),o=e(81);r("toPrimitive"),o()},function(t,n,e){var r=e(23),o=e(79),a=e(82);o("toStringTag"),a(r("Symbol"),"Symbol")},function(t,n,e){e(79)("unscopables")},function(t,n,e){var r=e(3),o=e(117),a=e(118);r({target:"Array",proto:!0},{fill:o}),a("fill")},function(n,e,r){var o=r(39),a=r(60),i=r(63);n.exports=[].fill||function(n){for(var e=o(this),r=i(e),c=arguments.length,s=a(c>1?arguments[1]:t,r),u=c>2?arguments[2]:t,l=u===t?r:a(u,r);l>s;)e[s++]=n;return e}},function(n,e,r){var o=r(33),a=r(71),i=r(44).f,c=o("unscopables"),s=Array.prototype;s[c]===t&&i(s,c,{configurable:!0,value:a(null)}),n.exports=function(t){s[c][t]=!0}},function(n,e,r){var o=r(3),a=r(83).find,i=r(118),c="find",s=!0;c in[]&&Array(1)[c](function(){s=!1}),o({target:"Array",proto:!0,forced:s},{find:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}}),i(c)},function(n,e,r){var o=r(3),a=r(83).findIndex,i=r(118),c="findIndex",s=!0;c in[]&&Array(1)[c](function(){s=!1}),o({target:"Array",proto:!0,forced:s},{findIndex:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}}),i(c)},function(n,e,r){var o=r(3),a=r(122).findLast,i=r(118);o({target:"Array",proto:!0},{findLast:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}}),i("findLast")},function(n,e,r){var o=r(84),a=r(13),i=r(39),c=r(63),s=function(n){var e=1===n;return function(r,s,u){for(var l,f=i(r),d=a(f),v=c(d),p=o(s,u);v-- >0;)if(p(l=d[v],v,f))switch(n){case 0:return l;case 1:return v}return e?-1:t}};n.exports={findLast:s(0),findLastIndex:s(1)}},function(n,e,r){var o=r(3),a=r(122).findLastIndex,i=r(118);o({target:"Array",proto:!0},{findLastIndex:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}}),i("findLastIndex")},function(n,e,r){var o=r(3),a=r(125),i=r(30),c=r(39),s=r(63),u=r(86);o({target:"Array",proto:!0},{flatMap:function(n){var e,r=c(this),o=s(r);return i(n),e=u(r,0),a(e,r,r,o,0,1,n,arguments.length>1?arguments[1]:t),e}})},function(t,n,e){var r=e(88),o=e(63),a=e(126),i=e(84),c=e(90),s=function(t,n,e,u,l,f,d,v){for(var p,h,b=l,y=0,g=!!d&&i(d,v);y<u;)y in e&&(p=g?g(e[y],y,n):e[y],f>0&&r(p)?(h=o(p),b=s(t,n,p,h,b,f-1)-1):(a(b+1),c(t,b,p)),b++),y++;return b};t.exports=s},function(t,n,e){var r=TypeError;t.exports=function(t){if(t>9007199254740991)throw new r("Maximum allowed index exceeded");return t}},function(t,n,e){var r=e(3),o=e(128);r({target:"Array",stat:!0,forced:!e(136)(function(t){Array.from(t)})},{from:o})},function(n,e,r){var o=r(84),a=r(8),i=r(39),c=r(129),s=r(131),u=r(89),l=r(63),f=r(90),d=r(133),v=r(134),p=r(135),h=r(130),b=r(126),y=Array;n.exports=function(n){var e=u(this),r=arguments.length,g=r>1?arguments[1]:t,m=g!==t;m&&(g=o(g,r>2?arguments[2]:t));var w,k,S,x,T,O,j=i(n),B=p(j),_=0;if(!B||this===y&&s(B))for(w=l(j),k=e?new this(w):y(w);w>_;_++)O=m?g(j[_],_):j[_],f(k,_,O);else for(k=e?new this:[],T=(x=v(j,B)).next;!(S=a(T,x)).done;_++){try{b(_)}catch(E){h(x,"throw",E)}O=m?c(x,g,[S.value,_],!0):S.value;try{f(k,_,O)}catch(E){h(x,"throw",E)}}return d(k,_),k}},function(t,n,e){var r=e(46),o=e(130);t.exports=function(t,n,e,a){try{return a?n(r(e)[0],e[1]):n(e)}catch(i){o(t,"throw",i)}}},function(t,n,e){var r=e(8),o=e(46),a=e(29);t.exports=function(t,n,e){var i,c;o(t);try{if(!(i=a(t,"return"))){if("throw"===n)throw e;return e}i=r(i,t)}catch(s){c=!0,i=s}if("throw"===n)throw e;if(c)throw i;return o(i),e}},function(n,e,r){var o=r(33),a=r(132),i=o("iterator"),c=Array.prototype;n.exports=function(n){return n!==t&&(a.Array===n||c[i]===n)}},function(t,n,e){t.exports=Object.create?Object.create(null):{}},function(n,e,r){var o=r(6),a=r(88),i=TypeError,c=Object.getOwnPropertyDescriptor,s=o&&!function(){if(this!==t)return!0;try{Object.defineProperty([],"length",{writable:!1}).length=1}catch(n){return n instanceof TypeError}}();n.exports=s?function(t,n){if(a(t)&&!c(t,"length").writable)throw new i("Cannot set read only .length");return t.length=n}:function(t,n){return t.length=n}},function(t,n,e){var r=e(8),o=e(21),a=e(46),i=e(31),c=e(135),s=TypeError;t.exports=function(t,n){var e=arguments.length<2?c(t):n;if(o(e))return a(r(e,t));throw new s(i(t)+" is not iterable")}},function(n,e,r){var o=r(15),a=r(17),i=r(29),c=r(33)("iterator"),s=Array.prototype;n.exports=function(n){if(!a(n))return i(n,c)||i(n,"@@iterator")||("Arguments"===o(n)?s[c]:t)}},function(t,n,e){var r=e(33)("iterator"),o=!1;try{var a=0,i={next:function(){return{done:!!a++}},return:function(){o=!0}};i[r]=function(){return this},Array.from(i,function(){throw 2})}catch(c){}t.exports=function(t,n){try{if(!n&&!o)return!1}catch(c){return!1}var e=!1;try{var a={};a[r]=function(){return{next:function(){return{done:e=!0}}}},t(a)}catch(c){}return e}},function(n,e,r){var o=r(3),a=r(59).includes,i=r(7),c=r(118),s=i(function(){return!Array(1).includes()}),u=i(function(){return[,1].includes(t,1)});o({target:"Array",proto:!0,forced:s||u},{includes:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}}),c("includes")},function(n,e,r){var o=r(12),a=r(118),i=r(132),c=r(51),s=r(44).f,u=r(139),l=r(148),f=r(36),d=r(6),v="Array Iterator",p=c.set,h=c.getterFor(v);n.exports=u(Array,"Array",function(t,n){p(this,{type:v,target:o(t),index:0,kind:n})},function(){var n=h(this),e=n.target,r=n.index++;if(!e||r>=e.length)return n.target=null,l(t,!0);switch(n.kind){case"keys":return l(r,!1);case"values":return l(e[r],!1)}return l([r,e[r]],!1)},"values");var b=i.Arguments=i.Array;if(a("keys"),a("values"),a("entries"),!f&&d&&"values"!==b.name)try{s(b,"name",{value:"values"})}catch(y){}},function(t,n,e){var r=e(3),o=e(8),a=e(36),i=e(49),c=e(21),s=e(140),u=e(142),l=e(144),f=e(82),d=e(43),v=e(47),p=e(33),h=e(132),b=e(141),y=i.PROPER,g=i.CONFIGURABLE,m=b.IteratorPrototype,w=b.BUGGY_SAFARI_ITERATORS,k=p("iterator"),S="keys",x="values",T="entries",O=function(){return this};t.exports=function(t,n,e,i,p,b,j){s(e,n,i);var B,_,E,A=function(t){if(t===p&&I)return I;if(!w&&t&&t in L)return L[t];switch(t){case S:case x:case T:return function(){return new e(this,t)}}return function(){return new e(this)}},N=n+" Iterator",z=!1,L=t.prototype,C=L[k]||L["@@iterator"]||p&&L[p],I=!w&&C||A(p),M="Array"===n&&L.entries||C;if(M&&(B=u(M.call(new t)))!==Object.prototype&&B.next&&(a||u(B)===m||(l?l(B,m):c(B[k])||v(B,k,O)),f(B,N,!0,!0),a&&(h[N]=O)),y&&p===x&&C&&C.name!==x&&(!a&&g?d(L,"name",x):(z=!0,I=function(){return o(C,this)})),p)if(_={values:A(x),keys:b?I:A(S),entries:A(T)},j)for(E in _)(w||z||!(E in L))&&v(L,E,_[E]);else r({target:n,proto:!0,forced:w||z},_);return a&&!j||L[k]===I||v(L,k,I,{name:p}),h[n]=I,_}},function(t,n,e){var r=e(141).IteratorPrototype,o=e(71),a=e(11),i=e(82),c=e(132),s=function(){return this};t.exports=function(t,n,e,u){var l=n+" Iterator";return t.prototype=o(r,{next:a(+!u,e)}),i(t,l,!1,!0),c[l]=s,t}},function(t,n,e){var r,o,a,i=e(7),c=e(21),s=e(20),u=e(71),l=e(142),f=e(47),d=e(33),v=e(36),p=d("iterator"),h=!1;[].keys&&("next"in(a=[].keys())?(o=l(l(a)))!==Object.prototype&&(r=o):h=!0),!s(r)||i(function(){var t={};return r[p].call(t)!==t})?r={}:v&&(r=u(r)),c(r[p])||f(r,p,function(){return this}),t.exports={IteratorPrototype:r,BUGGY_SAFARI_ITERATORS:h}},function(t,n,e){var r=e(38),o=e(21),a=e(39),i=e(53),c=e(143),s=i("IE_PROTO"),u=Object,l=u.prototype;t.exports=c?u.getPrototypeOf:function(t){var n=a(t);if(r(n,s))return n[s];var e=n.constructor;return o(e)&&n instanceof e?e.prototype:n instanceof u?l:null}},function(t,n,e){var r=e(7);t.exports=!r(function(){function t(){}return t.prototype.constructor=null,Object.getPrototypeOf(new t)!==t.prototype})},function(n,e,r){var o=r(145),a=r(20),i=r(16),c=r(146);n.exports=Object.setPrototypeOf||("__proto__"in{}?function(){var t,n=!1,e={};try{(t=o(Object.prototype,"__proto__","set"))(e,[]),n=e instanceof Array}catch(r){}return function(e,r){return i(e),c(r),a(e)?(n?t(e,r):e.__proto__=r,e):e}}():t)},function(t,n,e){var r=e(14),o=e(30);t.exports=function(t,n,e){try{return r(o(Object.getOwnPropertyDescriptor(t,n)[e]))}catch(a){}}},function(t,n,e){var r=e(147),o=String,a=TypeError;t.exports=function(t){if(r(t))return t;throw new a("Can't set "+o(t)+" as a prototype")}},function(t,n,e){var r=e(20);t.exports=function(t){return r(t)||null===t}},function(t,n,e){t.exports=function(t,n){return{value:t,done:n}}},function(t,n,e){e(118)("flatMap")},function(t,n,e){var r=e(3),o=e(151);r({target:"Object",stat:!0,arity:2,forced:Object.assign!==o},{assign:o})},function(t,n,e){var r=e(6),o=e(14),a=e(8),i=e(7),c=e(73),s=e(66),u=e(10),l=e(39),f=e(13),d=Object.assign,v=Object.defineProperty,p=o([].concat);t.exports=!d||i(function(){if(r&&1!==d({b:1},d(v({},"a",{enumerable:!0,get:function(){v(this,"b",{value:3,enumerable:!1})}}),{b:2})).b)return!0;var t={},n={},e=Symbol("assign detection"),o="abcdefghijklmnopqrst";return t[e]=7,o.split("").forEach(function(t){n[t]=t}),7!==d({},t)[e]||c(d({},n)).join("")!==o})?function(t,n){for(var e=l(t),o=arguments.length,i=1,d=s.f,v=u.f;o>i;)for(var h,b=f(arguments[i++]),y=d?p(c(b),d(b)):c(b),g=y.length,m=0;g>m;)h=y[m++],r&&!a(v,b,h)||(e[h]=b[h]);return e}:d},function(t,n,e){var r=e(3),o=e(153).entries;r({target:"Object",stat:!0},{entries:function(t){return o(t)}})},function(t,n,e){var r=e(6),o=e(7),a=e(14),i=e(142),c=e(73),s=e(12),u=a(e(10).f),l=a([].push),f=r&&o(function(){var t=Object.create(null);return t[2]=2,!u(t,2)}),d=function(t){return function(n){for(var e,o=s(n),a=c(o),d=f&&null===i(o),v=a.length,p=0,h=[];v>p;)e=a[p++],r&&!(d?e in o:u(o,e))||l(h,t?[e,o[e]]:o[e]);return h}};t.exports={entries:d(!0),values:d(!1)}},function(t,n,e){var r=e(3),o=e(39),a=e(73);r({target:"Object",stat:!0,forced:e(7)(function(){a(1)})},{keys:function(t){return a(o(t))}})},function(t,n,e){var r=e(3),o=e(153).values;r({target:"Object",stat:!0},{values:function(t){return o(t)}})},function(t,n,e){var r=e(3),o=e(157),a=e(7),i=Array.fromAsync;r({target:"Array",stat:!0,forced:!i||a(function(){var t=0;return i.call(function(){return t++,[]},{length:0}),1!==t})},{fromAsync:o})},function(n,e,r){var o=r(84),a=r(14),i=r(89),c=r(158),s=r(134),u=r(162),l=r(135),f=r(29),d=r(23),v=r(163),p=r(33),h=r(159),b=r(164).toArray,y=p("asyncIterator"),g=a(v("Array","values")),m=a(g([]).next),w=function(){return new k(this)},k=function(t){this.iterator=g(t)};k.prototype.next=function(){return m(this.iterator)},n.exports=function(n){var e=this,r=arguments.length,a=r>1?arguments[1]:t,v=r>2?arguments[2]:t;return new(d("Promise"))(function(r){a!==t&&(a=o(a,v));var d=f(n,y),p=d?t:l(n)||w,g=i(e)?new e:[],m=d?c(n,d):new h(u(s(n,p)));r(b(m,a,g))})}},function(t,n,e){var r=e(8),o=e(159),a=e(46),i=e(134),c=e(162),s=e(29),u=e(33)("asyncIterator");t.exports=function(t,n){var e=arguments.length<2?s(t,u):n;return e?a(r(e,t)):new o(c(i(t)))}},function(n,e,r){var o=r(8),a=r(46),i=r(71),c=r(29),s=r(160),u=r(51),l=r(130),f=r(23),d=r(161),v=r(148),p=f("Promise"),h="AsyncFromSyncIterator",b=u.set,y=u.getterFor(h),g=function(t,n,e,r,o){var a=t.done;p.resolve(t.value).then(function(t){n(v(t,a))},function(t){if(!a&&o)try{l(r,"throw",t)}catch(n){t=n}e(t)})},m=function(t){t.type=h,b(this,t)};m.prototype=s(i(d),{next:function(){var n=y(this),e=arguments.length>0,r=e?arguments[0]:t;return new p(function(t,i){var c=a(e?o(n.next,n.iterator,r):o(n.next,n.iterator));g(c,t,i,n.iterator,!0)})},return:function(){var n=y(this).iterator,e=arguments.length>0,r=e?arguments[0]:t;return new p(function(i,s){var u=c(n,"return");if(u===t)return i(v(r,!0));var l=a(e?o(u,n,r):o(u,n));g(l,i,s,n)})},throw:function(){var n=y(this).iterator,e=arguments.length>0,r=e?arguments[0]:t;return new p(function(i,s){var u=c(n,"throw");if(u===t){try{l(n,"normal")}catch(d){return s(d)}return s(new TypeError("The iterator does not provide a throw method"))}var f=a(e?o(u,n,r):o(u,n));g(f,i,s,n,!0)})}}),n.exports=m},function(t,n,e){var r=e(47);t.exports=function(t,n,e){for(var o in n)r(t,o,n[o],e);return t}},function(t,n,e){var r,o,a=e(4),i=e(35),c=e(21),s=e(71),u=e(142),l=e(47),f=e(33),d=e(36),v="USE_FUNCTION_CONSTRUCTOR",p=f("asyncIterator"),h=a.AsyncIterator,b=i.AsyncIteratorPrototype;if(b)r=b;else if(c(h))r=h.prototype;else if(i[v]||a[v])try{o=u(u(u(Function("return async function*(){}()")()))),u(o)===Object.prototype&&(r=o)}catch(y){}r?d&&(r=s(r)):r={},c(r[p])||l(r,p,function(){return this}),t.exports=r},function(t,n,e){t.exports=function(t){return{iterator:t,next:t.next,done:!1}}},function(t,n,e){var r=e(4);t.exports=function(t,n){var e=r[t],o=e&&e.prototype;return o&&o[n]}},function(n,e,r){var o=r(8),a=r(30),i=r(46),c=r(20),s=r(126),u=r(23),l=r(90),f=r(133),d=r(162),v=r(165),p=function(n){var e=0===n,r=1===n,p=2===n,h=3===n;return function(n,b,y){i(n);var g=b!==t;!g&&e||a(b);var m=d(n),w=u("Promise"),k=m.iterator,S=m.next,x=0;return new w(function(n,a){var u=function(t){v(k,a,t,a)},d=function(){try{try{s(x)}catch(m){return u(m)}w.resolve(i(o(S,k))).then(function(o){try{if(i(o).done)e?(f(y,x),n(y)):n(!h&&(p||t));else{var s=o.value;try{if(g){var m=x++,S=b(s,m),T=function(t){if(r)d();else if(p)t?d():v(k,n,!1,a);else if(e)try{l(y,m,t),d()}catch(o){u(o)}else t?v(k,n,h||s,a):d()};c(S)?w.resolve(S).then(T,u):T(S)}else l(y,x++,s),d()}catch(O){u(O)}}}catch(j){a(j)}},a)}catch(T){a(T)}};d()})}};n.exports={toArray:p(0),forEach:p(1),every:p(2),some:p(3),find:p(4)}},function(t,n,e){var r=e(8),o=e(46),a=e(23),i=e(29);t.exports=function(t,n,e,c){try{var s=i(t,"return");if(s)return a("Promise").resolve(r(s,t)).then(function(t){try{n!==c&&o(t)}catch(r){return void c(r)}n(e)},function(t){n===c?n(e):c(t)})}catch(u){return c(n===c?e:u)}n(e)}},function(n,e,r){var o,a=r(3),i=r(85),c=r(5).f,s=r(64),u=r(68),l=r(167),f=r(16),d=r(169),v=r(36),p=i("".slice),h=Math.min,b=d("endsWith");a({target:"String",proto:!0,forced:!(!v&&!b&&(o=c(String.prototype,"endsWith"),o&&!o.writable)||b)},{endsWith:function(n){var e=u(f(this));l(n);var r=u(n),o=arguments.length>1?arguments[1]:t,a=e.length,i=o===t?a:h(s(o),a);return p(e,i-r.length,i)===r}})},function(t,n,e){var r=e(168),o=TypeError;t.exports=function(t){if(r(t))throw new o("The method doesn't accept regular expressions");return t}},function(n,e,r){var o=r(20),a=r(15),i=r(33)("match");n.exports=function(n){var e;return o(n)&&((e=n[i])!==t?!!e:"RegExp"===a(n))}},function(t,n,e){var r=e(33)("match");t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r]=!1,"/./"[t](n)}catch(o){}}return!1}},function(n,e,r){var o=r(3),a=r(14),i=r(167),c=r(16),s=r(68),u=r(169),l=a("".indexOf);o({target:"String",proto:!0,forced:!u("includes")},{includes:function(n){return!!~l(s(c(this)),s(i(n)),arguments.length>1?arguments[1]:t)}})},function(n,e,r){var o=r(172).charAt,a=r(68),i=r(51),c=r(139),s=r(148),u="String Iterator",l=i.set,f=i.getterFor(u);c(String,"String",function(t){l(this,{type:u,string:a(t),index:0})},function(){var n,e=f(this),r=e.string,a=e.index;return a>=r.length?s(t,!0):(n=o(r,a),e.index+=n.length,s(n,!1))})},function(n,e,r){var o=r(14),a=r(61),i=r(68),c=r(16),s=o("".charAt),u=o("".charCodeAt),l=o("".slice),f=function(n){return function(e,r){var o,f,d=i(c(e)),v=a(r),p=d.length;return v<0||v>=p?n?"":t:(o=u(d,v))<55296||o>56319||v+1===p||(f=u(d,v+1))<56320||f>57343?n?s(d,v):o:n?l(d,v,v+2):f-56320+(o-55296<<10)+65536}};n.exports={codeAt:f(!1),charAt:f(!0)}},function(n,e,r){var o=r(3),a=r(174).start;o({target:"String",proto:!0,forced:r(176)},{padStart:function(n){return a(this,n,arguments.length>1?arguments[1]:t)}})},function(n,e,r){var o=r(14),a=r(64),i=r(68),c=r(175),s=r(16),u=o(c),l=o("".slice),f=Math.ceil,d=function(n){return function(e,r,o){var c=i(s(e)),d=a(r),v=c.length;if(d<=v)return c;var p,h,b=o===t?" ":i(o);return""===b?c:((h=u(b,f((p=d-v)/b.length))).length>p&&(h=l(h,0,p)),n?c+h:h+c)}};n.exports={start:d(!1),end:d(!0)}},function(t,n,e){var r=e(61),o=e(68),a=e(16),i=RangeError,c=Math.floor;t.exports=function(t){var n=o(a(this)),e="",s=r(t);if(s<0||s===1/0)throw new i("Wrong number of repetitions");for(;s>0;(s=c(s/2))&&(n+=n))s%2&&(e+=n);return e}},function(t,n,e){var r=e(28);t.exports=/Version\/10(?:\.\d+){1,2}(?: [\w./]+)?(?: Mobile\/\w+)? Safari\//.test(r)},function(t,n,e){e(3)({target:"String",proto:!0},{repeat:e(175)})},function(n,e,r){var o,a=r(3),i=r(85),c=r(5).f,s=r(64),u=r(68),l=r(167),f=r(16),d=r(169),v=r(36),p=i("".slice),h=Math.min,b=d("startsWith");a({target:"String",proto:!0,forced:!(!v&&!b&&(o=c(String.prototype,"startsWith"),o&&!o.writable)||b)},{startsWith:function(n){var e=u(f(this));l(n);var r=u(n),o=s(h(arguments.length>1?arguments[1]:t,e.length));return p(e,o,o+r.length)===r}})},function(t,n,e){var r=e(3),o=e(180).trim;r({target:"String",proto:!0,forced:e(182)("trim")},{trim:function(){return o(this)}})},function(t,n,e){var r=e(14),o=e(16),a=e(68),i=e(181),c=r("".replace),s=RegExp("^["+i+"]+"),u=RegExp("(^|[^"+i+"])["+i+"]+$"),l=function(t){return function(n){var e=a(o(n));return 1&t&&(e=c(e,s,"")),2&t&&(e=c(e,u,"$1")),e}};t.exports={start:l(1),end:l(2),trim:l(3)}},function(t,n,e){t.exports="\t\n\v\f\r                　\u2028\u2029\ufeff"},function(t,n,e){var r=e(49).PROPER,o=e(7),a=e(181);t.exports=function(t){return o(function(){return!!a[t]()||"​᠎"!=="​᠎"[t]()||r&&a[t].name!==t})}},function(t,n,e){e(184);var r=e(3),o=e(185);r({target:"String",proto:!0,name:"trimEnd",forced:"".trimEnd!==o},{trimEnd:o})},function(t,n,e){var r=e(3),o=e(185);r({target:"String",proto:!0,name:"trimEnd",forced:"".trimRight!==o},{trimRight:o})},function(t,n,e){var r=e(180).end,o=e(182);t.exports=o("trimEnd")?function(){return r(this)}:"".trimEnd},function(t,n,e){e(187);var r=e(3),o=e(188);r({target:"String",proto:!0,name:"trimStart",forced:"".trimStart!==o},{trimStart:o})},function(t,n,e){var r=e(3),o=e(188);r({target:"String",proto:!0,name:"trimStart",forced:"".trimLeft!==o},{trimLeft:o})},function(t,n,e){var r=e(180).start,o=e(182);t.exports=o("trimStart")?function(){return r(this)}:"".trimStart},function(t,n,e){var r=e(4),o=e(190),a=e(191),i=e(192),c=e(43),s=function(t){if(t&&t.forEach!==i)try{c(t,"forEach",i)}catch(n){t.forEach=i}};for(var u in o)o[u]&&s(r[u]&&r[u].prototype);s(a)},function(t,n,e){t.exports={CSSRuleList:0,CSSStyleDeclaration:0,CSSValueList:0,ClientRectList:0,DOMRectList:0,DOMStringList:0,DOMTokenList:1,DataTransferItemList:0,FileList:0,HTMLAllCollection:0,HTMLCollection:0,HTMLFormElement:0,HTMLSelectElement:0,MediaList:0,MimeTypeArray:0,NamedNodeMap:0,NodeList:1,PaintRequestList:0,Plugin:0,PluginArray:0,SVGLengthList:0,SVGNumberList:0,SVGPathSegList:0,SVGPointList:0,SVGStringList:0,SVGTransformList:0,SourceBufferList:0,StyleSheetList:0,TextTrackCueList:0,TextTrackList:0,TouchList:0}},function(n,e,r){var o=r(42)("span").classList,a=o&&o.constructor&&o.constructor.prototype;n.exports=a===Object.prototype?t:a},function(n,e,r){var o=r(83).forEach,a=r(193)("forEach");n.exports=a?[].forEach:function(n){return o(this,n,arguments.length>1?arguments[1]:t)}},function(t,n,e){var r=e(7);t.exports=function(t,n){var e=[][t];return!!e&&r(function(){e.call(null,n||function(){return 1},1)})}},function(t,n,e){var r=e(4),o=e(190),a=e(191),i=e(138),c=e(43),s=e(82),u=e(33)("iterator"),l=i.values,f=function(t,n){if(t){if(t[u]!==l)try{c(t,u,l)}catch(r){t[u]=l}if(s(t,n,!0),o[n])for(var e in i)if(t[e]!==i[e])try{c(t,e,i[e])}catch(r){t[e]=i[e]}}};for(var d in o)f(r[d]&&r[d].prototype,d);f(a,"DOMTokenList")}],e={},(r=function(t){if(e[t])return e[t].exports;var o=e[t]={i:t,l:!1,exports:{}};return n[t].call(o.exports,o,o.exports,r),o.l=!0,o.exports}).m=n,r.c=e,r.d=function(t,n,e){r.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:e})},r.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},r.t=function(t,n){if(1&n&&(t=r(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var e=Object.create(null);if(r.r(e),Object.defineProperty(e,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var o in t)r.d(e,o,function(n){return t[n]}.bind(null,o));return e},r.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(n,"a",n),n},r.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},r.p="",r(r.s=0)}(),function(){var t=window.Element&&Element.prototype;t&&(t.matches||(t.matches=t.webkitMatchesSelector||t.msMatchesSelector),t.closest||(t.closest=function(t){for(var n=this;n&&1===n.nodeType;){if(n.matches(t))return n;n=n.parentNode}return null}),t.remove||(t.remove=function(){this.parentNode&&this.parentNode.removeChild(this)}));try{var n=document.createElement("div");if(n.classList.toggle("a",!1),n.classList.contains("a")){var e=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(t,n){return arguments.length>1?(n?this.add(t):this.remove(t),!!n):e.call(this,t)}}}catch(r){}window.CSS&&CSS.supports&&CSS.supports("display","grid")||(document.documentElement.className+=" old")}();var DICT_RAW=[["weathering","n.","風化（作用）","T"],["crisis","n.","危機","T","單數 crisis · 複數 crises",["crises"]],["severe","adj.","嚴重的；猛烈的","T"],["unpredictable","adj.","難以預測的","T"],["erosion","n.","侵蝕（作用）","T"],["collapse","v.","倒塌；崩塌","T","collapse · collapsed · collapsed",["collapsed","collapses"]],["hazard","n.","危險（的東西）；危害","T","",["hazards"]],["destruction","n.","破壞；毀滅","T"],["substantial","adj.","相當大的；可觀的","T"],["alter","v.","改變；修改","T","alter · altered · altered",["altered","alters"]],["breakdown","n.","分解；故障","N"],["rock","n.","岩石","N","",["rocks"]],["due to","phr.","由於；因為","N"],["important","adj.","重要的","N"],["cause","v. / n.","造成（動詞）；原因（名詞）","N","cause · caused · caused",["caused","causes"]],["difficult","adj.","困難的","N"],["dangerous","adj.","危險的","N"],["situation","n.","處境；情況","N"],["company","n.","公司","N"],["struggle","v.","努力掙扎；奮鬥","N","struggle · struggled · struggled",["struggled"]],["survive","v.","存活；撐過","N"],["financial","adj.","金融的；和錢有關的","N"],["harsh","adj.","嚴酷的；嚴厲的","N"],["serious","adj.","嚴重的；認真的","N"],["suffer","v.","遭受；受苦","N","suffer · suffered · suffered",["suffered"]],["damage","n.","損害；損壞","N"],["typhoon","n.","颱風","N"],["able","adj.","能夠的（be able to 能夠做…）","N"],["tell","v.","得知；分辨（本課的意思）；告訴","N","tell · told · told",["told"]],["beforehand","adv.","事先；預先","N"],["movement","n.","移動；運動","N"],["broken-down","adj.","破碎的；壞掉的","N"],["slowly","adv.","慢慢地","N"],["wear away","phr.","（慢慢）磨掉；侵蝕掉","N","wear · wore · worn",["worn away","wore away","wears away"]],["riverbank","n.","河岸","N"],["fall down","phr.","倒下；跌倒","N"],["cave in","phr.","塌陷；坍塌","N"],["building","n.","建築物；大樓","N"],["earthquake","n.","地震","N","",["earthquakes"]],["harm","n.","傷害","N"],["injury","n.","受傷；傷害","N"],["wet","adj.","濕的","N"],["floor","n.","地板","N","",["floors"]],["slip","v.","滑倒；滑","N","slip · slipped · slipped",["slipped"]],["might","aux.","可能（會）","N"],["ruin","n. / v.","毀壞；廢墟","N"],["forest","n.","森林","N"],["wildfire","n.","野火；森林大火","N"],["because of","phr.","因為；由於（後面接名詞）","N"],["amount","n.","數量","N"],["size","n.","大小；尺寸","N"],["repair","v.","修理","N"],["different","adj.","不同的","N"],["plan","n.","計畫","N","",["plans"]],["have to","phr.","必須（had to 是過去式）","N","",["had to","has to"]],["the","art.","這個；那個（指特定的東西）","B"],["a","art.","一個","B","",["an"]],["of","prep.","…的","B"],["by","prep.","由；被","B"],["not","adv.","不；沒有","B"],["to","prep.","到；（放在動詞前，表示「去做…」）","B"],["or","conj.","或；或者","B"],["and","conj.","和；而且","B"],["very","adv.","非常","B"],["great","adj.","巨大的；很棒的","B"],["can","aux.","可以；可能","B"],["be","v.","是；成為","B","be · was/were · been",["is","are","was","were"]],["because","conj.","因為（後面接句子）","B"],["people","n.","人們","B"],["fall","v.","跌倒；落下","B","fall · fell · fallen",["fell"]],["wind","n.","風","B","",["winds"]],["rain","n. / v.","雨；下雨","B"],["sun","n.","太陽","B"],["two","num.","二；兩個","B"],["in","prep.","在…裡面","B"],["has","aux.","已經（has + 過去分詞）；有","B"],["had","v.","有；得了（have 的過去式）","B"],["make","v.","使；做","B"],["something","pron.","某個東西","B"],["that","pron. / conj.","那個；（連接後面的說明）","B"],["we","pron.","我們","B"],["need","v.","需要","B"],["money","n.","錢","B"],["our","pron.","我們的","B"],["city","n.","城市","B"],["after","prep.","在…之後","B"],["weather","n.","天氣","B"],["mountain","n.","山","B","",["mountains"]],["bad","adj.","壞的；不好的","B"],["change","v.","改變","B"],["strong","adj.","強烈的；強壯的","B"],["broken","adj.","壞掉的；破的","B"],["step","n.","台階；一步","B"],["old","adj.","老的；舊的","B"],["for","prep.","對…來說；為了；（持續）…之久","B"],["ice","n.","冰","B"],["on","prep.","在…上面","B"],["road","n.","馬路","B"],["driver","n.","駕駛人；司機","B","",["drivers"]],["over","prep.","經過（over many years 經過很多年）；在…上方","B"],["many","adj.","很多的","B"],["year","n.","年","B","",["years"]],["break","v.","打破；弄碎","B","break · broke · broken",["breaks","broke"]],["big","adj.","大的","B"],["into","prep.","進入；變成","B"],["small","adj.","小的","B"],["piece","n.","碎片；一塊","B","",["pieces"]],["all","adv.","全部；都","B"],["storm","n.","暴風雨","B"],["see","v.","看見","B","see · saw · seen",["saw"]],["a lot of","phr.","很多的","B"],["he","pron.","他","B"],["eat","v.","吃","B","eat · ate · eaten",["ate"]],["lunch","n.","午餐","B"],["so","conj. / adv.","所以；那麼地（so…that 太…以致於）","B"],["hungry","adj.","餓的","B"],["there","adv.","（there was = 有）；那裡","B"],["this","pron.","這；這個","B"],["week","n.","星期；週","B"],["river","n.","河","B"],["carry","v.","搬運；帶","B","carry · carried · carried",["carried"]],["away","adv.","離開；（帶）走","B"],["call","v.","稱為；叫","B","",["called"]],["tree","n.","樹","B","",["trees"]],["help","v.","幫忙","B"],["stop","v.","阻止；停止","B"],["land","n.","陸地；土地","B"],["cold","n.","感冒","B"],["stay","v.","待著；停留","B","",["stayed"]],["home","n.","家","B"],["window","n.","窗戶","B","",["windows"]],["my","pron.","我的","B"],["little","adj.","小的；年紀小的","B"],["brother","n.","兄弟（little brother 弟弟）","B"],["i","pron.","我","B"],["never","adv.","從不；永遠不","B"],["know","v.","知道","B"],["what","pron.","什麼","B"],["will","aux.","將會","B"],["do","v.","做；（did not = 沒有）","B","do · did · done",["did"]],["must","aux.","必須","B"],["ready","adj.","準備好的","B"],["mom","n.","媽媽","B"],["pants","n.","褲子","B"],["they","pron.","他們；它們","B"],["too","adv.","太","B"],["long","adj.","長的","B"],["may","aux.","可能；也許","B"],["game","n.","比賽；遊戲","B"],["time","n.","時間","B"],["water","n.","水","B"],["it","pron.","它","B"],["month","n.","月","B","",["months"]],["doctor","n.","醫生","B","",["doctors"]],["work","v.","工作","B"],["hard","adv.","努力地","B"],["during","prep.","在…期間","B"],["health","n.","健康","B"],["bridge","n.","橋","B"],["if","conj.","如果","B"],["car","n.","汽車","B","",["cars"]],["go","v.","去；開（車）上去","B"],["snow","n.","雪","B"],["heavy","adj.","重的","B"],["roof","n.","屋頂","B"]],T=[{k:"weathering",src:"課本定義",c:2,def:"the breakdown of rocks due to rain, wind and sun",defZh:"岩石因為雨、風和太陽而分解（變碎）",defChunks:[["the breakdown of rocks","岩石的分解（變碎）"],["due to rain, wind and sun","由於雨、風和太陽"]],sent:"Wind and rain are two important causes of weathering.",ans:"weathering",sentZh:"風和雨是造成風化的兩個重要原因。",sentChunks:[["Wind and rain","風和雨"],["are two important causes","是兩個重要的原因"],["of weathering.","（造成）風化的"]],why:"causes of ___ ＝「…的原因」，of 後面要放<b>名詞</b>。風和雨會讓岩石慢慢裂開、變碎 → 這就是 weathering（風化）。<br>⚠️ 不是 erosion：weathering 是岩石被「弄碎」，erosion 是碎石被「搬走」。",tip:"weather（天氣）+ ing → 天氣對岩石做的事 → 風化，把岩石弄碎。",nw:["breakdown","rock","due to","important","cause"],news:[{en:"Over many years, weathering breaks big rocks into small pieces.",ans:"weathering",zh:"經過很多年，風化作用會把大岩石弄碎成小碎片。"},{en:"Sun, wind and rain all cause weathering.",ans:"weathering",zh:"太陽、風和雨都會造成風化。"}]},{k:"crisis",src:"課本定義",c:9,def:"a difficult or dangerous situation",defZh:"困難或危險的處境",defChunks:[["a difficult or dangerous","一個困難或危險的"],["situation","處境；情況"]],sent:"The company struggled to survive the financial crisis.",ans:"crisis",sentZh:"這家公司努力想撐過這場金融危機。",sentChunks:[["The company","這家公司"],["struggled to survive","努力掙扎，想要撐過"],["the financial crisis.","這場金融危機"]],why:"financial（金融的、和錢有關的）後面要接<b>名詞</b>。公司因為錢出問題，陷入「很困難、很危險的處境」→ financial crisis 金融危機。<br>⚠️ 考卷上寫成 destruction：公司不是被「打壞、燒毀」，而是「處境很危險」，所以是 crisis。",tip:"發音 crai-sis，兩個 s 音。複數是 crises。記：crisis = 很危險、很難熬的時候。",nw:["difficult","dangerous","situation","company","struggle","survive","financial"],news:[{en:"There was a water crisis because it did not rain for months.",ans:"crisis",zh:"因為好幾個月沒下雨，發生了缺水危機。"},{en:"Doctors work hard during a health crisis.",ans:"crisis",zh:"在健康危機期間，醫生們努力工作。"}]},{k:"severe",src:"考卷 B5",c:6,def:"very harsh or serious",defZh:"非常嚴酷或嚴重",defChunks:[["very harsh","非常嚴酷"],["or serious","或嚴重"]],sent:"The city suffered severe damage after the typhoon.",ans:"severe",sentZh:"颱風過後，這座城市遭受了嚴重的損害。",sentChunks:[["The city suffered","這座城市遭受了"],["severe damage","嚴重的損害"],["after the typhoon.","在颱風過後"]],why:"空格在 damage（損害，名詞）的前面 → 要放<b>形容詞</b>，說明損害「有多嚴重」→ severe damage 嚴重的損害。<br>⚠️ 考卷上寫 crisis：crisis 是名詞，不能放在另一個名詞前面形容它。",tip:"severe 常跟壞事一起出現：severe damage（嚴重損害）、severe weather（惡劣天氣）。拼字結尾是 -ere：se-vere，不是 sever！",nw:["harsh","serious","suffer","damage","typhoon"],news:[{en:"He had a severe cold and stayed home.",ans:"severe",zh:"他得了重感冒，待在家裡。"},{en:"The severe storm broke many windows.",ans:"severe",zh:"猛烈的暴風雨打破了很多窗戶。"}]},{k:"unpredictable",src:"考卷 B2",c:7,def:"not able to tell beforehand",defZh:"無法事先知道",defChunks:[["not able to","不能夠"],["tell beforehand","事先得知"]],sent:"The weather in the mountains can be very unpredictable.",ans:"unpredictable",sentZh:"山區的天氣可能非常難以預測。",sentChunks:[["The weather in the mountains","山區的天氣"],["can be very unpredictable.","可能非常難以預測"]],why:"can be very ___：very（非常）後面放<b>形容詞</b>。山上的天氣一下晴、一下下雨，沒辦法事先知道 → unpredictable。",tip:"拆開記：un（不）+ predict（預測）+ able（能夠…的）＝ 不能被預測的。",nw:["able","tell","beforehand"],news:[{en:"My little brother is unpredictable; I never know what he will do.",ans:"unpredictable",zh:"我弟弟很難預測，我永遠不知道他會做什麼。"},{en:"Earthquakes are unpredictable, so we must be ready.",ans:"unpredictable",zh:"地震難以預測，所以我們必須做好準備。"}]},{k:"erosion",src:"考卷 B1",c:5,def:"the movement of broken-down rocks caused by weathering",defZh:"被風化弄碎的岩石被移動（搬走）",defChunks:[["the movement","移動"],["of broken-down rocks","破碎岩石的"],["caused by weathering","由風化造成的"]],sent:"Erosion has slowly worn away the riverbank.",ans:"Erosion",sentZh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",sentChunks:[["Erosion","侵蝕作用"],["has slowly worn away","已經慢慢地磨掉了"],["the riverbank.","河岸"]],why:"空格在句子最前面，是「做這件事的那一個」（主詞）→ 要放<b>名詞</b>。worn away（慢慢磨掉、帶走）＋ riverbank（河岸）＝ 水把河岸的土石慢慢帶走 → erosion。<br>⚠️ 考卷上寫 substantial：那是形容詞，不能當主詞。",tip:"weathering 和 erosion 是一組：先 weathering（岩石被弄碎），再 erosion（碎石被水或風搬走）。",nw:["movement","broken-down","slowly","wear away","riverbank"],news:[{en:"The river carried the rocks away. This is called erosion.",ans:"erosion",zh:"河水把岩石帶走了。這叫做侵蝕作用。"},{en:"Trees can help stop erosion of the land.",ans:"erosion",zh:"樹木可以幫忙阻止土地被侵蝕。"}]},{k:"collapse",src:"考卷 B3",c:10,def:"to fall down or cave in",defZh:"倒下或塌陷",defChunks:[["to fall down","倒下"],["or cave in","或塌陷"]],sent:"The building collapsed after the strong earthquake.",ans:"collapsed",sentZh:"強烈地震過後，這棟建築物倒塌了。",sentChunks:[["The building collapsed","這棟建築物倒塌了"],["after the strong earthquake.","在強烈地震之後"]],why:"地震「已經」發生了（after the strong earthquake 在地震之後），說的是過去的事 → 動詞要用<b>過去式 collapsed</b>。<br>⚠️ 考卷上寫 collapse，少了 -d 被扣分。",tip:"三態：collapse · collapsed · collapsed。說過去的事，記得加 -d！",nw:["fall down","cave in","building","earthquake"],news:[{en:"The old bridge may collapse if too many cars go on it.",ans:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。"},{en:"The snow was so heavy that the roof collapsed.",ans:"collapsed",zh:"雪太重了，屋頂倒塌了。"}]},{k:"hazard",src:"課本定義",c:1,def:"something that can cause harm or injury",defZh:"可能造成傷害或受傷的東西",defChunks:[["something","某個東西"],["that can cause","可能造成"],["harm or injury","傷害或受傷"]],sent:"Wet floors can be a hazard because people might slip and fall.",ans:"hazard",sentZh:"濕的地板可能是一種危險，因為人可能會滑倒摔跤。",sentChunks:[["Wet floors","濕的地板"],["can be a hazard","可能是一種危險"],["because people might slip and fall.","因為人可能會滑倒、跌倒"]],why:"a ___：a 後面要接<b>名詞</b>。because 後面說出原因：人會滑倒受傷 →「可能造成傷害的東西」＝ hazard。hazard 是「還沒發生」、但有危險的東西。",tip:"拼字 haz-ard，結尾是 -ard。記：hazard = 小心！會害你受傷的東西。",nw:["harm","injury","wet","floor","slip","might"],news:[{en:"A broken step is a hazard for old people.",ans:"hazard",zh:"壞掉的台階對老人來說是一種危險。"},{en:"Ice on the road is a hazard to drivers.",ans:"hazard",zh:"路上的冰對駕駛人來說是一種危險。"}]},{k:"destruction",src:"考卷 B4",c:3,def:"great damage or ruin",defZh:"巨大的損害或毀壞",defChunks:[["great damage","巨大的損害"],["or ruin","或毀壞"]],sent:"The forest suffered destruction because of the wildfire.",ans:"destruction",sentZh:"這片森林因為野火而遭受破壞。",sentChunks:[["The forest suffered destruction","這片森林遭受了破壞"],["because of the wildfire.","因為野火"]],why:"suffered（遭受）後面接<b>名詞</b>，說「遭受了什麼」。野火把森林燒毀了 → destruction（破壞）。<br>⚠️ 考卷上寫 erosion：erosion 是水和風「慢慢」把土石搬走；野火是「一下子」把東西燒壞。",tip:"拼字：d-e-s-t-<b>r</b>-u-c-t-i-o-n，考卷上兩次都漏掉 r！它是 destroy（破壞，動詞）的名詞：destroy → destruction，都有 str。",nw:["ruin","forest","wildfire","because of"],news:[{en:"The earthquake caused great destruction in the city.",ans:"destruction",zh:"地震在這座城市造成了巨大的破壞。"},{en:"After the storm, we saw a lot of destruction.",ans:"destruction",zh:"暴風雨過後，我們看到很多破壞。"}]},{k:"substantial",src:"課本定義",c:4,def:"great amount or size",defZh:"很大的數量或大小",defChunks:[["great amount","很大的數量"],["or size","或大小"]],sent:"We need a substantial amount of money to repair the building.",ans:"substantial",sentZh:"我們需要一大筆錢來修理這棟建築物。",sentChunks:[["We need","我們需要"],["a substantial amount of money","相當大數量的錢（一大筆錢）"],["to repair the building.","來修理這棟建築物"]],why:"a ___ amount：空格在 amount（數量）前面，要放<b>形容詞</b>說數量「有多大」→ substantial。<br>⚠️ 考卷上寫 severe：severe 是「嚴重的」，用在壞事（damage、weather）；說數量很大要用 substantial。",tip:"拼字 sub-stan-tial，結尾 -tial 念「秀」。記：substantial = 份量很大。",nw:["amount","size","repair"],news:[{en:"He ate a substantial lunch, so he was not hungry.",ans:"substantial",zh:"他吃了一頓分量很大的午餐，所以他不餓。"},{en:"There was a substantial amount of rain this week.",ans:"substantial",zh:"這個星期下了相當大量的雨。"}]},{k:"alter",src:"課本定義",c:8,def:"to make different or change",defZh:"使變得不同，或改變",defChunks:[["to make different","使變得不同"],["or change","或改變"]],sent:"We had to alter our plans because of the bad weather.",ans:"alter",sentZh:"因為天氣不好，我們必須改變計畫。",sentChunks:[["We had to alter our plans","我們必須改變我們的計畫"],["because of the bad weather.","因為壞天氣"]],why:"had to（必須）後面一定接<b>原形動詞</b>。had 已經表示過去了，所以寫 alter，不能寫 altered。<br>⚠️ 考卷上就是寫成 altered 被扣分。",tip:"三態：alter · altered · altered。但只要前面是 to（to alter、had to alter），永遠用原形 alter。",nw:["different","plan","have to"],news:[{en:"Mom had to alter my pants because they were too long.",ans:"alter",zh:"媽媽必須修改我的褲子，因為它們太長了。"},{en:"The rain may alter the game time.",ans:"alter",zh:"這場雨可能會改變比賽的時間。"}]}],CF=[{p:"還沒發生，但「可能」讓人受傷的東西（例如：濕地板）",a:"hazard",o:["hazard","crisis","destruction","weathering","erosion"]},{p:"很困難、很危險的「處境」（例如：公司快沒錢了）",a:"crisis",o:["hazard","crisis","destruction","erosion"]},{p:"東西被嚴重毀掉的「結果」（例如：森林被野火燒毀）",a:"destruction",o:["destruction","erosion","crisis","hazard"]},{p:"岩石被雨、風、太陽「弄碎」",a:"weathering",o:["weathering","erosion","destruction","hazard"]},{p:"碎掉的土石被水或風「慢慢帶走」",a:"erosion",o:["erosion","weathering","destruction","crisis"]},{p:"「數量」或「大小」很大（例如：一大筆錢）",a:"substantial",o:["substantial","severe","unpredictable","dangerous"]},{p:"很「嚴重」的（形容壞事，例如：嚴重的損害）",a:"severe",o:["severe","substantial","unpredictable","important"]},{p:"We had to ____ our plans.",a:"alter",o:["alter","altered","alters","altering"]},{p:"The building ____ after the earthquake.（地震已經發生了）",a:"collapsed",o:["collapse","collapsed","collapses","collapsing"]},{p:"The city suffered ____ damage. 空格在名詞 damage 前面，要放哪一種字？",a:"形容詞",o:["形容詞","名詞","動詞"]}];DICT_RAW.push(["them","pron.","他們；它們（受詞）","B"],["you","pron.","你；你們","B"],["their","pron.","他們的；它們的","B"],["but","conj.","但是","B"],["last","adj.","上一個的（last week 上週、last year 去年）","B"],["yesterday","adv.","昨天","B"]);var EXTRA_SURF={wear:"wear away",wore:"wear away",worn:"wear away",carries:"carry",needed:"need",storms:"storm",buildings:"building"},MB=[{en:"The severe typhoon caused great destruction, and the old bridge collapsed.",ans:["severe","destruction","collapsed"],zh:"猛烈的颱風造成了巨大的破壞，那座舊橋也倒塌了。"},{en:"Weathering breaks rocks into small pieces, and erosion carries them away.",ans:["Weathering","erosion"],zh:"風化把岩石弄成小碎片，侵蝕再把它們帶走。"},{en:"The weather was unpredictable, so we had to alter our plans.",ans:["unpredictable","alter"],zh:"天氣難以預測，所以我們必須改變計畫。"},{en:"The company needed a substantial amount of money to survive the financial crisis.",ans:["substantial","crisis"],zh:"這家公司需要一大筆錢來撐過金融危機。"},{en:"Severe weather can be a hazard to people on the road.",ans:["Severe","hazard"],zh:"惡劣的天氣對路上的人來說可能是一種危險。"},{en:"Over many years, erosion can alter the riverbank.",ans:["erosion","alter"],zh:"經過很多年，侵蝕作用可以改變河岸。"},{en:"After the earthquake, many buildings collapsed and the city was in a crisis.",ans:["collapsed","crisis"],zh:"地震過後，很多建築物倒塌了，這座城市陷入危機。"},{en:"The wildfire caused substantial destruction to the forest.",ans:["substantial","destruction"],zh:"野火對森林造成了相當大的破壞。"},{en:"Storms in the mountains are unpredictable and can be severe.",ans:["unpredictable","severe"],zh:"山區的暴風雨難以預測，而且可能很猛烈。"},{en:"A wet floor is a hazard; if you slip, you might suffer a severe injury.",ans:["hazard","severe"],zh:"濕地板是一種危險；如果你滑倒，可能會受到嚴重的傷。"},{en:"Weathering and erosion slowly alter the land.",ans:["Weathering","erosion","alter"],zh:"風化和侵蝕慢慢地改變土地。"},{en:"The building did not collapse, but it suffered severe damage.",ans:["collapse","severe"],zh:"這棟建築物沒有倒塌，但是它遭受了嚴重的損害。"},{en:"The earthquake was unpredictable, and the destruction was substantial.",ans:["unpredictable","destruction","substantial"],zh:"這場地震難以預測，造成的破壞也相當大。"},{en:"Ice on the road is a hazard, so the drivers had to alter their plans.",ans:["hazard","alter"],zh:"路上的冰是一種危險，所以駕駛人必須改變他們的計畫。"}],TF=[{en:"The roof ____ (collapse) after the heavy snow.",ans:"collapsed",k:"collapse",zh:"大雪過後，屋頂倒塌了。",why:"after the heavy snow（大雪過後）→ 事情已經發生 → 過去式 collapsed。"},{en:"We had to ____ (alter) the time of the game.",ans:"alter",k:"alter",zh:"我們必須改變比賽的時間。",why:"had to 後面一定用原形動詞 → alter。"},{en:"Mom ____ (alter) my pants yesterday.",ans:"altered",k:"alter",zh:"媽媽昨天修改了我的褲子。",why:"yesterday（昨天）→ 過去式 altered。"},{en:"The old bridge may ____ (collapse) if too many cars go on it.",ans:"collapse",k:"collapse",zh:"如果太多車開上去，這座舊橋可能會倒塌。",why:"may（可能）後面用原形動詞 → collapse。"},{en:"The storm last week ____ (cause) great destruction.",ans:"caused",k:"cause",zh:"上週的暴風雨造成了巨大的破壞。",why:"last week（上週）→ 過去式 caused。"},{en:"Last year, the company ____ (struggle) to survive the crisis.",ans:"struggled",k:"struggle",zh:"去年，這家公司努力撐過危機。",why:"last year（去年）→ 過去式 struggled。"},{en:"Last year, the forest ____ (suffer) destruction because of a wildfire.",ans:"suffered",k:"suffer",zh:"去年，這片森林因為野火而遭受破壞。",why:"last year（去年）→ 過去式 suffered。"},{en:"Erosion has slowly ____ (wear) away the riverbank.",ans:"worn",k:"wear away",zh:"侵蝕作用已經慢慢地把河岸磨蝕掉了。",why:"has + 過去分詞。wear · wore · worn → has worn away。"}],D={},SURF={},PHR={};DICT_RAW.forEach(function(t){var n=_slicedToArray(t,6),e=n[0],r=n[1],o=n[2],a=n[3],i=n[4],c=n[5];D[e]={k:e,w:e,pos:r,zh:o,tier:a,forms:i||""},e.includes(" ")&&(PHR[e]=e),(c||[]).forEach(function(t){SURF[t]=e,t.includes(" ")&&(PHR[t]=e)})}),Object.assign(SURF,EXTRA_SURF);var NW=[];T.forEach(function(t){return t.nw.forEach(function(t){NW.includes(t)||NW.push(t)})});var TK=T.map(function(t){return t.k}),NEWS=[];T.forEach(function(t){return t.news.forEach(function(n,e){return NEWS.push(_objectSpread({t:t.k,i:e},n))})});var NB=[];T.forEach(function(t){return[[t.def,t.defZh],[t.sent,t.sentZh]].forEach(function(n){var e=_slicedToArray(n,2),r=e[0],o=e[1];t.nw.concat(T.flatMap(function(t){return t.nw})).filter(function(t,n,e){return e.indexOf(t)===n}).forEach(function(n){var e,a=_createForOfIteratorHelper([n].concat(_toConsumableArray(Object.keys(SURF).filter(function(t){return SURF[t]===n}))).sort(function(t,n){return n.length-t.length}));try{for(a.s();!(e=a.n()).done;){var i=e.value,c=r.match(new RegExp("\\b"+i.replace(/-/g,"\\-")+"\\b","i"));if(c){NB.some(function(t){return t.k===n&&t.text===r})||NB.push({k:n,ans:c[0],text:r,zh:o,t:t.k});break}}}catch(s){a.e(s)}finally{a.f()}})})});var POSZH={"n.":"名詞","v.":"動詞","adj.":"形容詞","adv.":"副詞","phr.":"片語","aux.":"助動詞","prep.":"介系詞","conj.":"連接詞","pron.":"代名詞","art.":"冠詞","num.":"數字"},posZh=function(t){return t.split(" / ").map(function(t){return POSZH[t]||t}).join(" / ")},app=document.getElementById("app"),esc=function(t){return String(t).replace(/[&<>"]/g,function(t){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[t]})};function shuffle(t){for(var n=(t=t.slice()).length-1;n>0;n--){var e=Math.random()*(n+1)|0,r=[t[e],t[n]];t[n]=r[0],t[e]=r[1]}return t}var sample=function(t,n){return shuffle(t).slice(0,n)},tgt=function(t){return T.find(function(n){return n.k===t})},norm=function(t){return String(t).toLowerCase().replace(/[’‘]/g,"'").replace(/-/g," ").replace(/[.,!?;:"]/g,"").replace(/\s+/g," ").trim()},keyOf=function(t){var n=t.toLowerCase();return SURF[n]||(D[n]?n:null)},VOICE=null;function pickVoice(){try{var t=speechSynthesis.getVoices();VOICE=t.find(function(t){return/en[-_]US/i.test(t.lang)&&/Samantha|Google US|Aria|Jenny|Allison|Ava/i.test(t.name)})||t.find(function(t){return/en[-_]US/i.test(t.lang)})||t.find(function(t){return/^en/i.test(t.lang)})||null}catch(n){}}if("speechSynthesis"in window){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice}catch(e){}}function speak(t,n){if("speechSynthesis"in window)try{speechSynthesis.cancel();var r=new SpeechSynthesisUtterance(t);r.lang="en-US",VOICE&&(r.voice=VOICE),r.rate=n?.6:.9,speechSynthesis.speak(r)}catch(e){}}var KEY="w5-exam-v1";function load(){try{var t=JSON.parse(localStorage.getItem(KEY));if(t&&1===t.v)return t}catch(e){}return{v:1,learn:{},rounds:{},tests:[],unlock:!1}}var S=load();function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}var LEARN_N=T.length+1,learnCount=function(){return Object.keys(S.learn).filter(function(t){return S.learn[t]}).length},learnDone=function(){return learnCount()>=LEARN_N},ROUNDS=[{id:"r1",ico:"🔤",name:"生字意思",desc:"看英文選中文（全部 "+(TK.length+NW.length)+" 個字）",ids:function(){return[].concat(_toConsumableArray(TK),NW).map(function(t){return"vm:"+t})}},{id:"r2",ico:"🤔",name:"句子理解",desc:"每個定義和考卷句子都要懂意思",ids:function(){return T.flatMap(function(t){return["sm:"+t.k+":def","sm:"+t.k+":sent"]})}},{id:"r3",ico:"📖",name:"看定義寫單字",desc:"像考卷 B 部分",ids:function(){return TK.map(function(t){return"dw:"+t})}},{id:"r4",ico:"✏️",name:"考卷句子填空",desc:"像考卷 C 部分，注意 -ed",ids:function(){return TK.map(function(t){return"fb:"+t})}},{id:"r5",ico:"🧠",name:"生字背誦拼寫",desc:"看中文寫英文，全部生字都要會",ids:function(){return[].concat(_toConsumableArray(TK),NW).map(function(t){return"sp:"+t})}}],roundDone=function(t){return S.rounds[t]&&S.rounds[t].done},reviewCount=function(){return ROUNDS.filter(function(t){return roundDone(t.id)}).length},reviewDone=function(){return reviewCount()>=ROUNDS.length};function wspan(t,n,e){var r=D[n];if(!e.click)return e.hi===n?'<b class="hi">'.concat(esc(t),"</b>"):esc(t);var o="w"+("T"===r.tier?" wt":"N"===r.tier?" wn":"")+(e.hi===n?" hi":"");return'<span class="'.concat(o,'" data-k="').concat(esc(n),'">').concat(esc(t),"</span>")}function rt(t,n){var e=Object.assign({click:!0,hi:null,blank:null},n||{});t=t.replace(/_{3,}/g,"\0"),e.blank&&[].concat(e.blank).forEach(function(n){t=t.replace(new RegExp("\\b"+n+"\\b"),"\0")});for(var r=0,o=Array.isArray(e.blank)&&e.blank.length>1,a=t.match(/[A-Za-z]+(?:[-'][A-Za-z]+)*|\u0000|[^A-Za-z\u0000]+/g)||[],i="",c=0;c<a.length;c++){var s=a[c];if("\0"!==s)if(/^[A-Za-z]/.test(s)){for(var u=!1,l=0,f=[3,2];l<f.length;l++){for(var d=f[l],v=[c];v.length<d;){var p=v[v.length-1];if(" "!==a[p+1]||!a[p+2]||!/^[A-Za-z]/.test(a[p+2]))break;v.push(p+2)}if(v.length===d){var h=v.map(function(t){return a[t].toLowerCase()}).join(" "),b=PHR[h];if(b){i+=wspan(a.slice(c,v[d-1]+1).join(""),b,e),c=v[d-1],u=!0;break}}}if(!u){var y=keyOf(s);i+=y?wspan(s,y,e):esc(s)}}else i+=esc(s);else r++,i+=o?'<span class="blank num">('.concat(r,")</span>"):'<span class="blank">________</span>'}return i}var spk=function(t,n){return'<button class="spk" data-say="'.concat(esc(t),'"').concat(n?' data-slow="1"':"",' aria-label="發音">').concat(n?"🐢":"🔊","</button>")};function chunksHtml(t){return'<div class="chunks">'.concat(t.map(function(t){var n=_slicedToArray(t,2),e=n[0],r=n[1];return'<div class="ck"><div class="cke">'.concat(rt(e),'</div><div class="ckz">').concat(esc(r),"</div></div>")}).join(""),"</div>")}function wordInfo(t){var n=D[t];return'<div class="winfo"><div class="wi1"><b>'.concat(esc(n.w),"</b> ").concat(spk(n.w)).concat(spk(n.w,1),' <span class="tag">').concat(n.pos," ").concat(posZh(n.pos),'</span></div><div class="wi2">').concat(esc(n.zh),"</div>").concat(n.forms?'<div class="wi3">'.concat(esc(n.forms),"</div>"):"","</div>")}var sheet=document.getElementById("sheet");function openSheet(t){var n=D[t];if(n){var e=tgt(t),r="T"===n.tier?'<span class="badge bT">本課單字</span>':"N"===n.tier?'<span class="badge bn">要會背的生字</span>':'<span class="badge bb">基本字</span>';sheet.innerHTML='<div class="sh-bg"></div><div class="sh">\n   <div class="sh-top">'.concat(r,'<button class="x" aria-label="關閉">✕</button></div>\n   <div class="sh-w">').concat(esc(n.w),'</div>\n   <div class="sh-btns"><button class="btn spkbig" data-say="').concat(esc(n.w),'">🔊 發音</button><button class="btn spkbig" data-say="').concat(esc(n.w),'" data-slow="1">🐢 慢速</button></div>\n   <div class="sh-pos">').concat(n.pos,"　").concat(posZh(n.pos),'</div>\n   <div class="sh-zh">').concat(esc(n.zh),"</div>\n   ").concat(n.forms?'<div class="sh-f">'.concat(esc(n.forms),"</div>"):"","\n   ").concat(e?'<div class="sh-def"><div class="lab">英文定義</div>'.concat(esc(e.def),'<div class="zh2">').concat(esc(e.defZh),"</div></div>"):"","\n  </div>"),sheet.classList.remove("hidden"),speak(n.w)}}function closeSheet(){sheet.classList.add("hidden")}function toast(t){var n=document.createElement("div");n.className="toast",n.textContent=t,document.body.appendChild(n),setTimeout(function(){return n.remove()},1600)}function hintOf(t){return t.split("").map(function(t,n){return" "===t?"　":"-"===t?"-":0===n?t:"_"}).join(" ")}function buildQ(t){var n=_slicedToArray(t.split(":"),3),e=n[0],r=n[1],o=n[2];if("vm"===e){var a=D[r],i=Object.values(D).filter(function(t){return t.tier===a.tier&&t.k!==r&&t.zh!==a.zh});return{kind:"mc",prompt:'<div class="qlab">這個字是什麼意思？</div><div class="qword">'.concat(esc(a.w)," ").concat(spk(a.w),'</div><div class="qpos">').concat(a.pos," ").concat(posZh(a.pos),"</div>"),opts:shuffle([a.zh].concat(_toConsumableArray(sample(i,3).map(function(t){return t.zh})))),ans:a.zh,say:a.w,autoSay:!0,explain:wordInfo(r)}}if("sm"===e){var c,s,u,l=null,f=tgt(r);if("def"===o)c=f.def,s=f.defZh,l=f.defChunks,u=T.filter(function(t){return t!==f}).map(function(t){return t.defZh});else if("sent"===o)c=f.sent,s=f.sentZh,l=f.sentChunks,u=T.filter(function(t){return t!==f}).map(function(t){return t.sentZh});else{var d=f.news[+o.slice(3)];c=d.en,s=d.zh,u=NEWS.filter(function(t){return t.en!==d.en}).map(function(t){return t.zh})}return{kind:"mc",prompt:'<div class="qlab">🤔 這句英文是什麼意思？</div><div class="qsent">'.concat(rt(c,{click:!1})," ").concat(spk(c),"</div>"),opts:shuffle([s].concat(_toConsumableArray(sample(u,3)))),ans:s,explain:(l?chunksHtml(l):'<div class="qsent">'.concat(rt(c),"</div>"))+'<div class="zhline">👉 '.concat(esc(s),"</div>")}}if("dw"===e){var v=tgt(r);return{kind:"type",prompt:'<div class="qlab">📖 看英文定義，寫出是哪個單字（'.concat(v.src,'）</div><div class="qsent">').concat(rt(v.def,{click:!1}),"</div>"),ans:v.k,explain:'<div class="qsent">'.concat(rt(v.def),'</div><div class="zhline">👉 ').concat(esc(v.defZh),"</div>")+wordInfo(v.k)}}if("fb"===e){var p=tgt(r);return{kind:"type",prompt:'<div class="qlab">✏️ 原考卷 C'.concat(p.c,'：填入正確的單字（注意單字的形式）</div><div class="qsent">').concat(rt(p.sent,{click:!1,blank:p.ans}),"</div>"),ans:p.ans,explain:'<div class="qsent">'.concat(rt(p.sent,{hi:p.k}),'</div><div class="zhline">👉 ').concat(esc(p.sentZh),'</div><div class="why">').concat(p.why,"</div>")}}if("nf"===e){var h=tgt(r),b=h.news[+o];return{kind:"type",prompt:'<div class="qlab">✏️ 新句子填空：填入正確的單字（注意形式）</div><div class="qsent">'.concat(rt(b.en,{click:!1,blank:b.ans}),"</div>"),ans:b.ans,explain:'<div class="qsent">'.concat(rt(b.en,{hi:h.k}),'</div><div class="zhline">👉 ').concat(esc(b.zh),"</div>")+wordInfo(h.k)}}if("mb"===e){var y=MB[+r],g=y.en;return{kind:"multi",answers:y.ans,prompt:'<div class="qlab">✏️ 多格填空：每一格都對才得分（注意形式）</div><div class="qsent">'.concat(rt(y.en,{click:!1,blank:y.ans}),"</div>"),explain:'<div class="qsent">'.concat(rt(g),'</div><div class="zhline">👉 ').concat(esc(y.zh),"</div>")+y.ans.map(function(t,n){var e=keyOf(t);return'<div class="mbx">('.concat(n+1,") <b>").concat(esc(t),"</b>　").concat(e?esc(D[e].zh):"","</div>")}).join("")}}if("tf"===e){var m=TF[+r],w=m.en.replace(/_{3,}/,m.ans).replace(/ \([a-z]+\)/,"");return{kind:"type",ans:m.ans,prompt:'<div class="qlab">🔄 動詞形式：用括號裡的字，寫出正確的形式</div><div class="qsent">'.concat(rt(m.en,{click:!1}),"</div>"),explain:'<div class="qsent">'.concat(rt(w),'</div><div class="zhline">👉 ').concat(esc(m.zh),'</div><div class="why">').concat(m.why,"</div>")+wordInfo(m.k)}}if("nb"===e){var k=NB[+r],S=D[k.k];return{kind:"type",ans:k.ans,prompt:'<div class="qlab">🆕 生字填空：照中文提示填入生字'.concat(norm(k.ans)!==norm(k.k)?"（注意形式）":"",'</div><div class="qsent">').concat(rt(k.text,{click:!1,blank:k.ans}),'</div><div class="hint">中文：').concat(esc(S.zh),"　提示：").concat(esc(hintOf(k.ans)),"</div>"),explain:'<div class="qsent">'.concat(rt(k.text,{hi:k.k}),'</div><div class="zhline">👉 ').concat(esc(k.zh),"</div>")+wordInfo(k.k)}}if("sp"===e){var x=D[r];return{kind:"type",prompt:'<div class="qlab">🧠 背背看：寫出英文</div><div class="qzh">'.concat(esc(x.zh),'</div><div class="qpos">').concat(x.pos," ").concat(posZh(x.pos),'</div><div class="hint">提示：').concat(esc(hintOf(x.w)),"</div>"),ans:x.w,explain:wordInfo(r)}}if("dict"===e){var O=tgt(r);return{kind:"dict",prompt:'<div class="qlab">🎧 聽寫：聽發音寫出單字，再選詞性</div><div class="bigspk"><button class="btn spkbig" data-say="'.concat(esc(O.k),'">🔊 再聽一次</button><button class="btn spkbig" data-say="').concat(esc(O.k),'" data-slow="1">🐢 慢速</button></div>'),ans:O.k,pos:D[O.k].pos,say:O.k,autoSay:!0,explain:wordInfo(O.k)}}if("cf"===e){var j=CF[+r],B=tgt(j.a)||tgt(j.a.replace(/d$/,""));return{kind:"mc",prompt:'<div class="qlab">🔍 分清楚：選出最適合的答案</div><div class="qsent">'.concat(esc(j.p),"</div>"),opts:shuffle(j.o.length>4?[j.a].concat(_toConsumableArray(sample(j.o.filter(function(t){return t!==j.a}),3))):j.o),ans:j.a,explain:B?wordInfo(B.k):""}}}document.addEventListener("click",function(t){var n=t.target.closest("[data-say]");if(n)return speak(n.dataset.say,!!n.dataset.slow),void t.stopPropagation();var e=t.target.closest("[data-k]");e&&e.classList.contains("w")?openSheet(e.dataset.k):(t.target.closest(".x")||t.target.classList.contains("sh-bg"))&&closeSheet()});var ansShow=function(t){return"dict"===t.kind?t.ans+"（"+t.pos+"）":"multi"===t.kind?t.answers.map(function(t,n){return"(".concat(n+1,") ").concat(t)}).join("　"):t.ans},ansList=function(t){return t.answers||[t.ans]};function keysOfQ(t){var n=_slicedToArray(t.split(":"),2),e=n[0],r=n[1];if("mb"===e)return MB[+r].ans.map(keyOf).filter(Boolean);if("tf"===e)return[TF[+r].k];if("nb"===e)return[NB[+r].k];if("cf"===e){var o=CF[+r],a=keyOf(o.a);return a?[a]:[]}return D[r]?[r]:[]}function addMiss(t){S.miss=S.miss||{},keysOfQ(t).forEach(function(t){return S.miss[t]=(S.miss[t]||0)+1}),save()}var missOf=function(t){return S.miss&&S.miss[t]||0};function renderQ(t,n,r,o){var a='<div class="qprompt">'.concat(n.prompt,"</div>");"mc"===n.kind?a+='<div class="opts">'.concat(n.opts.map(function(t,n){return'<button class="opt" data-i="'.concat(n,'">').concat(esc(t),"</button>")}).join(""),"</div>"):("dict"===n.kind&&(a+='<div class="posrow">'.concat(["n.","v.","adj."].map(function(t){return'<button class="pos" data-p="'.concat(t,'">').concat(t,"<small>").concat(POSZH[t],"</small></button>")}).join(""),"</div>")),"multi"===n.kind?a+='<div class="mbin">'.concat(n.answers.map(function(t,n){return'<label class="mbrow"><span>('.concat(n+1,')</span><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>')}).join(""),'</div><button class="btn pri big go">確定</button>'):a+='<div class="ansrow"><input class="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="在這裡輸入英文"><button class="btn pri go">確定</button></div>'),t.innerHTML=a;var i=!1;if("mc"===n.kind){var c=_toConsumableArray(t.querySelectorAll(".opt"));c.forEach(function(t){return t.onclick=function(){if(!i){i=!0;var e=n.opts[+t.dataset.i],a=e===n.ans;c.forEach(function(t){return t.disabled=!0}),o?t.classList.add("sel"):(t.classList.add(a?"ok":"bad"),a||c.forEach(function(t){n.opts[+t.dataset.i]===n.ans&&t.classList.add("ok")})),r(a,e)}}})}else{var s=_toConsumableArray(t.querySelectorAll(".ans")),u=s[0],l=null;t.querySelectorAll(".pos").forEach(function(n){return n.onclick=function(){i||(l=n.dataset.p,t.querySelectorAll(".pos").forEach(function(t){return t.classList.toggle("sel",t===n)}))}});var f=function(){if(!i){if("multi"===n.kind){var e=s.find(function(t){return!t.value.trim()});if(e)return e.focus(),void toast("每一格都要填");i=!0,s.forEach(function(t){return t.disabled=!0}),t.querySelector(".go").disabled=!0;var a=s.map(function(t,e){return norm(t.value)===norm(n.answers[e])});return o||s.forEach(function(t,n){return t.classList.add(a[n]?"ok":"bad")}),void r(a.every(Boolean),s.map(function(t,n){return"(".concat(n+1,") ").concat(t.value.trim())}).join("　"))}var c=u.value;if(c.trim())if("dict"!==n.kind||l){i=!0,u.disabled=!0,t.querySelector(".go").disabled=!0,t.querySelectorAll(".pos").forEach(function(t){return t.disabled=!0});var f=norm(c)===norm(n.ans);"dict"===n.kind&&(f=f&&l===n.pos),o||u.classList.add(f?"ok":"bad"),r(f,"dict"===n.kind?c.trim()+"（"+l+"）":c.trim())}else toast("請選詞性 n. / v. / adj.");else u.focus()}};t.querySelector(".go").onclick=f,s.forEach(function(t,n){return t.onkeydown=function(t){"Enter"!==t.key&&13!==t.keyCode||(t.preventDefault(),n<s.length-1?s[n+1].focus():f())}}),setTimeout(function(){try{u.focus({preventScroll:!0})}catch(e){}},80)}n.autoSay&&n.say&&setTimeout(function(){return speak(n.say)},250)}function runPractice(t,n,e){var r,o=e||{};o.key&&S.rounds[o.key]&&S.rounds[o.key].queue?r=S.rounds[o.key]:(r={queue:shuffle(n),total:n.length,cleared:0,wrong:0},o.key&&(S.rounds[o.key]=r,save())),function n(){if(!r.queue.length)return o.key&&(S.rounds[o.key]={done:!0,total:r.total,wrong:r.wrong,at:Date.now()},save()),void(o.onDone&&o.onDone(r));var e=r.queue[0],a=buildQ(e),i=Math.round(r.cleared/r.total*100);t.innerHTML='<div class="pbar"><div style="width:'.concat(i,'%"></div></div><div class="pmeta">').concat(o.label||""," 答對 ").concat(r.cleared," / ").concat(r.total).concat(r.wrong?" · 答錯過 ".concat(r.wrong," 次"):"",'</div><div class="qcard"></div>');var c=t.querySelector(".qcard");renderQ(c,a,function(t,i){if(t)r.queue.shift(),r.cleared++,o.key&&save(),c.insertAdjacentHTML("beforeend",'<div class="fb good">✅ 答對了！</div>'),setTimeout(n,700);else{r.wrong++,addMiss(e);var s=r.queue.shift();r.queue.splice(Math.min(3,r.queue.length),0,s),o.key&&save(),showWrong(c,a,i,n)}})}()}function showWrong(t,n,r,o){var a="mc"!==n.kind;t.insertAdjacentHTML("beforeend",'<div class="fb badbox">\n    <div class="fbt">❌ 沒關係，這題等一下會再出現</div>\n    '.concat(a?"<div>你寫的：<s>".concat(esc(r),"</s></div>"):"",'\n    <div class="right">正確答案：<b>').concat(esc(ansShow(n)),'</b></div>\n    <div class="exp">').concat(n.explain||"","</div>\n    ").concat(a?'<div class="retype"><div class="lab">照著正確答案打一次，記起來：</div>'.concat(ansList(n).map(function(t,e){return'<input class="rt" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="'.concat(ansList(n).length>1?"("+(e+1)+") ":"").concat(esc(t),'">')}).join(""),"</div>"):"",'\n    <button class="btn pri big nx" ').concat(a?"disabled":"",">").concat(a?"打對了才能繼續":"我懂了，下一題 →","</button></div>"));var i=t.querySelector(".nx");if(i.onclick=o,a){var c=_toConsumableArray(t.querySelectorAll(".rt")),s=ansList(n),u=function(){var t=!0;c.forEach(function(n,e){var r=norm(n.value)===norm(s[e]);n.classList.toggle("ok",r),r||(t=!1)}),i.disabled=!t,i.textContent=t?"我記住了，下一題 →":"打對了才能繼續"};c.forEach(function(t,n){t.oninput=u,t.onkeydown=function(t){"Enter"!==t.key&&13!==t.keyCode||(i.disabled?c[n+1]&&c[n+1].focus():o())}}),setTimeout(function(){try{c[0].focus({preventScroll:!0})}catch(e){}},80)}i.scrollIntoView({behavior:"smooth",block:"nearest"})}var SEC={dict:"一、聽寫＋詞性",dw:"二、原考卷 B：看定義寫單字",fb:"三、原考卷 C：句子填空",nf:"四、新句子填空",tf:"五、動詞形式填空",mb:"六、多格填空",nb:"七、生字填空",sm:"句子意思",sp:"生字拼寫",vm:"生字意思",cf:"易混字"};function wsample(t,n,e){for(var r=t.map(function(t){return{x:t,w:1+3*e(t).reduce(function(t,n){return t+missOf(n)},0)}}),o=[];o.length<n&&r.length;){for(var a=Math.random()*r.reduce(function(t,n){return t+n.w},0),i=0;i<r.length-1&&!((a-=r[i].w)<=0);i++);o.push(r.splice(i,1)[0].x)}return o}function genTest(){var t=[];return wsample(TK,3,function(t){return[t]}).forEach(function(n){return t.push("dict:"+n)}),shuffle(TK).forEach(function(n){return t.push("dw:"+n)}),shuffle(TK).forEach(function(n){return t.push("fb:"+n)}),wsample(NEWS,10,function(t){return[t.t]}).forEach(function(n){return t.push("nf:"+n.t+":"+n.i)}),wsample(TF.map(function(t,n){return n}),4,function(t){return[TF[t].k]}).forEach(function(n){return t.push("tf:"+n)}),wsample(MB.map(function(t,n){return n}),8,function(t){return MB[t].ans.map(keyOf).filter(Boolean)}).forEach(function(n){return t.push("mb:"+n)}),wsample(NW.filter(function(t){return NB.some(function(n){return n.k===t})}),5,function(t){return[t]}).forEach(function(n){var e=NB.map(function(t,n){return{n:t,i:n}}).filter(function(t){return t.n.k===n});t.push("nb:"+e[Math.random()*e.length|0].i)}),t}var topMiss=function(t){return Object.entries(S.miss||{}).filter(function(t){return t[1]>0}).sort(function(t,n){return n[1]-t[1]}).slice(0,t)},inTest=!1;function runTest(t){var n=genTest(),e=[],r=Date.now(),o=0;inTest=!0,function a(){if(o>=n.length)return function(){inTest=!1;var t=2*e.filter(function(t){return t.ok}).length;e.filter(function(t){return!t.ok}).forEach(function(t){return addMiss(t.id)}),S.tests.push({at:Date.now(),score:t,dur:Math.round((Date.now()-r)/1e3),ans:e}),save(),go("result",S.tests.length-1)}();var i=n[o],c=buildQ(i);t.innerHTML='<div class="pbar"><div style="width:'.concat(o/n.length*100,'%"></div></div><div class="pmeta">第 ').concat(o+1," / ").concat(n.length," 題 · ").concat(SEC[i.split(":")[0]],'</div><div class="qcard"></div>'),renderQ(t.querySelector(".qcard"),c,function(t,n){e.push({id:i,ok:t,given:n}),o++,setTimeout(a,350)},!0)}()}function topBar(t,n){return'<header class="bar"><button class="back" onclick="'.concat(n||"go('home')",'">‹ 回首頁</button><div class="bt">').concat(t,"</div></header>")}function fmtDate(t){var n=new Date(t);return"".concat(n.getMonth()+1,"/").concat(n.getDate()," ").concat(String(n.getHours()).padStart(2,"0"),":").concat(String(n.getMinutes()).padStart(2,"0"))}function fmtDur(t){return Math.floor(t/60)+" 分 "+t%60+" 秒"}var best=function(){return S.tests.length?Math.max.apply(Math,_toConsumableArray(S.tests.map(function(t){return t.score}))):null};function go(t,n){inTest&&!confirm("測驗還沒做完，離開的話這次不算分。確定要離開嗎？")||(inTest=!1,closeSheet(),window.scrollTo(0,0),{home:vHome,learn:vLearn,review:vReview,round:vRound,test:vTest,result:vResult,words:vWords,scores:vScores,settings:vSettings,practice:vPractice}[t](n))}function vHome(){var t=learnCount(),n=reviewCount(),e=learnDone()||S.unlock,r=reviewDone()||S.unlock,o=best();app.innerHTML='<div class="hero"><div class="h-sm">Week 5 · A World of Change</div><h1>考卷特訓</h1><div class="h-sub">讀懂每一句，記住每一個字</div></div>\n  <div class="steps">\n   <button class="step s1" onclick="go(\'learn\','.concat(Math.min(t,LEARN_N-1),')"><div class="si">📘</div><div class="sb"><div class="sn">1. 學習</div><div class="sd">一張一張讀懂單字、定義、考卷句子</div><div class="mini"><div style="width:').concat(t/LEARN_N*100,'%"></div></div><div class="sp">').concat(t," / ").concat(LEARN_N," 張").concat(t>=LEARN_N?" ✅":"",'</div></div></button>\n   <button class="step s2 ').concat(e?"":"lock",'" onclick="').concat(e?"go('review')":"toast('先完成全部學習卡才能複習')",'"><div class="si">').concat(e?"🔁":"🔒",'</div><div class="sb"><div class="sn">2. 複習</div><div class="sd">五關，答錯會再出現，全對才過關</div><div class="mini"><div style="width:').concat(n/ROUNDS.length*100,'%"></div></div><div class="sp">').concat(n," / ").concat(ROUNDS.length," 關").concat(n>=ROUNDS.length?" ✅":"",'</div></div></button>\n   <button class="step s3 ').concat(r?"":"lock",'" onclick="').concat(r?"go('test')":"toast('先完成複習五關才能測驗')",'"><div class="si">').concat(r?"📝":"🔒",'</div><div class="sb"><div class="sn">3. 測驗</div><div class="sd">50 題 100 分，以填空為主，常錯的字會多考</div><div class="sp">已考 ').concat(S.tests.length," 次").concat(null!==o?" · 最高 "+o+" 分":"",'</div></div></button>\n  </div>\n  <div class="tools"><button class="tool" onclick="go(\'words\')">📋<span>生字表</span></button><button class="tool" onclick="go(\'scores\')">🏆<span>成績紀錄</span></button><button class="tool" onclick="go(\'settings\')">⚙️<span>設定</span></button></div>\n  <p class="foot">所有英文字都可以點，會出現中文、詞性和發音。<br><span class="lg wt">粗體</span>＝本課單字　<span class="lg wn">底線</span>＝要會背的生字</p>')}function vLearn(t){var n,e='<div class="lnav"><button class="btn" '.concat(0===(t=+t)?"disabled":""," onclick=\"go('learn',").concat(t-1,')">‹ 上一張</button><div class="dots">').concat(Array.from({length:LEARN_N},function(n,e){return'<span class="'.concat(S.learn[e]?"d ok":"d").concat(e===t?" cur":"",'"></span>')}).join(""),'</div><button class="btn" ').concat(t>=LEARN_N-1||!S.learn[t]?"disabled":""," onclick=\"go('learn',").concat(t+1,')">下一張 ›</button></div>');if(t===T.length){var r=function(t,n,e){return'<tr><td><span class="w wt" data-k="'.concat(t,'">').concat(t,"</span></td><td>").concat(n,"</td><td>C").concat(e,"</td></tr>")};n='<div class="card"><h2 class="ctitle">🔍 易混字：這次考卷錯在這裡</h2>\n    <section><h3>1. 五個「壞事」名詞，怎麼分？</h3>\n     <table class="tb"><tr><th>單字</th><th>意思重點</th><th>考卷</th></tr>\n     '.concat(r("hazard","還沒發生，但「可能」讓人受傷的東西",1)).concat(r("crisis","很困難、很危險的「處境」",9)).concat(r("destruction","東西被嚴重毀掉的「結果」",3)).concat(r("weathering","岩石被雨、風、太陽「弄碎」",2)).concat(r("erosion","碎掉的土石被水或風「慢慢帶走」",5),'</table>\n     <p class="note">順序記法：岩石先被 <b>weathering</b> 弄碎 → 再被 <b>erosion</b> 帶走。野火、地震一下子把東西毀掉 → <b>destruction</b>。</p></section>\n    <section><h3>2. severe 還是 substantial？</h3>\n     <div class="vs"><div><b class="w wt" data-k="severe">severe</b><br>嚴重的（形容<b>壞事</b>）<br><span class="ex">').concat(rt("severe damage, severe weather"),'</span></div><div><b class="w wt" data-k="substantial">substantial</b><br><b>數量、大小</b>很大<br><span class="ex">').concat(rt("a substantial amount of money"),'</span></div></div></section>\n    <section><h3>3. 看空格位置，就知道要哪一種字</h3>\n     <table class="tb"><tr><th>空格位置</th><th>要放</th></tr>\n     <tr><td>a / the ＿＿</td><td>名詞</td></tr><tr><td>＿＿ ＋ 名詞（＿＿ damage）</td><td>形容詞</td></tr><tr><td>very ＿＿ / can be ＿＿</td><td>形容詞</td></tr><tr><td>to ＿＿ / had to ＿＿</td><td>原形動詞（alter）</td></tr><tr><td>已經發生的事</td><td>過去式（collapsed）</td></tr></table></section>\n    <div id="chk"></div></div>')}else{var o=T[t],a=D[o.k];n='<div class="card">\n     <div class="whead"><div><div class="bigword">'.concat(o.k,'</div><div class="wmeta"><span class="tag">').concat(a.pos," ").concat(posZh(a.pos),'</span><span class="zhbig">').concat(esc(a.zh),"</span></div>").concat(a.forms?'<div class="forms">'.concat(esc(a.forms),"</div>"):"",'</div><div class="spcol">').concat(spk(o.k)).concat(spk(o.k,1),"</div></div>\n     <section><h3>📖 英文定義 <small>").concat(o.src,'</small></h3><div class="sent">').concat(rt(o.def)," ").concat(spk(o.def),'</div><div class="lab">一段一段看懂：</div>').concat(chunksHtml(o.defChunks),'<div class="zhline">👉 ').concat(esc(o.defZh),"</div></section>\n     <section><h3>✏️ 考卷句子 <small>考卷 C").concat(o.c,'</small></h3><div class="sent">').concat(rt(o.sent,{hi:o.k})," ").concat(spk(o.sent),'</div><div class="lab">一段一段看懂：</div>').concat(chunksHtml(o.sentChunks),'<div class="zhline">👉 ').concat(esc(o.sentZh),'</div><div class="why"><b>為什麼是 ').concat(o.ans,"？</b><br>").concat(o.why,'</div></section>\n     <section><h3>💡 記憶小撇步</h3><p class="tip">').concat(o.tip,'</p></section>\n     <section><h3>🆕 這張卡要會背的生字 <small>點一下看意思</small></h3><div class="chips">').concat(o.nw.map(function(t){return'<button class="chip w" data-k="'.concat(esc(t),'">').concat(esc(t),"</button>")}).join(""),'</div></section>\n     <div id="chk"></div></div>')}app.innerHTML=topBar("學習 ".concat(t+1," / ").concat(LEARN_N))+n+e;var i=document.getElementById("chk"),c=t===T.length?CF.map(function(t,n){return"cf:"+n}):["sm:"+T[t].k+":def","sm:"+T[t].k+":sent","vm:"+T[t].k].concat(_toConsumableArray(T[t].nw.map(function(t){return"vm:"+t}))),s=function(){return'<div class="done">🎉 這張卡完成了！'.concat(t<LEARN_N-1?'<button class="btn pri big" onclick="go(\'learn\','.concat(t+1,')">下一張 →</button>'):'<button class="btn pri big" onclick="go(\'home\')">學習全部完成！回首頁開始複習 →</button>','<button class="btn ghost" id="again">再檢查一次</button></div>')},u=function(){i.innerHTML='<h3 class="chkh">✅ 理解檢查（全部答對才算完成）</h3><div id="pz"></div>',runPractice(document.getElementById("pz"),c,{label:"檢查",onDone:function(){S.learn[t]=!0,save(),i.innerHTML=s(),l(),vLearnNavRefresh(t),i.scrollIntoView({behavior:"smooth",block:"center"})}})},l=function(){var t=document.getElementById("again");t&&(t.onclick=u)};S.learn[t]?(i.innerHTML=s(),l()):(i.innerHTML='<button class="btn pri big" id="startchk">我讀懂了，開始理解檢查 ✅</button><p class="note c">每個英文字都可以點。全部看懂了再按，檢查全對這張卡才算完成。</p>',document.getElementById("startchk").onclick=u)}function vLearnNavRefresh(t){var n=document.querySelector(".lnav");if(n){var e=n.querySelectorAll("button")[1];e&&t<LEARN_N-1&&(e.disabled=!1);var r=n.querySelectorAll(".d")[t];r&&r.classList.add("ok")}}function vReview(){app.innerHTML=topBar("複習五關")+'<p class="intro">每一關答錯的題目會再出現，<b>全部答對</b>才過關。中途離開會記住進度。</p>\n  <div class="rlist">'.concat(ROUNDS.map(function(t,n){var e=S.rounds[t.id],r=e&&e.done,o=e&&e.queue?"進行中 ".concat(e.cleared,"/").concat(e.total):"",a=0===n||roundDone(ROUNDS[n-1].id)||S.unlock;return'<button class="rr '.concat(r?"rd":""," ").concat(a?"":"lock",'" onclick="').concat(a?"go('round','".concat(t.id,"')"):"toast('先過前一關')",'"><div class="ri">').concat(a?t.ico:"🔒",'</div><div class="rb"><div class="rn">第 ').concat(n+1," 關 · ").concat(t.name,'</div><div class="rd2">').concat(t.desc,"</div>").concat(o?'<div class="rp">'.concat(o,"</div>"):"",'</div><div class="rs">').concat(r?"✅":"›","</div></button>")}).join(""),"</div>")}function vRound(t){var n=ROUNDS.find(function(n){return n.id===t}),e=S.rounds[t];app.innerHTML=topBar(n.ico+" "+n.name,"go('review')")+'<div id="pz" class="pwrap"></div>';var r=document.getElementById("pz");if(e&&e.done)return r.innerHTML='<div class="done big">✅ 這關已經過關了<div class="ds">要再練一次嗎？</div><button class="btn pri big" id="redo">再練一次</button><button class="btn ghost" onclick="go(\'review\')">回複習關卡</button></div>',void(document.getElementById("redo").onclick=function(){return runPractice(r,n.ids(),{label:n.name+"（再練）",onDone:function(){r.innerHTML='<div class="done big">👍 再練一次也全對了！<button class="btn pri big" onclick="go(\'review\')">回複習關卡 →</button></div>'}})});runPractice(r,n.ids(),{key:t,label:n.name,onDone:function(){var e=S.rounds[t];r.innerHTML='<div class="done big">🏅 第 '.concat(ROUNDS.indexOf(n)+1,' 關過關！<div class="ds">共 ').concat(e.total," 題全部答對").concat(e.wrong?"（過程中答錯過 ".concat(e.wrong," 次）"):"，一次都沒錯！",'</div><button class="btn pri big" onclick="go(\'review\')">回複習關卡 →</button></div>')}})}function vPractice(t){app.innerHTML=topBar("🔁 錯題練習","go('scores')")+'<div id="pz" class="pwrap"></div>',runPractice(document.getElementById("pz"),t,{label:"錯題",onDone:function(){document.getElementById("pz").innerHTML='<div class="done big">💪 這次的錯題全部練對了！<button class="btn pri big" onclick="go(\'home\')">回首頁</button></div>'}})}function vTest(){var t=best(),n=topMiss(6);app.innerHTML=topBar("📝 測驗")+'<div class="card c">\n   <h2 class="ctitle">準備好了嗎？</h2>\n   <table class="tb"><tr><th>題型</th><th>題數</th></tr>\n   <tr><td>一、聽寫＋詞性</td><td>3</td></tr><tr><td>二、原考卷 B：看定義寫單字</td><td>10</td></tr><tr><td>三、原考卷 C：句子填空</td><td>10</td></tr>\n   <tr><td>四、新句子填空</td><td>10</td></tr><tr><td>五、動詞形式填空（-ed、原形）</td><td>4</td></tr><tr><td>六、多格填空（每格都對才得分）</td><td>8</td></tr><tr><td>七、生字填空</td><td>5</td></tr></table>\n   <p class="note">共 50 題，每題 2 分，滿分 100 分。測驗中不會告訴你對錯，考完才看。原考卷題目每次都考，其他題目每次都不一樣，<b>常錯的字會比較常出現</b>。</p>\n   '.concat(n.length?'<p class="note">這次會加強：'.concat(n.map(function(t){var n=_slicedToArray(t,1)[0];return"<b>".concat(esc(n),"</b>")}).join("、"),"</p>"):"","\n   ").concat(null!==t?'<p class="note">目前最高分：<b>'.concat(t,"</b> 分（考過 ").concat(S.tests.length," 次）</p>"):"",'\n   <button class="btn pri big" id="go">開始測驗 🚀</button></div>'),document.getElementById("go").onclick=function(){app.innerHTML='<header class="bar"><button class="back" onclick="go(\'home\')">‹ 離開</button><div class="bt">📝 測驗中</div></header><div id="tz" class="pwrap"></div>',runTest(document.getElementById("tz"))}}function vResult(t){var n=S.tests[+t],e=n.ans.filter(function(t){return!t.ok}),r=S.tests.slice(0,+t).map(function(t){return t.score}),o=r.length?Math.max.apply(Math,_toConsumableArray(r)):null,a=100===n.score?"🏆 滿分！太厲害了！":n.score>=90?"🌟 很棒！只差一點點":n.score>=76?"👍 進步中，把錯的練起來":"💪 再加油，先把錯題練熟";app.innerHTML=topBar("測驗結果")+'<div class="card c"><div class="score '.concat(n.score>=90?"hi":"",'">').concat(n.score,'<small>分</small></div><div class="msg">').concat(a,'</div>\n   <div class="meta">答對 ').concat(n.ans.length-e.length," / ").concat(n.ans.length," 題 · 用時 ").concat(fmtDur(n.dur)).concat(null!==o?" · 之前最高 ".concat(o," 分").concat(n.score>o?"（新紀錄！）":""):"","</div>\n   ").concat(e.length?'<button class="btn pri big" id="pw">把這次錯的 '.concat(e.length," 題練到全對</button>"):"",'\n   <button class="btn" onclick="go(\'test\')">再考一次（新題目）</button></div>\n   ').concat(e.length?'<h3 class="sech">❌ 錯的題目（看懂再練）</h3>'.concat(e.map(function(t){var n=buildQ(t.id);return'<div class="card wr"><div class="sec">'.concat(SEC[t.id.split(":")[0]],"</div>").concat(n.prompt.replace(/class="qlab"/,'class="qlab sm"'),"<div>你的答案：<s>").concat(esc(t.given),'</s></div><div class="right">正確答案：<b>').concat(esc(ansShow(n)),'</b></div><div class="exp">').concat(n.explain,"</div></div>")}).join("")):"");var i=document.getElementById("pw");i&&(i.onclick=function(){return go("practice",e.map(function(t){return t.id}))})}function vScores(){var t=S.tests,n=best(),e=t.length?Math.round(t.reduce(function(t,n){return t+n.score},0)/t.length):null,r=t.slice(-10);app.innerHTML=topBar("🏆 成績紀錄")+(t.length?'<div class="stats"><div><b>'.concat(t.length,"</b><span>考試次數</span></div><div><b>").concat(n,"</b><span>最高分</span></div><div><b>").concat(e,'</b><span>平均</span></div></div>\n   <div class="card"><div class="lab">最近 ').concat(r.length,' 次</div><div class="chart">').concat(r.map(function(t){return'<div class="col"><div class="cv">'.concat(t.score,'</div><div class="cb ').concat(100===t.score?"full":"",'" style="height:').concat(Math.max(4,t.score),'%"></div></div>')}).join(""),"</div></div>\n   ").concat(topMiss(10).length?'<div class="card"><div class="lab">常錯字（複習和測驗累計答錯次數）</div><div class="chips">'.concat(topMiss(10).map(function(t){var n=_slicedToArray(t,2),e=n[0],r=n[1];return'<button class="chip w" data-k="'.concat(esc(e),'">').concat(esc(e)," <small>×").concat(r,"</small></button>")}).join(""),"</div></div>"):"",'\n   <div class="card"><table class="tb"><tr><th>#</th><th>時間</th><th>分數</th><th>用時</th><th></th></tr>').concat(t.map(function(t,n){return{t:t,j:n}}).reverse().map(function(t){var n=t.t,e=t.j;return"<tr><td>".concat(e+1,"</td><td>").concat(fmtDate(n.at),"</td><td><b>").concat(n.score,"</b></td><td>").concat(fmtDur(n.dur),'</td><td><button class="lnk" onclick="go(\'result\',').concat(e,')">看錯題</button></td></tr>')}).join(""),"</table></div>"):'<div class="card c"><p>還沒有測驗紀錄。</p><p class="note">完成學習和複習後就可以測驗。</p></div>')}function vWords(){var t=null,n=function(t){var n=D[t];return'<div class="wrow" data-row="'.concat(esc(t),'"><button class="spk" data-say="').concat(esc(t),'">🔊</button><div class="we">').concat(esc(t),'</div><div class="wz">').concat(esc(n.zh),"<small>").concat(n.pos,"</small></div></div>")};app.innerHTML=topBar("📋 生字表")+'<div class="seg"><button data-h="" class="on">全部顯示</button><button data-h="zh">遮中文</button><button data-h="en">遮英文</button></div>\n   <p class="note c">遮住後自己背，點那一行就會打開答案。</p>\n   <h3 class="sech">⭐ 本課單字（'.concat(TK.length,'）</h3><div class="card wl">').concat(TK.map(n).join(""),'</div>\n   <h3 class="sech">🆕 句子裡的生字（').concat(NW.length,'）— 都要會背</h3><div class="card wl">').concat(NW.map(n).join(""),"</div>");var e=app.querySelectorAll(".seg button");e.forEach(function(n){return n.onclick=function(){t=n.dataset.h,e.forEach(function(t){return t.classList.toggle("on",t===n)}),app.querySelectorAll(".wrow").forEach(function(n){n.classList.remove("hz","he","open"),t&&n.classList.add("zh"===t?"hz":"he")})}}),app.querySelectorAll(".wrow").forEach(function(t){return t.onclick=function(n){n.target.closest("[data-say]")||(t.classList.contains("hz")||t.classList.contains("he")?t.classList.toggle("open"):openSheet(t.dataset.row))}})}function vSettings(){app.innerHTML=topBar("⚙️ 設定")+'<div class="card"><h3>家長專區</h3>\n   <p class="note">進度和成績存在這台裝置的瀏覽器裡。</p>\n   <button class="btn" id="ul">'.concat(S.unlock?"✅ 已解鎖全部（再按一下取消）":"🔓 解鎖全部（不用照順序）",'</button>\n   <button class="btn danger" id="rs">🗑️ 清除全部進度和成績</button></div>'),document.getElementById("ul").onclick=function(){S.unlock=!S.unlock,save(),vSettings()},document.getElementById("rs").onclick=function(){confirm("確定要清除全部學習進度和測驗成績嗎？清除後無法復原。")&&(S={v:1,learn:{},rounds:{},tests:[],unlock:!1},save(),go("home"))}}go("home");</script>
 </body>
 </html>
