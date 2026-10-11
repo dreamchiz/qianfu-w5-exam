@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>千賦 U8 文法闖關</title>
+<style>
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#fff7ee;color:#2a2733;font:17px/1.6 -apple-system,"PingFang TC","Heiti TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-text-size-adjust:100%}
+#app{max-width:680px;margin:0 auto;padding:0 16px 60px}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-appearance:none}
+.hide{display:none!important}
+.btn{display:block;width:100%;min-height:52px;margin:10px 0;padding:10px 16px;border:2px solid #eee2d3;border-radius:14px;background:#fff;font-weight:bold;font-size:17px}
+.btn.pri{background:#ff7a45;border-color:#ff7a45;color:#fff}
+.btn.big{font-size:20px;min-height:64px}
+.btn.ghost{background:transparent;border-color:transparent;color:#6f6a7c}
+.btn.danger{color:#e5484d;border-color:#e5484d}
+.bar{position:relative;margin:0 -16px 12px;padding:10px 16px;background:#fff7ee;border-bottom:1px solid #eee2d3;min-height:52px;line-height:32px}
+.back{border:0;background:#fff;border-radius:12px;padding:4px 12px;font-weight:bold;box-shadow:0 2px 6px rgba(80,50,20,.12);margin-right:8px}
+.bt{font-weight:bold;font-size:18px}
+.qn{float:right;color:#6f6a7c;font-size:15px}
+.hero{text-align:center;padding:20px 0 6px}
+.h-sm{color:#e8602b;font-weight:bold;letter-spacing:1px;font-size:15px}
+.h-big{font-size:26px;font-weight:bold;margin:2px 0}
+.stats span{display:inline-block;margin:2px 8px;color:#6f6a7c;font-size:15px}
+.stats b{color:#2a2733}
+.card{background:#fff;border-radius:18px;padding:14px 16px;margin:12px 0;box-shadow:0 2px 10px rgba(80,50,20,.08)}
+.ct{font-weight:bold;margin-bottom:6px;color:#c2410c}
+.tk{padding:3px 0}
+.tk.ok{color:#22a05b}
+.tk.cur{font-weight:bold}
+.trophy{text-align:center;background:#fff1a8;border-radius:14px;padding:10px;margin:10px 0;font-weight:bold}
+.menu{margin:8px -1%}
+.mb{display:inline-block;vertical-align:top;width:48%;margin:6px 1%;min-height:78px;padding:10px 8px;border:2px solid #eee2d3;border-radius:16px;background:#fff;font-weight:bold;font-size:17px}
+.mb small{display:block;font-weight:normal;color:#6f6a7c;font-size:13px}
+.mb.lock{opacity:.6}
+.prog{height:8px;background:#eee2d3;border-radius:4px;margin:-4px 0 10px;overflow:hidden}
+.prog div{height:8px;background:#ff7a45}
+/* 三色：to=藍 原形=綠 ing=紫 */
+.ct-t{color:#2f6fd6}.ct-b{color:#1f8f4e}.ct-i{color:#7c4ddb}
+.c-t{background:#e3eeff;color:#1e56b8;border-color:#7fa8ee}
+.c-b{background:#e2f6ea;color:#16753f;border-color:#79c99a}
+.c-i{background:#efe7ff;color:#6237c4;border-color:#b39cf0}
+.c-k{background:#fff1a8;color:#7a4b00;border-color:#f2c94c}
+.c-x{background:#f1ede7;color:#4a4553;border-color:#d8d0c4}
+.c-w{background:transparent;color:#2a2733;border-color:transparent}
+.c-s{background:#ffe1e1;color:#c43a3a;border-color:#f0a0a0;text-decoration:line-through}
+.c-_{background:#fff;border:2px dashed #ff9a6b;color:#ff9a6b;min-width:60px}
+/* 動畫句子 */
+.stage{background:#fffaf3;border-radius:16px;padding:14px 8px 8px;margin:10px 0;text-align:center;min-height:120px}
+.chips{min-height:58px;line-height:1}
+.chip{display:inline-block;vertical-align:middle;margin:5px 3px;padding:8px 10px;border:2px solid;border-radius:12px;font-size:21px;font-weight:bold;line-height:1.2}
+.chip.st{margin-left:-6px;border-left:0;border-radius:0 12px 12px 0}
+.cap{min-height:48px;margin-top:8px;font-size:17px;color:#2a2733;font-weight:bold}
+.replay{border:0;background:#ffe3d3;color:#c2410c;border-radius:12px;padding:4px 12px;font-weight:bold;font-size:15px;margin-top:4px}
+.dots{text-align:center;margin:6px 0}
+.dots span{display:inline-block;width:9px;height:9px;border-radius:5px;background:#eee2d3;margin:0 3px}
+.dots span.on{background:#ff7a45}
+@-webkit-keyframes drop{0%{-webkit-transform:translateY(-50px);opacity:0}70%{-webkit-transform:translateY(6px);opacity:1}100%{-webkit-transform:translateY(0)}}
+@keyframes drop{0%{transform:translateY(-50px);opacity:0}70%{transform:translateY(6px);opacity:1}100%{transform:translateY(0)}}
+@-webkit-keyframes pop{0%{-webkit-transform:scale(0);opacity:0}70%{-webkit-transform:scale(1.25);opacity:1}100%{-webkit-transform:scale(1)}}
+@keyframes pop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.25);opacity:1}100%{transform:scale(1)}}
+@-webkit-keyframes shake{0%,100%{-webkit-transform:translateX(0)}20%,60%{-webkit-transform:translateX(-7px)}40%,80%{-webkit-transform:translateX(7px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@-webkit-keyframes kick{0%{-webkit-transform:translateX(0)}15%{-webkit-transform:translateX(-7px)}30%{-webkit-transform:translateX(7px)}45%{-webkit-transform:translateX(0) rotate(0);opacity:1}100%{-webkit-transform:translate(40px,-90px) rotate(200deg);opacity:0}}
+@keyframes kick{0%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(7px)}45%{transform:translateX(0) rotate(0);opacity:1}100%{transform:translate(40px,-90px) rotate(200deg);opacity:0}}
+@-webkit-keyframes glow{0%,100%{-webkit-box-shadow:0 0 0 0 rgba(242,201,76,.0)}50%{-webkit-box-shadow:0 0 0 7px rgba(242,201,76,.6)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(242,201,76,0)}50%{box-shadow:0 0 0 7px rgba(242,201,76,.6)}}
+.a-drop{-webkit-animation:drop .6s ease-out both;animation:drop .6s ease-out both}
+.a-pop{-webkit-animation:pop .5s ease-out both;animation:pop .5s ease-out both}
+.a-shake{-webkit-animation:shake .6s ease-in-out both;animation:shake .6s ease-in-out both}
+.a-kick{-webkit-animation:kick 1.1s ease-in both;animation:kick 1.1s ease-in both}
+.a-glow{-webkit-animation:glow 1s ease-in-out 2;animation:glow 1s ease-in-out 2}
+/* 教學 */
+.sl-t{font-size:23px;font-weight:bold;margin:4px 0 2px}
+.sl-t small{display:block;font-size:14px;color:#6f6a7c;font-weight:normal}
+.pt{margin:8px 0;padding-left:4px}
+.tip{background:#fff1a8;border-radius:12px;padding:10px 12px;margin:10px 0;font-weight:bold}
+.warn{background:#ffecec;border-radius:12px;padding:10px 12px;margin:10px 0}
+.warn b{color:#c43a3a}
+.vlist{margin:6px 0}
+.vw{display:inline-block;margin:4px 3px;padding:4px 10px;border:2px solid;border-radius:12px;font-weight:bold;font-size:17px;background:#fff}
+.vw small{font-weight:normal;font-size:13px;color:#6f6a7c;margin-left:3px}
+.box{border-radius:16px;padding:10px 12px;margin:10px 0;border:2px solid}
+.box .bh{font-weight:bold;font-size:19px;margin-bottom:4px}
+.box.t{background:#f2f7ff;border-color:#7fa8ee}.box.t .bh{color:#1e56b8}
+.box.b{background:#f0faf4;border-color:#79c99a}.box.b .bh{color:#16753f}
+.box.i{background:#f6f1ff;border-color:#b39cf0}.box.i .bh{color:#6237c4}
+.sub{font-size:14px;color:#6f6a7c;margin:6px 0 2px;font-weight:bold}
+.step{margin:8px 0;padding:10px 12px;background:#fff;border-radius:14px;border:2px solid #eee2d3}
+.step b.n{display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border-radius:14px;background:#ff7a45;color:#fff;margin-right:6px}
+.ex{margin:8px 0;padding:8px 10px;background:#fffaf3;border-radius:12px;font-size:18px;line-height:1.7}
+.ex .zh{display:block;font-size:14px;color:#6f6a7c}
+/* 題目 */
+.qcard{background:#fff;border-radius:20px;padding:18px 16px;box-shadow:0 2px 10px rgba(80,50,20,.08);position:relative}
+.qtype{display:inline-block;background:#fff0e2;color:#c2410c;border-radius:10px;padding:2px 10px;font-size:14px;font-weight:bold;margin-bottom:10px}
+.qsent{font-size:22px;line-height:1.8;margin:8px 0;padding:12px;background:#fffaf3;border-radius:12px;word-wrap:break-word}
+.qzh{color:#6f6a7c;font-size:15px;margin:2px 0 8px}
+.blank{display:inline-block;min-width:80px;border-bottom:3px solid #ff7a45;text-align:center;color:#ff7a45;font-weight:bold;line-height:1.3}
+.verb{color:#6f6a7c;font-weight:bold}
+.kw{background:#fff1a8;border-radius:6px;padding:0 3px}
+.ans{border-radius:6px;padding:0 4px;font-weight:bold}
+.ans.t{background:#e3eeff;color:#1e56b8}.ans.b{background:#e2f6ea;color:#16753f}.ans.i{background:#efe7ff;color:#6237c4}
+.ans.bad{background:#ffe1e1;color:#c43a3a;text-decoration:line-through}
+.uline{border-bottom:3px solid #ff7a45;font-weight:bold}
+.opt{display:block;width:100%;text-align:left;margin:10px 0;padding:14px 16px;min-height:56px;border:2px solid #eee2d3;border-radius:14px;background:#fff;font-size:20px;font-weight:bold}
+.opt.g{text-align:center;font-size:21px;border-width:3px}
+.opt.half{display:inline-block;width:48%;margin:8px 1%;text-align:center;font-size:24px}
+input[type=text]{display:block;width:100%;font-size:24px;padding:12px 14px;margin:12px 0 4px;border:2px solid #eee2d3;border-radius:14px;background:#fff;-webkit-appearance:none}
+.okflash{position:absolute;left:0;right:0;top:35%;text-align:center;font-size:30px;font-weight:bold;color:#22a05b;background:rgba(230,247,237,.96);padding:16px;border-radius:16px;margin:0 16px}
+.bookn{background:#ffecec;color:#c43a3a;border-radius:10px;padding:4px 10px;font-size:15px;margin:4px 0 8px;display:inline-block}
+.wt{color:#e5484d;font-weight:bold;font-size:20px;margin-bottom:8px}
+.lab{display:inline-block;min-width:76px;color:#6f6a7c;font-size:14px}
+.row{margin:4px 0;font-size:19px}
+.why{background:#fff1a8;border-radius:12px;padding:10px 12px;margin:10px 0;font-size:17px}
+.why b{color:#7a4b00}
+.flex{background:#fff6d6;border:2px solid #f2c94c;border-radius:14px;padding:12px;margin:12px 0}
+.say{border:0;background:#ffe3d3;border-radius:12px;padding:4px 10px;font-size:16px;margin-left:4px}
+/* 成績 */
+.score{text-align:center;font-size:56px;font-weight:bold;color:#ff7a45;line-height:1.1;margin:10px 0 0}
+.score small{font-size:20px;color:#6f6a7c}
+.rr{margin:6px 0;font-size:15px}
+.rr .rn{display:inline-block;width:46%;vertical-align:middle}
+.rr .rb{display:inline-block;width:38%;height:12px;background:#eee2d3;border-radius:6px;overflow:hidden;vertical-align:middle}
+.rr .rb div{height:12px}
+.rr .rp{display:inline-block;width:14%;text-align:right;vertical-align:middle;font-weight:bold}
+.bg-t{background:#5b8fe6}.bg-b{background:#3fb573}.bg-i{background:#9a73ea}
+.trend{height:120px;margin:6px 0;white-space:nowrap;overflow:hidden}
+.tcol{display:inline-block;vertical-align:bottom;width:30px;margin:0 2px;text-align:center;font-size:11px}
+.tb{background:#ffb48f;border-radius:4px 4px 0 0}
+.tb.g{background:#22a05b}
+.att{padding:8px 0;border-bottom:1px solid #f2ebe2}
+.att b{float:right}
+.wbi{padding:10px 0;border-bottom:1px solid #f2ebe2;font-size:17px}
+.wbi .m{font-size:13px;color:#6f6a7c}
+.tag{display:inline-block;border-radius:8px;padding:0 8px;font-size:13px;font-weight:bold;margin-right:4px}
+.toast{position:fixed;left:50%;bottom:30px;width:300px;margin-left:-150px;background:#2a2733;color:#fff;border-radius:14px;padding:12px;text-align:center;z-index:99}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== 規則 ===== g: t=to+原形, b=原形, i=V-ing */
+var RULES={
+ T1:{g:'t',name:'這些動詞 + to 原形',key:'advise, agree, ask, decide, expect, forget, hope, manage, need, offer, promise, refuse, seem, want（還有 invite, arrange）',why:'是「to 家族」動詞，後面要 to + 原形'},
+ T2:{g:'t',name:'be + 形容詞 + to 原形',key:'happy, nice, sorry, sad…',why:'是「be + 形容詞」，後面要 to + 原形'},
+ T3:{g:'t',name:'疑問詞 + to 原形',key:'how / what / where / who + to',why:'是疑問詞（how/what/where/who），後面要 to + 原形'},
+ T4:{g:'t',name:'too / enough + to 原形',key:'too + 形容詞 + to…／形容詞 + enough + to…',why:'有 too 或 enough，後面要 to + 原形'},
+ T5:{g:'t',name:'表示「為了…」+ to 原形',key:'去超市「為了」買牛奶 → to buy',why:'這裡是「為了要…」（目的），用 to + 原形'},
+ T6:{g:'t',name:'would like / love / prefer + to 原形',key:"would like, would love, would prefer（'d like, 'd love, 'd prefer）",why:'有 would！would like / love / prefer 後面要 to + 原形'},
+ B1:{g:'b',name:'情態助動詞 + 原形',key:'can, could, may, might, must, should, will（還有 have to / has to）',why:'是情態助動詞，後面直接接原形，不加 to'},
+ B2:{g:'b',name:'let / make + 人 + 原形',key:'let me use…, make him tidy…',why:'是 let / make + 人，後面直接接原形，不加 to'},
+ I1:{g:'i',name:'like 家族 + V-ing',key:'like, love, dislike, hate, prefer',why:'是 like / love / dislike / hate / prefer，後面用 V-ing'},
+ I2:{g:'i',name:'go + V-ing（去做活動）',key:'go swimming, go shopping, go scuba diving…',why:'是 go + 活動，用 V-ing'},
+ I3:{g:'i',name:'開始/結束 + V-ing',key:'start, begin, finish, stop, continue',why:'是 start / begin / finish / stop / continue，後面用 V-ing'},
+ I4:{g:'i',name:'介係詞 + V-ing',key:'at, of, about, in, for, without…（look forward to 的 to 也是）',why:'前面是介係詞，介係詞後面一定用 V-ing'},
+ I5:{g:'i',name:'enjoy 家族 + V-ing',key:'avoid, enjoy, look forward to, mind, regret, spend, suggest（還有 deny）',why:'是「enjoy 家族」動詞，後面用 V-ing'}
+};
+var GN={t:'to + 原形',b:'原形',i:'V-ing'};
+
+/* ===== 題目 =====
+ [id, 規則, 句子(___是空格), 原形, 答案型(t/b/i), 關鍵字, 中文, 選項(可省)]
+ id 是字母開頭的 = 講義原題 */
+var ITEMS=[
+ ['A1','T4','Have you got enough ___?','eat','t','enough','你有足夠的東西吃嗎？'],
+ ['A2','T1',"Don't forget ___ your umbrella today.",'take','t','forget','今天別忘了帶雨傘。'],
+ ['A3','B2','My roommate never lets me ___ her clothes.','borrow','b','lets me','我室友從不讓我借她的衣服。'],
+ ['A4','T1','The Appletons invited us ___ with them to their country house.','go','t','invited us','艾波頓一家邀請我們跟他們一起去鄉下的房子。'],
+ ['A5','T1','My boss asked me ___ my report by the end of the day.','finish','t','asked me','老闆要我今天下班前完成報告。'],
+ ['A6','B1',"You mustn't ___ on your mobile phone while you are driving.",'talk','b',"mustn't",'開車時絕對不可以講手機。'],
+ ['A7','T1','The sales assistant refused ___ me a refund without a receipt.','give','t','refused','店員拒絕在沒有收據的情況下退錢給我。'],
+ ['A8','B1','Can you ___ me carry my luggage out to the car?','help','b','Can you','你可以幫我把行李搬到車上嗎？'],
+ ['A9','T6','I would love ___ Niagara Falls in winter when the water freezes.','see','t','would love','我很想在冬天水結冰時去看尼加拉瀑布。'],
+ ['A10','T1','The doctor advised me ___ some rest after the accident.','get','t','advised me','車禍後醫生建議我多休息。'],
+ ['B1a','T3','Do you know how ___ chocolate cake?','make','t','how','你知道怎麼做巧克力蛋糕嗎？'],
+ ['B1b','B1','Yes. I can ___ you if you like.','show','b','can','知道，如果你想的話我可以教你。'],
+ ['B2a','B1','What time should we ___?','leave','b','should we','我們應該幾點出發？'],
+ ['B2b','T1','Well, I arranged for us ___ Alice at six.','meet','t','arranged for us','嗯，我安排我們六點和愛麗絲見面。'],
+ ['B3','T6','Would you like ___ me for dinner?','join','t','Would you like','你想跟我一起吃晚餐嗎？'],
+ ['B4a','T1','Did you manage ___ that book you were looking for?','find','t','manage','你有設法找到你在找的那本書嗎？'],
+ ['B4b','T5','No, and I need it ___ my assignment.','finish','t','need it','沒有，而我需要它「來」完成我的作業。'],
+ ['B5','B1','Can you ___ me the paper, please?','pass','b','Can you','可以請你把報紙遞給我嗎？'],
+ ['B6','T5',"She's gone to the chemist's ___ some cold syrup.",'buy','t',"gone to the chemist's",'她去藥局「為了」買感冒糖漿。'],
+ ['B7a','T1','Joel seems ___ very happy at the moment.','be','t','seems','喬爾現在似乎很開心。'],
+ ['B7b','T3',"He's happy that he is finally learning how ___.",'drive','t','how','他很開心終於在學怎麼開車。'],
+ ['C1','B1','I felt I should ___ to you to thank you for your help yesterday.','write','b','should','我覺得我應該寫信給你，謝謝你昨天的幫忙。'],
+ ['C2','T5','I felt I should write to you ___ you for your help yesterday.','thank','t','write to you','我覺得應該寫信給你，「為了」謝謝你昨天的幫忙。'],
+ ['C3','T1',"We were so happy that we didn't need ___ our event.",'cancel','t',"didn't need",'我們很開心不需要取消活動。'],
+ ['C4','B2','It was very kind of you to let us ___ your hall when the weather turned bad.','use','b','let us','天氣變壞時你讓我們使用你的禮堂，真是太好心了。'],
+ ['C5','T2','I am happy ___ you that the rest of the day was a complete success.','tell','t','am happy','我很高興告訴你，那天剩下的活動非常成功。'],
+ ['C6','B1',"We raised enough money that we can now ___ for the students' trip to the museum.",'pay','b','can now','我們募到足夠的錢，現在可以支付學生去博物館的旅費。'],
+ ['C7','T1','We hope ___ enough left over to buy some new books for the library.','have','t','hope','我們希望還有剩錢可以買新書給圖書館。'],
+ ['C8','T4','We hope to have enough left over ___ some new books for the library.','buy','t','enough left over','我們希望剩下的錢「足夠」買一些新書給圖書館。'],
+ ['D1','I1','We prefer ___ sci-fi films.','watch','i','prefer','我們比較喜歡看科幻片。'],
+ ['D3','T6','Would you like ___ some cake?','have','t','Would you like','你想吃點蛋糕嗎？'],
+ ['D4','I5','I look forward to ___ you tomorrow.','meet','i','look forward to','我很期待明天和你見面。',['meeting','meet','meets']],
+ ['D5','T6',"I'd prefer ___ fish for dinner.",'have','t',"'d prefer",'我晚餐比較想吃魚。'],
+ ['D6','B1','Could you ___ me the salt, please?','pass','b','Could you','可以請你把鹽遞給我嗎？'],
+ ['D7','I5','The suspect denies ___ in the area that night.','be','i','denies','嫌犯否認那晚在那一帶。'],
+ ['D8','I3','He finished ___ his report an hour ago.','write','i','finished','他一小時前寫完了報告。'],
+ ['E1','T3','Do you know how ___ a new file?','create','t','how','你知道怎麼建立新檔案嗎？'],
+ ['E2','I5','Do you mind ___ the window? This office is really cold.','close','i','mind','你介意關一下窗戶嗎？這間辦公室好冷。'],
+ ['E3','T1','The IT department expects ___ the problem by the morning.','fix','t','expects','資訊部預計早上前修好這個問題。'],
+ ['E4','I5','I regret ___ so much money on this desktop computer.','spend','i','regret','我後悔在這台桌上型電腦花了這麼多錢。'],
+ ['E5','B1','Diane can ___ very fast. She types 80 words a minute.','type','b','can','黛安打字可以打很快，一分鐘80個字。'],
+ ['E6','T1','I wanted ___ to you before the meeting started.','talk','t','wanted','我想在會議開始前跟你談談。'],
+ ['E7','T3','I would like to know who ___ about applying for a job.','contact','t','who','我想知道應徵工作要聯絡誰。'],
+ ['E8','I1','I prefer ___ out of the office at lunch time to eating at my desk.','get','i','prefer','午餐時間我比較喜歡離開辦公室，而不是在座位上吃。'],
+ ['F1','T1',"I forgot ___ the oven on so dinner isn't cooked.",'turn','t','forgot','我忘了開烤箱，所以晚餐沒煮好。',['in turning','to turn','turn']],
+ ['F2','B1','I can ___ the dog for a walk if you want.','take','b','can','如果你想要，我可以帶狗去散步。'],
+ ['F3','I1','Callum likes ___ historic novels.','read','i','likes','卡倫喜歡讀歷史小說。',['to reading','read','reading']],
+ ['F4','T1','I agreed ___ a hand organizing the raffle this year.','lend','t','agreed','我答應今年幫忙籌辦抽獎活動。'],
+ ['F5','B1','My best friend can ___ five different languages.','speak','b','can','我最好的朋友會說五種語言。'],
+ ['F6','I5','A lot of people spend their holidays ___ on the beach.','sunbathe','i','spend their holidays','很多人假期都在海灘上做日光浴。'],
+ ['F7','I4','I am tired of ___ this old computer.','use','i','tired of','我受夠用這台舊電腦了。'],
+ ['F8','I3','The team continued ___ after the rain stopped.','play','i','continued','雨停後球隊繼續比賽。',['to playing','play','playing']],
+ ['G1a','B1','Can you ___ Laura up from the station?','pick','b','Can you','你可以去車站接蘿拉嗎？'],
+ ['G1b','T6','Is there anything else you would like me ___?','do','t','would like me','還有什麼你想要我做的嗎？'],
+ ['G2a','I5','I really enjoyed ___ the Natural History Museum.','visit','i','enjoyed','我很喜歡參觀自然史博物館。'],
+ ['G2b','B1','Maybe we could ___ to the Science Museum next weekend?','go','b','could','也許我們下週末可以去科學博物館？'],
+ ['G3a','T6','Would you like ___ to the theatre with me tonight?','come','t','Would you like','今晚你想跟我一起去劇院嗎？'],
+ ['G3b','I5','That sounds like fun. I enjoy ___ plays.','watch','i','enjoy','聽起來很好玩，我喜歡看舞台劇。'],
+ ['G4a','T1','What do you want ___ tonight?','eat','t','want','你今晚想吃什麼？'],
+ ['G4b','I2',"Why don't we eat out after we go ___?",'shop','i','go','我們去逛街之後何不出去吃？'],
+ ['G5a','T2','It was really nice ___ Adam again.','see','t','was really nice','再見到亞當真的很開心。'],
+ ['G5b','B1',"I know, we shouldn't ___ so long to meet up with him again.",'wait','b',"shouldn't",'我知道，我們不該等這麼久才再跟他見面。'],
+ ['HA1','I5','Malcolm really enjoys ___ and making things with his hands.','paint','i','enjoys','麥爾坎很喜歡畫畫和用手做東西。'],
+ ['HA2','I5','Malcolm really enjoys painting and ___ things with his hands.','make','i','enjoys','麥爾坎很喜歡畫畫和用手做東西。'],
+ ['HA3','I4','He is excited about ___ Art at university.','study','i','excited about','他很期待在大學讀藝術。'],
+ ['HA4','I1','He wants to study with other people who love ___ beautiful things.','create','i','love','他想和其他熱愛創作美麗事物的人一起學習。'],
+ ['HA5','T1','When he finishes his course, he hopes ___ a job.','find','t','hopes','他念完課程後，希望找到一份工作。'],
+ ['HA6','B2','He wants a job that lets him ___ his talents.','use','b','lets him','他想要一份能讓他發揮才能的工作。'],
+ ['HB1','T1','Jemma wants ___ a doctor one day.','become','t','wants','潔瑪想要有一天成為醫生。'],
+ ['HB2','B1','She has to ___ a long time at university.','spend','b','has to','她必須在大學待很長一段時間。'],
+ ['HB3','B1','She has to spend a long time at university and ___ a lot of information.','learn','b','has to','她必須在大學待很久，並且學很多知識。'],
+ ['HB4','I3',"When she finishes ___, she'd love to get a job overseas.",'study','i','finishes','她讀完書後，很想到國外工作。'],
+ ['HB5','T6',"When she finishes studying, she'd love ___ a job overseas.",'get','t',"'d love",'她讀完書後，很想到國外找工作。'],
+ ['HB6','B1','She wants a job overseas, where she could ___ sick children.','treat','b','could','她想在國外工作，在那裡她可以醫治生病的孩子。'],
+ ['P1','T1','He decided ___ abroad.','travel','t','decided','他決定出國旅行。'],
+ ['P2','T2',"It's nice ___ you!",'meet','t',"'s nice",'很高興認識你！'],
+ ['P3','T3','She knows how ___ a lemon pie.','make','t','how','她知道怎麼做檸檬派。'],
+ ['P4','T4',"I'm too tired ___ out.",'go','t','too tired','我太累了，不想出門。'],
+ ['P5','T4',"It isn't warm enough ___ to the beach.",'go','t','enough','天氣不夠暖，不能去海邊。'],
+ ['P6','T5',"I'm going to the supermarket ___ some milk.",'buy','t','supermarket','我要去超市「為了」買牛奶。'],
+ ['P7','T6',"I'd love ___ to the theatre tonight.",'go','t',"'d love",'我今晚很想去劇院。'],
+ ['P8','B1','She can ___ well.','sing','b','can','她很會唱歌。'],
+ ['P9','B2','My flatmate lets me ___ his computer.','use','b','lets me','我室友讓我用他的電腦。'],
+ ['P10','B2','His mum always makes him ___ his room.','tidy','b','makes him','他媽媽總是叫他整理房間。'],
+ ['P11','I1','Sarah loves ___ to the cinema.','go','i','loves','莎拉很愛去看電影。'],
+ ['P12','I2','We usually go scuba ___ in the summer.','dive','i','go scuba','我們夏天通常去潛水。'],
+ ['P13','I3','It started ___ half an hour ago.','rain','i','started','半小時前開始下雨了。'],
+ ['P14','I4',"She's good at ___ the piano.",'play','i','good at','她很會彈鋼琴。'],
+ ['P15','I5','I suggest ___ out for dinner tonight.','go','i','suggest','我建議今晚出去吃晚餐。'],
+ ['P16','T6','I would love ___ a DVD tonight.','watch','t','would love','我今晚很想看 DVD。'],
+ ['n01','T1','I want ___ a new bike for my birthday.','get','t','want','我生日想要一台新腳踏車。'],
+ ['n02','T1','We decided ___ to the zoo on Saturday.','go','t','decided','我們決定星期六去動物園。'],
+ ['n03','T1','Tom promised ___ his room before dinner.','clean','t','promised','湯姆答應晚餐前打掃房間。'],
+ ['n04','T1','She hopes ___ the spelling test.','pass','t','hopes','她希望通過拼字考試。'],
+ ['n05','T1','My little sister refused ___ her vegetables.','eat','t','refused','我妹妹拒絕吃蔬菜。'],
+ ['n06','T1','He offered ___ me with my homework.','help','t','offered','他主動說要幫我寫功課。'],
+ ['n07','T1','I need ___ more water every day.','drink','t','need','我每天需要喝更多水。'],
+ ['n08','T1',"Don't forget ___ your homework to school.",'bring','t','forget','別忘了帶功課去學校。'],
+ ['n09','T1','The teacher asked us ___ quietly.','sit','t','asked us','老師要我們安靜坐好。'],
+ ['n10','T1','The cat seems ___ hungry.','be','t','seems','那隻貓似乎餓了。'],
+ ['n11','T1','I managed ___ the puzzle by myself.','finish','t','managed','我自己設法完成了拼圖。'],
+ ['n12','T1','We agreed ___ at the park after school.','meet','t','agreed','我們約好放學後在公園見面。'],
+ ['n13','T1','Mom expects me ___ home by five.','come','t','expects me','媽媽預期我五點前回家。'],
+ ['n14','T2',"I'm sorry ___ you waiting.",'keep','t',"'m sorry",'很抱歉讓你久等了。'],
+ ['n15','T2','We are happy ___ you at our party.','see','t','are happy','我們很高興在派對上見到你。'],
+ ['n16','T3',"I don't know what ___ for lunch.",'eat','t','what','我不知道午餐要吃什麼。'],
+ ['n17','T3','Can you tell me where ___ the bus?','take','t','where','你能告訴我要去哪裡搭公車嗎？'],
+ ['n18','T3','I learned how ___ last summer.','swim','t','how','我去年夏天學會了怎麼游泳。'],
+ ['n19','T4','The box is too heavy ___.','carry','t','too heavy','這箱子太重了，搬不動。'],
+ ['n20','T4','He is old enough ___ to school by himself.','walk','t','enough','他夠大了，可以自己走路上學。'],
+ ['n21','T5','She studies hard ___ good grades.','get','t','studies hard','她努力讀書「為了」得到好成績。'],
+ ['n22','T5','We went to the park ___ football.','play','t','went to the park','我們去公園「為了」踢足球。'],
+ ['n23','T6','Would you like ___ some juice?','have','t','Would you like','你想喝點果汁嗎？'],
+ ['n24','T6','I would prefer ___ at home today.','stay','t','would prefer','我今天比較想待在家。'],
+ ['n25','B1','You should ___ to bed early.','go','b','should','你應該早點上床睡覺。'],
+ ['n26','B1','We must ___ our hands before lunch.','wash','b','must','午餐前我們一定要洗手。'],
+ ['n27','B1','It might ___ tomorrow.','rain','b','might','明天可能會下雨。'],
+ ['n28','B1','May I ___ your pencil?','use','b','May I','我可以用你的鉛筆嗎？'],
+ ['n29','B1','I will ___ you after school.','call','b','will','我放學後會打電話給你。'],
+ ['n30','B1','I have to ___ my homework now.','do','b','have to','我現在必須寫功課。'],
+ ['n31','B1','He has to ___ the dog every day.','walk','b','has to','他每天都必須遛狗。'],
+ ['n32','B2','Dad let me ___ up late on Friday.','stay','b','let me','爸爸星期五讓我晚睡。'],
+ ['n33','B2','The funny movie made us ___.','laugh','b','made us','那部好笑的電影讓我們大笑。'],
+ ['n34','B2','The teacher made us ___ the poem again.','read','b','made us','老師叫我們再念一次那首詩。'],
+ ['n35','B2','Please let me ___ you.','help','b','let me','請讓我幫你。'],
+ ['n36','I1','I hate ___ up early on Sundays.','get','i','hate','我討厭星期天早起。'],
+ ['n37','I1','My brother dislikes ___ the dishes.','wash','i','dislikes','我哥哥不喜歡洗碗。'],
+ ['n38','I1','We like ___ games after school.','play','i','like','我們喜歡放學後玩遊戲。'],
+ ['n39','I2',"Let's go ___ this afternoon!",'swim','i','go','我們今天下午去游泳吧！'],
+ ['n40','I2','My mom goes ___ every Sunday.','shop','i','goes','我媽媽每個星期天都去購物。'],
+ ['n41','I2','They went ___ in the mountains.','hike','i','went','他們去山上健行。'],
+ ['n42','I2','We go ___ in winter.','ski','i','go','我們冬天去滑雪。'],
+ ['n43','I3',"Please stop ___! I'm trying to sleep.",'talk','i','stop','請不要再講話了！我在睡覺。'],
+ ['n44','I3','I finished ___ my book last night.','read','i','finished','我昨晚讀完了我的書。'],
+ ['n45','I3','The baby began ___.','cry','i','began','小寶寶開始哭了。'],
+ ['n46','I4','Thank you for ___ me.','help','i','for','謝謝你幫我。'],
+ ['n47','I4',"I'm interested in ___ about animals.",'learn','i','interested in','我對學習動物的知識有興趣。'],
+ ['n48','I4','He left without ___ goodbye.','say','i','without','他沒說再見就走了。'],
+ ['n49','I4',"I'm afraid of ___ alone at night.",'walk','i','afraid of','我害怕晚上一個人走路。'],
+ ['n50','I5','I spend an hour ___ the piano every day.','practice','i','spend an hour','我每天花一小時練鋼琴。'],
+ ['n51','I5','You should avoid ___ too much candy.','eat','i','avoid','你應該避免吃太多糖果。'],
+ ['n52','I5','Would you mind ___ the door?','open','i','mind','你介意開一下門嗎？'],
+ ['n53','I5','We look forward to ___ you soon.','see','i','look forward to','我們期待很快見到你。',['seeing','see','sees']],
+ ['n54','I5','I enjoy ___ comic books.','read','i','enjoy','我喜歡看漫畫。'],
+ ['n55','I5','He looks forward to ___ to the beach.','go','i','looks forward to','他很期待去海邊。',['going','go','goes']],
+ ['n56','I5','In the summer, Kevin enjoys ___ hours on the water.','spend','i','enjoys','夏天時，凱文喜歡在水上待好幾個小時。']
+];
+/* like 家族、start 家族也可以接 to + 原形（英文也對，但講義教 -ing）*/
+var FLEX={F3:1,F8:1,P11:1,P13:1,n36:1,n38:1,n45:1,HA4:1,D1:1};
+/* 千賦在講義上寫錯的題目：他寫的答案 */
+var BOOK_WRONG={C4:'to use',E3:'fix',F6:'to sunbathe',G2a:'（空白沒寫）',G3b:'to watch',G5b:'waiting',HA5:'finding',HA6:'using',HB1:'becoming',HB2:'spending',HB3:'learning',HB4:'study',HB5:'getting',HB6:'treating'};
+var ING_X={be:'being',see:'seeing',ski:'skiing',swim:'swimming',shop:'shopping',sit:'sitting',get:'getting',begin:'beginning',stop:'stopping',run:'running',travel:'traveling'};
+var ALT={travel:'travelling'};
+var CNV={eat:'吃',take:'拿/帶',borrow:'借',go:'去',finish:'完成',talk:'講話',give:'給',help:'幫忙',see:'看',get:'得到',make:'做',show:'給…看',leave:'離開',meet:'見面',join:'加入',find:'找到',pass:'傳遞',buy:'買',be:'是/在',drive:'開車',write:'寫',thank:'感謝',cancel:'取消',use:'使用',tell:'告訴',pay:'付錢',have:'有/吃',watch:'看',read:'讀',lend:'借出',speak:'說',sunbathe:'做日光浴',pick:'接/挑',do:'做',visit:'參觀',come:'來',shop:'購物',wait:'等',paint:'畫畫',study:'讀書',create:'創作',become:'成為',spend:'花(時間/錢)',learn:'學習',treat:'治療',travel:'旅行',sing:'唱歌',tidy:'整理',dive:'潛水',rain:'下雨',play:'玩/彈',close:'關',fix:'修理',type:'打字',contact:'聯絡',turn:'轉/開',clean:'打掃',drink:'喝',bring:'帶來',sit:'坐',keep:'保持',swim:'游泳',carry:'搬',walk:'走路',stay:'停留',wash:'洗',call:'打電話',laugh:'笑',hike:'健行',ski:'滑雪',cry:'哭',say:'說',practice:'練習',open:'打開'};
+
+/* 動畫：每格 = [chips, 說明]；chip = '色:字@動畫'
+   色 t=to藍 b=原形綠 i=ing紫 k=關鍵字黃 x=灰(還沒決定) w=一般字 s=刪掉 _=空格；色後加 + 表示黏在前一格 */
+var DEMOS={
+ three:[[['x:play@pop'],'一個動詞：play（玩）'],
+        [['t:to play@pop','b:play@pop','i:playing@pop'],'三種樣子：to + 原形　原形　V-ing'],
+        [['k:前面是誰？@glow'],'要用哪一種，看「前面是誰」決定！']],
+ P1:[[['w:He','k:decided@glow','_:?','w:abroad.'],'前面是 decided（決定了）'],
+     [['w:He','k:decided','x:travel@drop','w:abroad.'],'動詞 travel 要放進來…'],
+     [['w:He','k:decided','t:to@pop','t:travel','w:abroad.'],'decide 是 to 家族 → to + 原形！']],
+ P3:[[['w:She','w:knows','k:how@glow','_:?','w:a lemon pie.'],'前面是 how（怎麼）'],
+     [['w:She','w:knows','k:how','t:to@pop','t:make@drop','w:a lemon pie.'],'how + to + 原形 ＝ 怎麼做']],
+ P4:[[["w:I'm",'k:too@glow','w:tired','_:?','w:out.'],'看到 too（太…）'],
+     [["w:I'm",'k:too','w:tired','t:to@pop','t:go@drop','w:out.'],'too … to + 原形 ＝ 太…而不能…']],
+ P6:[[["w:I'm going to the supermarket",'_:?','w:some milk.'],'去超市是「為了」做什麼？'],
+     [["w:I'm going to the supermarket",'t:to@pop','t:buy@drop','w:some milk.'],'「為了…」→ to + 原形']],
+ P8:[[['w:She','k:can@glow','_:?','w:well.'],'前面是 can（會、可以）'],
+     [['w:She','k:can','t:to@drop','b:sing@drop','w:well.'],'to 想擠進來…'],
+     [['w:She','k:can','t:to@kick','b:sing','w:well.'],'can 把 to 踢走了！'],
+     [['w:She','k:can','b:sing@pop','w:well.'],'情態助動詞 + 原形']],
+ P9:[[['w:My flatmate','k:lets me@glow','_:?','w:his computer.'],'前面是 lets me（讓我）'],
+     [['w:My flatmate','k:lets me','t:to@kick','b:use@drop','w:his computer.'],'let 把 to 踢走！'],
+     [['w:My flatmate','k:lets me','b:use@pop','w:his computer.'],'let / make + 人 + 原形']],
+ HB2:[[['w:She','k:has to@glow','_:?','w:a long time…'],'has to（必須）裡面已經有 to 了'],
+      [['w:She','k:has to','i:spending@drop','w:a long time…'],'千賦在講義寫 spending…'],
+      [['w:She','k:has to','i:spending@kick','w:a long time…'],'✘ 不對！'],
+      [['w:She','k:has to','b:spend@pop','w:a long time…'],'has to + 原形 ✔']],
+ P11:[[['w:Sarah','k:loves@glow','_:?','w:to the cinema.'],'前面是 loves（很愛）'],
+      [['w:Sarah','k:loves','x:go@drop','w:to the cinema.'],'動詞 go 放進來…'],
+      [['w:Sarah','k:loves','i:go','i+:ing@pop','w:to the cinema.'],'like 家族 → 加 ing！']],
+ P12:[[['w:We usually','k:go@glow','w:scuba','_:?','w:in the summer.'],'go + 活動'],
+      [['w:We usually','k:go','w:scuba','i:diving@pop','w:in the summer.'],'go swimming、go shopping、go diving']],
+ P13:[[['w:It','k:started@glow','_:?','w:half an hour ago.'],'前面是 started（開始）'],
+      [['w:It','k:started','i:rain','i+:ing@pop','w:half an hour ago.'],'start / begin / finish / stop / continue → V-ing']],
+ P14:[[["w:She's good",'k:at@glow','_:?','w:the piano.'],'at 是介係詞'],
+      [["w:She's good",'k:at','i:playing@pop','w:the piano.'],'介係詞後面一定 V-ing']],
+ P15:[[['w:I','k:suggest@glow','_:?','w:out for dinner.'],'suggest（建議）是 enjoy 家族'],
+      [['w:I','k:suggest','i:going@pop','w:out for dinner.'],'enjoy 家族 → V-ing']],
+ D4:[[['w:I','k:look forward to@glow','_:?','w:you.'],'小心！這個 to 是介係詞'],
+     [['w:I','k:look forward to','b:meet@drop','w:you.'],'不是 to + 原形喔…'],
+     [['w:I','k:look forward to','b:meet@kick','w:you.'],'✘'],
+     [['w:I','k:look forward to','i:meeting@pop','w:you.'],'look forward to + V-ing ✔']],
+ LIKE:[[['w:I','k:like@glow','i:swimming','w:.'],'like + V-ing：我（平常）喜歡游泳'],
+       [['w:I','k:would@drop','k:like','i:swimming@shake','w:.'],'咦！前面多了 would…'],
+       [['w:I','k:would','k:like','i:swimming@kick','w:.'],'swimming 被換掉！'],
+       [['w:I','k:would','k:like','t:to@pop','t:swim@pop','w:.'],'would like + to 原形：我（現在）想去游泳']],
+ SPELL:[[['x:make@pop'],'make 要加 ing'],
+        [['x:mak','s+:e@shake'],'字尾的 e 要先拿掉'],
+        [['x:mak','s+:e@kick','i:ing@pop'],'再加上 ing'],
+        [['i:making@pop'],'make → making']],
+ SWIM:[[['x:swim@pop'],'swim：短短的母音 + 一個子音'],
+       [['x:swim','i+:m@pop'],'字尾 m 要重複一次'],
+       [['x:swim','i+:m','i+:ing@pop'],'再加 ing'],
+       [['i:swimming@pop'],'swim → swimming']]
+};
+function vw(g,list){var h='<div class="vlist">',i;for(i=0;i<list.length;i++)h+='<span class="vw c-'+g+'">'+list[i][0]+'<small>'+list[i][1]+'</small></span>';return h+'</div>';}
+var SLIDES=[
+ {t:'動詞的三種樣子',s:'這一課只要學會一件事',demos:['three'],
+  h:'<div class="pt">同一個動詞，會有三種樣子：</div>'+
+    '<div class="box t"><div class="bh">① to + 原形</div>to play</div>'+
+    '<div class="box b"><div class="bh">② 原形（不加 to）</div>play</div>'+
+    '<div class="box i"><div class="bh">③ V-ing</div>playing</div>'+
+    '<div class="tip">🔑 口訣：先看「前面是誰」，再決定「後面長怎樣」！</div>'+
+    '<div class="pt">接下來會教你：哪些字後面用哪一種。顏色記好：<b class="ct-t">藍＝to + 原形</b>、<b class="ct-b">綠＝原形</b>、<b class="ct-i">紫＝V-ing</b>。</div>'},
+ {t:'to + 原形 ①',s:'「to 家族」動詞',demos:['P1'],check:'n04',
+  h:'<div class="pt">這些動詞後面要接 <b class="ct-t">to + 原形</b>：</div>'+
+    vw('t',[['want','想要'],['hope','希望'],['decide','決定'],['expect','預期'],['promise','答應'],['agree','同意'],['offer','主動提出'],['refuse','拒絕'],['forget','忘記'],['ask','要求'],['advise','建議'],['need','需要'],['manage','設法做到'],['seem','似乎'],['invite','邀請'],['arrange','安排']])+
+    '<div class="tip">🏹 to 像一支箭頭 → 指向「還沒做、想要去做」的事。<br>want to go（想要去）、hope to win（希望贏）、decide to travel（決定去旅行）</div>'+
+    '<div class="pt">也可以中間夾一個人：<br>asked <u>me</u> to finish、advised <u>me</u> to get、invited <u>us</u> to go</div>'},
+ {t:'to + 原形 ②',s:'還有 5 種情況也用 to',demos:['P3','P4','P6'],check:'n19',
+  h:'<div class="step"><b class="n">1</b><b>be + 形容詞</b>（happy, nice, sorry）<div class="ex">It\'s nice <span class="ans t">to meet</span> you!<span class="zh">很高興認識你！</span></div></div>'+
+    '<div class="step"><b class="n">2</b><b>how / what / where / who</b> + to<div class="ex">She knows how <span class="ans t">to make</span> a lemon pie.<span class="zh">她知道怎麼做檸檬派。</span></div></div>'+
+    '<div class="step"><b class="n">3</b><b>too / enough</b> + to<div class="ex">I\'m too tired <span class="ans t">to go</span> out.<br>It isn\'t warm enough <span class="ans t">to go</span> to the beach.<span class="zh">太累了不想出門／不夠暖，不能去海邊。</span></div></div>'+
+    '<div class="step"><b class="n">4</b><b>「為了…」</b>（目的）<div class="ex">I\'m going to the supermarket <span class="ans t">to buy</span> some milk.<span class="zh">我去超市「為了」買牛奶。</span></div></div>'+
+    '<div class="step"><b class="n">5</b><b>would like / would love / would prefer</b><div class="ex">I\'d love <span class="ans t">to go</span> to the theatre tonight.<span class="zh">（I\'d ＝ I would）</span></div></div>'},
+ {t:'原形：to 被踢走！',s:'不加 to 的兩種情況',demos:['P8','P9','HB2'],check:'n32',
+  h:'<div class="box b"><div class="bh">① 情態助動詞 + 原形</div>'+vw('b',[['can','會'],['could','可以'],['may','可以'],['might','可能'],['must','必須'],['should','應該'],['will','將會']])+
+    '<div class="ex">She can <span class="ans b">sing</span> well.<br>You mustn\'t <span class="ans b">talk</span> on your phone.<span class="zh">否定也一樣：can\'t / mustn\'t / shouldn\'t + 原形</span></div></div>'+
+    '<div class="box b"><div class="bh">② let / make + 人 + 原形</div>'+
+    '<div class="ex">My flatmate lets me <span class="ans b">use</span> his computer.<br>His mum always makes him <span class="ans b">tidy</span> his room.<span class="zh">讓我用／叫他整理</span></div></div>'+
+    '<div class="warn"><b>⚠ have to / has to（必須）</b>：裡面已經有 to 了，後面直接接原形。<br>She has to <span class="ans b">spend</span> …　She has to spend … and <span class="ans b">learn</span> …</div>'},
+ {t:'V-ing ①',s:'喜歡、去玩、開始結束',demos:['P11','P12','P13'],check:'n44',
+  h:'<div class="box i"><div class="bh">① like 家族</div>'+vw('i',[['like','喜歡'],['love','很愛'],['dislike','不喜歡'],['hate','討厭'],['prefer','比較喜歡']])+'<div class="ex">Sarah loves <span class="ans i">going</span> to the cinema.</div></div>'+
+    '<div class="box i"><div class="bh">② go + 活動</div><div class="ex">go <span class="ans i">swimming</span>、go <span class="ans i">shopping</span>、go scuba <span class="ans i">diving</span></div></div>'+
+    '<div class="box i"><div class="bh">③ 開始 / 結束家族</div>'+vw('i',[['start','開始'],['begin','開始'],['finish','完成'],['stop','停止'],['continue','繼續']])+'<div class="ex">It started <span class="ans i">raining</span> half an hour ago.</div></div>'},
+ {t:'V-ing ②',s:'介係詞 & enjoy 家族',demos:['P14','P15','D4'],check:'n54',
+  h:'<div class="box i"><div class="bh">④ 介係詞後面一定 V-ing</div>at, of, about, in, for, without…'+
+    '<div class="ex">She\'s good at <span class="ans i">playing</span> the piano.<br>I am tired of <span class="ans i">using</span> this old computer.<br>He is excited about <span class="ans i">studying</span> Art.</div></div>'+
+    '<div class="box i"><div class="bh">⑤ enjoy 家族</div>'+vw('i',[['avoid','避免'],['enjoy','享受、喜歡'],['look forward to','期待'],['mind','介意'],['regret','後悔'],['spend','花（時間）'],['suggest','建議'],['deny','否認']])+
+    '<div class="ex">I suggest <span class="ans i">going</span> out for dinner.<br>People spend their holidays <span class="ans i">sunbathing</span>.</div></div>'+
+    '<div class="warn"><b>⚠ look forward to</b> 的 to 是介係詞，不是 to + 原形！<br>I look forward to <span class="ans i">meeting</span> you. ✔</div>'},
+ {t:'大陷阱：like ≠ would like',s:'多了 would，就換成 to',demos:['LIKE'],check:'n23',
+  h:'<div class="box i"><div class="bh">like / love / prefer + V-ing</div>平常的喜好<div class="ex">I like <span class="ans i">swimming</span>.<span class="zh">我（平常）喜歡游泳。</span></div></div>'+
+    '<div class="box t"><div class="bh">would like / love / prefer + to 原形</div>現在想要、很想<div class="ex">I would like <span class="ans t">to swim</span>.<br>Would you like <span class="ans t">to come</span>?<br>She\'d love <span class="ans t">to get</span> a job.<span class="zh">（she\'d ＝ she would）</span></div></div>'+
+    '<div class="tip">👀 看到 would（或 \'d）就要想到 to！</div>'},
+ {t:'V-ing 拼字',s:'寫錯字也會被扣分',demos:['SPELL','SWIM'],check:{q:'swim 加 ing 是？',o:['swimming','swiming','swimmng'],a:0},
+  h:'<div class="step"><b class="n">1</b>一般直接 + ing：play → playing、read → reading、study → studying、cry → crying</div>'+
+    '<div class="step"><b class="n">2</b>字尾是 e，去 e 再 + ing：make → making、use → using、come → coming、create → creating、sunbathe → sunbathing<br><small>例外：be → being、see → seeing</small></div>'+
+    '<div class="step"><b class="n">3</b>短母音 + 一個子音，重複字尾：swim → swimming、shop → shopping、sit → sitting、get → getting、begin → beginning</div>'},
+ {t:'總整理：4 步判斷法',s:'考試時照這個順序想',demos:[],
+  h:'<div class="step"><b class="n">1</b>有 <b>would like / love / prefer</b>（\'d）？→ <b class="ct-t">to + 原形</b></div>'+
+    '<div class="step"><b class="n">2</b>前面是 <b>can / could / should / must / will / may / might</b>、<b>have to / has to</b>、<b>let / make + 人</b>？→ <b class="ct-b">原形</b></div>'+
+    '<div class="step"><b class="n">3</b>前面是 <b>介係詞</b>、<b>enjoy 家族</b>、<b>like 家族</b>、<b>go</b>、<b>start / finish 家族</b>？→ <b class="ct-i">V-ing</b></div>'+
+    '<div class="step"><b class="n">4</b>其他（<b>to 家族動詞</b>、be + 形容詞、how、too / enough、為了…）→ <b class="ct-t">to + 原形</b></div>'+
+    '<div class="tip">🎉 教學完成！接下來去「原卷訂正」，把講義上寫錯的 14 題改對。</div>'}
+];
+/* 講義上錯的題目歸到哪一張 */
+var SLIDE_WRONG={1:['E3','HA5','HB1'],3:['C4','G5b','HA6','HB2','HB3','HB6'],4:['HB4'],5:['F6','G2a','G3b'],6:['HB5']};
+/* 規則卡：可點的關鍵字 [規則, 字, 中文, 例句] */
+var RCHIPS=[
+ ['T1','want','想要','n01'],['T1','hope','希望','n04'],['T1','decide','決定','P1'],['T1','expect','預期','E3'],['T1','promise','答應','n03'],['T1','agree','同意','F4'],['T1','offer','主動提出','n06'],['T1','refuse','拒絕','A7'],['T1','forget','忘記','A2'],['T1','ask','要求','A5'],['T1','advise','建議','A10'],['T1','need','需要','n07'],['T1','manage','設法','B4a'],['T1','seem','似乎','B7a'],['T1','invite','邀請','A4'],['T1','arrange','安排','B2b'],
+ ['T2','be + 形容詞','開心/很好/抱歉','P2'],['T3','how / what / where / who','疑問詞','P3'],['T4','too / enough','太…/足夠','P4'],['T5','為了…','目的','P6'],['T6','would like / love / prefer','想要','P7'],
+ ['B1','can','會','P8'],['B1','could','可以','HB6'],['B1','may','可以','n28'],['B1','might','可能','n27'],['B1','must','必須','n26'],['B1','should','應該','n25'],['B1','will','將會','n29'],['B1','have to / has to','必須','HB2'],['B2','let + 人','讓','P9'],['B2','make + 人','叫、使','P10'],
+ ['I1','like','喜歡','F3'],['I1','love','很愛','P11'],['I1','dislike','不喜歡','n37'],['I1','hate','討厭','n36'],['I1','prefer','比較喜歡','D1'],['I2','go + 活動','去做…','P12'],['I3','start','開始','P13'],['I3','begin','開始','n45'],['I3','finish','完成','D8'],['I3','stop','停止','n43'],['I3','continue','繼續','F8'],['I4','介係詞 at / of / about / for…','','P14'],
+ ['I5','avoid','避免','n51'],['I5','enjoy','享受','G3b'],['I5','look forward to','期待','D4'],['I5','mind','介意','E2'],['I5','regret','後悔','E4'],['I5','spend','花時間','F6'],['I5','suggest','建議','P15'],['I5','deny','否認','D7']
+];
+
+/* ================= 基本 ================= */
+var KEY='qf_u8_grammar_v1',KEY_W15='qf15_state_v1';
+var IT={},ALLID=[],i_;
+for(i_=0;i_<ITEMS.length;i_++){var a_=ITEMS[i_];IT[a_[0]]={id:a_[0],r:a_[1],s:a_[2],v:a_[3],a:a_[4],k:a_[5],zh:a_[6],o:a_[7]||null,g:RULES[a_[1]].g};ALLID.push(a_[0]);}
+var RULE_IDS=[];for(var rk in RULES)if(RULES.hasOwnProperty(rk))RULE_IDS.push(rk);
+var TYPE_NAME={pick:'選一選',type:'寫寫看',sort:'分類快打',tf:'對還是錯'};
+var KIND_NAME={book:'原卷訂正',sort:'分類快打',big:'大考',fix:'錯題訂正',prac:'專項練習',weak:'弱點練習'};
+var HAS_TTS=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function shuffle(a){var b=a.slice(),i,j,t;for(i=b.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pad(n){return n<10?'0'+n:''+n;}
+function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function fmtT(t){var d=new Date(t);return (d.getMonth()+1)+'/'+d.getDate()+' '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function on(id,ev,fn){var e=$(id);if(e)e.addEventListener(ev,fn,false);}
+function each(sel,fn){var l=document.querySelectorAll(sel),i;for(i=0;i<l.length;i++)fn(l[i],i);}
+var tmr=[];function clearT(){for(var i=0;i<tmr.length;i++)clearTimeout(tmr[i]);tmr=[];}
+function later(fn,ms){tmr.push(setTimeout(fn,ms));}
+function toast(m){var d=document.createElement('div');d.className='toast';d.innerHTML=esc(m);document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},2200);}
+function setView(h){clearT();$('app').innerHTML=h;window.scrollTo(0,0);}
+function bar(t,back,right){return '<div class="bar">'+(back?'<button class="back" id="bk">← 回首頁</button>':'')+'<span class="bt">'+t+'</span>'+(right?'<span class="qn">'+right+'</span>':'')+'</div>';}
+
+/* ================= 存檔 ================= */
+var S;
+function blank(){return {v:1,lessonMax:-1,lessonDone:false,bookDone:false,day:{},it:{},wb:{},rl:{},att:[],best:0,passed:false,mailQ:[]};}
+function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){S=null;}if(!S||!S.v)S=blank();var b=blank(),k;for(k in b)if(b.hasOwnProperty(k)&&S[k]===undefined)S[k]=b[k];}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function dayRec(){var d=today();if(!S.day[d])S.day[d]={};return S.day[d];}
+function unfixed(){var n=0,k;for(k in S.wb)if(S.wb.hasOwnProperty(k)&&!S.wb[k].fixed)n++;return n;}
+function unfixedIds(){var r=[],k;for(k in S.wb)if(S.wb.hasOwnProperty(k)&&!S.wb[k].fixed)r.push(k);return r;}
+function ruleAcc(r){var l=S.rl[r];if(!l||!l.length)return -1;var s=0;for(var i=0;i<l.length;i++)s+=l[i];return Math.round(s*100/l.length);}
+
+/* ================= 動詞形式 ================= */
+function ing(v){if(ING_X[v])return ING_X[v];if(/ie$/.test(v))return v.slice(0,-2)+'ying';if(/[^e]e$/.test(v))return v.slice(0,-1)+'ing';return v+'ing';}
+function form(it,g){return g==='t'?'to '+it.v:(g==='b'?it.v:ing(it.v));}
+function ans(it){return form(it,it.g);}
+function options(it){
+  if(it.o)return it.o.slice();
+  var o=[form(it,'t'),form(it,'b'),form(it,'i')];
+  if(FLEX[it.id])o[0]='to '+ing(it.v);
+  return o;
+}
+function wrongForms(it){var o=options(it),r=[],c=ans(it);for(var i=0;i<o.length;i++)if(o[i]!==c&&!(FLEX[it.id]&&o[i]==='to '+it.v))r.push(o[i]);return r;}
+function norm(s){return String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[.,!?;:"]/g,' ').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'');}
+function judge(it,u){var n=norm(u),c=norm(ans(it));if(n===c)return 1;if(ALT[it.v]&&it.g==='i'&&n===ALT[it.v])return 1;if(FLEX[it.id]&&n===norm('to '+it.v))return 2;return 0;}
+
+/* 句子顯示：關鍵字標黃，空格 */
+function sentHTML(it,fill,cls){
+  var s=it.s,p=s.indexOf('___'),pre=s.slice(0,p),post=s.slice(p+3),k=it.k,q=pre.lastIndexOf(k),h;
+  if(q>=0&&k)h=esc(pre.slice(0,q))+'<span class="kw">'+esc(k)+'</span>'+esc(pre.slice(q+k.length));else h=esc(pre);
+  return h+(fill===null?'<span class="blank">&nbsp;?&nbsp;</span>':'<span class="'+(cls||('ans '+it.g))+'">'+esc(fill)+'</span>')+esc(post);
+}
+function sentPlain(it,fill){var s=it.s;return s.replace('___',fill);}
+function hiliteKwOnly(it){return sentHTML(it,null).replace('<span class="blank">&nbsp;?&nbsp;</span>','<span class="blank">_____</span> <span class="verb">('+esc(it.v)+')</span>');}
+
+/* ================= 發音 ================= */
+var AU=null;
+function say(id){
+  var it=IT[id];if(!it)return;
+  try{if(!AU){AU=new Audio();}AU.src='a/'+id+'.mp3';AU.load&&AU.load();var p=AU.play();
+    if(p&&p['catch'])p['catch'](function(){tts(sentPlain(it,ans(it)));});
+  }catch(e){tts(sentPlain(it,ans(it)));}
+}
+function tts(t){if(!HAS_TTS)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+
+/* ================= 首頁 ================= */
+function route(){
+  var d=dayRec(),uf=unfixed(),r=[];
+  r.push({k:'lesson',n:'🎬 看動畫教學（9 張）',ok:S.lessonDone});
+  r.push({k:'book',n:'🎯 原卷訂正（講義寫錯的 14 題）',ok:S.bookDone});
+  r.push({k:'fix',n:'❌ 錯題全部訂正'+(uf?'（還有 '+uf+' 題）':''),ok:S.bookDone&&!uf});
+  r.push({k:'sort',n:'⚡ 今日分類快打 20 題',ok:!!d.sort});
+  r.push({k:'big',n:'📝 今日大考 25 題（100 分過關）',ok:!!d.big});
+  return r;
+}
+function home(){
+  var r=route(),nx=null,i,uf=unfixed(),h='';
+  for(i=0;i<r.length;i++)if(!r[i].ok){nx=r[i];break;}
+  h+='<div class="hero"><div class="h-sm">ESL 4 · Week 5–6 · U8</div><div class="h-big">不定詞 &amp; -ing 闖關</div>'+
+    '<div class="stats"><span>大考最高 <b>'+S.best+'</b> 分</span><span>錯題 <b>'+uf+'</b></span><span>練習 <b>'+S.att.length+'</b> 次</span></div></div>';
+  if(nx)h+='<button class="btn pri big" id="go">▶ '+(nx.k==='lesson'&&S.lessonMax>=0?'繼續動畫教學':'開始：'+nx.n.replace(/^\S+\s/,''))+'</button>';
+  else h+='<div class="trophy">🎉 今天的關卡全部完成！想再挑戰就再考一次大考。</div>';
+  h+='<div class="card"><div class="ct">今日路線</div>';
+  for(i=0;i<r.length;i++)h+='<div class="tk'+(r[i].ok?' ok':'')+(nx===r[i]?' cur':'')+'">'+(r[i].ok?'✅':(nx===r[i]?'👉':'⬜'))+' '+r[i].n+'</div>';
+  h+='</div>';
+  if(S.passed)h+='<div class="trophy">🏆 拿過大考 100 分！考前每天考一次，保持 100。</div>';
+  h+='<div class="menu">'+
+   '<button class="mb" id="m_les">🎬 動畫教學<small>9 張，中文講解</small></button>'+
+   '<button class="mb" id="m_rule">📘 規則卡<small>點字看例句</small></button>'+
+   '<button class="mb" id="m_book">🎯 原卷訂正<small>講義錯的 14 題</small></button>'+
+   '<button class="mb" id="m_sort">⚡ 分類快打<small>20 題，練反應</small></button>'+
+   '<button class="mb'+(uf?' lock':'')+'" id="m_big">📝 大考 25 題<small>'+(uf?'🔒 先訂正 '+uf+' 題':'100 分才過關')+'</small></button>'+
+   '<button class="mb" id="m_fix">❌ 錯題本<small>'+(uf?'還有 '+uf+' 題要訂正':'目前沒有錯題')+'</small></button>'+
+   '<button class="mb" id="m_prac">💪 專項練習<small>挑一種來練</small></button>'+
+   '<button class="mb" id="m_rec">📊 成績紀錄<small>看哪一種最弱</small></button>'+
+   '</div>'+
+   '<div style="text-align:center;margin-top:10px"><a href="../w1-5/" style="color:#6f6a7c">← 回 W1–5 單字衝刺</a></div>';
+  setView(h);
+  on('go','click',function(){goStep(nx.k);});
+  on('m_les','click',function(){lesson(S.lessonDone?0:Math.max(0,S.lessonMax));});
+  on('m_rule','click',rules);
+  on('m_book','click',function(){start('book');});
+  on('m_sort','click',function(){start('sort');});
+  on('m_big','click',function(){if(unfixed()){toast('還有 '+unfixed()+' 題錯題要先訂正喔！');return;}start('big');});
+  on('m_fix','click',wrongBook);
+  on('m_prac','click',pracMenu);
+  on('m_rec','click',records);
+  flushMail();
+}
+function goStep(k){if(k==='lesson')lesson(Math.max(0,S.lessonMax));else if(k==='fix')start('fix');else start(k);}
+
+/* ================= 動畫教學 ================= */
+function chipHTML(spec){
+  var m=/^([a-z_])(\+?):(.*?)(?:@(\w+))?$/.exec(spec);if(!m)return '';
+  return '<span class="chip c-'+m[1]+(m[2]?' st':'')+(m[4]?' a-'+m[4]:'')+'">'+esc(m[3]||' ')+'</span>';
+}
+function playDemo(box,key){
+  var fr=DEMOS[key],n=0;if(!fr)return;
+  function show(){var f=fr[n],h='',i;for(i=0;i<f[0].length;i++)h+=chipHTML(f[0][i]);
+    var c=box.querySelector('.chips'),p=box.querySelector('.cap');if(!c)return;c.innerHTML=h;p.innerHTML=esc(f[1]);n++;if(n<fr.length)later(show,n===1?1500:1900);}
+  show();
+}
+function staticDemo(box,key){var fr=DEMOS[key],f=fr[fr.length-1],h='',i;for(i=0;i<f[0].length;i++)h+=chipHTML(f[0][i].replace(/@\w+$/,''));
+  box.querySelector('.chips').innerHTML=h;box.querySelector('.cap').innerHTML=esc(f[1]);}
+function demoBox(key,i){return '<div class="stage" id="dm'+i+'"><div class="chips"></div><div class="cap"></div><button class="replay" data-k="'+key+'" data-i="'+i+'">▶ 再播一次</button></div>';}
+function lesson(n){
+  if(n<0)n=0;if(n>=SLIDES.length)n=SLIDES.length-1;
+  if(n>S.lessonMax){S.lessonMax=n;}
+  if(n===SLIDES.length-1)S.lessonDone=true;
+  save();
+  var sl=SLIDES[n],h=bar('動畫教學',true,(n+1)+' / '+SLIDES.length),i;
+  h+='<div class="dots">';for(i=0;i<SLIDES.length;i++)h+='<span'+(i===n?' class="on"':'')+'></span>';h+='</div>';
+  h+='<div class="card"><div class="sl-t">'+sl.t+'<small>'+sl.s+'</small></div>';
+  if(sl.demos.length)h+=demoBox(sl.demos[0],0);
+  h+=sl.h;
+  for(i=1;i<sl.demos.length;i++)h+='<div class="sub">動畫 '+(i+1)+'</div>'+demoBox(sl.demos[i],i);
+  var bw=SLIDE_WRONG[n];
+  if(bw){h+='<div class="warn"><b>📒 你在講義上寫錯過：</b>';for(i=0;i<bw.length;i++){var it=IT[bw[i]];h+='<div class="ex" style="background:#fff">'+sentHTML(it,ans(it))+'<span class="zh">你寫：<span class="ans bad">'+esc(BOOK_WRONG[it.id])+'</span></span></div>';}h+='</div>';}
+  h+='</div>';
+  if(sl.check)h+='<div class="card" id="chk"></div>';
+  h+='<div class="row2" style="margin:0 -1%">'+(n>0?'<button class="btn" style="display:inline-block;width:48%;margin:6px 1%" id="prev">← 上一張</button>':'')+
+    '<button class="btn pri" style="display:inline-block;width:'+(n>0?'48':'98')+'%;margin:6px 1%" id="next">'+(n===SLIDES.length-1?'✔ 完成，去原卷訂正':'下一張 →')+'</button></div>';
+  setView(h);
+  on('bk','click',home);
+  on('prev','click',function(){lesson(n-1);});
+  on('next','click',function(){if(n===SLIDES.length-1){start('book');}else lesson(n+1);});
+  each('.replay',function(b){b.addEventListener('click',function(){var bx=$('dm'+b.getAttribute('data-i'));playDemo(bx,b.getAttribute('data-k'));},false);});
+  for(i=1;i<sl.demos.length;i++)staticDemo($('dm'+i),sl.demos[i]);
+  if(sl.demos.length)later(function(){playDemo($('dm0'),sl.demos[0]);},300);
+  if(sl.check)renderCheck(sl.check);
+}
+function renderCheck(c){
+  var box=$('chk'),q,o,a,h,i;
+  if(typeof c==='string'){var it=IT[c];q='<div class="qsent">'+hiliteKwOnly(it)+'</div><div class="qzh">'+esc(it.zh)+'</div>';o=shuffle(options(it));a=ans(it);}
+  else{q='<div class="qsent">'+esc(c.q)+'</div>';o=shuffle(c.o);a=c.o[c.a];}
+  h='<div class="ct">✋ 小試身手</div>'+q;for(i=0;i<o.length;i++)h+='<button class="opt" data-v="'+esc(o[i])+'">'+esc(o[i])+'</button>';h+='<div id="chkr"></div>';
+  box.innerHTML=h;
+  each('#chk .opt',function(b){b.addEventListener('click',function(){
+    var v=b.getAttribute('data-v');each('#chk .opt',function(x){x.disabled=true;if(x.getAttribute('data-v')===a)x.style.cssText='background:#e6f7ed;border-color:#22a05b';});
+    if(v===a)$('chkr').innerHTML='<div class="tip" style="background:#e6f7ed;color:#167a43">✔ 答對了！</div>';
+    else{b.style.cssText='background:#ffe1e1;border-color:#e5484d';$('chkr').innerHTML='<div class="warn">✘ 再看一次上面的說明喔'+(typeof c==='string'?'：前面是「'+esc(IT[c].k)+'」，'+RULES[IT[c].r].why:'')+'</div>';}
+  },false);});
+}
+
+/* ================= 規則卡 ================= */
+function rules(){
+  var h=bar('規則卡',true),g,i,gs=['t','b','i'],names={t:'🔵 後面接 to + 原形',b:'🟢 後面接原形（不加 to）',i:'🟣 後面接 V-ing'};
+  h+='<div class="pt" style="color:#6f6a7c">點任何一個字，看例句、聽發音。</div>';
+  for(g=0;g<3;g++){
+    h+='<div class="box '+gs[g]+'"><div class="bh">'+names[gs[g]]+'</div>';
+    var lastR='';
+    for(i=0;i<RCHIPS.length;i++){var c=RCHIPS[i];if(RULES[c[0]].g!==gs[g])continue;
+      if(c[0]!==lastR){h+='<div class="sub">'+RULES[c[0]].name+'</div>';lastR=c[0];}
+      h+='<button class="vw c-'+gs[g]+'" data-i="'+i+'">'+esc(c[1])+(c[2]?'<small>'+esc(c[2])+'</small>':'')+'</button>';}
+    h+='</div>';
+  }
+  h+='<div class="box i" style="background:#fff;border-color:#f2c94c"><div class="bh" style="color:#7a4b00">⚠ 三大陷阱</div>'+
+   '<div class="pt">① like + V-ing，但 <b>would like + to 原形</b></div><div class="pt">② look forward <b>to</b> + V-ing（to 是介係詞）</div><div class="pt">③ has to / have to + <b>原形</b>（不要再加 ing）</div></div>';
+  h+='<button class="btn pri" id="toprac">💪 去專項練習</button>';
+  setView(h);on('bk','click',home);on('toprac','click',pracMenu);
+  each('.vw',function(b){b.addEventListener('click',function(){showEx(RCHIPS[+b.getAttribute('data-i')]);},false);});
+}
+function showEx(c){
+  var it=IT[c[3]],old=$('expop');if(old)old.parentNode.removeChild(old);
+  var d=document.createElement('div');d.id='expop';d.className='card';d.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:50;border:3px solid #ff7a45;max-width:640px;margin:0 auto';
+  d.innerHTML='<div class="ct">'+esc(c[1])+' '+esc(c[2])+'</div><div class="qsent" style="font-size:20px">'+sentHTML(it,ans(it))+'</div><div class="qzh">'+esc(it.zh)+'</div>'+
+    '<div class="why">'+esc(RULES[it.r].name)+'</div><button class="say" id="exs">🔊 聽</button> <button class="say" id="exc">✕ 關閉</button>';
+  document.body.appendChild(d);
+  on('exs','click',function(){say(it.id);});on('exc','click',function(){d.parentNode.removeChild(d);});
+  say(it.id);
+}
+
+/* ================= 出題 ================= */
+var Q=null; /* {kind, list:[{id,type}], i, res:[], t0, max} */
+function pickType(id,avoid,pool){var p=shuffle(pool||['pick','type','sort','tf']),l=S.it[id]&&S.it[id].lt;for(var i=0;i<p.length;i++)if(p[i]!==l&&p[i]!==avoid)return p[i];return p[0];}
+function byRule(){var m={},i;for(i=0;i<ALLID.length;i++){var r=IT[ALLID[i]].r;(m[r]=m[r]||[]).push(ALLID[i]);}return m;}
+function weakRules(n){var a=RULE_IDS.slice();a.sort(function(x,y){var ax=ruleAcc(x),ay=ruleAcc(y);if(ax<0)ax=60;if(ay<0)ay=60;return ax-ay;});return a.slice(0,n);}
+function makeList(kind,arg){
+  var L=[],i,used={},m=byRule(),ids;
+  function add(id,t){if(used[id])return false;used[id]=1;L.push({id:id,type:t});return true;}
+  if(kind==='book'){ids=[];for(var k in BOOK_WRONG)if(BOOK_WRONG.hasOwnProperty(k))ids.push(k);for(i=0;i<ids.length;i++)add(ids[i],'type');}
+  else if(kind==='sort'){
+    var gs={t:[],b:[],i:[]};for(i=0;i<ALLID.length;i++)gs[IT[ALLID[i]].g].push(ALLID[i]);
+    var want={t:7,b:6,i:7},g;for(g in want){var sh=shuffle(gs[g]);for(i=0;i<want[g];i++)add(sh[i],'sort');}L=shuffle(L);}
+  else if(kind==='big'){
+    var types=shuffle(['pick','pick','pick','pick','pick','pick','pick','pick','type','type','type','type','type','type','type','type','type','sort','sort','sort','sort','tf','tf','tf','tf']);
+    var cand=[];
+    for(i=0;i<RULE_IDS.length;i++){var pool=shuffle(m[RULE_IDS[i]]);pool.sort(function(a,b){return itScore(a)-itScore(b);});cand.push(pool[0]);}
+    var wr=weakRules(4),extra=[];
+    for(i=0;i<wr.length;i++){var p2=shuffle(m[wr[i]]);extra.push(p2[0],p2[1]);}
+    var bw=shuffle(Object.keys?Object.keys(BOOK_WRONG):[]);
+    var rest=shuffle(ALLID);rest.sort(function(a,b){return itScore(a)-itScore(b);});
+    var all=cand.concat(extra,bw.slice(0,4),rest);
+    for(i=0;i<all.length&&L.length<25;i++)add(all[i],null);
+    L=shuffle(L);
+    /* 指派題型：盡量不同於上次 */
+    for(i=0;i<L.length;i++){var lt=S.it[L[i].id]&&S.it[L[i].id].lt,j;for(j=0;j<types.length;j++)if(types[j]!==lt)break;if(j===types.length)j=0;L[i].type=types.splice(j,1)[0];}
+  }
+  else if(kind==='fix'){ids=shuffle(unfixedIds()).slice(0,8);for(i=0;i<ids.length;i++)add(ids[i],fixType(ids[i]));}
+  else if(kind==='prac'||kind==='weak'){
+    var rs=kind==='weak'?weakRules(3):[];
+    if(kind==='prac')for(i=0;i<RULE_IDS.length;i++)if(arg==='all'||RULES[RULE_IDS[i]].g===arg)rs.push(RULE_IDS[i]);
+    var pl=[];for(i=0;i<rs.length;i++)pl=pl.concat(m[rs[i]]);pl=shuffle(pl);
+    for(i=0;i<pl.length&&L.length<12;i++)add(pl[i],pickType(pl[i]));
+  }
+  return L;
+}
+function itScore(id){var s=S.it[id];if(!s)return 0;return (s.c||0)*2-(s.w||0)*3+(BOOK_WRONG[id]?-2:0)+Math.random();}
+function fixType(id){var w=S.wb[id];if(!w||!w.ok.length)return Math.random()<.5?'sort':'pick';var hasT=false;for(var i=0;i<w.ok.length;i++)if(w.ok[i]==='type')hasT=true;return hasT?(Math.random()<.5?'pick':'tf'):'type';}
+function start(kind,arg){
+  if(kind==='fix'&&!unfixed()){toast('目前沒有錯題要訂正！');return;}
+  if(kind==='big'&&unfixed()){toast('還有 '+unfixed()+' 題錯題要先訂正喔！');start('fix');return;}
+  var L=makeList(kind,arg);if(!L.length){toast('沒有題目');return;}
+  Q={kind:kind,arg:arg,list:L,i:0,res:[],t0:+new Date(),cnt:{}};
+  if(kind==='book')bookIntro();else ask();
+}
+function bookIntro(){
+  var h=bar('原卷訂正',true)+'<div class="card"><div class="ct">講義上有 14 題寫錯了</div><div class="pt">每一題都會告訴你「你當時寫了什麼」。那個答案是錯的，想想另外兩種哪一個才對，再自己寫一次。</div>'+
+   '<div class="tip">💡 先看空格「前面是誰」！<br>藍 to + 原形　綠 原形　紫 V-ing</div></div><button class="btn pri big" id="st">開始</button>';
+  setView(h);on('bk','click',home);on('st','click',ask);
+}
+function ask(){
+  var q=Q.list[Q.i],it=IT[q.id],h='',i,tot=Q.list.length;
+  Q.cnt[q.id]=(Q.cnt[q.id]||0)+1;
+  h+=bar(KIND_NAME[Q.kind],true,(Q.i+1)+' / '+tot)+'<div class="prog"><div style="width:'+Math.round(Q.i*100/tot)+'%"></div></div>';
+  h+='<div class="qcard" id="qc"><span class="qtype">'+TYPE_NAME[q.type]+'</span>';
+  if(Q.kind==='book'&&BOOK_WRONG[it.id])h+=' <span class="bookn">講義上你寫：'+esc(BOOK_WRONG[it.id])+' ✘</span>';
+  if(q.type==='pick'){
+    h+='<div class="qsent">'+sentHTML(it,null)+'</div><div class="qzh">'+esc(it.zh)+'</div>';
+    var o=shuffle(options(it));for(i=0;i<o.length;i++)h+='<button class="opt" data-v="'+esc(o[i])+'">'+esc(o[i])+'</button>';
+  }else if(q.type==='type'){
+    h+='<div class="qsent">'+hiliteKwOnly(it)+'</div><div class="qzh">'+esc(it.zh)+'</div>'+
+      '<input type="text" id="inp" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="寫出空格的答案">'+
+      '<div class="qzh">要加 to 的話，to 也要寫喔（例：to go）</div><button class="btn pri" id="ok">確定</button>';
+  }else if(q.type==='sort'){
+    h+='<div class="qsent">'+hiliteKwOnly(it)+'</div><div class="qzh">空格要用哪一種？</div>'+
+      '<button class="opt g c-t" data-g="t">to + 原形</button><button class="opt g c-b" data-g="b">原形（不加 to）</button><button class="opt g c-i" data-g="i">V-ing</button>';
+  }else{
+    var right=Math.random()<.5,wf=wrongForms(it),show=right?ans(it):wf[Math.floor(Math.random()*wf.length)];
+    q.show=show;q.right=right;
+    h+='<div class="qzh">這句話文法對不對？</div><div class="qsent">'+sentHTML(it,show,'uline')+'</div>'+
+      '<button class="opt half" data-t="1" style="color:#22a05b">✔ 對</button><button class="opt half" data-t="0" style="color:#e5484d">✘ 錯</button>';
+  }
+  h+='</div>';
+  setView(h);
+  on('bk','click',function(){if(Q.i===0||confirm('要離開這次測驗嗎？（這次不記分）'))home();});
+  if(q.type==='pick')each('.opt',function(b){b.addEventListener('click',function(){var v=b.getAttribute('data-v');done(v===ans(it)?1:0,v);},false);});
+  if(q.type==='sort')each('.opt',function(b){b.addEventListener('click',function(){var g=b.getAttribute('data-g');done(g===it.g?1:0,GN[g]);},false);});
+  if(q.type==='tf')each('.opt',function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-t')==='1';done(t===q.right?1:0,t?'對':'錯');},false);});
+  if(q.type==='type'){
+    var inp=$('inp');
+    var sub=function(){var v=inp.value;if(!norm(v)){toast('先寫答案喔');return;}inp.blur();done(judge(it,v),v);};
+    on('ok','click',sub);inp.addEventListener('keydown',function(e){if(e.keyCode===13){e.preventDefault();sub();}},false);
+    setTimeout(function(){try{inp.focus();}catch(e){}},50);
+  }
+}
+function record(it,type,ok){
+  var s=S.it[it.id]||(S.it[it.id]={c:0,w:0});s.lt=type;if(ok)s.c++;else s.w++;
+  var l=S.rl[it.r]||(S.rl[it.r]=[]);l.push(ok?1:0);if(l.length>12)l.shift();
+  var w=S.wb[it.id];
+  if(!ok){if(!w)w=S.wb[it.id]={n:0,ok:[],fixed:false,t:+new Date()};w.n++;w.ok=[];w.fixed=false;}
+  else if(w&&!w.fixed){w.ok.push(type);var hasT=false,i;for(i=0;i<w.ok.length;i++)if(w.ok[i]==='type')hasT=true;if(w.ok.length>=2&&hasT)w.fixed=true;}
+}
+function done(r,u){
+  var q=Q.list[Q.i],it=IT[q.id],ok=r>0;
+  record(it,q.type,ok);
+  Q.res.push({id:it.id,type:q.type,ok:ok,u:u});
+  if(Q.kind==='fix'){var w=S.wb[it.id];
+    if(w&&!w.fixed&&Q.cnt[it.id]<4)Q.list.push({id:it.id,type:fixType(it.id)});}
+  save();
+  if(ok&&r===1){
+    var qc=$('qc'),f=document.createElement('div');f.className='okflash a-pop';f.innerHTML='✔ 答對了！';qc.appendChild(f);
+    if(Q.kind==='book'||q.type==='type')say(it.id);
+    later(next,Q.kind==='book'?1300:750);
+  }else explain(q,it,ok,u);
+}
+function explain(q,it,ok,u){
+  var h=bar(KIND_NAME[Q.kind],false,(Q.i+1)+' / '+Q.list.length)+'<div class="qcard'+(ok?'':' wrong')+'" style="'+(ok?'':'border:3px solid #e5484d')+'">';
+  if(ok)h+='<div class="flex"><b>✔ 算你對！</b>英文其實也可以說「'+esc('to '+it.v)+'」，但這一課老師教的是 <b class="ct-i">V-ing</b>，考試寫 <b>'+esc(ans(it))+'</b> 最安全。</div>';
+  else{
+    h+='<div class="wt">✘ 再想一下</div>';
+    if(q.type==='tf')h+='<div class="row"><span class="lab">句子</span>'+(q.right?'是對的，你選了錯':'是錯的：<span class="ans bad">'+esc(q.show)+'</span>')+'</div>';
+    else h+='<div class="row"><span class="lab">你的答案</span><span class="ans bad">'+esc(u)+'</span></div>';
+    h+='<div class="row"><span class="lab">正確答案</span><span class="ans '+it.g+'">'+esc(q.type==='sort'?GN[it.g]+'：'+ans(it):ans(it))+'</span></div>';
+  }
+  h+='<div class="qsent">'+sentHTML(it,ans(it))+' <button class="say" id="sy">🔊</button></div><div class="qzh">'+esc(it.zh)+'</div>';
+  h+='<div class="why">💡 因為前面是「<b>'+esc(it.k)+'</b>」，'+esc(RULES[it.r].why)+'。<br><small>規則：'+esc(RULES[it.r].name)+'</small></div>';
+  if(it.g==='i'&&ing(it.v)!==it.v+'ing'&&!it.o)h+='<div class="pt" style="font-size:15px;color:#6f6a7c">拼字：'+esc(it.v)+' → '+esc(ing(it.v))+'</div>';
+  h+='<button class="btn pri" id="nx">我知道了 →</button></div>';
+  setView(h);on('nx','click',next);on('sy','click',function(){say(it.id);});
+  say(it.id);
+}
+function next(){Q.i++;if(Q.i<Q.list.length)ask();else finish();}
+function finish(){
+  var n=Q.res.length,c=0,i,first={},firstN=0,firstC=0;
+  for(i=0;i<n;i++){if(Q.res[i].ok)c++;if(!first[Q.res[i].id]){first[Q.res[i].id]=1;firstN++;if(Q.res[i].ok)firstC++;}}
+  var score=Q.kind==='fix'?Math.round(firstC*100/firstN):Math.round(c*100/n);
+  if(Q.kind==='big')score=c*4;
+  var at={k:Q.kind,t:+new Date(),sc:score,n:n,c:c,sec:Math.round((+new Date()-Q.t0)/1000),wr:[]};
+  for(i=0;i<n;i++)if(!Q.res[i].ok&&at.wr.indexOf(Q.res[i].id)<0)at.wr.push(Q.res[i].id);
+  S.att.push(at);if(S.att.length>300)S.att.shift();
+  var d=dayRec();d[Q.kind]=(d[Q.kind]||0)+1;
+  if(Q.kind==='book')S.bookDone=true;
+  var newBest=false;
+  if(Q.kind==='big'){if(score>S.best){S.best=score;newBest=true;}if(score===100)S.passed=true;queueMail(at);}
+  save();
+  var h=bar(KIND_NAME[Q.kind]+' 成績',true)+'<div class="card" style="text-align:center"><div class="score">'+score+'<small> 分</small></div>'+
+    '<div class="qzh">答對 '+c+' / '+n+' 題 · 用時 '+Math.floor(at.sec/60)+' 分 '+(at.sec%60)+' 秒</div>';
+  if(Q.kind==='big'&&score===100)h+='<div class="trophy a-pop">🏆 100 分！U8 文法過關！</div>';
+  else if(newBest)h+='<div class="trophy">⭐ 新的最高分！</div>';
+  h+='</div>';
+  /* 依三色分類 */
+  var gc={t:[0,0],b:[0,0],i:[0,0]};for(i=0;i<n;i++){var gg=IT[Q.res[i].id].g;gc[gg][1]++;if(Q.res[i].ok)gc[gg][0]++;}
+  h+='<div class="card"><div class="ct">三種答對率</div>';
+  var gs=['t','b','i'];for(i=0;i<3;i++){var x=gc[gs[i]];if(!x[1])continue;var p=Math.round(x[0]*100/x[1]);h+='<div class="rr"><span class="rn ct-'+gs[i]+'"><b>'+GN[gs[i]]+'</b></span><span class="rb"><div class="bg-'+gs[i]+'" style="width:'+p+'%"></div></span><span class="rp">'+x[0]+'/'+x[1]+'</span></div>';}
+  h+='</div>';
+  if(at.wr.length){h+='<div class="card"><div class="ct">錯的題目（已放進錯題本）</div>';for(i=0;i<at.wr.length;i++){var it=IT[at.wr[i]];h+='<div class="wbi">'+sentHTML(it,ans(it))+'<div class="m">'+esc(RULES[it.r].name)+'</div></div>';}h+='</div>';}
+  var uf=unfixed();
+  if(uf)h+='<button class="btn pri big" id="tofix">❌ 去錯題訂正（'+uf+' 題）</button>';
+  else{var r=route(),nx=null;for(i=0;i<r.length;i++)if(!r[i].ok){nx=r[i];break;}
+    if(nx)h+='<button class="btn pri big" id="tonx">下一關：'+nx.n.replace(/^\S+\s/,'')+'</button>';}
+  h+='<button class="btn" id="tohome">回首頁</button>';
+  setView(h);on('bk','click',home);on('tohome','click',home);on('tofix','click',function(){start('fix');});
+  on('tonx','click',function(){var r=route();for(var j=0;j<r.length;j++)if(!r[j].ok){goStep(r[j].k);return;}home();});
+}
+
+/* ================= 專項練習 ================= */
+function pracMenu(){
+  var h=bar('專項練習',true)+
+   '<button class="opt g c-t" id="p_t">🔵 to + 原形（12 題）</button>'+
+   '<button class="opt g c-b" id="p_b">🟢 原形（12 題）</button>'+
+   '<button class="opt g c-i" id="p_i">🟣 V-ing（12 題）</button>'+
+   '<button class="opt g" id="p_all">🌈 三種混合（12 題）</button>'+
+   '<button class="opt g c-k" id="p_weak">💪 我最弱的 3 種規則（12 題）</button>';
+  setView(h);on('bk','click',home);
+  on('p_t','click',function(){start('prac','t');});on('p_b','click',function(){start('prac','b');});on('p_i','click',function(){start('prac','i');});
+  on('p_all','click',function(){start('prac','all');});on('p_weak','click',function(){start('weak');});
+}
+
+/* ================= 錯題本 ================= */
+function wrongBook(){
+  var h=bar('錯題本',true),k,l=[],i,uf=unfixed();
+  for(k in S.wb)if(S.wb.hasOwnProperty(k))l.push(k);
+  l.sort(function(a,b){return (S.wb[a].fixed?1:0)-(S.wb[b].fixed?1:0)||S.wb[b].n-S.wb[a].n;});
+  if(uf)h+='<button class="btn pri big" id="fx">❌ 開始錯題訂正（'+uf+' 題）</button><div class="qzh" style="text-align:center">每題要答對 2 次，其中 1 次是「寫寫看」，才算訂正完成。</div>';
+  if(!l.length)h+='<div class="card">目前沒有錯題 👍</div>';
+  else{h+='<div class="card">';for(i=0;i<l.length;i++){var it=IT[l[i]],w=S.wb[l[i]];
+    h+='<div class="wbi" data-id="'+it.id+'">'+(w.fixed?'✅ ':'⬜ ')+sentHTML(it,ans(it))+'<div class="m"><span class="tag c-'+it.g+'">'+GN[it.g]+'</span>錯 '+w.n+' 次 · '+esc(RULES[it.r].name)+(w.fixed?' · 已訂正':' · 進度 '+w.ok.length+'/2')+'</div></div>';}
+    h+='</div>';}
+  setView(h);on('bk','click',home);on('fx','click',function(){start('fix');});
+  each('.wbi',function(e){e.addEventListener('click',function(){say(e.getAttribute('data-id'));},false);});
+}
+
+/* ================= 成績紀錄 ================= */
+function records(){
+  var h=bar('成績紀錄',true),i,big=[];
+  for(i=0;i<S.att.length;i++)if(S.att[i].k==='big')big.push(S.att[i]);
+  if(big.length){var last=big.slice(-15);h+='<div class="card"><div class="ct">大考分數走勢</div><div class="trend">';
+    for(i=0;i<last.length;i++)h+='<div class="tcol"><div>'+last[i].sc+'</div><div class="tb'+(last[i].sc===100?' g':'')+'" style="height:'+Math.max(4,last[i].sc)+'px"></div></div>';
+    h+='</div></div>';}
+  h+='<div class="card"><div class="ct">各規則答對率（最近 12 題）</div>';
+  for(i=0;i<RULE_IDS.length;i++){var r=RULE_IDS[i],p=ruleAcc(r),g=RULES[r].g;
+    h+='<div class="rr"><span class="rn">'+esc(RULES[r].name)+'</span><span class="rb"><div class="bg-'+g+'" style="width:'+(p<0?0:p)+'%"></div></span><span class="rp">'+(p<0?'—':p+'%')+'</span></div>';}
+  h+='<button class="btn" id="wk">💪 練最弱的 3 種</button></div>';
+  h+='<div class="card"><div class="ct">所有紀錄</div>';
+  if(!S.att.length)h+='<div class="qzh">還沒有紀錄</div>';
+  for(i=S.att.length-1;i>=0&&i>=S.att.length-40;i--){var a=S.att[i];h+='<div class="att">'+fmtT(a.t)+'　'+KIND_NAME[a.k]+'<b>'+a.sc+' 分</b><div class="qzh" style="margin:0">'+a.c+'/'+a.n+' 題'+(a.wr.length?' · 錯：'+a.wr.length+' 題':'')+'</div></div>';}
+  h+='</div><button class="btn ghost" id="rst">重設全部紀錄（家長）</button>';
+  setView(h);on('bk','click',home);on('wk','click',function(){start('weak');});
+  on('rst','click',function(){var p=prompt('家長密碼（同單字網站，預設 1234）');var pw='1234';try{var o=JSON.parse(localStorage.getItem(KEY_W15)||'null');if(o&&o.pin)pw=String(o.pin);}catch(e){}
+    if(p===pw&&confirm('確定清除 U8 文法的全部紀錄？')){S=blank();save();home();}else if(p!==null&&p!==pw)toast('密碼不對');});
+}
+
+/* ================= 成績寄信（沿用單字網站設定的信箱） ================= */
+function mailAddr(){try{var o=JSON.parse(localStorage.getItem(KEY_W15)||'null');if(o&&o.mail)return o.mail;}catch(e){}return 'dreamchiz@gmail.com';}
+function queueMail(at){
+  var lines=[],i;for(i=0;i<at.wr.length;i++){var it=IT[at.wr[i]];lines.push('✘ '+sentPlain(it,ans(it))+'（'+RULES[it.r].name+'）');}
+  S.mailQ.push({_subject:'千賦 U8 文法大考 '+at.sc+' 分',時間:fmtT(at.t),分數:at.sc+' 分（'+at.c+'/'+at.n+'）',用時:Math.round(at.sec/60)+' 分鐘',錯題:lines.join('\n')||'全對 🎉',_template:'box',_captcha:'false'});
+  if(S.mailQ.length>20)S.mailQ.shift();save();
+}
+var mailBusy=false;
+function flushMail(){
+  if(mailBusy||!S.mailQ.length)return;mailBusy=true;
+  var b=S.mailQ[0],p=[],k;for(k in b)if(b.hasOwnProperty(k))p.push(encodeURIComponent(k)+'='+encodeURIComponent(b[k]));
+  try{var x=new XMLHttpRequest();x.open('POST','https://formsubmit.co/ajax/'+encodeURIComponent(mailAddr()),true);
+    x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');x.setRequestHeader('Accept','application/json');
+    x.onreadystatechange=function(){if(x.readyState!==4)return;mailBusy=false;var ok=false;try{var r=JSON.parse(x.responseText);ok=(r.success===true||r.success==='true');}catch(e){}
+      if(ok){S.mailQ.shift();save();if(S.mailQ.length)setTimeout(flushMail,1500);}};
+    x.send(p.join('&'));}catch(e){mailBusy=false;}
+}
+
+load();home();
+
+</script>
+</body>
+</html>
