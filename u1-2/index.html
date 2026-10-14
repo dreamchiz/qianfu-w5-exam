@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>千賦 Unit 1–2 單字複習</title>
+<style>
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#fff7ee;color:#2a2733;font:17px/1.6 -apple-system,"PingFang TC","Heiti TC","Noto Sans TC","Microsoft JhengHei",sans-serif;-webkit-text-size-adjust:100%}
+#app{max-width:680px;margin:0 auto;padding:0 16px 120px}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-appearance:none}
+.hide{display:none!important}
+.btn{display:block;width:100%;min-height:52px;margin:10px 0;padding:10px 16px;border:2px solid #eee2d3;border-radius:14px;background:#fff;font-weight:bold;font-size:17px}
+.btn.pri{background:#ff7a45;border-color:#ff7a45;color:#fff}
+.btn.big{font-size:19px;min-height:62px}
+.btn.ghost{background:transparent;border-color:transparent;color:#6f6a7c}
+.btn small{display:block;font-weight:normal;font-size:13px;opacity:.85}
+.bar{position:relative;margin:0 -16px 12px;padding:10px 16px;background:#fff7ee;border-bottom:1px solid #eee2d3;min-height:52px;line-height:32px}
+.back{border:0;background:#fff;border-radius:12px;padding:4px 12px;font-weight:bold;box-shadow:0 2px 6px rgba(80,50,20,.12);margin-right:8px}
+.bt{font-weight:bold;font-size:18px}
+.qn{float:right;color:#6f6a7c;font-size:15px}
+.hero{text-align:center;padding:22px 0 6px}
+.h-sm{color:#e8602b;font-weight:bold;letter-spacing:1px}
+.h-big{font-size:26px;font-weight:bold;margin:4px 0}
+.sub{color:#6f6a7c;font-size:15px}
+.card{background:#fff;border-radius:18px;padding:14px 16px;margin:12px 0;box-shadow:0 2px 10px rgba(80,50,20,.08)}
+.ucard{display:block;width:100%;text-align:left;border:2px solid #eee2d3;background:#fff;border-radius:18px;padding:14px 16px;margin:12px 0}
+.ucard .ue{float:left;font-size:40px;line-height:52px;margin-right:12px}
+.ucard b{font-size:20px}
+.ucard .us{display:block;color:#6f6a7c;font-size:14px}
+.prog{height:10px;background:#eee2d3;border-radius:5px;margin:8px 0 2px;overflow:hidden;clear:both}
+.prog div{height:10px;background:#22a05b}
+.tabs{clear:both;margin:0 -1% 6px;text-align:center;white-space:nowrap}
+.tab{display:inline-block;width:31.3%;margin:0 1%;min-height:50px;border:2px solid #eee2d3;border-radius:14px;background:#fff;font-weight:bold;font-size:16px;padding:6px 2px}
+.tab.on{background:#ff7a45;border-color:#ff7a45;color:#fff}
+.tool{text-align:right;margin:4px 0}
+.chip{display:inline-block;border:2px solid #eee2d3;background:#fff;border-radius:20px;padding:4px 12px;font-size:14px;font-weight:bold;margin-left:6px}
+.chip.on{background:#fff0e2;border-color:#ffb48f;color:#c2410c}
+.pnum{display:inline-block;background:#ff7a45;color:#fff;border-radius:12px;padding:0 10px;font-weight:bold;font-size:14px;margin-right:6px}
+.phead{margin-bottom:6px;line-height:36px}
+.pplay{float:right;border:0;background:#ff7a45;color:#fff;border-radius:12px;padding:4px 14px;font-weight:bold;font-size:15px}
+.sen{padding:8px 0;border-top:1px dashed #f0e4d6}
+.sen:first-of-type{border-top:0}
+.en{font-size:20px;line-height:1.75}
+.zh{color:#6f6a7c;font-size:16px;margin-top:2px}
+.ssp{border:0;background:#fff0e2;border-radius:10px;padding:0 8px;font-size:16px;margin-right:6px;vertical-align:1px;min-height:30px}
+.note{margin:8px 0 0;padding:8px 12px;background:#eef5ff;border-radius:12px;font-size:15px}
+.wd{border-bottom:1px dotted #c9b9a6;cursor:pointer}
+.wd.kw{background:#fff1a8;font-weight:bold;border-bottom:2px solid #ff7a45;padding:0 2px;border-radius:4px}
+.wd.nb{background:#e3f6e9;border-bottom:2px solid #22a05b}
+.wd.kw.nb{background:#fff1a8}
+.wd.sel{background:#ffd9c4}
+.lab{display:inline-block;margin:4px 6px 4px 0;padding:4px 10px;background:#fffaf3;border:1px solid #f0e4d6;border-radius:10px;font-size:17px}
+.lab i{font-style:normal;color:#6f6a7c;font-size:14px}
+.dlg{margin:6px 0;padding:8px 12px;border-radius:14px;background:#fffaf3}
+.dlg.b{background:#eef5ff;margin-left:30px}
+.kc{background:#fff;border-radius:18px;padding:12px 14px;margin:12px 0;box-shadow:0 2px 10px rgba(80,50,20,.08)}
+.kc .ke{float:right;font-size:34px;line-height:40px}
+.kw1{font-size:28px;font-weight:bold;cursor:pointer}
+.kw1 i{font-style:normal;font-size:15px;color:#6f6a7c;font-weight:normal;margin-left:6px}
+.kz{font-size:19px;margin:2px 0}
+.sy{font-family:Menlo,Courier,monospace;color:#c2410c;font-size:17px;letter-spacing:1px}
+.tip{font-size:14px;color:#6f6a7c;margin:2px 0}
+.kex{margin-top:8px;padding:8px 10px;background:#fffaf3;border-radius:12px;font-size:17px;line-height:1.7}
+.kex .zh{font-size:14px}
+.kbtn{display:inline-block;border:0;background:#fff0e2;color:#c2410c;border-radius:12px;padding:6px 12px;margin:6px 6px 0 0;font-weight:bold;font-size:15px;min-height:38px}
+.kbtn.g{background:#e3f6e9;color:#167a43}
+.stars{color:#f5a623;font-size:16px;letter-spacing:1px}
+.stars .o{color:#e2d6c6}
+#pop{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 12px 12px}
+.popin{max-width:520px;margin:0 auto;background:#fff;border-radius:18px;padding:16px;box-shadow:0 -4px 24px rgba(0,0,0,.25)}
+.popw{font-size:30px;font-weight:bold}
+.popw .spk{font-size:20px;vertical-align:4px}
+.popl{color:#6f6a7c;font-size:15px}
+.popz{font-size:22px;margin:4px 0}
+.popz i{font-style:normal;color:#6f6a7c;font-size:15px;margin-right:6px}
+.popk{display:inline-block;background:#fff1a8;color:#7a4b00;border-radius:10px;padding:0 8px;font-size:13px;font-weight:bold;vertical-align:6px}
+.spk{border:0;background:#fff0e2;border-radius:10px;padding:2px 10px;font-size:18px}
+.pbtns{margin:8px -1% 0}
+.pbtns .btn{display:inline-block;width:48%;margin:4px 1%;min-height:48px;font-size:16px}
+.btn.nbadd{background:#22a05b;border-color:#22a05b;color:#fff}
+#toast{position:fixed;left:16px;right:16px;top:-80px;z-index:30;text-align:center;background:#2a2733;color:#fff;border-radius:14px;padding:12px;-webkit-transition:top .25s;transition:top .25s}
+#toast.show{top:16px}
+.qcard{background:#fff;border-radius:20px;padding:18px 16px;box-shadow:0 2px 10px rgba(80,50,20,.08);position:relative;text-align:center}
+.qcard.wrong{border:3px solid #e5484d}
+.qtype{display:inline-block;background:#fff0e2;color:#c2410c;border-radius:10px;padding:2px 10px;font-size:14px;font-weight:bold;margin-bottom:6px}
+.qe{font-size:46px;line-height:1.2}
+.qbig{font-size:36px;font-weight:bold;margin:4px 0;word-wrap:break-word}
+.qzh{font-size:24px;font-weight:bold;margin:4px 0}
+.qzh i{font-style:normal;font-size:15px;color:#6f6a7c;font-weight:normal}
+.hint{font-family:Menlo,Courier,monospace;font-size:28px;font-weight:bold;letter-spacing:4px;margin:8px 0;color:#2a2733;white-space:nowrap}
+.hint.sm{font-size:18px;letter-spacing:0}
+.bigspk{border:0;background:#ff7a45;color:#fff;border-radius:16px;padding:8px 18px;font-size:20px;font-weight:bold;margin:6px 4px}
+.bigspk.l{background:#fff0e2;color:#c2410c}
+input[type=text]{display:block;width:100%;font-size:26px;padding:12px 14px;margin:12px 0 4px;border:2px solid #eee2d3;border-radius:14px;background:#fff;-webkit-appearance:none;text-align:center;font-family:Menlo,Courier,monospace}
+.wt{color:#e5484d;font-weight:bold;font-size:20px;margin-bottom:6px}
+.ua{font-size:24px;font-weight:bold;font-family:Menlo,Courier,monospace;letter-spacing:1px}
+.ua .bad{color:#e5484d;text-decoration:underline}
+.ca{font-size:30px;font-weight:bold;color:#22a05b;font-family:Menlo,Courier,monospace;letter-spacing:1px}
+.okflash{position:absolute;left:0;right:0;top:35%;text-align:center;font-size:30px;font-weight:bold;color:#22a05b;background:rgba(230,247,237,.96);padding:16px;border-radius:16px;margin:0 16px}
+.prog2{height:8px;background:#eee2d3;border-radius:4px;margin:-4px 0 10px;overflow:hidden}
+.prog2 div{height:8px;background:#ff7a45}
+.phase{font-size:14px;color:#6f6a7c;text-align:center;margin:-4px 0 8px}
+.celebrate{margin:10px 0;padding:16px;background:#fff1a8;border-radius:16px;font-size:24px;font-weight:bold;text-align:center;-webkit-animation:pop .6s ease;animation:pop .6s ease}
+@-webkit-keyframes pop{0%{-webkit-transform:scale(.6)}70%{-webkit-transform:scale(1.08)}100%{-webkit-transform:scale(1)}}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+.rl{padding:8px 2px;border-top:1px solid #f3e9dc;font-size:17px}
+.rl:first-child{border-top:0}
+.rl .x{float:right;border:0;background:transparent;color:#a7a1b3;font-size:18px;padding:0 6px}
+.rl small{color:#6f6a7c}
+.empty{text-align:center;color:#a7a1b3;padding:20px 0}
+.tapinfo{font-size:13px;color:#a7a1b3;text-align:center;margin:4px 0}
+.leg span{display:inline-block;margin-right:10px;font-size:13px;color:#6f6a7c}
+.leg b{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:3px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="pop" class="hide"></div>
+<div id="toast"></div>
+<script>
+var D={"K":{"thunderstorm":{"w":"thunderstorm","f":["thunderstorms"],"p":"n.","z":"雷雨","sy":"thun·der·storm","e":"⛈️","tip":"thunder 雷 ＋ storm 暴風雨","u":1,"ex":[1,1,0]},"thunder":{"w":"thunder","f":[],"p":"n.","z":"雷；雷聲","sy":"thun·der","e":"🔊","tip":"聽得到的是 thunder，看得到的是 lightning","u":1,"ex":[1,1,0]},"lightning":{"w":"lightning","f":[],"p":"n.","z":"閃電","sy":"light·ning","e":"⚡","tip":"中間沒有 e！不是 lightening","u":1,"ex":[1,1,0]},"flood":{"w":"flood","f":[],"p":"n.","z":"洪水；水災","sy":"flood","e":"🌊","tip":"oo 在這裡唸短短的 ʌ，跟 blood 一樣","u":1,"ex":[1,1,1]},"drought":{"w":"drought","f":[],"p":"n.","z":"乾旱","sy":"drought","e":"🏜️","tip":"ough 唸 au，跟 out 押韻","u":1,"ex":[1,1,2]},"ice_storm":{"w":"ice storm","f":[],"p":"n.","z":"冰風暴（雨一落地就結冰）","sy":"ice storm","e":"🧊","tip":"兩個字：ice ＋ storm","u":1,"ex":[1,1,3]},"blizzard":{"w":"blizzard","f":[],"p":"n.","z":"暴風雪","sy":"bliz·zard","e":"❄️","tip":"兩個 z：bli-zz-ard","u":1,"ex":[1,1,3]},"tropical_storm":{"w":"tropical storm","f":[],"p":"n.","z":"熱帶風暴","sy":"trop·i·cal storm","e":"🌧️","tip":"tropical 熱帶的 ＋ storm","u":1,"ex":[1,2,1]},"speed":{"w":"speed","f":[],"p":"n.","z":"速度","sy":"speed","e":"💨","tip":"wind speed 風速","u":1,"ex":[1,2,1]},"hurricane":{"w":"hurricane","f":[],"p":"n.","z":"颶風（＝cyclone 氣旋；台灣叫 typhoon 颱風）","sy":"hur·ri·cane","e":"🌀","tip":"兩個 r：hu-rr-icane","u":1,"ex":[1,2,2]},"sandstorm":{"w":"sandstorm","f":[],"p":"n.","z":"沙塵暴","sy":"sand·storm","e":"🌪️","tip":"sand 沙 ＋ storm，連在一起寫","u":1,"ex":[1,3,0]},"tornado":{"w":"tornado","f":[],"p":"n.","z":"龍捲風","sy":"tor·na·do","e":"🌪️","tip":"會快速旋轉的風柱","u":1,"ex":[1,3,1]},"range":{"w":"range","f":[],"p":"n.","z":"範圍","sy":"range","e":"📏","tip":"a range of temperatures 溫度範圍","u":1,"ex":[1,4,0]},"rise":{"w":"rise","f":[],"p":"v.／n.","z":"上升；升高","sy":"rise","e":"📈","tip":"rise 上升 ↔ drop 下降","u":1,"ex":[1,4,1]},"drop":{"w":"drop","f":[],"p":"v.／n.","z":"下降；降低","sy":"drop","e":"📉","tip":"rise 上升 ↔ drop 下降","u":1,"ex":[1,4,1]},"heat_wave":{"w":"heat wave","f":["heatwave"],"p":"n.","z":"熱浪","sy":"heat wave","e":"🥵","tip":"heat 熱 ＋ wave 波；也可寫成 heatwave","u":1,"ex":[1,4,3]},"predator":{"w":"predator","f":["predators"],"p":"n.","z":"掠食者；捕食其他動物的動物","sy":"pred·a·tor","e":"🐆","tip":"predator 抓 prey：掠食者 ↔ 獵物","u":2,"ex":[2,0,1]},"spot":{"w":"spot","f":["spots"],"p":"n.","z":"斑點","sy":"spot","e":"🔴","tip":"課文是複數 spots","u":2,"ex":[2,1,0]},"camouflage":{"w":"camouflage","f":[],"p":"n.","z":"偽裝；保護色","sy":"cam·ou·flage","e":"🦎","tip":"結尾 -flage 唸 flazh","u":2,"ex":[2,1,0]},"frighten":{"w":"frighten","f":[],"p":"v.","z":"使害怕；嚇到","sy":"fright·en","e":"😱","tip":"fright 驚嚇 ＋ en；gh 不發音","u":2,"ex":[2,1,1]},"prey":{"w":"prey","f":[],"p":"n.","z":"獵物","sy":"prey","e":"🐗","tip":"ey 唸 ei，跟 pray 同音","u":2,"ex":[2,1,1]},"hunt":{"w":"hunt","f":[],"p":"v.","z":"打獵；獵捕","sy":"hunt","e":"🏹","tip":"time to hunt 獵捕的時候","u":2,"ex":[2,1,1]},"stripe":{"w":"stripe","f":["stripes"],"p":"n.","z":"條紋","sy":"stripe","e":"🦓","tip":"課文是複數 stripes","u":2,"ex":[2,2,0]},"poisonous":{"w":"poisonous","f":[],"p":"adj.","z":"有毒的","sy":"poi·son·ous","e":"☠️","tip":"poison 毒 ＋ -ous（…的）","u":2,"ex":[2,2,1]},"species":{"w":"species","f":[],"p":"n.","z":"物種","sy":"spe·cies","e":"🦋","tip":"單數、複數都是 species","u":2,"ex":[2,3,0]},"resemble":{"w":"resemble","f":[],"p":"v.","z":"像；和…相似","sy":"re·sem·ble","e":"👯","tip":"resemble each other 長得彼此很像","u":2,"ex":[2,3,0]},"copy":{"w":"copy","f":["copies"],"p":"v.","z":"模仿；複製","sy":"cop·y","e":"📄","tip":"copy → copies（y 改 i 加 es）","u":2,"ex":[2,3,2]},"insect":{"w":"insect","f":[],"p":"n.","z":"昆蟲","sy":"in·sect","e":"🐛","tip":"in ＋ sect","u":2,"ex":[2,4,0]},"imitate":{"w":"imitate","f":["imitates"],"p":"v.","z":"模仿","sy":"im·i·tate","e":"🍃","tip":"imitate ＝ copy，都是模仿","u":2,"ex":[2,4,1]},"characteristic":{"w":"characteristic","f":["characteristics"],"p":"n.","z":"特徵；特性","sy":"char·ac·ter·is·tic","e":"🔍","tip":"ch 唸 k；character 角色 ＋ istic","u":2,"ex":[2,4,1]},"hide":{"w":"hide","f":[],"p":"v.","z":"躲藏；隱藏","sy":"hide","e":"🙈","tip":"hide from predators 躲避掠食者","u":2,"ex":[2,0,1]}},"G":{"a":{"z":"一個","p":"art."},"the":{"z":"這；那（指特定的）","p":"art."},"we":{"z":"我們","p":"pron."},"know":{"z":"知道","p":"v."},"can":{"z":"能；可以；可能","p":"aux."},"control":{"z":"控制","p":"v."},"weather":{"z":"天氣","p":"n."},"it":{"z":"它；牠","p":"pron."},"be":{"z":"是","p":"v."},"beautiful":{"z":"美麗的","p":"adj."},"wild":{"z":"狂野的；野生的","p":"adj."},"and":{"z":"和；而且","p":"conj."},"dangerous":{"z":"危險的","p":"adj."},"often":{"z":"常常","p":"adv."},"all":{"z":"全部","p":"adj."},"at":{"z":"在","p":"prep."},"same":{"z":"相同的","p":"adj."},"time":{"z":"時間；時候","p":"n."},"scientist":{"z":"科學家","p":"n."},"try":{"z":"試著；努力","p":"v."},"to":{"z":"去；到（接動詞原形）","p":"prep."},"predict":{"z":"預測","p":"v."},"in":{"z":"在…裡面","p":"prep."},"different":{"z":"不同的","p":"adj."},"way":{"z":"方法；方式","p":"n."},"they":{"z":"他們；牠們","p":"pron."},"tell":{"z":"告訴","p":"v."},"us":{"z":"我們（受詞）","p":"pron."},"when":{"z":"當…的時候；什麼時候","p":"conj."},"extreme":{"z":"極端的","p":"adj."},"come":{"z":"來","p":"v."},"then":{"z":"然後","p":"adv."},"protect":{"z":"保護","p":"v."},"ourselves":{"z":"我們自己","p":"pron."},"bring":{"z":"帶來","p":"v."},"heavy":{"z":"大量的；重的","p":"adj."},"rain":{"z":"雨","p":"n."},"with":{"z":"和…一起；帶有","p":"prep."},"loud":{"z":"大聲的","p":"adj."},"if":{"z":"如果","p":"conj."},"too":{"z":"太；也","p":"adv."},"much":{"z":"很多的（不可數）","p":"adj."},"fall":{"z":"落下","p":"v."},"short":{"z":"短的","p":"adj."},"cause":{"z":"造成；引起","p":"v."},"little":{"z":"很少的","p":"adj."},"make":{"z":"使；讓","p":"v."},"land":{"z":"土地；陸地","p":"n."},"dry":{"z":"乾的；乾燥的","p":"adj."},"very":{"z":"非常","p":"adv."},"cold":{"z":"冷的","p":"adj."},"rainstorm":{"z":"暴雨","p":"n."},"turn":{"z":"轉；變","p":"v."},"into":{"z":"進入；變成","p":"prep."},"or":{"z":"或者","p":"conj."},"wind":{"z":"風","p":"n."},"force":{"z":"力量","p":"n."},"more":{"z":"更多；更","p":"adj."},"than":{"z":"比","p":"conj."},"kilometer":{"z":"公里","p":"n."},"mile":{"z":"英里","p":"n."},"per":{"z":"每","p":"prep."},"hour":{"z":"小時","p":"n."},"cyclone":{"z":"氣旋（＝hurricane）","p":"n."},"even":{"z":"甚至；更","p":"adv."},"fast":{"z":"快的；快速地","p":"adj."},"high":{"z":"高的；強的","p":"adj."},"place":{"z":"地方","p":"n."},"such":{"z":"這樣的","p":"adj."},"as":{"z":"像；作為；如同","p":"prep."},"desert":{"z":"沙漠","p":"n."},"pick":{"z":"挑；撿","p":"v."},"up":{"z":"向上","p":"adv."},"sand":{"z":"沙子","p":"n."},"column":{"z":"柱子；圓柱","p":"n."},"of":{"z":"…的","p":"prep."},"that":{"z":"那個；（引導子句）","p":"pron."},"rotate":{"z":"旋轉","p":"v."},"only":{"z":"只有；只","p":"adv."},"live":{"z":"活；住","p":"v."},"within":{"z":"在…之內","p":"prep."},"specific":{"z":"特定的","p":"adj."},"temperature":{"z":"溫度","p":"n."},"low":{"z":"低的","p":"adj."},"not":{"z":"不","p":"adv."},"feel":{"z":"感覺","p":"v."},"bad":{"z":"不好的；糟的","p":"adj."},"stay":{"z":"保持；停留","p":"v."},"hot":{"z":"熱的","p":"adj."},"for":{"z":"持續（一段時間）；為了","p":"prep."},"day":{"z":"天；日","p":"n."},"week":{"z":"星期；週","p":"n."},"yes":{"z":"是的","p":"adv."},"some":{"z":"一些","p":"adj."},"animal":{"z":"動物","p":"n."},"look":{"z":"看起來","p":"v."},"like":{"z":"像；喜歡","p":"prep."},"other":{"z":"其他的；另一個","p":"adj."},"plant":{"z":"植物","p":"n."},"these":{"z":"這些","p":"pron."},"copycat":{"z":"模仿者；愛模仿的人或動物","p":"n."},"trick":{"z":"欺騙；騙過","p":"v."},"hungry":{"z":"飢餓的","p":"adj."},"another":{"z":"另一個","p":"adj."},"do":{"z":"做；（助動詞）","p":"aux."},"eat":{"z":"吃","p":"v."},"this":{"z":"這個","p":"pron."},"cheetah":{"z":"獵豹","p":"n."},"black":{"z":"黑色的","p":"adj."},"act":{"z":"扮演；作用","p":"v."},"its":{"z":"牠的；它的","p":"pron."},"colorful":{"z":"色彩鮮豔的","p":"adj."},"frog":{"z":"青蛙","p":"n."},"have":{"z":"有","p":"v."},"on":{"z":"在…上面","p":"prep."},"skin":{"z":"皮膚","p":"n."},"bright":{"z":"鮮豔的；明亮的","p":"adj."},"color":{"z":"顏色","p":"n."},"butterfly":{"z":"蝴蝶","p":"n."},"but":{"z":"但是","p":"conj."},"each":{"z":"每一個","p":"pron."},"top":{"z":"最上面的","p":"adj."},"one":{"z":"一個；（代替前面說過的東西）","p":"pron."},"taste":{"z":"嚐起來","p":"v."},"shape":{"z":"形狀","p":"n."},"green":{"z":"綠色的","p":"adj."},"leaf":{"z":"葉子","p":"n."},"help":{"z":"幫助","p":"v."},"from":{"z":"從；離開","p":"prep."},"how":{"z":"如何；怎麼","p":"adv."},"show":{"z":"表現；顯示","p":"v."}},"U":{"1":{"title":"Unit 1 天氣 Weather","page":"課本 p.8–9","emoji":"⛈️","blocks":[{"k":"p","s":[{"t":[["We","g:we"]," ",["know","g:know"]," ",["we","g:we"]," ",["can't","g:can"]," ",["control","g:control"]," ",["the","g:the"]," ",["weather","g:weather"],"."],"z":"我們知道我們無法控制天氣。","a":"s/1-0-0"},{"t":[["It","g:it"]," ",["can","g:can"]," ",["be","g:be"]," ",["beautiful","g:beautiful"],", ",["wild","g:wild"],", ",["and","g:and"]," ",["dangerous","g:dangerous"],", ",["often","g:often"]," ",["all","g:all"]," ",["at","g:at"]," ",["the","g:the"]," ",["same","g:same"]," ",["time","g:time"],"."],"z":"天氣可以很美、很狂野，也很危險，而且常常同時都是。","a":"s/1-0-1"},{"t":[["Scientists","g:scientist"]," ",["try","g:try"]," ",["to","g:to"]," ",["predict","g:predict"]," ",["weather","g:weather"]," ",["in","g:in"]," ",["different","g:different"]," ",["ways","g:way"],"."],"z":"科學家用不同的方法試著預測天氣。","a":"s/1-0-2"},{"t":[["They","g:they"]," ",["tell","g:tell"]," ",["us","g:us"]," ",["when","g:when"]," ",["extreme","g:extreme"]," ",["weather","g:weather"]," ",["is","g:be"]," ",["coming","g:come"],"."],"z":"他們告訴我們極端天氣什麼時候要來。","a":"s/1-0-3"},{"t":[["Then","g:then"]," ",["we","g:we"]," ",["can","g:can"]," ",["try","g:try"]," ",["to","g:to"]," ",["protect","g:protect"]," ",["ourselves","g:ourselves"],"."],"z":"然後我們就能試著保護自己。","a":"s/1-0-4"}],"n":"can't ＝ cannot 不能；protect ourselves 保護我們自己","a":"p/1-0"},{"k":"p","s":[{"t":[["Thunderstorms","k:thunderstorm"]," ",["bring","g:bring"]," ",["heavy","g:heavy"]," ",["rain","g:rain"]," ",["with","g:with"]," ",["loud","g:loud"]," ",["thunder","k:thunder"]," ",["and","g:and"]," ",["lightning","k:lightning"],"."],"z":"雷雨帶來大雨，還有很響的雷聲和閃電。","a":"s/1-1-0"},{"t":[["If","g:if"]," ",["too","g:too"]," ",["much","g:much"]," ",["rain","g:rain"]," ",["falls","g:fall"]," ",["in","g:in"]," ",["a","g:a"]," ",["short","g:short"]," ",["time","g:time"],", ",["it","g:it"]," ",["can","g:can"]," ",["cause","g:cause"]," ",["a","g:a"]," ",["flood","k:flood"],"."],"z":"如果短時間內下太多雨，就可能造成洪水。","a":"s/1-1-1"},{"t":[["Too","g:too"]," ",["little","g:little"]," ",["rain","g:rain"]," ",["makes","g:make"]," ",["the","g:the"]," ",["land","g:land"]," ",["dry","g:dry"]," ",["and","g:and"]," ",["can","g:can"]," ",["cause","g:cause"]," ",["a","g:a"]," ",["drought","k:drought"],"."],"z":"雨下得太少會讓土地變乾，可能造成乾旱。","a":"s/1-1-2"},{"t":[["When","g:when"]," ",["it's","g:it"]," ",["very","g:very"]," ",["cold","g:cold"],", ",["a","g:a"]," ",["rainstorm","g:rainstorm"]," ",["can","g:can"]," ",["turn","g:turn"]," ",["into","g:into"]," ",["an","g:a"]," ",["ice storm","k:ice_storm"]," ",["or","g:or"]," ",["a","g:a"]," ",["blizzard","k:blizzard"],"."],"z":"天氣很冷的時候，暴雨可能變成冰風暴或暴風雪。","a":"s/1-1-3"}],"n":"too much rain 太多雨 → flood 洪水；too little rain 太少雨 → drought 乾旱","a":"p/1-1"},{"k":"p","s":[{"t":[["Wind","g:wind"]," ",["is","g:be"]," ",["a","g:a"]," ",["dangerous","g:dangerous"]," ",["force","g:force"],"."],"z":"風是一種危險的力量。","a":"s/1-2-0"},{"t":[["In","g:in"]," ",["a","g:a"]," ",["tropical storm","k:tropical_storm"],", ",["the","g:the"]," ",["wind","g:wind"]," ",["speed","k:speed"]," ",["can","g:can"]," ",["be","g:be"]," ",["more","g:more"]," ",["than","g:than"]," 100 ",["kilometers","g:kilometer"]," (60 ",["miles","g:mile"],") ",["per","g:per"]," ",["hour","g:hour"],"."],"z":"在熱帶風暴裡，風速可以超過每小時 100 公里（60 英里）。","a":"s/1-2-1"},{"t":[["Wind","g:wind"]," ",["in","g:in"]," ",["a","g:a"]," ",["hurricane","k:hurricane"],", ",["or","g:or"]," ",["cyclone","g:cyclone"],", ",["is","g:be"]," ",["even","g:even"]," ",["faster","g:fast"],"."],"z":"颶風（也叫氣旋）裡的風甚至更快。","a":"s/1-2-2"}],"n":"per hour 每小時；even faster 甚至更快","a":"p/1-2"},{"k":"p","s":[{"t":[["High","g:high"]," ",["winds","g:wind"]," ",["in","g:in"]," ",["dry","g:dry"]," ",["places","g:place"]," ",["such","g:such"]," ",["as","g:as"]," ",["deserts","g:desert"]," ",["can","g:can"]," ",["pick","g:pick"]," ",["up","g:up"]," ",["sand","g:sand"]," ",["and","g:and"]," ",["cause","g:cause"]," ",["a","g:a"]," ",["sandstorm","k:sandstorm"],"."],"z":"在沙漠這類乾燥的地方，強風會捲起沙子，造成沙塵暴。","a":"s/1-3-0"},{"t":[["A","g:a"]," ",["tornado","k:tornado"]," ",["is","g:be"]," ",["a","g:a"]," ",["column","g:column"]," ",["of","g:of"]," ",["wind","g:wind"]," ",["that","g:that"]," ",["rotates","g:rotate"]," ",["very","g:very"]," ",["fast","g:fast"],"."],"z":"龍捲風是一根轉得非常快的風柱。","a":"s/1-3-1"}],"n":"such as 例如；pick up 捲起、撿起","a":"p/1-3"},{"k":"p","s":[{"t":[["We","g:we"]," ",["can","g:can"]," ",["only","g:only"]," ",["live","g:live"]," ",["within","g:within"]," ",["a","g:a"]," ",["specific","g:specific"]," ",["range","k:range"]," ",["of","g:of"]," ",["temperatures","g:temperature"],"."],"z":"我們只能活在一個特定範圍的溫度裡。","a":"s/1-4-0"},{"t":[["At","g:at"]," ",["times","g:time"],", ",["temperatures","g:temperature"]," ",["rise","k:rise"]," ",["too","g:too"]," ",["high","g:high"]," ",["or","g:or"]," ",["drop","k:drop"]," ",["too","g:too"]," ",["low","g:low"],"."],"z":"有時候，溫度會升得太高或降得太低。","a":"s/1-4-1"},{"t":[["It","g:it"]," ",["not","g:not"]," ",["only","g:only"]," ",["feels","g:feel"]," ",["bad","g:bad"],", ",["it","g:it"]," ",["can","g:can"]," ",["be","g:be"]," ",["dangerous","g:dangerous"],"!"],"z":"這不只讓人不舒服，還可能很危險！","a":"s/1-4-2"},{"t":[["In","g:in"]," ",["a","g:a"]," ",["heat wave","k:heat_wave"],", ",["the","g:the"]," ",["weather","g:weather"]," ",["stays","g:stay"]," ",["very","g:very"]," ",["hot","g:hot"]," ",["for","g:for"]," ",["days","g:day"]," ",["or","g:or"]," ",["even","g:even"]," ",["weeks","g:week"],"."],"z":"在熱浪中，天氣會連續好幾天、甚至好幾週都非常熱。","a":"s/1-4-3"}],"n":"rise too high 升太高 ↔ drop too low 降太低","a":"p/1-4"},{"k":"l","s":[{"t":[["a","g:a"]," ",["hurricane","k:hurricane"]],"z":"颶風（圖片）","a":"s/1-5-0"},{"t":[["a","g:a"]," ",["sandstorm","k:sandstorm"]],"z":"沙塵暴（圖片）","a":"s/1-5-1"},{"t":[["lightning","k:lightning"]],"z":"閃電（圖片）","a":"s/1-5-2"},{"t":[["a","g:a"]," ",["rise","k:rise"]],"z":"上升（圖表）","a":"s/1-5-3"},{"t":[["a","g:a"]," ",["drop","k:drop"]],"z":"下降（圖表）","a":"s/1-5-4"},{"t":[["a","g:a"]," ",["range","k:range"]],"z":"範圍（圖表）","a":"s/1-5-5"}],"n":""},{"k":"d","s":[{"t":[["When","g:when"]," ",["the","g:the"]," ",["weather","g:weather"]," ",["is","g:be"]," ",["hot","g:hot"],", ",["can","g:can"]," ",["it","g:it"]," ",["be","g:be"]," ",["dangerous","g:dangerous"],"?"],"z":"天氣熱的時候，會有危險嗎？","a":"s/1-6-0"},{"t":[["Yes","g:yes"],", ",["it","g:it"]," ",["can","g:can"],". ",["It","g:it"]," ",["can","g:can"]," ",["cause","g:cause"]," ",["a","g:a"]," ",["heatwave","k:heat_wave"],"."],"z":"會，會有危險。它可能造成熱浪。","a":"s/1-6-1"}],"n":"","a":"p/1-6"}]},"2":{"title":"Unit 2 動物偽裝 Copycats","page":"課本 p.24–25","emoji":"🦋","blocks":[{"k":"p","s":[{"t":[["Some","g:some"]," ",["animals","g:animal"]," ",["can","g:can"]," ",["look","g:look"]," ",["like","g:like"]," ",["other","g:other"]," ",["animals","g:animal"]," ",["or","g:or"]," ",["even","g:even"]," ",["like","g:like"]," ",["a","g:a"]," ",["plant","g:plant"],"!"],"z":"有些動物看起來可以像別的動物，甚至像植物！","a":"s/2-0-0"},{"t":[["These","g:these"]," ",["copycats","g:copycat"]," ",["are","g:be"]," ",["trying","g:try"]," ",["to","g:to"]," ",["hide","k:hide"]," ",["from","g:from"]," ",["or","g:or"]," ",["trick","g:trick"]," ",["a","g:a"]," ",["hungry","g:hungry"]," ",["predator","k:predator"],"."],"z":"這些「模仿高手」想要躲開或騙過飢餓的掠食者。","a":"s/2-0-1"},{"t":[["They","g:they"]," ",["can","g:can"]," ",["look","g:look"]," ",["like","g:like"]," ",["another","g:another"]," ",["more","g:more"]," ",["dangerous","g:dangerous"]," ",["animal","g:animal"]," ",["or","g:or"]," ",["like","g:like"]," ",["another","g:another"]," ",["animal","g:animal"]," ",["the","g:the"]," ",["predator","k:predator"]," ",["doesn't","g:not"]," ",["like","g:like"]," ",["to","g:to"]," ",["eat","g:eat"],"."],"z":"牠們可以看起來像另一種更危險的動物，或像掠食者不喜歡吃的另一種動物。","a":"s/2-0-2"}],"n":"look like 看起來像；copycat 愛模仿的人或動物","a":"p/2-0"},{"k":"p","s":[{"t":[["This","g:this"]," ",["cheetah's","g:cheetah"]," ",["black","g:black"]," ",["spots","k:spot"]," ",["act","g:act"]," ",["as","g:as"]," ",["camouflage","k:camouflage"],"."],"z":"這隻獵豹的黑色斑點當作偽裝。","a":"s/2-1-0"},{"t":[["This","g:this"]," ",["way","g:way"],", ",["the","g:the"]," ",["cheetah","g:cheetah"]," ",["doesn't","g:not"]," ",["frighten","k:frighten"]," ",["its","g:its"]," ",["prey","k:prey"]," ",["when","g:when"]," ",["it's","g:it"]," ",["time","g:time"]," ",["to","g:to"]," ",["hunt","k:hunt"],"."],"z":"這樣一來，到了要獵捕的時候，獵豹就不會嚇跑牠的獵物。","a":"s/2-1-1"}],"n":"act as 當作；cheetah's ＝ 獵豹的","a":"p/2-1"},{"k":"p","s":[{"t":[["This","g:this"]," ",["colorful","g:colorful"]," ",["frog","g:frog"]," ",["has","g:have"]," ",["stripes","k:stripe"]," ",["on","g:on"]," ",["its","g:its"]," ",["skin","g:skin"],"."],"z":"這隻色彩鮮豔的青蛙，皮膚上有條紋。","a":"s/2-2-0"},{"t":[["The","g:the"]," ",["bright","g:bright"]," ",["colors","g:color"]," ",["tell","g:tell"]," ",["hungry","g:hungry"]," ",["predators","k:predator"]," ",["that","g:that"]," ",["the","g:the"]," ",["frog","g:frog"]," ",["is","g:be"]," ",["poisonous","k:poisonous"],"."],"z":"鮮豔的顏色告訴飢餓的掠食者：這隻青蛙有毒。","a":"s/2-2-1"}],"n":"bright colors 鮮豔的顏色 ＝ 警告「我有毒」","a":"p/2-2"},{"k":"p","s":[{"t":[["These","g:these"]," ",["butterflies","g:butterfly"]," ",["are","g:be"]," ",["not","g:not"]," ",["the","g:the"]," ",["same","g:same"]," ",["species","k:species"],", ",["but","g:but"]," ",["they","g:they"]," ",["resemble","k:resemble"]," ",["each","g:each"]," ",["other","g:other"],"."],"z":"這些蝴蝶不是同一個物種，但牠們長得很像。","a":"s/2-3-0"},{"t":[["The","g:the"]," ",["top","g:top"]," ",["one","g:one"]," ",["tastes","g:taste"]," ",["bad","g:bad"],"."],"z":"上面那一隻很難吃。","a":"s/2-3-1"},{"t":[["The","g:the"]," ",["other","g:other"]," ",["one","g:one"]," ",["copies","k:copy"]," ",["its","g:its"]," ",["shape","g:shape"]," ",["and","g:and"]," ",["colors","g:color"],", ",["and","g:and"]," ",["tastes","g:taste"]," ",["bad","g:bad"],", ",["too","g:too"],"."],"z":"另一隻模仿牠的形狀和顏色，而且也很難吃。","a":"s/2-3-2"}],"n":"each other 彼此；tastes bad 吃起來很糟","a":"p/2-3"},{"k":"p","s":[{"t":[["This","g:this"]," ",["insect","k:insect"]," ",["is","g:be"]," ",["as","g:as"]," ",["green","g:green"]," ",["as","g:as"]," ",["a","g:a"]," ",["leaf","g:leaf"],"."],"z":"這隻昆蟲跟葉子一樣綠。","a":"s/2-4-0"},{"t":[["It","g:it"]," ",["imitates","k:imitate"]," ",["the","g:the"]," ",["characteristics","k:characteristic"]," ",["of","g:of"]," ",["color","g:color"]," ",["and","g:and"]," ",["shape","g:shape"]," ",["of","g:of"]," ",["leaves","g:leaf"]," ",["to","g:to"]," ",["help","g:help"]," ",["it","g:it"]," ",["hide","k:hide"]," ",["from","g:from"]," ",["predators","k:predator"],"."],"z":"牠模仿葉子在顏色和形狀上的特徵，幫助自己躲避掠食者。","a":"s/2-4-1"}],"n":"as green as 跟…一樣綠；leaf 葉子 → leaves（複數）","a":"p/2-4"},{"k":"l","s":[{"t":[["spots","k:spot"]],"z":"斑點（圖片）","a":"s/2-5-0"},{"t":[["a","g:a"]," ",["predator","k:predator"]],"z":"掠食者（圖片：獵豹）","a":"s/2-5-1"},{"t":[["a","g:a"]," ",["stripe","k:stripe"]],"z":"條紋（圖片：青蛙）","a":"s/2-5-2"},{"t":[["prey","k:prey"]],"z":"獵物（圖片：疣豬）","a":"s/2-5-3"}],"n":""},{"k":"d","s":[{"t":[["How","g:how"]," ",["do","g:do"]," ",["some","g:some"]," ",["frogs","g:frog"]," ",["show","g:show"]," ",["they","g:they"]," ",["are","g:be"]," ",["poisonous","k:poisonous"],"?"],"z":"有些青蛙怎麼表示牠們有毒？","a":"s/2-6-0"},{"t":[["They","g:they"]," ",["have","g:have"]," ",["bright","g:bright"]," ",["colors","g:color"],"."],"z":"牠們有鮮豔的顏色。","a":"s/2-6-1"}],"n":"","a":"p/2-6"}]}}};
+var K=D.K,G=D.G,U=D.U;
+var KEY_S='qf_u12_v1';
+var HAS_TTS=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
+var KIDS={1:[],2:[]};(function(){var k;for(k in K)if(K.hasOwnProperty(k))KIDS[K[k].u].push(k);})();
+/* ===== 工具 ===== */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function slug(s){return String(s).toLowerCase().replace(/[’]/g,"'").replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
+function now(){return new Date().getTime();}
+function shuffle(a){var i,j,t;for(i=a.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function norm(s){return String(s||'').toLowerCase().replace(/[‘’]/g,"'").replace(/^\s+|\s+$/g,'').replace(/[.,!?;:]+$/,'').replace(/\s+/g,' ');}
+var toastT=null;
+function toast(m){var t=$('toast');t.innerHTML=esc(m);t.className='show';if(toastT)clearTimeout(toastT);toastT=setTimeout(function(){t.className='';},1600);}
+
+/* ===== 狀態（存在這台裝置） ===== */
+var S;
+function load(){try{S=JSON.parse(localStorage.getItem(KEY_S)||'null');}catch(e){S=null;}
+  if(!S||!S.st)S={st:{},nb:{},zh:1,list:[]};if(!S.list)S.list=[];}
+function save(){try{localStorage.setItem(KEY_S,JSON.stringify(S));}catch(e){}}
+function stars(ref){return S.st[ref]||0;}
+function starHtml(n){var h='',i;for(i=0;i<3;i++)h+=i<n?'★':'<span class="o">★</span>';return '<span class="stars">'+h+'</span>';}
+function inNB(ref){return !!S.nb[ref];}
+
+/* ===== 發音（預錄 mp3，舊 iPad 也能播） ===== */
+var audioEl=null,seq=null;
+function ael(){if(!audioEl){audioEl=document.createElement('audio');audioEl.preload='none';document.body.appendChild(audioEl);
+  audioEl.addEventListener('ended',function(){if(seq&&seq.length){var n=seq.shift();setTimeout(function(){playOne(n[0],n[1]);},n[2]||120);}},false);}return audioEl;}
+function ttsSay(t){if(!HAS_TTS||!t)return;try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.85;window.speechSynthesis.speak(u);}catch(e){}}
+function playOne(path,fb){
+  var a=ael();
+  try{a.onerror=function(){if(seq&&seq.length){var n=seq.shift();playOne(n[0],n[1]);}else ttsSay(fb);};
+    a.src='a/'+path+'.mp3';a.load();var p=a.play();if(p&&p['catch'])p['catch'](function(){});}catch(e){ttsSay(fb);}
+}
+function play(path,fb){seq=null;playOne(path,fb);}
+function playWord(w){play('w/'+slug(w),w);}
+/* 拼讀：單字 → 一個一個字母 → 單字 */
+function spellOut(w){
+  var list=[],i,c,lw=w.toLowerCase();
+  for(i=0;i<lw.length;i++){c=lw.charAt(i);if(c>='a'&&c<='z')list.push(['l/'+c,c,(lw.charAt(i-1)===' ')?450:60]);}
+  list.push(['w/'+slug(w),w,350]);
+  seq=list;playOne('w/'+slug(w),w);
+}
+
+/* ===== 參照 ===== */
+function info(ref){
+  var t=ref.charAt(0),id=ref.substr(2);
+  if(t==='k'){var k=K[id];return {ref:ref,key:1,w:k.w,z:k.z,p:k.p,sy:k.sy,e:k.e,tip:k.tip,u:k.u,ex:k.ex,f:k.f};}
+  var g=G[id];return {ref:ref,key:0,w:id,z:g.z,p:g.p,sy:'',e:'',tip:'',u:0,ex:null,f:[]};
+}
+function sentOf(ex){return U[ex[0]].blocks[ex[1]].s[ex[2]];}
+
+/* ===== 句子渲染（每個字都可點） ===== */
+var TOKS=[];
+function rTok(toks,ctx,mark){
+  var h='',i,t;
+  for(i=0;i<toks.length;i++){t=toks[i];
+    if(typeof t==='string'){h+=esc(t);continue;}
+    if(!t[1]){h+=esc(t[0]);continue;}
+    var n=TOKS.length;TOKS.push({s:t[0],ref:t[1],ctx:ctx});
+    var cls='wd'+(t[1].charAt(0)==='k'?' kw':'')+(inNB(t[1])?' nb':'')+(mark&&t[1]===mark?' sel':'');
+    h+='<span class="'+cls+'" data-t="'+n+'">'+esc(t[0])+'</span>';}
+  return h;
+}
+
+/* ===== 點字視窗 ===== */
+var popRef=null,popTok=null;
+function openPop(tok){
+  popTok=tok;popRef=tok.ref;var I=info(tok.ref);
+  var h='<div class="popin">';
+  h+='<div class="popw">'+esc(tok.s)+' <button class="spk" data-act="say" data-w="'+esc(tok.s.toLowerCase())+'">🔊</button>';
+  if(I.key)h+=' <span class="popk">⭐ 重點單字</span>';h+='</div>';
+  if(tok.s.toLowerCase()!==I.w.toLowerCase())h+='<div class="popl">原形：<b>'+esc(I.w)+'</b> <button class="spk" data-act="say" data-w="'+esc(I.w)+'">🔊</button></div>';
+  h+='<div class="popz">'+(I.p?'<i>'+esc(I.p)+'</i>':'')+esc(I.z)+'</div>';
+  if(I.key){h+='<div class="sy">'+esc(I.sy)+'</div><div class="tip">💡 '+esc(I.tip)+'</div>';}
+  h+='<div class="pbtns">';
+  if(I.key)h+='<button class="btn" data-act="spell" data-w="'+esc(I.w)+'">🔤 拼讀</button>';
+  h+=inNB(I.ref)?'<button class="btn" data-act="nbdel">✅ 已在生字本（移除）</button>':'<button class="btn nbadd" data-act="nbadd">➕ 加入生字本</button>';
+  h+='<button class="btn" data-act="close">關閉</button></div></div>';
+  var p=$('pop');p.innerHTML=h;p.className='';
+  play('w/'+slug(tok.s),tok.s);
+}
+function closePop(){$('pop').className='hide';popRef=null;}
+function nbAdd(ref,tok){
+  if(S.nb[ref])return;S.nb[ref]={at:now(),s:tok?tok.s:'',ctx:tok&&tok.ctx?tok.ctx:null};S.list.push(ref);save();
+}
+function nbDel(ref){delete S.nb[ref];var i,l=[];for(i=0;i<S.list.length;i++)if(S.list[i]!==ref)l.push(S.list[i]);S.list=l;save();}
+
+/* ===== 畫面 ===== */
+var V={scr:'home'};
+function bar(title,right){return '<div class="bar"><button class="back" data-act="back">‹ 返回</button><span class="bt">'+esc(title)+'</span>'+(right?'<span class="qn">'+right+'</span>':'')+'</div>';}
+function render(){
+  TOKS=[];closePop();var h='';
+  if(V.scr==='home')h=rHome();
+  else if(V.scr==='unit')h=rUnit();
+  else if(V.scr==='nb')h=rNB();
+  else if(V.scr==='prac')h=rPrac();
+  else if(V.scr==='done')h=rDone();
+  $('app').innerHTML=h;
+  var inp=$('ans');if(inp){try{inp.focus();}catch(e){}}
+}
+function go(o){var k;V={};for(k in o)if(o.hasOwnProperty(k))V[k]=o[k];render();window.scrollTo(0,0);}
+function masteredCount(u){var i,n=0;for(i=0;i<KIDS[u].length;i++)if(stars('k:'+KIDS[u][i])>=3)n++;return n;}
+
+function rHome(){
+  var h='<div class="hero"><div class="h-sm">週五小考 ・ 邊學邊複習</div><div class="h-big">千賦 Unit 1–2 單字</div><div class="sub">點課文裡任何一個字：看中文、聽發音、加入生字本</div></div>';
+  var u;for(u=1;u<=2;u++){var m=masteredCount(u),n=KIDS[u].length;
+    h+='<button class="ucard" data-act="unit" data-u="'+u+'"><span class="ue">'+U[u].emoji+'</span><b>'+esc(U[u].title)+'</b><span class="us">'+esc(U[u].page)+' ・ 重點單字 '+n+' 個 ・ 已熟練 '+m+' / '+n+'</span>'
+      +'<div class="prog"><div style="width:'+Math.round(m*100/n)+'%"></div></div></button>';}
+  h+='<button class="btn pri big" data-act="prac" data-src="all" data-mode="full">✏️ 31 個重點單字一起練拼寫<small>聽發音 → 看提示拼 → 聽寫，錯的重來到全對</small></button>';
+  h+='<button class="btn big" data-act="nb">📒 我的生字本（'+S.list.length+'）</button>';
+  h+='<div class="card"><div class="leg"><span><b style="background:#fff1a8;border:1px solid #ff7a45"></b>課本螢光筆重點字</span><span><b style="background:#e3f6e9;border:1px solid #22a05b"></b>我加的生字</span></div>'
+    +'<div class="sub">★ 熟練度：重點字聽寫一次就拼對得 1 顆星，三顆星＝熟練。</div></div>';
+  return h;
+}
+
+function rUnit(){
+  var u=V.u,h=bar(U[u].title,''),tab=V.tab||'text';
+  h+='<div class="tabs"><button class="tab'+(tab==='text'?' on':'')+'" data-act="tab" data-tab="text">📖 課文</button><button class="tab'+(tab==='key'?' on':'')+'" data-act="tab" data-tab="key">⭐ 重點單字</button><button class="tab'+(tab==='prac'?' on':'')+'" data-act="tab" data-tab="prac">✏️ 拼寫練習</button></div>';
+  if(tab==='text')h+=rText(u);else if(tab==='key')h+=rKeys(u);else h+=rPracMenu(u);
+  return h;
+}
+function rText(u){
+  var bl=U[u].blocks,h='<div class="tool"><button class="chip'+(S.zh?' on':'')+'" data-act="zh">中文 '+(S.zh?'顯示中':'已隱藏')+'</button></div>',i,j,pn=0;
+  for(i=0;i<bl.length;i++){var b=bl[i];
+    if(b.k==='p'){pn++;
+      h+='<div class="card"><div class="phead"><span class="pnum">第 '+pn+' 段</span><button class="pplay" data-act="play" data-a="'+b.a+'">🔊 整段朗讀</button></div>';
+      for(j=0;j<b.s.length;j++){var s=b.s[j];
+        h+='<div class="sen"><div class="en"><button class="ssp" data-act="play" data-a="'+s.a+'">🔊</button>'+rTok(s.t,[u,i,j])+'</div>'+(S.zh?'<div class="zh">'+esc(s.z)+'</div>':'')+'</div>';}
+      if(b.n)h+='<div class="note">💡 '+esc(b.n)+'</div>';
+      h+='</div>';
+    }else if(b.k==='l'){
+      h+='<div class="card"><div class="phead"><span class="pnum">圖片上的字</span></div>';
+      for(j=0;j<b.s.length;j++){var l=b.s[j];h+='<span class="lab"><button class="ssp" data-act="play" data-a="'+l.a+'">🔊</button>'+rTok(l.t,[u,i,j])+(S.zh?' <i>'+esc(l.z)+'</i>':'')+'</span>';}
+      h+='</div>';
+    }else{
+      h+='<div class="card"><div class="phead"><span class="pnum">對話</span><button class="pplay" data-act="play" data-a="'+b.a+'">🔊 朗讀</button></div>';
+      for(j=0;j<b.s.length;j++){var d=b.s[j];
+        h+='<div class="dlg'+(j%2?' b':'')+'"><div class="en"><button class="ssp" data-act="play" data-a="'+d.a+'">🔊</button>'+rTok(d.t,[u,i,j])+'</div>'+(S.zh?'<div class="zh">'+esc(d.z)+'</div>':'')+'</div>';}
+      h+='</div>';
+    }}
+  h+='<div class="tapinfo">黃色是課本螢光筆重點字 ・ 點任何字都能查</div>';
+  return h;
+}
+function rKeys(u){
+  var h='<div class="tapinfo">依課本出現順序 ・ 點「🔤 拼讀」會一個字母一個字母唸</div>',i,ids=KIDS[u];
+  for(i=0;i<ids.length;i++){var I=info('k:'+ids[i]),s=sentOf(I.ex);
+    h+='<div class="kc"><span class="ke">'+I.e+'</span><div class="kw1" data-act="say" data-w="'+esc(I.w)+'">'+esc(I.w)+'<i>'+esc(I.p)+'</i></div>'
+      +'<div class="kz">'+esc(I.z)+'</div><div class="sy">'+esc(I.sy)+'</div><div class="tip">💡 '+esc(I.tip)+(I.f.length?'　課文：'+esc(I.f.join(', ')):'')+'</div>'
+      +'<button class="kbtn" data-act="say" data-w="'+esc(I.w)+'">🔊 發音</button><button class="kbtn" data-act="spell" data-w="'+esc(I.w)+'">🔤 拼讀</button>'
+      +'<span style="float:right;line-height:44px">'+starHtml(stars(I.ref))+'</span>'
+      +'<div class="kex"><button class="ssp" data-act="play" data-a="'+s.a+'">🔊</button>'+rTok(s.t,I.ex,I.ref)+'<div class="zh">'+esc(s.z)+'</div></div></div>';}
+  return h;
+}
+function rPracMenu(u){
+  var ids=KIDS[u],weak=0,i;for(i=0;i<ids.length;i++)if(stars('k:'+ids[i])<3)weak++;
+  var h='<div class="card"><div class="sub">每個字都會：<br>① 聽發音、看拼法、照著打一次<br>② 看提示（部分字母）拼出來<br>③ 只聽發音＋看中文，自己拼出來<br>拼錯的字會再回來，直到全部拼對為止。</div></div>';
+  h+='<button class="btn pri big" data-act="prac" data-src="u'+u+'" data-mode="full">✏️ 完整練習（'+ids.length+' 個字）<small>聽 → 提示拼 → 聽寫</small></button>';
+  h+='<button class="btn big" data-act="prac" data-src="u'+u+'" data-mode="dict">🎧 聽寫挑戰（'+ids.length+' 個字）<small>只聽寫，錯的重來到全對</small></button>';
+  if(weak&&weak<ids.length)h+='<button class="btn big" data-act="prac" data-src="w'+u+'" data-mode="full">💪 只練還沒三顆星的字（'+weak+' 個）</button>';
+  return h;
+}
+
+function rNB(){
+  var h=bar('📒 我的生字本',S.list.length+' 個'),i;
+  if(!S.list.length)return h+'<div class="card empty">還沒有生字。<br>在課文裡點一個字，按「➕ 加入生字本」就會出現在這裡。</div>';
+  h+='<button class="btn pri big" data-act="prac" data-src="nb" data-mode="full">✏️ 練習生字本拼寫（'+S.list.length+' 個）</button>';
+  h+='<div class="card">';
+  for(i=S.list.length-1;i>=0;i--){var ref=S.list[i],I=info(ref),e=S.nb[ref];
+    h+='<div class="rl"><button class="x" data-act="nbx" data-r="'+esc(ref)+'">✕</button><button class="spk" data-act="say" data-w="'+esc(I.w)+'">🔊</button> <b>'+esc(I.w)+'</b>'+(I.key?' <span class="popk">⭐</span>':'')+' <small>'+esc(I.p)+'</small> '+esc(I.z)+' '+starHtml(stars(ref));
+    if(e&&e.ctx){var s=sentOf(e.ctx);h+='<div class="kex"><button class="ssp" data-act="play" data-a="'+s.a+'">🔊</button>'+rTok(s.t,e.ctx,ref)+'<div class="zh">'+esc(s.z)+'</div></div>';}
+    h+='</div>';}
+  return h+'</div>';
+}
+
+/* ===== 拼寫練習（不是考試：錯了就看、再打，直到全對） ===== */
+var P=null;
+function startPrac(src,mode){
+  var refs=[],i,u;
+  if(src==='all'){for(u=1;u<=2;u++)for(i=0;i<KIDS[u].length;i++)refs.push('k:'+KIDS[u][i]);}
+  else if(src==='nb')refs=S.list.slice();
+  else{u=+src.charAt(1);for(i=0;i<KIDS[u].length;i++){var r='k:'+KIDS[u][i];if(src.charAt(0)==='u'||stars(r)<3)refs.push(r);}}
+  if(!refs.length){toast('沒有要練習的字');return;}
+  P={src:src,mode:mode,refs:refs,q:[],wrong:{},first:{},dwrong:{},total:0,back:V};
+  var ph=mode==='full'?['learn','hint','dict']:['dict'];
+  var j;for(j=0;j<ph.length;j++){var part=(ph[j]==='learn')?refs.slice():shuffle(refs.slice());for(i=0;i<part.length;i++)P.q.push({ref:part[i],ph:ph[j]});}
+  P.total=P.q.length;
+  go({scr:'prac'});sayCur();
+}
+function curQ(){return P.q[0];}
+function sayCur(){var q=curQ();if(q)playWord(info(q.ref).w);}
+function hintPat(w){
+  var out='',i,c,letters=[];for(i=0;i<w.length;i++)if(/[a-z]/i.test(w.charAt(i)))letters.push(i);
+  var show={};show[letters[0]]=1;
+  var others=shuffle(letters.slice(1)),keep=Math.floor(letters.length/2)-1;
+  for(i=0;i<keep&&i<others.length;i++)show[others[i]]=1;
+  for(i=0;i<w.length;i++){c=w.charAt(i);out+=(c===' ')?'　':(show[i]?c:'_');out+=' ';}
+  return out;
+}
+function blankPat(w){var out='',i,c;for(i=0;i<w.length;i++){c=w.charAt(i);out+=(c===' ')?'　 ':'_ ';}return out;}
+var PH_NAME={learn:'① 聽＆照著打',hint:'② 看提示拼',dict:'③ 聽寫',fix:'✍️ 訂正：照著打一次'};
+function rPrac(){
+  var h='<div id="ptop">'+pTop()+'</div><div class="qcard" id="qc"><div id="qbody">'+pBody()+'</div>';
+  h+='<input type="text" id="ans" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="在這裡打英文">';
+  h+='<button class="btn pri big" data-act="check">確定</button></div>';
+  return h;
+}
+function pTop(){var q=curQ(),done=P.total-P.q.length;
+  return bar('✏️ 拼寫練習',(done+1)+' / '+P.total)+'<div class="prog2"><div style="width:'+Math.round(done*100/P.total)+'%"></div></div><div class="phase">'+PH_NAME[q.ph]+'</div>';}
+function pBody(){
+  var q=curQ(),I=info(q.ref),h='';
+  if(q.ph==='fix'){
+    h+='<div class="wt">差一點！看清楚再打一次</div><div class="sub">你打的</div><div class="ua">'+diffHtml(q.ua,I.w)+'</div><div class="sub" style="margin-top:6px">正確拼法</div><div class="ca">'+esc(I.w)+'</div>'
+      +(I.sy?'<div class="sy">'+esc(I.sy)+'</div>':'')+'<div class="qzh">'+esc(I.z)+'</div>'+(I.tip?'<div class="tip">💡 '+esc(I.tip)+'</div>':'');
+  }else{
+    if(I.e)h+='<div class="qe">'+I.e+'</div>';
+    if(q.ph==='learn'){h+='<div class="qbig">'+esc(I.w)+'</div>'+(I.sy?'<div class="sy">'+esc(I.sy)+'</div>':'');}
+    h+='<div class="qzh"><i>'+esc(I.p)+'</i> '+esc(I.z)+'</div>';
+    if(q.ph==='learn'&&I.tip)h+='<div class="tip">💡 '+esc(I.tip)+'</div>';
+    if(q.ph==='hint'){if(!q.pat)q.pat=hintPat(I.w);h+='<div class="hint'+(I.w.length>9?' sm':'')+'">'+esc(q.pat)+'</div>';}
+    if(q.ph==='dict')h+='<div class="hint'+(I.w.length>9?' sm':'')+'">'+blankPat(I.w)+'</div><div class="sub">'+I.w.replace(/ /g,'').length+' 個字母'+(I.w.indexOf(' ')>=0?'（兩個字）':'')+'</div>';
+  }
+  h+='<div><button class="bigspk" data-act="say" data-w="'+esc(I.w)+'">🔊 再聽一次</button>'+((q.ph==='learn'||q.ph==='fix')?'<button class="bigspk l" data-act="spell" data-w="'+esc(I.w)+'">🔤 拼讀</button>':'')+'</div>';
+  return h;
+}
+function updPrac(){
+  if(!$('ans')){render();return;}
+  $('ptop').innerHTML=pTop();$('qbody').innerHTML=pBody();$('qc').className='qcard'+(curQ().ph==='fix'?' wrong':'');
+  var inp=$('ans');inp.value='';try{inp.focus();}catch(e){}
+}
+function diffHtml(ua,ans){var h='',i,a=ua||'',b=ans.toLowerCase();for(i=0;i<a.length;i++){var c=a.charAt(i);h+=(b.charAt(i)===c.toLowerCase())?esc(c):'<span class="bad">'+esc(c)+'</span>';}if(!a)h='<span class="bad">（空白）</span>';else if(a.length<b.length)h+='<span class="bad">…</span>';return h;}
+function okAns(ref,v){var I=info(ref),a=norm(v),w=norm(I.w);if(a===w)return true;if(a.replace(/ /g,'')===w.replace(/ /g,'')&&ref==='k:heat_wave')return true;return false;}
+var busy=false;
+function check(){
+  if(busy)return;var inp=$('ans');if(!inp)return;var v=inp.value;
+  if(!norm(v)){toast('先打字再按確定');return;}
+  var q=curQ(),ok=okAns(q.ref,v);
+  if(ok){
+    if(q.ph==='dict'&&!P.dwrong[q.ref]&&!P.first[q.ref]){P.first[q.ref]=1;S.st[q.ref]=Math.min(3,stars(q.ref)+1);save();}
+    var f=document.createElement('div');f.className='okflash';f.innerHTML='✔ '+(q.ph==='fix'?'記住了！':'答對了！');$('qbody').appendChild(f);
+    playWord(info(q.ref).w);busy=true;
+    setTimeout(function(){busy=false;P.q.shift();nextQ();},750);
+  }else{
+    if(q.ph==='learn'){toast('照著上面的拼法打一次喔');inp.value='';return;}
+    if(q.ph==='fix'){toast('再看一次正確拼法');inp.value='';return;}
+    P.wrong[q.ref]=(P.wrong[q.ref]||0)+1;
+    P.q.shift();
+    P.q.unshift({ref:q.ref,ph:'fix',ua:v});P.total++;
+    if(q.ph==='dict'){
+      if(!P.dwrong[q.ref]&&!P.first[q.ref]&&stars(q.ref)>0){S.st[q.ref]=stars(q.ref)-1;save();}
+      P.dwrong[q.ref]=1;
+      var pos=Math.min(P.q.length,3+Math.floor(Math.random()*3));P.q.splice(pos,0,{ref:q.ref,ph:'dict'});P.total++;
+    }
+    updPrac();playWord(info(q.ref).w);
+  }
+}
+function nextQ(){if(!P.q.length){go({scr:'done'});return;}updPrac();var q=curQ();if(q.ph!=='fix')sayCur();}
+function rDone(){
+  var h=bar('🎉 練習完成',''),i,n=0;
+  for(i=0;i<P.refs.length;i++)if(!P.wrong[P.refs[i]])n++;
+  h+='<div class="celebrate">🎉 '+P.refs.length+' 個字全部拼對了！</div>';
+  h+='<div class="card"><div class="sub">一次就拼對：'+n+' 個 ・ 拼錯後訂正：'+(P.refs.length-n)+' 個</div>';
+  for(i=0;i<P.refs.length;i++){var I=info(P.refs[i]);
+    h+='<div class="rl"><button class="spk" data-act="say" data-w="'+esc(I.w)+'">🔊</button> <b>'+esc(I.w)+'</b> '+esc(I.z)+' '+starHtml(stars(I.ref))+(P.wrong[I.ref]?' <small style="color:#e5484d">錯 '+P.wrong[I.ref]+' 次</small>':'')+'</div>';}
+  h+='</div><button class="btn pri big" data-act="again">🔁 再練一次</button><button class="btn big" data-act="back">回上一頁</button>';
+  return h;
+}
+
+/* ===== 事件 ===== */
+function findAct(el){while(el&&el!==document.body){if(el.getAttribute&&(el.getAttribute('data-act')||el.getAttribute('data-t')))return el;el=el.parentNode;}return null;}
+document.addEventListener('click',function(ev){
+  var el=findAct(ev.target);
+  if(!el){if(!$('pop').contains(ev.target))closePop();return;}
+  var t=el.getAttribute('data-t');
+  if(t!==null&&t!==''&&!el.getAttribute('data-act')){openPop(TOKS[+t]);return;}
+  var a=el.getAttribute('data-act');
+  if(a==='say'){playWord(el.getAttribute('data-w'));return;}
+  if(a==='spell'){spellOut(el.getAttribute('data-w'));return;}
+  if(a==='play'){play(el.getAttribute('data-a'),'');return;}
+  if(a==='close'){closePop();return;}
+  if(a==='nbadd'){nbAdd(popRef,popTok);toast('已加入生字本 📒');var keep=popTok;rerenderKeep(keep);return;}
+  if(a==='nbdel'){nbDel(popRef);toast('已從生字本移除');rerenderKeep(popTok);return;}
+  if(a==='nbx'){nbDel(el.getAttribute('data-r'));render();return;}
+  if(a==='unit'){go({scr:'unit',u:+el.getAttribute('data-u'),tab:'text'});return;}
+  if(a==='tab'){V.tab=el.getAttribute('data-tab');render();window.scrollTo(0,0);return;}
+  if(a==='zh'){S.zh=S.zh?0:1;save();var y=window.pageYOffset;render();window.scrollTo(0,y);return;}
+  if(a==='nb'){go({scr:'nb'});return;}
+  if(a==='prac'){var back={};var k;for(k in V)if(V.hasOwnProperty(k))back[k]=V[k];startPrac(el.getAttribute('data-src'),el.getAttribute('data-mode'));P.back=back;return;}
+  if(a==='check'){check();return;}
+  if(a==='again'){var b=P.back;startPrac(P.src,P.mode);P.back=b;return;}
+  if(a==='back'){if((V.scr==='prac'||V.scr==='done')&&P){go(P.back);return;}go({scr:'home'});return;}
+},false);
+document.addEventListener('keydown',function(ev){if(ev.keyCode===13&&$('ans')){ev.preventDefault();check();}},false);
+function rerenderKeep(tok){var y=window.pageYOffset;render();window.scrollTo(0,y);if(tok){var i;for(i=0;i<TOKS.length;i++)if(TOKS[i].ref===tok.ref){openPop(TOKS[i]);break;}}}
+
+load();render();
+</script>
+</body>
+</html>
