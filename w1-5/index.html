@@ -130,6 +130,13 @@ textarea{display:block;width:100%;height:90px;font-size:13px;margin:8px 0;border
 .lkh i{color:#6f6a7c;font-size:14px}
 .lkb{padding:0 12px 10px}
 .small{font-size:13px;color:#6f6a7c}
+.step{padding:10px 12px;margin:6px 0;border-radius:14px;border:2px solid #eee2d3;background:#fff;line-height:1.5}
+.step small{color:#6f6a7c}
+.step.ok{border-color:#9fdcb6;background:#f1faf4}
+.step.now{border-color:#ff7a45;background:#fff4ec}
+.step.lock{opacity:.55}
+.qcard.right{border:3px solid #22a05b}
+.rt{color:#22a05b;font-weight:bold;font-size:20px;margin-bottom:8px}
 .sync{font-size:13px;color:#167a43;text-align:center;margin:10px 0}
 .sync.bad{color:#b45309}
 .wd.nw{background:#e3f6e9;border-bottom:1px dotted #22a05b}
@@ -252,12 +259,14 @@ function glossZh(tok){var r=lookup(tok);return r?cleanZh(r.zh.split('；')[0]):'
 
 /* ================= 狀態 ================= */
 var S, ATT;
-function blankState(){return {v:2,created:now(),examDate:EXAM_DATE_DEFAULT,pin:'1234',mail:MAIL_DEFAULT,mailQ:[],m:{},wb:{},daily:{},hon:{},passed:0,best:0,prevSig:[],lastBigWrong:[],cur:null,nBig:0};}
+function blankState(){return {v:3,created:now(),examDate:EXAM_DATE_DEFAULT,pin:'1234',mail:MAIL_DEFAULT,mailQ:[],m:{},wb:{},daily:{},hon:{},passed:0,best:0,prevSig:[],lastBigWrong:[],cur:null,nBig:0,stg:{},weakDone:0};}
 function load(){
   try{S=JSON.parse(localStorage.getItem(KEY_S)||'null');}catch(e){S=null;}
   if(!S||!S.v)S=blankState();
   if(S.v===1){S.v=2;S.cur=null;S.mail=MAIL_DEFAULT;S.mailQ=[];}
   if(!S.mail)S.mail=MAIL_DEFAULT; if(!S.mailQ)S.mailQ=[];
+  if(!S.stg)S.stg={};
+  if(S.v<3){S.v=3;S.cur=null;}
   try{ATT=JSON.parse(localStorage.getItem(KEY_A)||'[]');}catch(e2){ATT=[];}
   if(!ATT||!ATT.push)ATT=[];
   var k;for(k in ITEMS)if(ITEMS.hasOwnProperty(k))mm(k);
@@ -294,6 +303,8 @@ function mergeState(r){
   if((r.lastBigAt||0)>(S.lastBigAt||0)){S.lastBigAt=r.lastBigAt;S.lastBigWrong=r.lastBigWrong||[];S.prevSig=r.prevSig||[];}
   if((r.cfgAt||0)>(S.cfgAt||0)){S.cfgAt=r.cfgAt;if(r.examDate)S.examDate=r.examDate;if(r.pin)S.pin=r.pin;if(r.mail)S.mail=r.mail;}
   if(r.created&&r.created<S.created)S.created=r.created;
+  if(r.stg){if(!S.stg)S.stg={};for(k in r.stg)if(r.stg.hasOwnProperty(k)&&(!S.stg[k]||!S.stg[k].pass))S.stg[k]=r.stg[k];}
+  if(r.weakDone&&(!S.weakDone||r.weakDone<S.weakDone))S.weakDone=r.weakDone;
 }
 function attId(a){if(!a.id)a.id='a'+a.d+'_'+a.k;return a.id;}
 function mergeAtts(list){
@@ -532,15 +543,12 @@ function record(sp,ok,inFix){
     if(m.lv<3){ if(m.st>=3&&m.okT.length>=2&&m.l4)m.lv=3; else m.lv=Math.min(2,m.lv+1); }
     else if(m.st%2===0)m.lv=Math.min(5,m.lv+1);
     var nd=[];for(var i=0;i<m.due.length;i++)if(m.due[i]>t)nd.push(m.due[i]);m.due=nd;
-    if(inFix&&wb&&!wb.fx){
-      wb.ok++;if(!has(wb.ty,sp.t))wb.ty.push(sp.t);
-      if(wb.ok>=2&&wb.ty.length>=2&&lv>=top){wb.fx=1;wb.fxAt=now();m.due=[addDays(t,1),addDays(t,3),addDays(t,7)];}
-      else wb.r=Math.min(top,Math.max(wb.r,lv)+1);
-    }
+    if(inFix&&wb&&!wb.fx){wb.ok++;if(!has(wb.ty,sp.t))wb.ty.push(sp.t);wb.fx=1;wb.fxAt=now();m.due=[addDays(t,1),addDays(t,3),addDays(t,7)];}
   }else{
     m.st=0;m.wc++;m.lv=Math.min(m.lv,1);
     m.due=[addDays(t,1),addDays(t,3),addDays(t,7)];
-    S.wb[sp.id]={r:Math.max(MINLV[it.k],lv-1),ok:0,ty:[],fx:0,at:now(),n:(wb?wb.n:0)+1};
+    var mt=(wb&&wb.mt&&!wb.fx)?wb.mt.slice():[];if(!has(mt,sp.t))mt.push(sp.t);
+    S.wb[sp.id]={r:Math.max(MINLV[it.k],lv-1),ok:0,ty:[],fx:0,at:now(),n:(wb?wb.n:0)+1,mt:mt};
   }
 }
 var HON_KIND={d:'定義達人',s:'例句達人',g:'生字達人'};
@@ -565,7 +573,7 @@ function kindSlots(kind,quota,first){
   var A=[],B=unfixed(kind),C=dueItems(kind),D=[],E=[];
   for(i=0;i<S.lastBigWrong.length;i++)if(ITEMS[S.lastBigWrong[i]]&&ITEMS[S.lastBigWrong[i]].k===kind)A.push(S.lastBigWrong[i]);
   for(i=0;i<list.length;i++){var m=mm(list[i].id);if(m.lv<3)D.push(list[i].id);else E.push(list[i].id);}
-  A=shuffle(A);for(i=0;i<A.length;i++)add(A[i],2,1);
+  A=shuffle(A);var per=A.length*2<=quota?2:1;for(i=0;i<A.length;i++)add(A[i],per,1);
   for(i=0;i<B.length;i++)add(B[i],mm(B[i]).wc>=3?2:1,2);
   C=shuffle(C);for(i=0;i<C.length;i++)add(C[i],1,3);
   D=shuffle(D);D.sort(function(a,b){return mm(a).lv-mm(b).lv||mm(b).wc-mm(a).wc||mm(a).ls-mm(b).ls;});for(i=0;i<D.length;i++)add(D[i],1,4);
@@ -712,7 +720,8 @@ function newWordsIn(text,exclude){
   return o;
 }
 function nwListHTML(text,w){
-  var l=newWordsIn(text,w?w.keys.map(norm):null);if(!l.length)return '';
+  var ex=null;if(w){ex=[];w.keys.concat([w.w]).forEach(function(k){ex.push(norm(k));norm(k).split(/[ -]/).forEach(function(x){ex.push(x);});});}
+  var l=newWordsIn(text,ex);if(!l.length)return '';
   return '<div class="nwl"><span class="lab">裡面的生字</span>'+l.map(function(x){return '<span class="nwi"><span class="wd nw" data-k="'+esc(x[0])+'">'+esc(x[0])+'</span> '+esc(cleanZh(x[1].zh))+spk('w/'+slug(x[0]),x[0])+'</span>';}).join('')+'</div>';
 }
 function sentBlock(w,i,label){
@@ -740,89 +749,154 @@ function reviewHTML(it,si){
   return h;
 }
 
-/* ================= 首頁 ================= */
-var KIND_NAME={big:'大考 50 題',fix:'錯題小考',weak:'弱點小考',due:'到期複習考',quick:'易錯字快篩'};
-function nextTask(){
-  var d=dayRec(),dl=daysUntil(S.examDate);
-  if(unfixed().length)return 'fix';
-  if(!d.due&&dueItems().length)return 'due';
-  if(dl===1){if(!d.quick)return 'quick';return '';}
-  if(!d.big)return 'big';
-  if(!d.weak&&dl>4)return 'weak';
-  return '';
+/* ================= 闖關流程：五關複習 → 弱點小考 → 大考 ================= */
+var KIND_NAME={stage:'關卡複習',weak:'弱點小考',fix:'大考錯題重考',big:'大考 50 題',due:'到期複習考',quick:'易錯字快篩'};
+var WK_TITLE={1:'The Talent Show (1)',2:'The Talent Show (2)',3:'Dollars and Sense (1)',4:'Dollars and Sense (2)',5:'A World of Change'};
+function kindName(k,wk){return k==='stage'?('第 '+wk+' 關 · Week '+wk+' 複習'):KIND_NAME[k];}
+function stagePassed(wk){return !!(S.stg&&S.stg[wk]&&S.stg[wk].pass);}
+function stageItems(wk){var o=[],k;for(k in ITEMS)if(ITEMS.hasOwnProperty(k)&&ITEMS[k].wk===wk)o.push(k);return o;}
+function nextStep(){
+  for(var wk=1;wk<=5;wk++)if(!stagePassed(wk))return {k:'stage',wk:wk};
+  var uf=unfixed().length;
+  if(!S.weakDone)return uf?{k:'weak'}:{k:'weakdone'};
+  if(uf)return {k:'fix'};
+  return {k:'big'};
 }
-function progRow(label,n,tot){var pc=Math.round(n/tot*100);return '<div class="wrow"><span class="pl">'+label+'</span><div class="wbar"><div class="'+(pc===100?'g':pc>=60?'y':'r')+'" style="width:'+pc+'%"></div></div><span class="pr">'+n+'/'+tot+'</span></div>';}
+function stepLabel(st){
+  if(st.k==='stage')return '第 '+st.wk+' 關：Week '+st.wk+' 全部內容複習';
+  if(st.k==='weak')return '弱點小考：'+unfixed().length+' 個錯題訂正';
+  if(st.k==='fix')return '大考錯題：複習＋重考（'+unfixed().length+' 題）';
+  if(bigAtts().length===0)return '第 1 次大考 50 題';
+  return '第 '+(bigAtts().length+1)+' 次大考 50 題'+(S.passed?'（已過關，再挑戰）':'');
+}
+function progRow(label,n,tot){var pc=tot?Math.round(n/tot*100):0;return '<div class="wrow"><span class="pl">'+label+'</span><div class="wbar"><div class="'+(pc===100?'g':pc>=60?'y':'r')+'" style="width:'+pc+'%"></div></div><span class="pr">'+n+'/'+tot+'</span></div>';}
 var onHome=false;
 function goHome(){
   onHome=true;
-  var dl=daysUntil(S.examDate),d=dayRec(),nt=nextTask(),uf=unfixed().length,b=bigAtts();
+  if(!S.stg)S.stg={};
+  var dl=daysUntil(S.examDate),st=nextStep(),uf=unfixed().length,b=bigAtts(),wk,i;
+  if(st.k==='weakdone'){S.weakDone=now();save();st=nextStep();}
   var h='<div class="hero"><div class="h-sm">千賦 · Week 1–5 段考衝刺</div>';
   if(dl>0)h+='<div class="cd">距離段考還有 <b>'+dl+'</b> 天</div>';
   else if(dl===0)h+='<div class="cd">今天段考，加油！💪</div>';
   else h+='<div class="cd">段考結束囉，辛苦了！</div>';
   h+='<div class="stats"><span>大考最高分 <b>'+S.best+'</b></span><span>考過 <b>'+b.length+'</b> 次大考</span></div></div>';
-  if(S.cur){h+='<button class="btn pri big" id="resume">▶ 繼續剛才的'+esc(KIND_NAME[S.cur.k])+'</button>';}
-  else if(nt){h+='<button class="btn pri big" id="gotask">開始今日任務：'+(nt==='big'&&!b.length?'大考 50 題（第一次：摸底考）':KIND_NAME[nt])+'</button>';}
-  else h+='<div class="done">🎉 今天的任務都完成了！想再練可以從下面選。</div>';
-  var list=[];
-  if(dl===1)list.push(['易錯字快篩 20 題',d.quick]);
-  else{if(d.due||dueItems().length)list.push(['到期複習考',d.due]);
-    list.push(['大考 50 題',d.big]);list.push(['錯題全部訂正',d.big&&!uf]);if(dl>4)list.push(['弱點小考 10 題',d.weak]);}
-  h+='<div class="card"><div class="ct">今日任務</div>';
-  for(var i=0;i<list.length;i++)h+='<div class="tk'+(list[i][1]?' ok':'')+'">'+(list[i][1]?'✅':'⬜')+' '+list[i][0]+'</div>';
+  if(S.cur)h+='<button class="btn pri big" id="resume">▶ 繼續：'+esc(kindName(S.cur.k,S.cur.wk))+'</button>';
+  else h+='<button class="btn pri big" id="gostep">▶ 開始：'+esc(stepLabel(st))+'</button>';
+  /* 闖關地圖 */
+  h+='<div class="card"><div class="ct">闖關地圖</div>';
+  for(wk=1;wk<=5;wk++){
+    var pass=stagePassed(wk),curHere=S.cur&&S.cur.k==='stage'&&S.cur.wk===wk,open=pass||(st.k==='stage'&&st.wk===wk)||curHere;
+    var n=stageItems(wk).length,info=pass?('✅ 已過關（第一輪答對 '+S.stg[wk].r+'/'+S.stg[wk].n+'）'):curHere?('▶ 進行中 '+stageProg(S.cur)):open?'▶ 現在這一關':'🔒 先過前一關';
+    h+='<div class="step'+(pass?' ok':open?' now':' lock')+'"><b>第 '+wk+' 關</b> Week '+wk+' · '+esc(WK_TITLE[wk])+'<br><small>單字、定義、例句、生字共 '+n+' 題 · '+info+'</small></div>';
+  }
+  var allStages=stagePassed(1)&&stagePassed(2)&&stagePassed(3)&&stagePassed(4)&&stagePassed(5);
+  h+='<div class="step'+(S.weakDone?' ok':allStages?' now':' lock')+'"><b>弱點小考</b><br><small>'+(S.weakDone?'✅ 已完成':allStages?('▶ 前面 '+uf+' 個錯題，用不同題型再考，全對才過'):'🔒 五關都過才開放')+'</small></div>';
+  h+='<div class="step'+(S.passed?' ok':S.weakDone?' now':' lock')+'"><b>大考 50 題</b>（100 分才過關）<br><small>'+(S.passed?'🏆 已拿到 100 分！':S.weakDone?(b.length?('已考 '+b.length+' 次，最高 '+S.best+' 分'+(uf?' · 先完成錯題複習＋重考 '+uf+' 題':'')):'▶ 可以開始了'):'🔒 弱點小考完成才開放')+'</small></div>';
   h+='</div>';
-  h+='<div class="card"><div class="ct">熟練進度（要全部變綠）</div>'+progRow('單字',mastered('w'),KIND.w.length)+progRow('定義',mastered('d'),KIND.d.length)+progRow('例句',mastered('s'),KIND.s.length)+progRow('生字',mastered('g'),KIND.g.length)+'</div>';
-  if(S.passed)h+='<div class="trophy">🏆 已拿過大考 100 分！段考前每天考一次，維持 100 分。</div>';
-  h+='<div class="hon">';for(var wk=1;wk<=5;wk++)h+='<span class="badge'+(S.hon['w'+wk]?' got':'')+'">W'+wk+'</span>';
-  h+='<span class="badge'+(S.hon.d?' got':'')+'">定</span><span class="badge'+(S.hon.s?' got':'')+'">句</span><span class="badge'+(S.hon.g?' got':'')+'">生</span><span class="badge'+(S.passed?' got':'')+'">🏆</span></div>';
+  h+='<div class="card"><div class="ct">熟練進度</div>'+progRow('單字',mastered('w'),KIND.w.length)+progRow('定義',mastered('d'),KIND.d.length)+progRow('例句',mastered('s'),KIND.s.length)+progRow('生字',mastered('g'),KIND.g.length)+'</div>';
   h+='<div class="menu">'+
-    '<button class="mb'+(uf?' lock':'')+'" id="m_big">📝 大考 50 題'+(uf?'<small>🔒 先訂正 '+uf+' 個錯題</small>':'<small>100 分才過關</small>')+'</button>'+
-    '<button class="mb" id="m_wb">❌ 錯題本<small>'+(uf?('還有 '+uf+' 個要複習'):'目前沒有錯題')+'</small></button>'+
-    '<button class="mb" id="m_weak">💪 弱點小考<small>10 題</small></button>'+
-    '<button class="mb" id="m_rec">📊 成績紀錄<small>'+ATT.length+' 次</small></button>'+
+    '<button class="mb" id="m_rec">📊 考試紀錄<small>'+ATT.length+' 次 · 可看錯題</small></button>'+
+    '<button class="mb" id="m_wb">❌ 錯題本<small>'+(uf?('未訂正 '+uf+' 個'):'目前沒有錯題')+'</small></button>'+
     '<button class="mb" id="m_look">🔍 查單字<small>單字＋生字</small></button>'+
-    '<button class="mb" id="m_par">🔒 家長區<small>&nbsp;</small></button>'+
+    '<button class="mb" id="m_set">⚙️ 設定<small>Email・段考日期</small></button>'+
     '</div>'+syncLine();
   setView(h);onHome=true;
   on('resume','click',function(){renderCur();});
-  on('gotask','click',function(){startKind(nt);});
-  on('m_big','click',function(){if(uf){toast('還有 '+uf+' 個錯題要先過關喔！');return;}startKind('big');});
-  on('m_weak','click',function(){startKind('weak');});
+  on('gostep','click',function(){startStep(st);});
   on('m_rec','click',showRecords);
   on('m_wb','click',function(){showWrongBook('uf');});
   on('m_look','click',function(){showLookup('');});
-  on('m_par','click',parentGate);
+  on('m_set','click',parentPage);
   flushMail();
 }
+function stageProg(cur){if(!cur||cur.k!=='stage')return '';return cur.phase==='redo'?('錯題重練，剩 '+(cur.queue.length+(cur.pending?1:0))+' 題'):((cur.done||0)+'/'+cur.total);}
+function startStep(st){
+  if(st.k==='stage')startStage(st.wk);
+  else if(st.k==='weak')startQueue('weak',unfixed());
+  else if(st.k==='fix')startQueue('fix',unfixed());
+  else startBig();
+}
 
-/* ================= 考試流程 ================= */
-function startKind(k){
-  if(k==='big'&&unfixed().length){toast('還有錯題要先過關喔！');return;}
-  var cur={k:k,start:now(),i:0,res:[],list:[]};
-  if(k==='big')cur.list=genBig();
-  else if(k==='weak')cur.list=genWeak();
-  else if(k==='due'){cur.list=genDue();if(!cur.list.length){dayRec().due=1;save();goHome();return;}}
-  else if(k==='quick')cur.list=genQuick();
-  else if(k==='fix'){var ids=unfixed().slice(0,5);if(!ids.length){goHome();return;}
-    cur.queue=ids.slice();cur.words=ids;cur.app={};cur.usedT={};cur.list=[];cur.rv=0;cur.phase='review';}
+/* ---- 考試狀態 ---- */
+function newCur(k){return {k:k,start:now(),i:0,res:[],list:[],queue:[],usedT:{},first:{},done:0};}
+function startStage(wk){
+  var cur=newCur('stage');cur.wk=wk;
+  var ids=stageItems(wk),byK={w:[],d:[],s:[],g:[]},i;
+  for(i=0;i<ids.length;i++)byK[ITEMS[ids[i]].k].push(ids[i]);
+  /* 讓同一個字的單字/定義/例句不要連在一起：各類打散後交錯 */
+  var ks=['w','d','s','g'],order=[];for(i=0;i<4;i++)byK[ks[i]]=shuffle(byK[ks[i]]);
+  var left=ids.length;while(left>0){var pool=ks.filter(function(k){return byK[k].length;});var k0=pick(pool);order.push(byK[k0].shift());left--;}
+  cur.queue=order;cur.total=order.length;cur.phase='main';cur.redo=[];
   S.cur=cur;save();renderCur();
 }
-function renderCur(){var cur=S.cur;if(!cur){goHome();return;}if(cur.k==='fix'&&cur.phase==='review')renderReview();else renderQ();}
+function startQueue(k,ids){
+  if(!ids.length){goHome();return;}
+  var cur=newCur(k);cur.queue=shuffle(ids);cur.total=ids.length;cur.words=ids.slice();
+  cur.phase=k==='fix'?'review':'quiz';cur.rv=0;
+  S.cur=cur;save();renderCur();
+}
+function startBig(){
+  if(unfixed().length){toast('還有錯題要先複習重考喔！');return;}
+  var cur=newCur('big');cur.list=genBig();cur.total=cur.list.length;
+  S.cur=cur;save();renderCur();
+}
+function nextSpecFor(cur){
+  while(cur.queue.length){
+    var id=cur.queue.shift(),it=ITEMS[id];if(!it)continue;
+    var used=cur.usedT[id]||(cur.usedT[id]=[]),wb=S.wb[id];
+    var al=lvsAvail(it),hi=al.filter(function(l){return l>=2;});
+    var lvs=(cur.k==='stage'&&cur.phase==='main')?al:(hi.length?hi:al);
+    var missed=(wb&&wb.mt)?wb.mt:null;
+    var t=chooseType(it,lvs,used,null,cur.k==='stage'&&cur.phase==='main'?null:missed);
+    used.push(t);
+    var sp=makeSpec(id,t);cur.pending=1;
+    return sp;
+  }
+  return null;
+}
+function renderCur(){
+  var cur=S.cur;if(!cur){goHome();return;}
+  if(cur.phase==='review'){renderReview();return;}
+  if(cur.phase==='redoIntro'){renderRedoIntro();return;}
+  if(cur.k!=='big'&&cur.i>=cur.list.length){var sp=nextSpecFor(cur);if(!sp){finishQueue();return;}cur.list.push(sp);save();}
+  if(cur.i>=cur.list.length){finish();return;}
+  if(cur.shown){showFeedback(cur.list[cur.i],cur.shown.ua,cur.shown.ok);return;}
+  renderQ();
+}
 function renderReview(){
   var cur=S.cur,id=cur.words[cur.rv],it=ITEMS[id];
-  var h='<div class="bar"><button class="back" id="qquit">← 暫停</button><span class="bt">錯題複習</span><span class="qn">'+(cur.rv+1)+' / '+cur.words.length+'</span></div>';
-  h+='<div class="fixinfo">先仔細看懂這 '+cur.words.length+' 個錯題，不會的字點一下看中文、聽發音。看完再考。</div>';
-  h+='<div class="qcard"><div class="qtype">'+KNAME[it.k]+'</div>'+reviewHTML(it,-1)+'<button class="btn pri big" id="rvok">'+(cur.rv+1<cur.words.length?'我看懂了，下一個':'我都看懂了，開始考')+'</button></div>';
+  var h='<div class="bar"><button class="back" id="qquit">← 暫停</button><span class="bt">大考錯題複習</span><span class="qn">'+(cur.rv+1)+' / '+cur.words.length+'</span></div>';
+  h+='<div class="fixinfo">先把大考錯的 '+cur.words.length+' 題仔細看懂（不會的字點一下看中文、聽發音），看完再重考，全部答對才能考下一次大考。</div>';
+  h+='<div class="qcard"><div class="qtype">'+KNAME[it.k]+'</div>'+reviewHTML(it,-1)+'<button class="btn pri big" id="rvok">'+(cur.rv+1<cur.words.length?'我看懂了，下一個':'我都看懂了，開始重考')+'</button></div>';
   setView(h);
   on('qquit','click',function(){save();goHome();});
-  on('rvok','click',function(){cur.rv++;if(cur.rv>=cur.words.length){cur.phase='quiz';var f=fixNextSpec(cur);if(f)cur.list.push(f);}save();renderCur();});
+  on('rvok','click',function(){cur.rv++;if(cur.rv>=cur.words.length)cur.phase='quiz';save();renderCur();});
+}
+function renderRedoIntro(){
+  var cur=S.cur,r=0,i;for(i in cur.first)if(cur.first.hasOwnProperty(i)&&cur.first[i])r++;
+  var h=bar(kindName('stage',cur.wk),false);
+  h+='<div class="result"><div class="score">'+r+'<small> / '+cur.total+'</small></div><div class="rsub">第一輪答對 '+r+' 題</div></div>';
+  h+='<div class="card"><div class="ct">還有 '+cur.redo.length+' 題要再練</div>剛剛錯的題目會換一種考法再考一次；又錯就再看解說、再考，<b>全部答對</b>才算通過第 '+cur.wk+' 關。</div>';
+  h+='<button class="btn pri big" id="goredo">開始錯題重練</button><button class="btn" data-go="home">先休息，回首頁</button>';
+  setView(h);
+  on('goredo','click',function(){cur.phase='redo';cur.queue=shuffle(cur.redo);save();renderCur();});
 }
 function qHeader(cur){
-  var total=cur.k==='fix'?'':(' / '+cur.list.length);
-  return '<div class="bar"><button class="back" id="qquit">← 暫停</button><span class="bt">'+esc(KIND_NAME[cur.k])+'</span><span class="qn">第 '+(cur.i+1)+' 題'+total+'</span></div>'+
-    (cur.k==='fix'?'<div class="fixinfo">每個錯題要用不同題型連對 2 次（最後一次是最難的題型）才算過關</div>':
-    '<div class="prog"><div style="width:'+Math.round(cur.i/cur.list.length*100)+'%"></div></div>');
+  var title=kindName(cur.k,cur.wk),right='';
+  if(cur.k==='big')right='第 '+(cur.i+1)+' / '+cur.list.length+' 題';
+  else if(cur.k==='stage'&&cur.phase==='main')right=(cur.done+(cur.shown?0:1))+' / '+cur.total;
+  else right='剩 '+(cur.queue.length+(cur.shown?0:1))+' 題';
+  var info='';
+  if(cur.k==='big')info='<div class="fixinfo">大考中不會馬上告訴你對錯，考完才看分數和錯題。</div>';
+  else if(cur.k==='stage'&&cur.phase==='redo')info='<div class="fixinfo">第 '+cur.wk+' 關錯題重練：錯了會再出現，全部答對才過關</div>';
+  else if(cur.k==='weak')info='<div class="fixinfo">前面錯過的題目換一種考法，全部答對才能進大考</div>';
+  else if(cur.k==='fix')info='<div class="fixinfo">大考錯題重考：全部答對才能考下一次大考</div>';
+  var pc=cur.k==='big'?cur.i/cur.list.length:(cur.k==='stage'&&cur.phase==='main'?cur.done/cur.total:(cur.total-cur.queue.length-(cur.shown?0:1))/Math.max(1,cur.total));
+  return '<div class="bar"><button class="back" id="qquit">← 暫停</button><span class="bt">'+esc(title)+'</span><span class="qn">'+right+'</span></div>'+info+
+    '<div class="prog"><div style="width:'+Math.max(0,Math.min(100,Math.round(pc*100)))+'%"></div></div>';
 }
+
 function hintOf(word){var first=true,o='';for(var i=0;i<word.length;i++){var c=word.charAt(i);
   if(/[A-Za-z]/.test(c)){o+=first?c:'_';first=false;}else{o+=c===' '?'　':c;if(c===' '||c==='-')first=true;}o+=(i<word.length-1?' ':'');}return o;}
 function highlight(text,form){var i=text.toLowerCase().indexOf(String(form).toLowerCase());if(i<0)return esc(text);
@@ -838,8 +912,7 @@ function blanksHTML(text,bl){
 function renderQ(){
   var cur=S.cur;if(!cur){goHome();return;}
   var sp=cur.list[cur.i];
-  if(!sp&&cur.k==='fix'){var nx0=fixNextSpec(cur);if(nx0){cur.list.push(nx0);sp=nx0;save();}}
-  if(!sp){finish();return;}
+  if(!sp){renderCur();return;}
   var it=ITEMS[sp.id],w=it.w,t=sp.t,h=qHeader(cur),i;
   h+='<div class="qcard"><div class="qtype">'+esc(TYPES[t].name)+'</div>';
   var input=false,mc=false,tiles=false,multi=false,area=false;
@@ -922,28 +995,6 @@ function wordDiff(ua,right){
   if(u.length>r.length)o.push('<span class="bad">'+esc(u.slice(r.length).join(' '))+'</span>');
   return o.join(' ');
 }
-function answerQ(sp,ua,btn){
-  var cur=S.cur,ok=isRight(sp,ua),it=ITEMS[sp.id];
-  record(sp,ok,cur.k==='fix');
-  cur.res.push([sp.id,sp.t,sp.s,String(ua).slice(0,300),ok?1:0,String(answerOf(sp).disp).slice(0,300),sp.c==null?-1:sp.c]);
-  if(cur.k==='fix'){var wb=S.wb[sp.id];
-    if(wb&&!wb.fx&&(cur.app[sp.id]||0)<4){if(ok)cur.queue.push(sp.id);else cur.queue.splice(Math.min(2,cur.queue.length),0,sp.id);}}
-  save();
-  if(ok){
-    if(btn)btn.className+=' right';
-    var passed=cur.k==='fix'&&S.wb[sp.id]&&S.wb[sp.id].fx;
-    var fb=document.createElement('div');fb.className='okflash';fb.innerHTML='✔ 答對了！'+(passed?'<br><small>「'+esc(itemTitle(it))+'」過關！</small>':'');
-    app.appendChild(fb);
-    setTimeout(nextQ,passed?1100:650);
-  } else showExplain(sp,ua);
-}
-function nextQ(){
-  var cur=S.cur;if(!cur){goHome();return;}
-  cur.i++;
-  if(cur.k==='fix'&&cur.i>=cur.list.length){var nx=fixNextSpec(cur);if(nx)cur.list.push(nx);}
-  save();
-  if(cur.i>=cur.list.length)finish();else renderQ();
-}
 function answerRows(sp,ua,disp){
   var a=answerOf(sp),h='';disp=disp==null?a.disp:disp;
   var uaHTML=a.mc?esc(ua):(a.sent?wordDiff(ua,disp):(a.multi?esc(ua):letterDiff(ua,disp)));
@@ -952,62 +1003,94 @@ function answerRows(sp,ua,disp){
   if((sp.t==='fill_spell'||sp.t==='bank_fill')&&ITEMS[sp.id].w&&norm(ua)===ITEMS[sp.id].w.lem&&ITEMS[sp.id].w.lem!==norm(disp))h+='<div class="note">💡 字對了，但要改成句子需要的形式：<b>'+esc(disp)+'</b></div>';
   return h;
 }
-function showExplain(sp,ua){
-  var cur=S.cur,h=qHeader(cur),it=ITEMS[sp.id];
-  var si=it.k==='w'?sp.s:-1;
-  h+='<div class="qcard wrong"><div class="wt">✘ 答錯了，已放進錯題本</div>'+answerRows(sp,ua)+reviewHTML(it,si)+'<button class="btn pri big" id="exok">我看懂了，下一題</button></div>';
+function answerQ(sp,ua,btn){
+  var cur=S.cur,ok=isRight(sp,ua),it=ITEMS[sp.id];
+  record(sp,ok,cur.k==='weak'||cur.k==='fix');
+  cur.res.push([sp.id,sp.t,sp.s,String(ua).slice(0,300),ok?1:0,String(answerOf(sp).disp).slice(0,300),sp.c==null?-1:sp.c,cur.phase==='redo'?1:0]);
+  if(cur.k==='big'){cur.i++;save();if(cur.i>=cur.list.length)finish();else renderQ();return;}
+  cur.pending=0;
+  if(cur.k==='stage'&&cur.phase==='main'){cur.done++;cur.first[sp.id]=ok?1:0;if(!ok&&!has(cur.redo,sp.id))cur.redo.push(sp.id);}
+  else if(!ok){cur.queue.push(sp.id);}
+  cur.shown={ua:String(ua),ok:ok?1:0};
+  save();
+  showFeedback(sp,ua,ok);
+}
+function showFeedback(sp,ua,ok){
+  var cur=S.cur,h=qHeader(cur),it=ITEMS[sp.id],si=it.k==='w'?sp.s:-1;
+  var fixedNow=(cur.k==='weak'||cur.k==='fix')&&ok;
+  h+='<div class="qcard '+(ok?'right':'wrong')+'">'+(ok?'<div class="rt">✔ 答對了！'+(fixedNow?' 這題訂正完成 🎉':'')+'</div>':'<div class="wt">✘ 答錯了，看一下解說'+(cur.k==='stage'&&cur.phase==='main'?'（等一下會再考）':'（等一下會換個考法再考）')+'</div>')+
+    answerRows(sp,ua)+reviewHTML(it,si)+'<button class="btn pri big" id="exok">'+(ok?'下一題':'我看懂了，下一題')+'</button></div>';
   setView(h);
-  on('qquit','click',function(){cur.i++;save();goHome();});
+  on('qquit','click',function(){save();goHome();});
   on('exok','click',nextQ);
+}
+function nextQ(){
+  var cur=S.cur;if(!cur){goHome();return;}
+  cur.shown=null;cur.i++;save();renderCur();
+}
+function finishQueue(){
+  var cur=S.cur;
+  if(cur.k==='stage'&&cur.phase==='main'&&cur.redo.length){cur.phase='redoIntro';save();renderCur();return;}
+  finish();
 }
 function finish(){
   var cur=S.cur;if(!cur){goHome();return;}
-  var n=cur.res.length,r=0,i,wrongIds=[];
-  for(i=0;i<n;i++){if(cur.res[i][4])r++;else if(!has(wrongIds,cur.res[i][0]))wrongIds.push(cur.res[i][0]);}
+  var n=0,r=0,i,wrongIds=[];
+  if(cur.k==='stage'){for(i in cur.first)if(cur.first.hasOwnProperty(i)){n++;if(cur.first[i])r++;}}
+  else if(cur.k==='weak'||cur.k==='fix'){var seen={};for(i=0;i<cur.res.length;i++){var id0=cur.res[i][0];if(seen[id0]==null){seen[id0]=cur.res[i][4];n++;if(cur.res[i][4])r++;}}}
+  else{n=cur.res.length;for(i=0;i<n;i++){if(cur.res[i][4])r++;else if(!has(wrongIds,cur.res[i][0]))wrongIds.push(cur.res[i][0]);}}
   var sc=cur.k==='big'?r*2:(n?Math.round(r/n*100):0);
   var at={k:cur.k,d:now(),sc:sc,r:r,tot:n,du:Math.round((now()-cur.start)/1000),q:cur.res};at.id='a'+at.d+'_'+Math.floor(Math.random()*1e6);
+  if(cur.wk)at.wk=cur.wk;
   ATT.push(at);
-  var d=dayRec();
+  if(cur.k==='stage'){if(!S.stg)S.stg={};S.stg[cur.wk]={pass:now(),r:r,n:n};}
+  if(cur.k==='weak'&&!unfixed().length)S.weakDone=now();
   if(cur.k==='big'){
     S.nBig=(S.nBig||0)+1;S.lastBigWrong=wrongIds;S.lastBigAt=now();
     S.prevSig=cur.list.map(function(sp){return sp.id+'|'+sp.t;});
-    if(sc>S.best)S.best=sc;d.big=1;
+    if(sc>S.best)S.best=sc;
     if(sc===100&&!S.passed){S.passed=now();at.pass=1;}
   }
-  if(cur.k==='due')d.due=1;if(cur.k==='weak')d.weak=1;if(cur.k==='quick')d.quick=1;
   var hon=checkHonors();
   S.cur=null;
-  if(cur.k==='big')queueMail(at);
+  queueMail(at);
   save();
   showResult(at,hon);
   flushMail();
   schedSync(300,true);
 }
-function weekStats(q){var c={},n={},i;for(i=0;i<q.length;i++){if(!ITEMS[q[i][0]])continue;var wk=ITEMS[q[i][0]].wk;n[wk]=(n[wk]||0)+1;c[wk]=(c[wk]||0)+(q[i][4]?1:0);}return {c:c,n:n};}
-function kindStats(q){var c={},n={},i;for(i=0;i<q.length;i++){if(!ITEMS[q[i][0]])continue;var k=ITEMS[q[i][0]].k;n[k]=(n[k]||0)+1;c[k]=(c[k]||0)+(q[i][4]?1:0);}return {c:c,n:n};}
 function showResult(at,hon){
-  var uf=unfixed().length,h=bar(KIND_NAME[at.k]+' 成績',true),i;
-  h+='<div class="result"><div class="score'+(at.sc===100?' perfect':'')+'">'+at.sc+'<small>'+(at.k==='big'?' 分':' %')+'</small></div>';
-  h+='<div class="rsub">答對 '+at.r+' / '+at.tot+' 題 · 用時 '+fmtDur(at.du)+'</div>';
-  if(at.k==='big'){var prev=bigAtts();if(prev.length>=2){var p=prev[prev.length-2].sc;h+='<div class="rsub">'+(at.sc>p?'比上次進步 '+(at.sc-p)+' 分 👏':at.sc===p?'跟上次一樣':'比上次少 '+(p-at.sc)+' 分，錯題練一練就會回來')+'</div>';}
-    h+='<div class="rsub small">📧 成績已寄到家長信箱（'+esc(S.mail)+'）'+(S.mailQ.length?'，網路恢復後會自動寄出':'')+'</div>';}
-  if(at.pass)h+='<div class="celebrate">🏆 100 分！Week 1–5 破關！🎉</div>';
+  var uf=unfixed().length,h=bar(kindName(at.k,at.wk)+' 結果',true),i;
+  if(at.k==='stage'){
+    h+='<div class="result"><div class="celebrate">🎉 第 '+at.wk+' 關通過！</div><div class="rsub">第一輪答對 '+at.r+' / '+at.tot+' 題，錯的題目都已經練到答對了 · 用時 '+fmtDur(at.du)+'</div></div>';
+  }else if(at.k==='weak'||at.k==='fix'){
+    h+='<div class="result"><div class="celebrate">🎉 '+(at.k==='weak'?'弱點小考完成！大考解鎖了':'大考錯題全部訂正完成！')+'</div><div class="rsub">'+at.tot+' 個錯題，第一次就答對 '+at.r+' 個，其餘都練到答對 · 用時 '+fmtDur(at.du)+'</div></div>';
+  }else{
+    h+='<div class="result"><div class="score'+(at.sc===100?' perfect':'')+'">'+at.sc+'<small> 分</small></div>';
+    h+='<div class="rsub">答對 '+at.r+' / '+at.tot+' 題 · 用時 '+fmtDur(at.du)+'</div>';
+    var prev=bigAtts();if(prev.length>=2){var p=prev[prev.length-2].sc;h+='<div class="rsub">'+(at.sc>p?'比上次進步 '+(at.sc-p)+' 分 👏':at.sc===p?'跟上次一樣':'比上次少 '+(p-at.sc)+' 分，錯題練一練就會回來')+'</div>';}
+    if(at.pass)h+='<div class="celebrate">🏆 100 分！Week 1–5 破關！🎉</div>';
+    h+='</div>';
+  }
+  if(S.mail)h+='<div class="rsub small" style="text-align:center">📧 結果已寄到 '+esc(S.mail)+(S.mailQ.length?'（網路恢復後自動寄出）':'')+'</div>';
   for(i=0;i<hon.length;i++)h+='<div class="celebrate small">🏅 獲得 '+esc(hon[i])+'！</div>';
-  h+='</div>';
-  var ks=kindStats(at.q),ws=weekStats(at.q);
-  h+='<div class="card"><div class="ct">各部分答對率</div>';
-  for(var k in KNAME)if(ks.n[k]){var pc=Math.round((ks.c[k]||0)/ks.n[k]*100);h+='<div class="wrow"><span class="pl">'+KNAME[k]+'</span><div class="wbar"><div class="'+(pc===100?'g':pc>=70?'y':'r')+'" style="width:'+pc+'%"></div></div><span class="pr">'+(ks.c[k]||0)+'/'+ks.n[k]+'</span></div>';}
-  for(var wk=1;wk<=5;wk++)if(ws.n[wk]){var pw=Math.round((ws.c[wk]||0)/ws.n[wk]*100);h+='<div class="wrow"><span class="pl">W'+wk+'</span><div class="wbar"><div class="'+(pw===100?'g':pw>=70?'y':'r')+'" style="width:'+pw+'%"></div></div><span class="pr">'+pw+'%</span></div>';}
-  h+='</div>'+wrongListHTML(at);
-  var nt=nextTask();
-  if(uf)h+='<button class="btn pri big" id="rnext">下一步：錯題本複習＋錯題小考（'+uf+' 個）</button>';
-  else if(nt)h+='<button class="btn pri big" id="rnext">下一步：'+KIND_NAME[nt]+'</button>';
-  else h+='<div class="done">今天的任務完成了！明天再來 💪</div>';
+  if(at.k==='big'){
+    var ks=kindStats(at.q),ws=weekStats(at.q);
+    h+='<div class="card"><div class="ct">各部分答對率</div>';
+    for(var k in KNAME)if(ks.n[k]){var pc=Math.round((ks.c[k]||0)/ks.n[k]*100);h+='<div class="wrow"><span class="pl">'+KNAME[k]+'</span><div class="wbar"><div class="'+(pc===100?'g':pc>=70?'y':'r')+'" style="width:'+pc+'%"></div></div><span class="pr">'+(ks.c[k]||0)+'/'+ks.n[k]+'</span></div>';}
+    for(var wk=1;wk<=5;wk++)if(ws.n[wk]){var pw=Math.round((ws.c[wk]||0)/ws.n[wk]*100);h+='<div class="wrow"><span class="pl">W'+wk+'</span><div class="wbar"><div class="'+(pw===100?'g':pw>=70?'y':'r')+'" style="width:'+pw+'%"></div></div><span class="pr">'+pw+'%</span></div>';}
+    h+='</div>'+wrongListHTML(at);
+  }
+  var st=nextStep();if(st.k==='weakdone'){S.weakDone=now();save();st=nextStep();}
+  h+='<button class="btn pri big" id="rnext">下一步：'+esc(stepLabel(st))+'</button>';
   h+='<button class="btn" data-go="home">回首頁</button>';
   setView(h);
-  on('rnext','click',function(){startKind(uf?'fix':nt);});
+  on('rnext','click',function(){startStep(st);});
   bindWrongList();
 }
+
+function weekStats(q){var c={},n={},i;for(i=0;i<q.length;i++){if(!ITEMS[q[i][0]])continue;var wk=ITEMS[q[i][0]].wk;n[wk]=(n[wk]||0)+1;c[wk]=(c[wk]||0)+(q[i][4]?1:0);}return {c:c,n:n};}
+function kindStats(q){var c={},n={},i;for(i=0;i<q.length;i++){if(!ITEMS[q[i][0]])continue;var k=ITEMS[q[i][0]].k;n[k]=(n[k]||0)+1;c[k]=(c[k]||0)+(q[i][4]?1:0);}return {c:c,n:n};}
 function wrongListHTML(at){
   var h='',n=0,i;
   for(i=0;i<at.q.length;i++)if(!at.q[i][4])n++;
@@ -1035,15 +1118,17 @@ function mailBody(at){
   var ks=kindStats(at.q),ws=weekStats(at.q),lines=[],i,k;
   for(k in KNAME)if(ks.n[k])lines.push(KNAME[k]+' '+(ks.c[k]||0)+'/'+ks.n[k]);
   var wl=[];for(var wk=1;wk<=5;wk++)if(ws.n[wk])wl.push('W'+wk+' '+Math.round((ws.c[wk]||0)/ws.n[wk]*100)+'%');
-  var wrong=[];for(i=0;i<at.q.length;i++){var q=at.q[i];if(q[4]||!ITEMS[q[0]])continue;wrong.push((wrong.length+1)+'. '+itemTitle(ITEMS[q[0]])+'（'+(TYPES[q[1]]?TYPES[q[1]].name:q[1])+'）他寫：'+q[3]+' → 正確：'+q[5]);}
+  var wrong=[];for(i=0;i<at.q.length;i++){var q=at.q[i];if(q[4]||!ITEMS[q[0]])continue;if(q[7])continue;wrong.push((wrong.length+1)+'. '+itemTitle(ITEMS[q[0]])+'（'+(TYPES[q[1]]?TYPES[q[1]].name:q[1])+'）他寫：'+q[3]+' → 正確：'+q[5]);}
   return {
-    _subject:'千賦 W1-5 大考成績：'+at.sc+' 分（'+fmtTime(at.d)+'）',
-    '分數':at.sc+' 分（答對 '+at.r+'/'+at.tot+'）'+(at.sc===100?' 🏆 破關':''),
+    _subject:at.k==='big'?('千賦 W1-5 大考成績：'+at.sc+' 分（'+fmtTime(at.d)+'）'):('千賦 W1-5 '+kindName(at.k,at.wk)+' 完成（'+fmtTime(at.d)+'）'),
+    '項目':kindName(at.k,at.wk),
+    '分數':at.k==='big'?(at.sc+' 分（答對 '+at.r+'/'+at.tot+'）'+(at.sc===100?' 🏆 破關':'')):('第一次就答對 '+at.r+'/'+at.tot+'（'+at.sc+'%），其餘已練到全對'),
     '考試時間':fmtTime(at.d)+'，用時 '+fmtDur(at.du),
-    '第幾次大考':'第 '+bigAtts().length+' 次（最高分 '+S.best+'）',
+    '大考紀錄':bigAtts().length?('已考 '+bigAtts().length+' 次，最高分 '+S.best):'尚未考大考',
+    '闖關進度':[1,2,3,4,5].map(function(w){return 'W'+w+(stagePassed(w)?'✅':'⬜');}).join(' ')+(S.weakDone?' · 弱點小考✅':''),
     '各部分答對':lines.join('、'),
     '各週答對率':wl.join('、'),
-    '錯的題目':wrong.length?wrong.join('\n'):'全部答對',
+    '錯的題目（第一次作答）':wrong.length?wrong.join('\n'):'全部答對',
     '熟練進度':'單字 '+mastered('w')+'/'+KIND.w.length+'、定義 '+mastered('d')+'/'+KIND.d.length+'、例句 '+mastered('s')+'/'+KIND.s.length+'、生字 '+mastered('g')+'/'+KIND.g.length,
     '錯題本未訂正':unfixed().length+' 個',
     '距離段考':daysUntil(S.examDate)+' 天',
@@ -1080,14 +1165,14 @@ function showRecords(){
     h+='</div></div>';}
   if(!ATT.length)h+='<div class="card">還沒有考試紀錄。</div>';
   h+='<div class="card">';
-  for(i=ATT.length-1;i>=0;i--){var a=ATT[i];h+='<button class="rec" data-i="'+i+'"><span class="rk">'+esc(KIND_NAME[a.k])+'</span><span class="rd">'+fmtTime(a.d)+'</span><span class="rs'+(a.sc===100?' g':'')+'">'+a.sc+(a.k==='big'?'分':'%')+'</span></button>';}
+  for(i=ATT.length-1;i>=0;i--){var a=ATT[i];h+='<button class="rec" data-i="'+i+'"><span class="rk">'+esc(kindName(a.k,a.wk))+'</span><span class="rd">'+fmtTime(a.d)+'</span><span class="rs'+(a.sc===100?' g':'')+'">'+a.sc+(a.k==='big'?'分':'%')+'</span></button>';}
   h+='</div>';
   setView(h);
   var bs=app.querySelectorAll('.rec');
   for(i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){showAttempt(+this.getAttribute('data-i'));},false);
 }
 function showAttempt(ix){
-  var a=ATT[ix],h=bar(KIND_NAME[a.k]+' · '+fmtTime(a.d),false);
+  var a=ATT[ix],h=bar(kindName(a.k,a.wk)+' · '+fmtTime(a.d),false);
   h+='<button class="btn" id="bk">← 回成績紀錄</button><div class="result"><div class="score'+(a.sc===100?' perfect':'')+'">'+a.sc+'<small>'+(a.k==='big'?' 分':' %')+'</small></div><div class="rsub">答對 '+a.r+' / '+a.tot+' · '+fmtDur(a.du)+'</div></div>';
   h+=wrongListHTML(a);
   setView(h);on('bk','click',showRecords);bindWrongList();
@@ -1100,7 +1185,7 @@ function showWrongBook(filter){
   ids.sort(function(a,b){var fa=S.wb[a]&&!S.wb[a].fx?0:1,fb=S.wb[b]&&!S.wb[b].fx?0:1;return fa-fb||mm(b).wc-mm(a).wc;});
   var tabs=[['uf','未訂正 '+uf.length],['all','全部 '+ids.length],['w','單字'],['d','定義'],['s','例句'],['g','生字']];
   h+='<div class="tabs">'+tabs.map(function(t){return '<button class="tab'+(filter===t[0]?' on':'')+'" data-f="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>';
-  if(uf.length)h+='<button class="btn pri big" id="wbgo">🎯 開始錯題複習＋小考（'+uf.length+' 個）</button>';
+  var ns=nextStep();if(uf.length&&(ns.k==='weak'||ns.k==='fix'))h+='<button class="btn pri big" id="wbgo">🎯 '+esc(stepLabel(ns))+'</button>';else if(uf.length&&ns.k==='stage')h+='<div class="small" style="margin:6px 2px">這些錯題會在五關都過關後的「弱點小考」再考一次。</div>';
   h+='<div class="small" style="margin:6px 2px">點每一題可以展開仔細複習：所有字都能點，看中文、聽發音。</div>';
   var shown=0;
   for(i=0;i<ids.length;i++){var id=ids[i],it=ITEMS[id],wb=S.wb[id],m=mm(id),isUf=wb&&!wb.fx;
@@ -1110,7 +1195,7 @@ function showWrongBook(filter){
   if(!shown)h+='<div class="card">這裡沒有錯題 👍</div>';
   setView(h);
   var tb=app.querySelectorAll('.tab');for(i=0;i<tb.length;i++)tb[i].addEventListener('click',function(){showWrongBook(this.getAttribute('data-f'));},false);
-  on('wbgo','click',function(){startKind('fix');});
+  on('wbgo','click',function(){startStep(nextStep());});
   bindExpand();
 }
 function bindExpand(){
@@ -1150,7 +1235,7 @@ function parentGate(){
   on('pinok','click',function(){if($('pin').value===S.pin)parentPage();else toast('密碼不對');});
 }
 function parentPage(){
-  var h=bar('家長區',true),i,k;
+  var h=bar('設定與總覽',true),i,k;
   var ks={c:{},n:{}};
   for(i=0;i<ATT.length;i++){var s1=kindStats(ATT[i].q);for(k in s1.n){ks.n[k]=(ks.n[k]||0)+s1.n[k];ks.c[k]=(ks.c[k]||0)+(s1.c[k]||0);}}
   h+='<div class="card"><div class="ct">熟練進度</div>'+progRow('單字',mastered('w'),KIND.w.length)+progRow('定義',mastered('d'),KIND.d.length)+progRow('例句',mastered('s'),KIND.s.length)+progRow('生字',mastered('g'),KIND.g.length)+
@@ -1159,29 +1244,20 @@ function parentPage(){
   all.sort(function(a,b){return mm(b).wc-mm(a).wc;});
   h+='<div class="card"><div class="ct">最常錯的 10 題</div>'+(all.length?all.slice(0,10).map(function(id){return '<div class="wbi"><b>'+esc(itemTitle(ITEMS[id]))+'</b> <small>錯 '+mm(id).wc+' 次 · 熟練度 '+mm(id).lv+'/5</small></div>';}).join(''):'還沒有錯題')+'</div>';
   h+='<div class="card"><div class="ct">總覽</div>大考 '+bigAtts().length+' 次，最高分 '+S.best+(S.passed?'（已破關 '+fmtTime(S.passed)+'）':'')+'<br>所有考試 '+ATT.length+' 次 · 錯題本未訂正 '+unfixed().length+' 個</div>';
-  h+='<div class="card"><div class="ct">成績寄信</div><div class="small">每次大考考完自動寄給這個信箱。第一次寄出時，FormSubmit 會先寄一封「啟用」信，點信中的 Activate 後就會開始收到成績。</div>'+
+  h+='<div class="card"><div class="ct">成績寄信</div><div class="small">每一關過關、弱點小考、每次大考考完，都會自動寄結果到這個信箱。第一次寄出時，FormSubmit 會先寄一封「啟用」信，點信中的 Activate 後就會開始收到成績。</div>'+
     '<input id="ml" class="search" type="text" autocapitalize="off" autocorrect="off" value="'+esc(S.mail)+'"><button class="btn" id="mlok">儲存信箱</button><button class="btn" id="mltest">寄一封測試信</button>'+
     '<div class="small">已寄出 '+(S.mailSent||0)+' 封 · 等待寄出 '+S.mailQ.length+' 封'+(S.mailLast?' · 最近回應：'+esc(S.mailLast):'')+'</div></div>';
   h+='<div class="card"><div class="ct">雲端同步</div>'+(fbOn()?('<div class="small">'+(SY.last?'最近同步：'+fmtTime(SY.last):'尚未同步')+(SY.err?' · 錯誤：'+esc(SY.err):'')+' · 這台已上傳 '+ATT.filter(function(a){return SY.pushed[attId(a)];}).length+'/'+ATT.length+' 筆考試</div><button class="btn" id="synow">立即同步</button>'):'<div class="small">尚未設定 Firebase，記錄只存在這台裝置。</div>')+'</div>';
   h+='<div class="card"><div class="ct">段考日期</div><input id="exd" class="search" type="text" value="'+esc(S.examDate)+'" placeholder="YYYY-MM-DD"><button class="btn" id="exdok">儲存日期</button></div>';
-  h+='<div class="card"><div class="ct">修改密碼</div><input id="np" class="search" type="tel" maxlength="8" placeholder="新密碼"><button class="btn" id="npok">儲存密碼</button></div>';
-  h+='<div class="card"><div class="ct">備份 / 換裝置</div><div class="small">複製下面整段文字，到另一台裝置的家長區貼上「還原」，就能接續進度。</div><textarea id="bk" readonly></textarea><button class="btn" id="bksel">全選備份文字</button>'+
-    '<textarea id="rs" placeholder="把備份文字貼在這裡"></textarea><button class="btn" id="rsok">還原備份</button></div>';
-  h+='<div class="card"><button class="btn danger" id="reset">清除全部進度</button></div>';
   setView(h);
-  $('bk').value=JSON.stringify({s:S,a:ATT});
   on('mlok','click',function(){var v=$('ml').value.replace(/\s/g,'');if(!/^[^@]+@[^@]+\.[^@]+$/.test(v)){toast('信箱格式不對');return;}S.mail=v;S.cfgAt=now();save();toast('已儲存信箱');});
   on('synow','click',function(){toast('同步中…');syncNow(function(ok){toast(ok?'同步完成':'同步失敗：'+SY.err);if(ok)parentPage();},true);});
   on('mltest','click',function(){S.mailQ.push({_subject:'千賦 W1-5 段考衝刺：測試信',內容:'這是測試信。之後每次大考考完，成績會寄到這個信箱。',_template:'box',_captcha:'false'});save();flushMail();toast('已送出測試信，請到信箱看看（第一次要點啟用）');});
   on('exdok','click',function(){var v=$('exd').value.replace(/\s/g,'');if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){toast('格式要像 2026-10-28');return;}S.examDate=v;S.cfgAt=now();save();toast('已儲存段考日期');});
-  on('npok','click',function(){var v=$('np').value;if(!/^\d{4,8}$/.test(v)){toast('請輸入 4 位數字');return;}S.pin=v;S.cfgAt=now();save();toast('密碼已修改');});
-  on('bksel','click',function(){var t=$('bk');t.focus();try{t.setSelectionRange(0,t.value.length);}catch(e){t.select();}});
-  on('rsok','click',function(){try{var o=JSON.parse($('rs').value);if(!o||!o.s||!o.s.v)throw 0;if(!confirm('確定用備份覆蓋這台裝置的進度？'))return;S=o.s;ATT=o.a||[];SY.pushed={};saveSync();if(S.v===1){S.v=2;S.cur=null;}if(!S.mailQ)S.mailQ=[];if(!S.mail)S.mail=MAIL_DEFAULT;save();toast('還原完成');goHome();}catch(e){toast('備份文字不正確');}});
-  on('reset','click',function(){if(confirm('確定清除全部進度？')&&confirm('真的要清除嗎？無法復原')){var keepMail=S.mail;S=blankState();S.mail=keepMail;ATT=[];for(var k2 in ITEMS)if(ITEMS.hasOwnProperty(k2))mm(k2);save();goHome();}});
 }
 
 /* ================= 啟動 ================= */
-window.QF={S:function(){return S;},ATT:function(){return ATT;},genBig:genBig,genWeak:genWeak,genDue:genDue,record:record,makeSpec:makeSpec,answerOf:answerOf,isRight:isRight,maskSent:maskSent,maskForm:maskForm,unfixed:unfixed,fixNextSpec:fixNextSpec,startKind:startKind,finish:finish,TYPES:TYPES,ITEMS:ITEMS,KIND:KIND,WM:WM,save:save,load:load,goHome:goHome,nextQ:nextQ,lookup:lookup,tokens:tokens,core:core,textOf:textOf,ctxText:ctxText,typesOfLv:typesOfLv,typeOK:typeOK,mailBody:mailBody,renderCur:renderCur};
+window.QF={S:function(){return S;},ATT:function(){return ATT;},genBig:genBig,record:record,makeSpec:makeSpec,answerOf:answerOf,isRight:isRight,maskSent:maskSent,maskForm:maskForm,unfixed:unfixed,startStep:startStep,nextStep:nextStep,startStage:startStage,startQueue:startQueue,startBig:startBig,stageItems:stageItems,finish:finish,TYPES:TYPES,ITEMS:ITEMS,KIND:KIND,WM:WM,save:save,load:load,goHome:goHome,nextQ:nextQ,lookup:lookup,tokens:tokens,core:core,textOf:textOf,ctxText:ctxText,typesOfLv:typesOfLv,typeOK:typeOK,mailBody:mailBody,renderCur:renderCur};
 function boot(){app=$('app');load();loadSync();goHome();if(fbOn()){syncNow(null,true);document.addEventListener('visibilitychange',function(){if(!document.hidden)schedSync(300,true);},false);window.addEventListener('pageshow',function(){schedSync(300,true);},false);setInterval(function(){schedSync(0,false);},180000);}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,false);else boot();
 })();
