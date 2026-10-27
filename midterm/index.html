@@ -264,6 +264,9 @@ s.bad{text-decoration:line-through}
 .sec.big3{font-size:18px;color:#2a2733;border-top:2px solid #eee2d3;padding-top:12px}
 .tg1{background:#ff7a45;color:#fff;border-radius:8px;padding:0 6px;font-size:12px}
 .tg2{background:#eee2d3;color:#6f6a7c;border-radius:8px;padding:0 6px;font-size:12px}
+
+.focus .btn.pri{margin:10px 0 4px}
+.lockb{text-align:center;color:#a7a1b3;border:2px dashed #eee2d3;border-radius:14px;padding:10px;margin:6px 0;font-weight:bold;font-size:15px}
 </style>
 </head>
 <body>
@@ -1307,21 +1310,24 @@ function goHome(){
   if(!cf&&typeof SCHOOL_WRONG!=='undefined'){var sl0=schoolLeft();h+=sl0.length?'<div class="schl">📌 學校考卷錯題：還有 <b>'+sl0.length+'</b> 題沒通過</div>':'<div class="done">✅ 學校考卷錯的 '+SCHOOL_WRONG.ids.length+' 題已全部練對（大考還會再考）</div>';}
   if(bp)h+='<div class="trophy">🏆 混合大考 100 分過關！（'+fmtTime(bp)+'）段考前每天再考一次保持手感</div>';
   /* 試卷 */
-  if(cf)h+='<div class="sec big3">全部試卷</div>';
-  var subOrder=cf?cf.subs.concat(SUBJ.filter(function(s){return !has(cf.subs,s);})):SUBJ;
+  if(cf)h+='<div class="sec big3">今晚範圍試卷</div>';
+  var subOrder=cf?cf.subs.slice():SUBJ;
   each(subOrder,function(sj){
     h+='<div class="sec">'+SUBJ_ZH[sj]+(cf?(has(cf.subs,sj)?' <span class="tg1">'+esc(cf.day)+'考</span>':(examDone(sj)?' <span class="tg2">已考完</span>':' <span class="tg2">之後再複習</span>')):'')+'</div>';
     each(PORDER,function(pid){var p=PMAP[pid];if(p.subj!==sj)return;var l=attsOf('paper',pid),b=bestOf(l),u=unfixed(pid).length;
       h+='<div class="pc" data-paper="'+pid+'"><span class="pi">'+p.icon+'</span><div class="pb"><b>'+esc(p.name)+'</b><small>'+esc(p.sub)+'</small>'+
         '<small class="ps">'+(l.length?('考過 '+l.length+' 次・最高 <b class="'+(b===100?'g':'')+'">'+b+'</b> 分'+(u?'・錯題 '+u:'')):'還沒考 · '+p.qids.length+' 題')+'</small></div><span class="pgo">'+(l.length?'再考':'開始')+' ›</span></div>';});
   });
+  if(cf)h+='<div class="fixinfo c">其他科目這段時間先不出現，'+esc(cf.subs.join('、'))+'考完才會顯示。</div>';
+  var ufc=cf?unfixed().filter(inF(cf)).length:uf;
   h+='<div class="sec">工具</div><div class="menu">'+
-    mb('book','📒 錯題本',uf?('未訂正 '+uf+' 題'):'目前沒有未訂正')+mb('kp','⭐ 重點整理',KPS.length+' 個重點')+
-    mb('boost','💪 加強考試',boostOK?(bigOK?'可再練一次':'錯題＋重點，直到全對'):'🔒 先考完全部試卷')+mb('big','🏆 混合大考',bigOK?'50 題 × 2 分':'🔒 加強考試完成後開放')+
-    mb('psg','📖 課文重點','Reading 4 篇逐段中文')+mb('rec','📊 考試紀錄','共 '+ATT.length+' 筆')+mb('set','⚙️ 設定','成績寄信、同步')+'</div>';
+    mb('book','📒 錯題本',ufc?((cf?'今晚範圍':'')+'未訂正 '+ufc+' 題'):'目前沒有未訂正')+mb('kp','⭐ 重點整理',cf?'今晚範圍的重點':KPS.length+' 個重點')+
+    (cf?mb('sboost','💪 衝刺加強',fSubs(cf)+' 錯題＋重點')+mb('sbig','🏆 大考',fSubs(cf)+' 50 題')+(has(cf.subs,'Reading')?mb('psg','📖 課文重點','Reading 4 篇逐段中文'):'')+mb('rec','📊 考試紀錄','共 '+ATT.length+' 筆')+mb('set','⚙️ 設定','成績寄信、同步')+'</div>':'')+
+    (cf?'':mb('boost','💪 加強考試',boostOK?(bigOK?'可再練一次':'錯題＋重點，直到全對'):'🔒 先考完全部試卷')+mb('big','🏆 混合大考',bigOK?'50 題 × 2 分':'🔒 加強考試完成後開放')+
+    mb('psg','📖 課文重點','Reading 4 篇逐段中文')+mb('rec','📊 考試紀錄','共 '+ATT.length+' 筆')+mb('set','⚙️ 設定','成績寄信、同步')+'</div>');
   h+='<div class="links"><a href="../w1-5/">W1–5 段考衝刺</a> · <a href="../grammar-u8/">U8 文法闖關</a></div>'+syncLine();
   setView(h);onHome=true;
-  on('resume','click',resume);on('next','click',function(){nx.go();});
+  on('resume','click',resume);on('next','click',function(){nx.go();});on('fbig','click',function(){startSBig(cf);});
   var pcs=app.querySelectorAll('.pc');each(pcs,function(el){el.addEventListener('click',function(){startPaper(el.getAttribute('data-paper'));},false);});
   var ms=app.querySelectorAll('.mb');each(ms,function(el){el.addEventListener('click',function(){menu(el.getAttribute('data-m'));},false);});
 }
@@ -1350,7 +1356,9 @@ function focusCard(f){
     row(2,'段考複習卷',f.core.map(function(p){return PMAP[p].name.replace(' 段考複習卷','');}).join('、')+(coreLeft?'（還有 '+coreLeft+' 份）':'（已考）'))+
     row(3,'衝刺加強','錯題＋重點，全對才過')+
     row(4,'衝刺大考',sbigPassed(f)?'100 分過關 🏆':(l.length?'最高 '+best+' 分，要考到 100':'50 題，要考到 100'))+
-    '<div class="fx2">其他科目排在'+(f.key==='d1'?'明晚（10/28）複習':'考完後')+'，下面「全部試卷」也可以自己點來考。</div></div>';
+    '<button class="btn pri" id="fbig">🏆 '+(f.key==='d1'?'今晚':'今晚')+'大考：'+esc(fSubs(f))+'（隨時可以直接考）</button>'+
+    FOCUS.filter(function(g){return g.key!==f.key&&now()<parseLocal(g.end);}).map(function(g){return '<div class="lockb">🔒 明晚大考：'+esc(fSubs(g))+'（'+esc(FOCUS[0].day.replace(/（.*/,''))+' 下午 3 點開放）</div>';}).join('')+
+    '<div class="fx2">只考 '+esc(f.subs.join('、'))+'，不混入其他科目；1→4 是建議順序。</div></div>';
 }
 function nextStep(){
   var cf=curFocus();if(cf)return focusStep(cf);
@@ -1367,6 +1375,8 @@ function menu(k){
   if(k==='kp')return showKP();
   if(k==='rec')return showRecords();
   if(k==='psg')return showPsg('talent');
+  if(k==='sboost'){var f1=curFocus();if(f1)return startSBoost(f1);}
+  if(k==='sbig'){var f2=curFocus();if(f2)return startSBig(f2);}
   if(k==='set')return showSettings();
   if(k==='boost'){if(papersDone()<PORDER.length)return toast('先把 '+PORDER.length+' 份試卷都考過一次喔');return startBoost();}
   if(k==='big'){if(!S.boostDone)return toast('加強考試全部答對後才開放');return startBig();}
@@ -1653,8 +1663,8 @@ function showResult(at,fresh){
   h+='</div>';
   var wrongIds=[];each(rows,function(r){if(r[2]<r[3])wrongIds.push(r[0]);});
   if(fresh&&wrongIds.length){
-    if(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone)h+='<button class="btn pri big" id="toBoost">💪 全部試卷都考完了！去加強考試</button>';
-    h+='<button class="btn '+(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone?'':'pri ')+'big" id="fixNow">🎯 馬上練這次的 '+wrongIds.length+' 題錯題</button>';
+    if(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone&&!curFocus())h+='<button class="btn pri big" id="toBoost">💪 全部試卷都考完了！去加強考試</button>';
+    h+='<button class="btn '+(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone&&!curFocus()?'':'pri ')+'big" id="fixNow">🎯 馬上練這次的 '+wrongIds.length+' 題錯題</button>';
   }else if(fresh&&at.k==='paper'){var nx=nextStep();if(nx)h+='<button class="btn pri big" id="nx">'+esc(nx.label)+'</button>';}
   if(fresh&&(at.k==='big'||at.k==='sbig')&&at.sc<100)h+='<div class="fixinfo c">下一次大考會再考這次錯的題目（換順序、換選項位置）</div>';
   h+='<div class="tabs"><button class="tab on" data-f="all">全部解析（'+rows.length+'）</button><button class="tab" data-f="wrong">只看錯題（'+wrongIds.length+'）</button></div><div id="alist"></div>';
@@ -1736,11 +1746,13 @@ function showPsg(key){
 }
 /* ---------- 錯題本 ---------- */
 function showBook(filter){
-  var all=wbList(),f=filter||'';
-  var h=bar('📒 錯題本')+'<div class="tabs"><button class="tab'+(f===''?' on':'')+'" data-f="">未訂正（'+unfixed().length+'）</button><button class="tab'+(f==='all'?' on':'')+'" data-f="all">全部（'+all.length+'）</button>';
-  each(PORDER,function(p){var n=all.filter(function(id){return Q[id].pid===p;}).length;if(n)h+='<button class="tab'+(f===p?' on':'')+'" data-f="'+p+'">'+esc(PMAP[p].name)+'（'+n+'）</button>';});
+  var cf=curFocus(),all=wbList().filter(inF(cf)),f=filter||'';
+  function unf(){return all.filter(function(id){return !S.wb[id].fx;});}
+  var h=bar('📒 錯題本')+'<div class="tabs"><button class="tab'+(f===''?' on':'')+'" data-f="">'+(cf?'今晚範圍未訂正':'未訂正')+'（'+unf().length+'）</button><button class="tab'+(f==='all'?' on':'')+'" data-f="all">全部（'+all.length+'）</button>';
+  each(PORDER,function(p){if(cf&&!has(cf.subs,PMAP[p].subj))return;var n=all.filter(function(id){return Q[id].pid===p;}).length;if(n)h+='<button class="tab'+(f===p?' on':'')+'" data-f="'+p+'">'+esc(PMAP[p].name)+'（'+n+'）</button>';});
   var nk=all.filter(function(id){return Q[id].pid==='kp';}).length;if(nk)h+='<button class="tab'+(f==='kp'?' on':'')+'" data-f="kp">重點題（'+nk+'）</button>';
   h+='</div>';
+  if(cf)h+='<div class="fixinfo">只顯示 '+esc(cf.day)+' 要考的 '+esc(cf.subs.join('、'))+'，其他科目考完再複習。</div>';
   var ids=all.filter(function(id){if(f==='')return !S.wb[id].fx;if(f==='all')return true;return Q[id].pid===f;});
   ids.sort(function(a,b){return S.wb[b].wc-S.wb[a].wc||S.wb[b].lw-S.wb[a].lw;});
   var uf=ids.filter(function(id){return !S.wb[id].fx;});
@@ -1758,7 +1770,8 @@ function showBook(filter){
 function showKP(){
   var cnt={};each(wbList(),function(id){if(!S.wb[id].fx)cnt[Q[id].kp]=(cnt[Q[id].kp]||0)+1;});
   var h=bar('⭐ 重點整理')+'<div class="fixinfo">考試常考的規則，所有英文字都可以點來查意思、聽發音。紅色數字是這個重點還沒訂正的錯題。</div>';
-  each(SUBJ,function(sj){h+='<div class="sec">'+SUBJ_ZH[sj]+'</div>';
+  var cfk=curFocus();
+  each(SUBJ,function(sj){if(cfk&&!has(cfk.subs,sj))return;h+='<div class="sec">'+SUBJ_ZH[sj]+'</div>';
     each(KPS,function(k){if(k.subj!==sj)return;h+='<div class="kpc"><div class="ct">'+esc(k.name)+(cnt[k.id]?' <span class="cnt">'+cnt[k.id]+'</span>':'')+'</div><div>'+rich(k.rule,1)+'</div>'+(k.ex.length?'<div class="kex">'+k.ex.map(function(x){return '<span class="pk">'+rich(x,1)+' '+spk(x)+'</span>';}).join('')+'</div>':'')+
       (cnt[k.id]?'<button class="btn sm" data-kpf="'+k.id+'">練這個重點的錯題</button>':'')+'</div>';});});
   setView(h);
