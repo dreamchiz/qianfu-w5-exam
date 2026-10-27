@@ -249,6 +249,21 @@ s.bad{text-decoration:line-through}
 .pn{display:inline-block;background:#fff0e2;color:#c2410c;border-radius:8px;padding:0 8px;font-size:13px;font-weight:bold;margin-right:6px}
 .psb{background:#eef5ff;border-color:#cfe0ff;color:#1d4ed8}
 .schl{text-align:center;background:#fde2e1;color:#b42318;border-radius:14px;padding:12px;margin:10px 0;font-weight:bold}
+
+.focus{background:#fff;border:3px solid #ff7a45;border-radius:18px;padding:12px 14px;margin:6px 0 10px}
+.fh{font-weight:bold;font-size:18px;color:#c2410c;margin-bottom:6px}
+.frow{position:relative;padding:6px 0 6px 40px;min-height:36px;border-top:1px dashed #eee2d3;line-height:1.4}
+.frow:first-of-type{border-top:0}
+.frow b{display:block;font-size:16px}
+.frow small{color:#6f6a7c;font-size:13px}
+.fn{position:absolute;left:0;top:8px;width:28px;height:28px;line-height:28px;text-align:center;border-radius:14px;background:#eee2d3;color:#6f6a7c;font-weight:bold}
+.frow.now .fn{background:#ff7a45;color:#fff}
+.frow.ok .fn{background:#22a05b;color:#fff}
+.frow.ok b{color:#167a43}
+.fx2{font-size:13px;color:#6f6a7c;margin-top:6px}
+.sec.big3{font-size:18px;color:#2a2733;border-top:2px solid #eee2d3;padding-top:12px}
+.tg1{background:#ff7a45;color:#fff;border-radius:8px;padding:0 6px;font-size:12px}
+.tg2{background:#eee2d3;color:#6f6a7c;border-radius:8px;padding:0 6px;font-size:12px}
 </style>
 </head>
 <body>
@@ -1116,6 +1131,20 @@ function markRight(id){var w=S.wb[id];if(w&&!w.fx){w.fx=1;w.fxAt=now();w.u=now()
 function unfixed(pid){var r=[],k;for(k in S.wb)if(S.wb.hasOwnProperty(k)&&Q[k]&&!S.wb[k].fx&&(!pid||Q[k].pid===pid))r.push(k);return r;}
 function wbList(){var r=[],k;for(k in S.wb)if(S.wb.hasOwnProperty(k)&&Q[k])r.push(k);return r;}
 
+/* ---------- 段考前夜衝刺（依日期自動切換科目） ---------- */
+var FOCUS=[
+ {key:'d1',end:'2026-10-28T15:00',day:'10/28（三）',subs:['Reading','Phonics'],core:['p7','p5'],extra:['p1','p3']},
+ {key:'d2',end:'2026-10-29T15:00',day:'10/29（四）',subs:['Science','Grammar'],core:['p9','p6'],extra:['p8','p2','p4']}];
+function parseLocal(s){var m=s.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)/);return new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]).getTime();}
+function curFocus(){var t=now(),i;for(i=0;i<FOCUS.length;i++)if(t<parseLocal(FOCUS[i].end))return FOCUS[i];return null;}
+function fByKey(k){var i;for(i=0;i<FOCUS.length;i++)if(FOCUS[i].key===k)return FOCUS[i];return null;}
+function subjOf(id){var q=Q[id];if(!q)return '';return q.pid==='kp'?KMAP[q.kp].subj:PMAP[q.pid].subj;}
+function inF(f){return function(id){return !f||has(f.subs,subjOf(id));};}
+function examDone(sj){var t=now(),i;for(i=0;i<FOCUS.length;i++)if(has(FOCUS[i].subs,sj)&&t>=parseLocal(FOCUS[i].end))return true;return false;}
+function fSubs(f){return f.subs.join('＋');}
+function spOf(f){if(!S.sp)S.sp={};return S.sp[f.key]||(S.sp[f.key]={});}
+function sbigs(f){return ATT.filter(function(a){return a.k==='sbig'&&a.fk===f.key;});}
+function sbigPassed(f){var l=sbigs(f),i;for(i=0;i<l.length;i++)if(l[i].sc===100)return l[i].d;return 0;}
 /* 紀錄 */
 function attsOf(kind,pid){var r=[];each(ATT,function(a){if(a.k===kind&&(!pid||a.pid===pid))r.push(a);});return r;}
 function bestOf(list){var b=-1;each(list,function(a){if(a.sc>b)b=a.sc;});return b;}
@@ -1132,13 +1161,14 @@ function req(method,url,body,cb){
     x.onreadystatechange=function(){if(x.readyState!==4)return;var j=null;try{j=JSON.parse(x.responseText);}catch(e){}cb(x.status,j);};
     x.send(body?JSON.stringify(body):null);}catch(e){cb(0,null);}
 }
-function shared(){return {v:1,created:S.created,wb:S.wb,boostDone:S.boostDone,mail:S.mail,cfgAt:S.cfgAt||0,att:ATT};}
+function shared(){return {v:1,created:S.created,wb:S.wb,boostDone:S.boostDone,sp:S.sp||{},mail:S.mail,cfgAt:S.cfgAt||0,att:ATT};}
 function merge(r){
   if(!r||!r.wb)return false;
   var before=JSON.stringify(shared()),k;
   for(k in r.wb)if(r.wb.hasOwnProperty(k)){var a=S.wb[k],b=r.wb[k];if(!a||(b.u||0)>(a.u||0))S.wb[k]=b;}
   applySchool();
   if(r.boostDone&&(!S.boostDone||r.boostDone<S.boostDone))S.boostDone=r.boostDone;
+  if(r.sp){if(!S.sp)S.sp={};for(k in r.sp)if(r.sp.hasOwnProperty(k)){var x=S.sp[k]||(S.sp[k]={}),y=r.sp[k];if(y.boost&&(!x.boost||y.boost<x.boost))x.boost=y.boost;}}
   if(r.created&&r.created<S.created)S.created=r.created;
   if((r.cfgAt||0)>(S.cfgAt||0)){S.cfgAt=r.cfgAt;if(r.mail)S.mail=r.mail;}
   var have={};each(ATT,function(a){have[a.id]=1;});
@@ -1258,25 +1288,29 @@ document.addEventListener('click',function(e){
 /* ---------- 首頁 ---------- */
 var SUBJ=['Phonics','Grammar','Reading','Science'];
 var SUBJ_ZH={Phonics:'🔤 Phonics 發音',Grammar:'🧩 Grammar 文法',Reading:'📖 Reading 閱讀',Science:'🔬 Science 科學'};
-function kindName(a){if(a.k==='paper')return PMAP[a.pid]?PMAP[a.pid].name:'試卷';if(a.k==='boost')return '加強考試';if(a.k==='big')return '混合大考';if(a.k==='fix')return '錯題練習';return a.k;}
+function kindName(a){if(a.k==='paper')return PMAP[a.pid]?PMAP[a.pid].name:'試卷';if(a.k==='boost')return '加強考試';if(a.k==='big')return '混合大考';if(a.k==='fix')return '錯題練習';var f=fByKey(a.fk);if(a.k==='sboost')return '衝刺加強（'+(f?fSubs(f):'')+'）';if(a.k==='sbig')return '衝刺大考（'+(f?fSubs(f):'')+'）';return a.k;}
 function goHome(){
   
   var done=papersDone(),total=PORDER.length,boostOK=done===total,bigOK=!!S.boostDone,lb=lastBig(),bp=bigPassed(),uf=unfixed().length;
   var ed=examDate(),dd=ed?daysUntil(ed):null;
   var h='<div class="hero"><div class="h-sm">千賦 · ESL 4</div><div class="h-t">期中考 總複習</div>'+
     (dd!==null&&dd>=0?'<div class="cd">距離段考還有 <b>'+dd+'</b> 天</div>':'')+'</div>';
-  h+='<div class="steps">'+
+  var cf=curFocus();
+  if(cf)h+=focusCard(cf);
+  else h+='<div class="steps">'+
     stepBox(1,'各科試卷考試',done+' / '+total+' 份考過',done===total)+
     stepBox(2,'加強考試',bigOK?'已完成 ✅':(boostOK?'可以開始':'考完全部試卷才開放'),bigOK)+
     stepBox(3,'混合大考',bp?'已拿過 100 分 🏆':(lb?'最高 '+bestOf(attsOf('big'))+' 分':(bigOK?'可以開始':'加強考試全對才開放')),!!bp)+'</div>';
   var nx=nextStep();
   if(CUR)h+='<button class="btn pri big" id="resume">▶ 繼續：'+esc(CUR.title)+'（'+Math.min(CUR.i+1,CUR.list.length)+'/'+CUR.list.length+'）</button>';
   else if(nx)h+='<button class="btn pri big" id="next">'+esc(nx.label)+'</button>'+(nx.sub?'<div class="fixinfo">'+esc(nx.sub)+'</div>':'');
-  if(typeof SCHOOL_WRONG!=='undefined'){var sl0=schoolLeft();h+=sl0.length?'<div class="schl">📌 學校考卷錯題：還有 <b>'+sl0.length+'</b> 題沒通過</div>':'<div class="done">✅ 學校考卷錯的 '+SCHOOL_WRONG.ids.length+' 題已全部練對（大考還會再考）</div>';}
+  if(!cf&&typeof SCHOOL_WRONG!=='undefined'){var sl0=schoolLeft();h+=sl0.length?'<div class="schl">📌 學校考卷錯題：還有 <b>'+sl0.length+'</b> 題沒通過</div>':'<div class="done">✅ 學校考卷錯的 '+SCHOOL_WRONG.ids.length+' 題已全部練對（大考還會再考）</div>';}
   if(bp)h+='<div class="trophy">🏆 混合大考 100 分過關！（'+fmtTime(bp)+'）段考前每天再考一次保持手感</div>';
   /* 試卷 */
-  each(SUBJ,function(sj){
-    h+='<div class="sec">'+SUBJ_ZH[sj]+'</div>';
+  if(cf)h+='<div class="sec big3">全部試卷</div>';
+  var subOrder=cf?cf.subs.concat(SUBJ.filter(function(s){return !has(cf.subs,s);})):SUBJ;
+  each(subOrder,function(sj){
+    h+='<div class="sec">'+SUBJ_ZH[sj]+(cf?(has(cf.subs,sj)?' <span class="tg1">'+esc(cf.day)+'考</span>':(examDone(sj)?' <span class="tg2">已考完</span>':' <span class="tg2">之後再複習</span>')):'')+'</div>';
     each(PORDER,function(pid){var p=PMAP[pid];if(p.subj!==sj)return;var l=attsOf('paper',pid),b=bestOf(l),u=unfixed(pid).length;
       h+='<div class="pc" data-paper="'+pid+'"><span class="pi">'+p.icon+'</span><div class="pb"><b>'+esc(p.name)+'</b><small>'+esc(p.sub)+'</small>'+
         '<small class="ps">'+(l.length?('考過 '+l.length+' 次・最高 <b class="'+(b===100?'g':'')+'">'+b+'</b> 分'+(u?'・錯題 '+u:'')):'還沒考 · '+p.qids.length+' 題')+'</small></div><span class="pgo">'+(l.length?'再考':'開始')+' ›</span></div>';});
@@ -1293,7 +1327,33 @@ function goHome(){
 }
 function stepBox(n,t,s,ok){return '<div class="st'+(ok?' ok':'')+'"><span class="sn">'+(ok?'✓':n)+'</span><b>'+t+'</b><small>'+esc(s)+'</small></div>';}
 function mb(k,t,s){return '<button class="mb" data-m="'+k+'">'+t+'<small>'+esc(s)+'</small></button>';}
+function focusStep(f){
+  var sp=spOf(f),sl=schoolLeft().filter(inF(f)),i;
+  if(sl.length)return {n:1,label:'📌 先練學校考卷錯的 '+sl.length+' 題（'+fSubs(f)+'）',sub:'紙本複習卷上錯的題目，練到全對才算通過',go:function(){startFix(sl,'學校考卷錯題（'+fSubs(f)+'）');}};
+  for(i=0;i<f.core.length;i++)if(!attsOf('paper',f.core[i]).length){var p=PMAP[f.core[i]];return {n:2,label:'📝 考：'+p.name,sub:'段考複習卷最接近真正的考卷，先考這份',go:function(){startPaper(p.id);}};}
+  if(!sp.boost)return {n:3,label:'💪 衝刺加強（'+fSubs(f)+'）',sub:'這兩科所有錯題＋重點題，答錯會再出現，直到全對',go:function(){startSBoost(f);}};
+  var l=sbigs(f),lb=l.length?l[l.length-1]:null;
+  if(!sbigPassed(f)){
+    if(lb&&lb.sc<100){var w=[];each(lb.q,function(r){if(r[2]<r[3]&&S.wb[r[0]]&&!S.wb[r[0]].fx)w.push(r[0]);});
+      if(w.length)return {n:4,label:'🎯 先練上次衝刺大考的 '+w.length+' 題錯題',sub:'練到全對，再考下一次（下一次也會再考這些題）',go:function(){startFix(w,'衝刺大考錯題');}};}
+    return {n:4,label:'🏆 衝刺大考（'+fSubs(f)+'，50 題）',sub:lb?('上次 '+lb.sc+' 分，考到 100 分才過關'):'只考這兩科，含錯題與重點',go:function(){startSBig(f);}};}
+  for(i=0;i<f.extra.length;i++)if(!attsOf('paper',f.extra[i]).length){var p2=PMAP[f.extra[i]];return {n:5,label:'📝 有時間再考：'+p2.name,sub:'衝刺大考已過關！這份小考也做一次更穩',go:function(){startPaper(p2.id);}};}
+  return {n:6,label:'🏆 再考一次衝刺大考（保持手感）',sub:'已經全部過關，考前再熱身一次',go:function(){startSBig(f);}};
+}
+function focusCard(f){
+  var sp=spOf(f),sl=schoolLeft().filter(inF(f)),st=focusStep(f).n,done=function(n){return st>n;};
+  var coreLeft=f.core.filter(function(p){return !attsOf('paper',p).length;}).length,l=sbigs(f),best=bestOf(l);
+  function row(n,t,s){return '<div class="frow'+(done(n)?' ok':st===n?' now':'')+'"><span class="fn">'+(done(n)?'✓':n)+'</span><b>'+t+'</b><small>'+s+'</small></div>';}
+  var isTonight=f.key==='d1'?'今晚':'今晚';
+  return '<div class="focus"><div class="fh">🔥 '+isTonight+'衝刺：'+esc(f.day)+'考 '+esc(f.subs.join('、'))+'</div>'+
+    row(1,'學校考卷錯題',sl.length?'還有 '+sl.length+' 題':((typeof SCHOOL_WRONG!=='undefined'&&SCHOOL_WRONG.ids.filter(inF(f)).length)?'已全部練對':'這兩科目前沒有紙本錯題'))+
+    row(2,'段考複習卷',f.core.map(function(p){return PMAP[p].name.replace(' 段考複習卷','');}).join('、')+(coreLeft?'（還有 '+coreLeft+' 份）':'（已考）'))+
+    row(3,'衝刺加強','錯題＋重點，全對才過')+
+    row(4,'衝刺大考',sbigPassed(f)?'100 分過關 🏆':(l.length?'最高 '+best+' 分，要考到 100':'50 題，要考到 100'))+
+    '<div class="fx2">其他科目排在'+(f.key==='d1'?'明晚（10/28）複習':'考完後')+'，下面「全部試卷」也可以自己點來考。</div></div>';
+}
 function nextStep(){
+  var cf=curFocus();if(cf)return focusStep(cf);
   var i,sl=schoolLeft();
   if(sl.length)return {label:'📌 先練學校考卷錯的 '+sl.length+' 題',sub:'千賦在學校紙本複習卷上錯的題目，練到全對才算通過（之後加強考試、大考還會再考）',go:function(){startFix(sl,'學校考卷錯題');}};for(i=0;i<PORDER.length;i++)if(!attsOf('paper',PORDER[i]).length){var p=PMAP[PORDER[i]];return {label:'📝 開始考：'+p.name,sub:'第 1 步：每份試卷都先考一次（還有 '+(PORDER.length-papersDone())+' 份）',go:function(){startPaper(p.id);}};}
   if(!S.boostDone)return {label:'💪 開始加強考試',sub:'第 2 步：所有錯題＋重點，答錯的會再出現，直到全對',go:startBoost};
@@ -1334,6 +1394,16 @@ function startBoost(){
   if(CUR&&!confirm('你還有「'+CUR.title+'」沒做完，要放棄它嗎？'))return;
   var list=genBoost();newCur('prac','boost','加強考試',list,{total:list.length});renderIntro();
 }
+function startSBoost(f){
+  if(CUR&&CUR.k==='sboost')return resume();
+  if(CUR&&!confirm('你還有「'+CUR.title+'」沒做完，要放棄它嗎？'))return;
+  var list=genBoost(f);newCur('prac','sboost','衝刺加強（'+fSubs(f)+'）',list,{total:list.length,fk:f.key});renderIntro();
+}
+function startSBig(f){
+  if(CUR&&CUR.k==='sbig')return resume();
+  if(CUR&&!confirm('你還有「'+CUR.title+'」沒做完，要放棄它改考大考嗎？'))return;
+  var list=genBig(f);newCur('test','sbig','衝刺大考（'+fSubs(f)+'）',list,{fk:f.key});renderTest();
+}
 function startFix(list,title){
   if(!list.length)return toast('目前沒有未訂正的錯題 👍');
   if(CUR&&!confirm('你還有「'+CUR.title+'」沒做完，要放棄它嗎？'))return;
@@ -1342,10 +1412,10 @@ function startFix(list,title){
 function resume(){if(!CUR)return goHome();if(CUR.mode==='test')renderTest();else renderPrac();}
 
 /* 加強考試：所有未訂正錯題＋重點題 */
-function genBoost(){
-  var wr=unfixed(),cnt={},k,out=[],used={};
-  each(wbList(),function(id){var kp=Q[id].kp;cnt[kp]=(cnt[kp]||0)+1;});
-  each(KPS,function(kp){
+function genBoost(f){
+  var wr=unfixed().filter(inF(f)),cnt={},k,out=[],used={};
+  each(wbList().filter(inF(f)),function(id){var kp=Q[id].kp;cnt[kp]=(cnt[kp]||0)+1;});
+  each(KPS,function(kp){if(f&&!has(f.subs,kp.subj))return;
     var mine=[];each(wr,function(id){if(Q[id].kp===kp.id){mine.push(id);used[id]=1;}});
     var n=cnt[kp.id]?Math.min(3,KQ[kp.id].length):Math.min(1,KQ[kp.id].length);
     var kq=shuffle(KQ[kp.id]).filter(function(id){return !used[id];}).slice(0,n);
@@ -1355,9 +1425,9 @@ function genBoost(){
   return out;
 }
 /* 混合大考：上次錯題＋未訂正＋重點＋各卷 */
-function genBig(){
-  var lb=lastBig(),pick=[],seen={},i;
-  function add(id){if(!seen[id]&&Q[id]&&pick.length<BIG_N){seen[id]=1;pick.push(id);}}
+function genBig(f){
+  var lbl=f?sbigs(f):attsOf('big'),lb=lbl.length?lbl[lbl.length-1]:null,pick=[],seen={},i,ok=inF(f);
+  function add(id){if(!seen[id]&&Q[id]&&ok(id)&&pick.length<BIG_N){seen[id]=1;pick.push(id);}}
   var lastIds={};if(lb)each(lb.q,function(r){lastIds[r[0]]=1;});
   if(lb){var lw=[];each(lb.q,function(r){if(r[2]<r[3])lw.push(r[0]);});each(lw.slice(0,20),add);}
   if(typeof SCHOOL_WRONG!=='undefined')each(SCHOOL_WRONG.ids,add);
@@ -1365,11 +1435,12 @@ function genBig(){
   var everW=wbList().filter(function(id){return !seen[id];});each(shuffle(everW).slice(0,6),add);
   /* 重點題：先挑錯最多的重點 */
   var kc={};each(wbList(),function(id){kc[Q[id].kp]=(kc[Q[id].kp]||0)+S.wb[id].wc;});
-  var kps=shuffle(KPS.map(function(k){return k.id;})).sort(function(a,b){return (kc[b]||0)-(kc[a]||0);});
+  var kps=shuffle(KPS.filter(function(k){return !f||has(f.subs,k.subj);}).map(function(k){return k.id;})).sort(function(a,b){return (kc[b]||0)-(kc[a]||0);});
   var nk=0;for(i=0;i<kps.length&&nk<10;i++){var cand=shuffle(KQ[kps[i]]).filter(function(id){return !seen[id]&&!lastIds[id];});if(cand.length){add(cand[0]);nk++;}}
   /* 其餘：各卷平均，避開上一卷用過的 */
-  var pools={};each(PORDER,function(p){pools[p]=shuffle(PMAP[p].qids.filter(function(id){return !seen[id];})).sort(function(a,b){return (lastIds[a]?1:0)-(lastIds[b]?1:0);});});
-  var guard=0;while(pick.length<BIG_N&&guard<500){guard++;each(PORDER,function(p){if(pick.length<BIG_N&&pools[p].length)add(pools[p].shift());});}
+  var pord=PORDER.filter(function(p){return !f||has(f.subs,PMAP[p].subj);});
+  var pools={};each(pord,function(p){pools[p]=shuffle(PMAP[p].qids.filter(function(id){return !seen[id];})).sort(function(a,b){return (lastIds[a]?1:0)-(lastIds[b]?1:0);});});
+  var guard=0;while(pick.length<BIG_N&&guard<500){guard++;each(pord,function(p){if(pick.length<BIG_N&&pools[p].length)add(pools[p].shift());});}
   /* 依科目排序 */
   var order={};each(SUBJ,function(s,i2){order[s]=i2;});
   function sj(id){var q=Q[id];return q.pid==='kp'?KMAP[q.kp].subj:PMAP[q.pid].subj;}
@@ -1515,12 +1586,12 @@ function plainQ(q){if(q.p)return strip(q.p);if(q.h)return q.h;if(q.w)return q.w;
 
 /* 交卷 */
 function finishTest(){
-  var rows=[],earned=0,total=0,right=0,isBig=CUR.k==='big';
+  var rows=[],earned=0,total=0,right=0,isBig=CUR.k==='big'||CUR.k==='sbig';
   each(CUR.list,function(id){var q=Q[id],a=CUR.ans[id],g=grade(q,a),pts=isBig?2:qPts(q);
     var e=Math.round(g*pts*100)/100;earned+=e;total+=pts;if(g===1){right++;markRight(id);}else markWrong(id);
     rows.push([id,a==null?null:a,e,pts]);});
   var sc=isBig?Math.round(earned):Math.round(earned/total*100);
-  var at={id:'m'+now()+'_'+rnd(1000),k:CUR.k,pid:CUR.pid||'',d:now(),du:Math.round((now()-CUR.t0)/1000),sc:sc,r:right,n:CUR.list.length,q:rows};
+  var at={id:'m'+now()+'_'+rnd(1000),k:CUR.k,pid:CUR.pid||'',fk:CUR.fk||'',d:now(),du:Math.round((now()-CUR.t0)/1000),sc:sc,r:right,n:CUR.list.length,q:rows};
   ATT.push(at);CUR=null;saveCur();queueMail(at);save();flushMail();schedSync(500);
   showResult(at,true);
 }
@@ -1528,7 +1599,7 @@ function finishTest(){
 /* ---------- 練習模式（加強考試、錯題練習：答完立刻看對錯，錯了會再出現） ---------- */
 function renderIntro(){
   var n=CUR.list.length,wn=0;each(CUR.list,function(id){if(S.wb[id]&&!S.wb[id].fx)wn++;});
-  setView(bar('加強考試')+'<div class="card"><div class="ct">💪 加強考試</div><p>這次有 <b>'+n+'</b> 題：</p><p>・<b>'+wn+'</b> 題是之前考錯的題目<br>・<b>'+(n-wn)+'</b> 題是各個重點的練習題</p><p>每題答完馬上告訴你對錯。答錯會看到解析，那一題<b>過幾題會再考一次</b>，全部答對才完成。</p><p class="zhs">可以隨時回首頁休息，進度會保留。</p></div><button class="btn pri big" id="go">開始 ›</button>');
+  setView(bar(CUR.title)+'<div class="card"><div class="ct">💪 '+esc(CUR.title)+'</div><p>這次有 <b>'+n+'</b> 題：</p><p>・<b>'+wn+'</b> 題是之前考錯的題目<br>・<b>'+(n-wn)+'</b> 題是各個重點的練習題</p><p>每題答完馬上告訴你對錯。答錯會看到解析，那一題<b>過幾題會再考一次</b>，全部答對才完成。</p><p class="zhs">可以隨時回首頁休息，進度會保留。</p></div><button class="btn pri big" id="go">開始 ›</button>');
   on('go','click',renderPrac);
 }
 function renderPrac(keep){
@@ -1556,13 +1627,14 @@ function finishPrac(){
   var ids=keys(CUR.first),right=0,rows=[];
   each(ids,function(id){var f=CUR.first[id];if(f[1]===1)right++;rows.push([id,f[0],f[1]===1?2:Math.round(f[1]*2*100)/100,2]);});
   var sc=ids.length?Math.round(right/ids.length*100):100;
-  var at={id:'m'+now()+'_'+rnd(1000),k:CUR.k,pid:'',d:now(),du:Math.round((now()-CUR.t0)/1000),sc:sc,r:right,n:ids.length,q:rows};
-  var wasBoost=CUR.k==='boost';
-  ATT.push(at);if(wasBoost&&!S.boostDone)S.boostDone=now();CUR=null;saveCur();queueMail(at);save();flushMail();schedSync(500);
+  var at={id:'m'+now()+'_'+rnd(1000),k:CUR.k,pid:'',fk:CUR.fk||'',d:now(),du:Math.round((now()-CUR.t0)/1000),sc:sc,r:right,n:ids.length,q:rows};
+  var wasBoost=CUR.k==='boost',wasS=CUR.k==='sboost',sf=fByKey(CUR.fk);
+  ATT.push(at);if(wasBoost&&!S.boostDone)S.boostDone=now();if(wasS&&sf&&!spOf(sf).boost)spOf(sf).boost=now();CUR=null;saveCur();queueMail(at);save();flushMail();schedSync(500);
   var h=bar(kindName(at))+'<div class="done big2">🎉 全部答對了！</div><div class="card c"><div class="score">'+sc+'<small>%</small></div><div class="zhs">第一次就答對 '+right+' / '+ids.length+' 題（其他的都已經練到對）</div><div class="zhs">用時 '+fmtDur(at.du)+'</div></div>'+
     (wasBoost?'<div class="trophy">🏆 混合大考已開放！</div><button class="btn pri big" id="tobig">🏆 去考混合大考</button>':'')+
+    (wasS&&sf?'<div class="trophy">🏆 衝刺大考已開放！</div><button class="btn pri big" id="tosbig">🏆 去考衝刺大考（'+esc(fSubs(sf))+'）</button>':'')+
     '<button class="btn" id="seeall">看這次的題目解析</button><button class="btn ghost" data-go="home">回首頁</button>';
-  setView(h);on('tobig','click',startBig);on('seeall','click',function(){showResult(at,false);});
+  setView(h);on('tobig','click',startBig);on('tosbig','click',function(){startSBig(sf);});on('seeall','click',function(){showResult(at,false);});
 }
 
 /* ---------- 成績單＋全卷解析 ---------- */
@@ -1574,7 +1646,7 @@ function showResult(at,fresh){
   var h=bar(kindName(at)+(isPrac?'':' 成績'));
   var cls=at.sc===100?'g':(at.sc>=80?'o':'r');
   h+='<div class="card c"><div class="score '+cls+'">'+at.sc+'<small>'+(isPrac?'%':' 分')+'</small></div><div class="zhs">'+(isPrac?'第一次就答對 ':'答對 ')+at.r+' / '+at.n+' 題 · 用時 '+fmtDur(at.du)+' · '+fmtTime(at.d)+'</div>'+
-    (at.k==='big'&&at.sc===100?'<div class="trophy">🏆 100 分！混合大考過關！</div>':'')+
+    ((at.k==='big'||at.k==='sbig')&&at.sc===100?'<div class="trophy">🏆 100 分！'+esc(kindName(at))+'過關！</div>':'')+
     (at.k==='paper'&&at.sc===100?'<div class="trophy">💯 這份考卷滿分！</div>':'')+'</div>';
   h+='<div class="card"><div class="ct">各部分得分</div>';
   each(keys(byPart),function(k){var o=byPart[k],pc=o.t?Math.round(o.e/o.t*100):0;h+='<div class="prow"><span class="pl">'+esc(k)+'</span><span class="pbar"><i style="width:'+pc+'%" class="'+(pc===100?'g':pc>=70?'o':'r')+'"></i></span><span class="pr">'+o.r+'/'+o.n+'</span></div>';});
@@ -1584,7 +1656,7 @@ function showResult(at,fresh){
     if(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone)h+='<button class="btn pri big" id="toBoost">💪 全部試卷都考完了！去加強考試</button>';
     h+='<button class="btn '+(at.k==='paper'&&papersDone()===PORDER.length&&!S.boostDone?'':'pri ')+'big" id="fixNow">🎯 馬上練這次的 '+wrongIds.length+' 題錯題</button>';
   }else if(fresh&&at.k==='paper'){var nx=nextStep();if(nx)h+='<button class="btn pri big" id="nx">'+esc(nx.label)+'</button>';}
-  if(fresh&&at.k==='big'&&at.sc<100)h+='<div class="fixinfo c">下一次大考會再考這次錯的題目（換順序、換選項位置）</div>';
+  if(fresh&&(at.k==='big'||at.k==='sbig')&&at.sc<100)h+='<div class="fixinfo c">下一次大考會再考這次錯的題目（換順序、換選項位置）</div>';
   h+='<div class="tabs"><button class="tab on" data-f="all">全部解析（'+rows.length+'）</button><button class="tab" data-f="wrong">只看錯題（'+wrongIds.length+'）</button></div><div id="alist"></div>';
   h+='<button class="btn ghost" data-go="home">回首頁</button>';
   setView(h);
@@ -1728,7 +1800,7 @@ app=$('app');load();loadSy();goHome();
 if(fbOn())setTimeout(function(){syncNow();},300);
 setTimeout(flushMail,2000);
 document.addEventListener('visibilitychange',function(){if(!document.hidden&&fbOn())schedSync(500);},false);
-window.__T={showPsg:showPsg,schoolLeft:schoolLeft,cur:function(){return CUR;},startPaper:startPaper,startBig:startBig,startBoost:startBoost,goHome:goHome,showBook:showBook,showKP:showKP,showRecords:showRecords,showSettings:showSettings,renderPrac:renderPrac,ATT:function(){return ATT;},reviewCard:reviewCard,kpCard:kpCard,rich:rich,KPS:KPS,Q:Q,grade:grade,genBig:genBig,genBoost:genBoost,PMAP:PMAP,KQ:KQ,S:function(){return S;},lookup:lookup,speakText:speakText,audKey:audKey};
+window.__T={curFocus:curFocus,focusStep:focusStep,FOCUS:FOCUS,startSBig:startSBig,startSBoost:startSBoost,showPsg:showPsg,schoolLeft:schoolLeft,cur:function(){return CUR;},startPaper:startPaper,startBig:startBig,startBoost:startBoost,goHome:goHome,showBook:showBook,showKP:showKP,showRecords:showRecords,showSettings:showSettings,renderPrac:renderPrac,ATT:function(){return ATT;},reviewCard:reviewCard,kpCard:kpCard,rich:rich,KPS:KPS,Q:Q,grade:grade,genBig:genBig,genBoost:genBoost,PMAP:PMAP,KQ:KQ,S:function(){return S;},lookup:lookup,speakText:speakText,audKey:audKey};
 })();
 </script>
 </body>
