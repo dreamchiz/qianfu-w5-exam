@@ -1,0 +1,1772 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="意帆國文">
+<meta name="theme-color" content="#F6F8FB">
+<title>意帆國文衝刺｜論語選</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* 版面概念：國中生的筆記本——紙張底色、紅筆標重點、藍筆寫答案；手機底部分頁，平板電腦左側分頁 */
+:root{
+  --paper:#F6F8FB;--sheet:#FFFFFF;--line:#E1E7F0;--rule:#C9D3E3;--ink:#1B2333;--ink2:#556074;
+  --red:#C8322E;--blue:#2350C8;--green:#1F8A4C;--ok:#17845A;--okbg:#E5F4EC;--bad:#C8322E;--badbg:#FBE9E8;--warn:#A86A00;--warnbg:#FFF4DC;
+  --hand:'LXGW WenKai TC','Kaiti TC','STKaiti','BiauKai',serif;--sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;--r:10px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#11151D;--sheet:#181E29;--line:#252D3B;--rule:#303A4C;--ink:#E7EBF3;--ink2:#9AA5B8;--red:#FF6E68;--blue:#86A6FF;--green:#55C98A;--ok:#4CC48C;--okbg:#173327;--bad:#FF6E68;--badbg:#3A1E1F;--warn:#F2B544;--warnbg:#382B12;color-scheme:dark}}
+:root[data-theme=dark]{--paper:#11151D;--sheet:#181E29;--line:#252D3B;--rule:#303A4C;--ink:#E7EBF3;--ink2:#9AA5B8;--red:#FF6E68;--blue:#86A6FF;--green:#55C98A;--ok:#4CC48C;--okbg:#173327;--bad:#FF6E68;--badbg:#3A1E1F;--warn:#F2B544;--warnbg:#382B12;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));-webkit-text-size-adjust:100%}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 28px}
+h1,h2,h3{font-family:var(--hand);text-wrap:balance;margin:0;line-height:1.3}
+h2{font-size:1.45rem}h3{font-size:1.15rem}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.r{color:var(--red)}.b{color:var(--blue)}
+u{text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:3px}
+p{margin:0}
+/* 標題列 */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 12px;padding-block:6px 12px;border-bottom:2px solid var(--ink)}
+.top h1{font-size:1.55rem;min-width:0}
+.top h1 small{display:block;font-family:var(--sans);font-size:.78rem;color:var(--ink2);font-weight:500;letter-spacing:.06em}
+.count{font-family:var(--mono);text-align:right;line-height:1.1}.count b{font-size:1.9rem;color:var(--red)}.count span{display:block;font-family:var(--sans);font-size:.74rem;color:var(--ink2)}
+.units{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+/* 分頁 */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--sheet);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom,0);padding-left:env(safe-area-inset-left,0);padding-right:env(safe-area-inset-right,0)}
+nav.tabs button{border:0;background:0 0;padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.78rem;color:var(--ink2);cursor:pointer;position:relative}
+nav.tabs svg{width:23px;height:23px}
+nav.tabs button[aria-current=true]{color:var(--red);font-weight:700}
+.dot{min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:.68rem;line-height:18px;padding:0 5px;position:absolute;top:3px;left:calc(50% + 6px);font-family:var(--mono)}
+.subtabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-top:14px;overflow-x:auto}
+.subtabs button{border:0;background:0 0;padding:8px 14px;font-weight:700;color:var(--ink2);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.subtabs button[aria-current=true]{color:var(--ink);border-bottom-color:var(--red)}
+/* 共用元件 */
+.section{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.label{font-size:.74rem;letter-spacing:.12em;color:var(--ink2);font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--rule);background:var(--sheet);border-radius:999px;padding:4px 13px;cursor:pointer;font-size:.9rem;line-height:1.5}
+.chip[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--sheet)}
+.chip.flag{border-color:var(--red);color:var(--red)}
+.btn{border:2px solid var(--ink);background:var(--ink);color:var(--sheet);border-radius:8px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:.98rem}
+.btn.ghost{background:0 0;color:var(--ink)}.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.sm{padding:5px 11px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--ink2);font-size:.9rem}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:1px 7px;letter-spacing:.03em;vertical-align:middle;white-space:nowrap}
+.pill.bad{background:var(--badbg);color:var(--bad)}.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.info{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}.pill.gray{background:var(--line);color:var(--ink2)}
+.stars{color:var(--warn);letter-spacing:1px;font-size:.84rem}
+.cols{display:grid;gap:14px}.cols>*{min-width:0}
+.meter{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.meter div{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.meter b{display:block;font-family:var(--mono);font-size:1.5rem;font-variant-numeric:tabular-nums}.meter span{font-size:.78rem;color:var(--ink2)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+.bar.red i{background:var(--red)}
+.banner{border:2px dashed var(--blue);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.banner ul{margin:0;padding-left:1.2em}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:grid;grid-template-columns:1.6em 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--paper)}
+.tasks li b.n{font-family:var(--mono);color:var(--red)}
+/* 架構 */
+.root{border:2px solid var(--ink);border-radius:var(--r);padding:12px 14px;font-family:var(--hand);font-size:1.15rem;background:var(--sheet)}
+.tree{display:grid;gap:10px}
+.node{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-align:left;background:var(--sheet);border:1.5px solid var(--rule);border-radius:8px;padding:10px 12px;cursor:pointer;width:100%}
+.node.main{border-color:var(--red);border-width:2px}
+.node.sum{border-color:var(--blue);border-style:dashed;border-width:2px}
+.node .k{font-family:var(--hand);font-weight:700;font-size:1.05rem}
+.node .s{display:block;font-size:.84rem;color:var(--ink2)}
+.node .tag{font-size:.75rem;font-weight:700;border-radius:4px;padding:1px 6px}
+.node.main .tag{background:var(--badbg);color:var(--red)}.node .tag{background:var(--line);color:var(--ink2)}.node.sum .tag{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}
+.seen{color:var(--ok);font-size:.8rem;white-space:nowrap}
+.branch{padding-left:18px;border-left:2px solid var(--rule);display:grid;gap:8px;margin-left:14px}
+/* 學習卡 */
+.learn h2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.learn .body{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.kt{border-collapse:collapse;width:100%;font-size:.95rem}
+.kt th,.kt td{border:1px solid var(--rule);padding:6px 9px;text-align:left;vertical-align:top}
+.kt th{background:var(--paper);white-space:nowrap}
+.kt tr.hl td{background:color-mix(in srgb,var(--red) 6%,transparent)}
+.tblwrap{overflow-x:auto}.kt.big{min-width:560px}
+.pts{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.why{background:var(--paper);border-left:4px solid var(--blue);padding:10px 12px;border-radius:0 8px 8px 0}
+.note{font-size:.93rem;color:var(--ink2)}
+.mnemo{border:2px dashed var(--blue);border-radius:var(--r);padding:10px 14px;font-family:var(--hand);font-size:1.08rem}
+.mnemo b{color:var(--blue)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--hand);font-size:1.15rem}
+.flow span{border:1.5px solid var(--rule);border-radius:8px;padding:4px 12px;background:var(--sheet)}
+.flow span.hot{border-color:var(--red);color:var(--red);font-weight:700}
+.flow i{font-style:normal;color:var(--ink2)}
+.stations{display:grid;gap:6px}
+.stations div{display:grid;grid-template-columns:4.2em 1fr;gap:10px;padding:7px 10px;background:var(--paper);border-radius:6px}
+.stations b{font-family:var(--hand);font-size:1.05rem}
+/* 動畫區 */
+.lab{border:1px solid var(--line);border-radius:var(--r);padding:12px;background:var(--sheet);display:flex;flex-direction:column;gap:10px}
+.lab h3{font-size:1.08rem;display:flex;gap:8px;align-items:center}
+.lab h3::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;overflow-x:auto}
+.stage svg{display:block;width:100%;height:auto;max-width:560px;margin:0 auto}
+.readout{padding:9px 12px;border-left:4px solid var(--blue);background:var(--paper);font-size:.96rem;min-height:2.4em;border-radius:0 6px 6px 0}
+.readout.bad{border-color:var(--red)}.readout.ok{border-color:var(--ok)}
+.matchgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.matchgrid button{border:1.5px solid var(--rule);background:var(--sheet);border-radius:8px;padding:8px;cursor:pointer;text-align:center;font-size:.95rem}
+.matchgrid button.sel{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,var(--sheet))}
+.matchgrid button.done{border-color:var(--ok);background:var(--okbg);color:var(--ok);cursor:default}
+.matchgrid button.no{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.jbars{display:grid;gap:6px}
+.jbars>div{display:grid;grid-template-columns:3.6em 1fr 3em;gap:8px;align-items:center;font-size:.9rem}
+.jbars .bar{height:12px}.jbars .bar i{transition:width .7s ease}
+.jbars em{font-style:normal;font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.stepper{display:flex;gap:6px;flex-wrap:wrap}
+.stepper button{border:1.5px solid var(--rule);background:var(--sheet);border-radius:999px;padding:3px 11px;cursor:pointer;font-size:.86rem}
+.stepper button[aria-current=true]{border-color:var(--red);background:var(--red);color:#fff}
+.tubes{display:flex;gap:16px;justify-content:center;align-items:flex-end;flex-wrap:wrap;padding:6px}
+.tube{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.84rem;text-align:center;max-width:7.5em}
+.tube .glass{width:44px;height:120px;border:2.5px solid var(--ink2);border-top:0;border-radius:0 0 22px 22px;position:relative;overflow:hidden}
+.tube .liq{position:absolute;left:0;right:0;bottom:0;height:62%;transition:background-color 1.4s ease}
+.tube .drop{position:absolute;left:50%;top:-14px;width:9px;height:12px;margin-left:-4.5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0}
+.tube .drop.go{animation:drop .7s ease-in forwards}
+@keyframes drop{0%{transform:translateY(0);opacity:1}85%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+.bath{position:relative;border-radius:10px;padding:8px 10px 14px;transition:background-color .6s}
+.bath.on{background:color-mix(in srgb,var(--red) 10%,transparent)}
+.bath.on::after{content:'♨ 隔水加熱中';position:absolute;right:8px;bottom:2px;font-size:.75rem;color:var(--red)}
+.slider{display:grid;grid-template-columns:5.5em 1fr 4.5em;gap:10px;align-items:center}
+.slider input{width:100%;accent-color:var(--red)}
+.slider output{font-family:var(--mono);text-align:right}
+/* 逐步圖解 */
+.walk .stage svg{max-width:420px}
+.wsvg .pt{transition:opacity .35s;cursor:pointer}
+.wsvg.dim .pt{opacity:.25}
+.wsvg .pt.hl{opacity:1!important;filter:drop-shadow(0 0 3px var(--red)) drop-shadow(0 0 7px var(--red))}
+.wsvg .lb,.wsvg .ar,.wsvg .rev{opacity:0;transition:opacity .4s}
+.wsvg .ar,.wsvg #wBolus,.wsvg .rev,.wsvg .lb line{pointer-events:none}.wsvg .lb{cursor:pointer}
+.wsvg .lb.show,.wsvg .ar.show,.wsvg .rev.show{opacity:1}
+.wsvg .lb.cur text{fill:var(--red)!important;font-weight:700}
+.mn{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--hand);font-size:1.15rem}
+.mn span{border:1.5px dashed var(--rule);border-radius:6px;padding:1px 9px;color:var(--ink2);transition:all .3s}
+.mn span.on{border-color:var(--blue);border-style:solid;color:var(--blue);font-weight:700}
+.wcard{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:3px;font-size:.95rem}
+.wcard:empty{display:none}
+.wcard li.warn b{color:var(--red)}
+/* 題目 */
+.qcard{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.qmeta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--ink2)}
+.qtext{font-size:1.06rem;font-weight:500}
+.fig{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px}
+.fig .qimg{display:block;max-width:100%;height:auto;margin:4px auto;background:#fff}
+.fig .qimg.wide{max-width:none;width:640px}
+.opt .oimg{display:block;max-width:120px;width:100%;height:auto;background:#fff;border-radius:4px}
+.fig svg{display:block;width:100%;max-width:440px;height:auto;margin:0 auto}
+.fig table{border-collapse:collapse;margin:0 auto;font-size:.88rem;font-variant-numeric:tabular-nums}
+.fig td,.fig th{border:1px solid var(--rule);padding:4px 9px;text-align:center}
+.fig th{background:var(--sheet);font-weight:700}
+.figrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:grid;grid-template-columns:2em 1fr;gap:8px;align-items:start;text-align:left;border:1.5px solid var(--rule);background:var(--sheet);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:1rem;line-height:1.5}
+.opt .L{font-family:var(--mono);font-weight:600;color:var(--ink2)}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 10%,var(--sheet))}
+.opt.right{border-color:var(--ok);background:var(--okbg)}.opt.right .L{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}.opt.wrong .L{color:var(--bad)}
+.opt:disabled{cursor:default}
+.verdict{border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.verdict.ok{background:var(--okbg)}.verdict.bad{background:var(--badbg)}.verdict.hint{background:var(--warnbg)}
+.verdict h4{margin:0;font-size:1.03rem}.verdict.ok h4{color:var(--ok)}.verdict.bad h4{color:var(--bad)}.verdict.hint h4{color:var(--warn)}
+.reasons{display:flex;flex-wrap:wrap;gap:6px}
+.reasons button{border:1.5px solid var(--bad);background:var(--sheet);color:var(--bad);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:.88rem}
+.reasons button[aria-pressed=true]{background:var(--bad);color:#fff}
+.pips{display:inline-flex;gap:4px;vertical-align:middle}.pips i{width:11px;height:11px;border-radius:50%;border:2px solid var(--ok)}.pips i.on{background:var(--ok)}
+.wb{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.wb:last-child{border-bottom:0}.wb .q{font-size:.94rem;min-width:0}
+.wb .m{font-size:.78rem;color:var(--ink2);grid-column:1/-1}
+details summary{cursor:pointer;font-weight:700}
+.sheetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:6px}
+.sheetgrid button{height:36px;border-radius:6px;border:1.5px solid var(--rule);background:var(--sheet);font-family:var(--mono);cursor:pointer;font-size:.85rem}
+.sheetgrid button.done{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.sheetgrid button.cur{outline:3px solid var(--red);outline-offset:1px}
+.sheetgrid button.r{background:var(--okbg);color:var(--ok);border-color:var(--ok)}.sheetgrid button.w{background:var(--badbg);color:var(--bad);border-color:var(--bad)}
+.score{font-family:var(--mono);font-size:3.8rem;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}.score small{font-size:1.15rem;color:var(--ink2)}
+.hist{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+.hist td,.hist th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.hist td:first-child{white-space:normal}
+.hist tr.click{cursor:pointer}.hist tr.click:hover td{background:var(--paper)}
+.confirm{border:2px solid var(--red);border-radius:8px;padding:12px;background:var(--badbg);display:flex;flex-direction:column;gap:8px}
+.lock{border:2px dashed var(--rule);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px}
+textarea{width:100%;min-height:90px;font-family:var(--mono);font-size:.78rem;border:1.5px solid var(--rule);border-radius:8px;padding:8px;background:var(--paper);color:var(--ink)}
+.shot{border:2px solid var(--ink);border-radius:var(--r);padding:14px;background:var(--sheet);display:flex;flex-direction:column;gap:6px}
+.typecard{display:flex;flex-direction:column;gap:8px}
+.typecard .hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.typecard dl{display:grid;grid-template-columns:4.5em 1fr;gap:4px 10px;margin:0;font-size:.93rem}
+.typecard dt{color:var(--ink2);font-weight:700}.typecard dd{margin:0}
+@media (min-width:720px){.cols{grid-template-columns:1fr 1fr;align-items:start}.cols .span{grid-column:1/-1}.meter{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:900px){body{padding-bottom:0;padding-left:96px;font-size:17px}
+ nav.tabs{top:0;bottom:0;right:auto;width:96px;grid-template-columns:1fr;grid-auto-rows:min-content;gap:4px;padding-top:calc(24px + env(safe-area-inset-top,0px));border-top:0;border-right:1px solid var(--rule)}
+ nav.tabs button{padding:12px 4px;font-size:.86rem}nav.tabs button[aria-current=true]{background:var(--paper);box-shadow:inset 3px 0 0 var(--red)}
+ .wrap{max-width:1040px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}.qwrap{max-width:780px}.top h1{font-size:2rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.noanim *{transition:none!important;animation:none!important}
+
+/* 國文：逐步圖解 */
+.cw-fig{display:flex;flex-direction:column;gap:10px}
+.cw-fig [data-p]{cursor:pointer;transition:opacity .3s,background-color .3s,color .3s}
+.cw-fig.dim [data-p]:not(.hl){opacity:.28}
+.cw-text{font-family:var(--hand);font-size:1.32rem;line-height:2;letter-spacing:.04em}
+.cw-text span[data-p]{border-radius:6px;padding:2px 3px;margin:0 1px}
+.cw-text span.hl,.cw-cmp div.hl,.cw-yin .hl,.cw-chars div.hl,.cw-pairs div.hl,.cw-km .hl,.cw-box.hl,.cw-root.hl,.cw-sum.hl{background:color-mix(in srgb,var(--red) 14%,var(--sheet));color:var(--red);box-shadow:0 0 0 2px var(--red)}
+.cw-src{font-size:.9rem;color:var(--ink2);margin-left:4px}
+.cw-svg{display:block;width:100%;max-width:440px;height:auto;margin:0 auto}
+.cw-svg g.hl{filter:drop-shadow(0 0 3px var(--red)) drop-shadow(0 0 6px var(--red))}
+.cw-svg text{font-family:var(--sans)}
+.cw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cw-cmp div{border:1.5px solid var(--rule);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:2px;background:var(--sheet);font-size:1rem}
+.cw-yin{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cw-yin>div{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:8px}
+.cw-yin b{font-family:var(--hand);font-size:1.9rem;line-height:1;border-radius:6px;padding:2px 6px}
+.cw-yin span{border:1.5px solid var(--rule);border-radius:999px;padding:3px 10px;font-size:1rem;background:var(--paper)}
+.cw-chars{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.cw-chars div{display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--rule);border-radius:8px;padding:8px 2px;background:var(--sheet);text-align:center}
+.cw-chars b{font-family:var(--hand);font-size:1.7rem;line-height:1.2;display:flex;flex-direction:column;align-items:center}
+.cw-chars i{font-style:normal;font-size:.8rem;color:var(--blue);font-family:var(--sans)}
+.cw-chars small{font-size:.78rem;color:var(--ink2)}
+.cw-pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cw-pairs div{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:4px 6px;align-items:center;border:1.5px solid var(--rule);border-radius:8px;padding:8px;background:var(--sheet)}
+.cw-pairs b{font-family:var(--hand);font-size:1.5rem;line-height:1.1}.cw-pairs b.x{color:var(--ink2);text-decoration:line-through;text-decoration-color:var(--red)}
+.cw-pairs span{font-size:.82rem;color:var(--ink2)}
+.cw-km{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cw-km>div{border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--sheet);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cw-km h4{margin:0;width:100%;font-family:var(--hand);font-size:1.05rem}
+.cw-km span{border:1.5px solid var(--rule);border-radius:999px;padding:3px 10px;font-size:1rem;background:var(--paper)}
+.cw-km .cw-kz{grid-column:1/-1;justify-content:center;font-family:var(--hand);font-size:1.2rem;font-weight:700;border-style:dashed}
+.cw-tree{display:flex;flex-direction:column;gap:8px}
+.cw-root,.cw-sum{border:2px solid var(--ink);border-radius:8px;padding:8px 12px;text-align:center;font-family:var(--hand);font-size:1.12rem;background:var(--sheet)}
+.cw-sum{border-style:dashed;border-color:var(--blue)}
+.cw-br{display:grid;grid-template-columns:1fr;gap:8px}
+.cw-box{border:1.5px solid var(--rule);border-radius:8px;padding:8px 10px;background:var(--sheet);display:flex;flex-direction:column;gap:1px}
+.cw-box b{font-family:var(--hand);font-size:1.1rem}.cw-box small{color:var(--ink2);font-size:.84rem}.cw-box i{font-style:normal;color:var(--red);font-weight:700;font-size:.92rem}
+.cw .stepper button{min-width:36px;min-height:34px}
+.cw-sortq{display:flex;align-items:baseline;gap:12px;justify-content:center;min-height:3rem}
+.cw-sortq b{font-family:var(--hand);font-size:1.8rem}
+.cw-sortb{justify-content:center}.cw-sortb .btn{min-width:7em;padding:9px 16px;font-size:1rem}
+.cw-self .btn,.cw-ctl .btn{min-height:36px}
+@media (min-width:720px){.cw-br{grid-template-columns:repeat(3,1fr)}.cw-km{grid-template-columns:repeat(4,1fr)}.cw-yin{grid-template-columns:repeat(4,1fr)}.cw-pairs{grid-template-columns:repeat(3,1fr)}}
+.kt.w th{white-space:normal}
+.tblwrap{max-width:100%}
+</style>
+</head><body>
+<div class="wrap" id="app">
+  <header class="top"><h1>意帆的國文衝刺<small id="unitSub">第 4 課 論語選</small></h1><div class="count" id="count"></div></header>
+  <div class="units" id="units"></div>
+  <main id="view"></main>
+</div>
+<nav class="tabs" id="tabs" aria-label="主要分頁">
+  <button data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>首頁</button>
+  <button data-tab="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h7"/></svg>學習</button>
+  <button data-tab="practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>題型練習</button>
+  <button data-tab="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h11a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/><path d="m9.5 8 5 5m0-5-5 5"/></svg>錯題本</button>
+  <button data-tab="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="m8.5 9 1.5 1.5 3-3M8.5 15h7"/></svg>測驗成績</button>
+</nav>
+<script>
+/* 國文 第4課 論語選 題庫。正確答案一律放在 o[0]，畫面上會打亂順序。題目 ID 永久不變。 */
+(function () {
+const B = [];
+// k: orig 講義題 / var 錯題類題 / ext 題型延伸 / adapt 外部改編 / key 重點題
+// lv: b 基礎層 / a 進階層；w:1 講義錯題；ug:1 家長尚未批改（由 Claude 依解析判定）
+function q(id, t, s, k, src, text, o, e, x) { B.push(Object.assign({ id, t, s, k, src, q: text, o, a: 0, e, lv: (k === "ext" || k === "adapt") ? "a" : "b" }, x || {})); }
+const W = (c, ug) => ({ w: 1, c, ug: ug ? 1 : 0 });
+const V = of => ({ of });
+
+/* ===== T1 字音 ===== */
+q("c4-w03", "T1", 1, "orig", "講義 p.69 國字注音 8", "「奉養」父母的「養」，注音是？", ["一ㄤˋ", "一ㄤˇ", "一ㄤ", "一ㄤˊ"],
+  "晚輩供養長輩（奉養、孝養、供養父母）讀<b>一ㄤˋ</b>；養育、飼養、修養、養氣讀一ㄤˇ。你在解釋題寫對了「是謂能養－一ㄤˋ」，到了「奉養父母」卻寫成三聲，代表規則還沒變成反射。口訣：<b>往上奉養讀四聲</b>。", Object.assign(W("記憶不牢", 1), { h: "先判斷方向：是晚輩對長輩，還是照顧、飼養？" }));
+q("c4-w03a", "T1", 1, "var", "類題", "下列「養」字，何者讀作一ㄤˋ？", ["今之孝者，是謂能「養」", "至於犬馬，皆能有「養」", "修「養」品德", "「養」兒防老"],
+  "「是謂能養」是用衣食侍奉父母（晚輩→長輩），讀一ㄤˋ。犬馬有養＝飼養、修養＝陶冶、養兒＝養育，都讀一ㄤˇ。", V("c4-w03"));
+q("c4-w03b", "T1", 2, "var", "類題", "下列各組「養」字，何者讀音前後相同？", ["奉「養」雙親／孝「養」祖母", "「養」育之恩／奉「養」父母", "飼「養」寵物／供「養」長輩", "「養」氣／是謂能「養」"],
+  "奉養、孝養都是晚輩供養長輩，同讀一ㄤˋ。養育、飼養、養氣讀一ㄤˇ；奉養、供養長輩、是謂能養讀一ㄤˋ，所以其他三組前後不同。", V("c4-w03"));
+q("c4-w04", "T1", 1, "orig", "講義 p.69 國字注音 9（空白未答）", "孔子學習射箭、駕「馭」馬車，可謂允文允武。「馭」的注音是？", ["ㄩˋ", "ㄩˊ", "ㄨˋ", "ㄧㄡˋ"],
+  "馭＝駕馭車馬，音<b>ㄩˋ</b>。六藝「禮、樂、射、御、書、數」中的「御」就是駕車，也讀ㄩˋ。", W("記憶不牢", 1));
+q("c4-w04a", "T1", 1, "var", "類題", "孔門「六藝」（禮、樂、射、御、書、數）中的「御」指的是什麼？", ["駕馭車馬", "防禦敵人", "皇帝使用的物品", "抵抗外侮"],
+  "六藝的「御」＝駕車，跟「駕馭」的馭同義，課文前哨站說孔子學習射箭、駕馭馬車。", V("c4-w04"));
+q("c4-w04b", "T1", 2, "var", "類題", "下列「」中的字，何者讀音與「駕馭」的「馭」相同？", ["射、「御」、書、數", "「娛」樂", "「漁」夫", "「于」是"],
+  "馭、御都讀ㄩˋ。娛、漁、于都讀ㄩˊ（二聲），聲調不同。", V("c4-w04"));
+q("c4-w07", "T1", 2, "orig", "講義 p.70 學力活用 1（仿107會考）", "下列詞語「」中的字，何組讀音相同？", ["受到「庇」護／「比」鄰而居", "不「謀」而合／「媒」體造勢", "奉「養」父母／不痛不「癢」", "名「傳」天下／獨斷「專」行"],
+  "庇ㄅㄧˋ；「比鄰」的比是「緊靠」，課本讀ㄅㄧˋ，兩字相同。其他三組都能確定不同：謀ㄇㄡˊ／媒ㄇㄟˊ；奉養<b>一ㄤˋ</b>／癢一ㄤˇ（陷阱：只差聲調）；傳ㄔㄨㄢˊ／專ㄓㄨㄢ。就算不確定「比」，用刪去法也能選出來。", Object.assign(W("記憶不牢", 1), { h: "奉養的「養」讀幾聲？「癢」讀幾聲？" }));
+q("c4-w07a", "T1", 2, "var", "類題", "下列「」中的字，何組讀音不同？", ["奉「養」父母／「養」育子女", "「省」察／反「省」", "「傳」授／「傳」遞", "未成一「簣」／「潰」堤"],
+  "奉養一ㄤˋ、養育一ㄤˇ，聲調不同。省察、反省都讀ㄒㄧㄥˇ；傳授、傳遞都讀ㄔㄨㄢˊ；簣、潰都讀ㄎㄨㄟˋ。", V("c4-w07"));
+q("c4-w07b", "T1", 3, "var", "類題", "下列「」中的字，何組讀音相同？", ["吾日三「省」吾身／晨昏定「省」", "「省」略／反「省」", "自「傳」／「傳」授", "飼「養」／奉「養」"],
+  "三省（反省）和晨昏定省（探望問候）都讀ㄒㄧㄥˇ。省略ㄕㄥˇ／反省ㄒㄧㄥˇ；自傳ㄓㄨㄢˋ／傳授ㄔㄨㄢˊ；飼養一ㄤˇ／奉養一ㄤˋ。", V("c4-w07"));
+q("c4-o01", "T1", 1, "orig", "講義 p.69 國字注音 6", "吾日三「省」吾身的「省」，注音是？", ["ㄒㄧㄥˇ", "ㄕㄥˇ", "ㄒㄧㄥ", "ㄕㄥ"],
+  "檢討、反省讀ㄒㄧㄥˇ（反省、內省、省察）；節省、省略、省份讀ㄕㄥˇ。");
+q("c4-o02", "T1", 2, "orig", "講義 p.69 國字注音 7・注釋⑩", "「傳」不習乎的「傳」，注音與意思是？", ["ㄔㄨㄢˊ，老師所傳授的課業", "ㄓㄨㄢˋ，解釋經書的文字", "ㄔㄨㄢˊ，傳遞給別人", "ㄓㄨㄢˋ，記載一生的傳記"],
+  "課本注釋⑩：傳不習乎＝老師所傳授的課業是否還未溫習呢？傳音ㄔㄨㄢˊ，意思是傳授。ㄓㄨㄢˋ是左傳、自傳、傳記的「傳」。");
+q("c4-o03", "T1", 1, "orig", "講義 p.69 國字注音 10", "記「載」的「載」，注音是？", ["ㄗㄞˇ", "ㄗㄞˋ", "ㄓㄞ", "ㄘㄞˊ"],
+  "記載、刊載、一年半載讀ㄗㄞˇ；載重、載運、裝載讀ㄗㄞˋ。");
+q("c4-o04", "T1", 2, "orig", "課文注釋⑧", "「為」人謀而不忠乎的「為」，讀音和意思是？", ["ㄨㄟˋ，替", "ㄨㄟˊ，做", "ㄨㄟˊ，堆", "ㄨㄟˋ，因為"],
+  "注釋⑧：為，音ㄨㄟˋ，替。「為人謀」＝替別人辦事。");
+q("c4-o05", "T1", 2, "orig", "課文注釋③", "譬如「為」山的「為」，讀音和意思是？", ["ㄨㄟˊ，堆（堆土成山）", "ㄨㄟˋ，替", "ㄨㄟˋ，為了", "ㄨㄟˊ，成為"],
+  "注釋③：為山＝堆土成山，為音ㄨㄟˊ。和「為人謀」的ㄨㄟˋ（替）不同，兩個一起考最常見。");
+q("c4-e101", "T1", 2, "ext", "題型延伸", "下列「省」字的讀音，何者與其他三者不同？", ["「省」錢", "「省」親", "「省」悟", "發人深「省」"],
+  "省錢＝節約，讀ㄕㄥˇ。省親（探望）、省悟（領悟）、發人深省都讀ㄒㄧㄥˇ。");
+q("c4-e102", "T1", 1, "ext", "題型延伸", "下列「傳」字，何者讀作ㄓㄨㄢˋ？", ["「傳」記", "「傳」染", "眉目「傳」情", "「傳」喚"],
+  "傳記＝記載某人一生事跡的文字，讀ㄓㄨㄢˋ。傳染、傳情、傳喚都讀ㄔㄨㄢˊ。");
+q("c4-e103", "T1", 3, "ext", "題型延伸", "下列「」中的字，何組讀音前後相同？", ["左「傳」／自「傳」", "「傳」授／「傳」記", "奉「養」父母／「養」寵物", "「省」略／「省」察"],
+  "左傳（解釋經義的書）、自傳（記載一生）都讀ㄓㄨㄢˋ。傳授ㄔㄨㄢˊ／傳記ㄓㄨㄢˋ；奉養一ㄤˋ／養寵物一ㄤˇ；省略ㄕㄥˇ／省察ㄒㄧㄥˇ。");
+q("c4-e104", "T1", 2, "ext", "題型延伸", "小華說：「『晨昏定省』的省，跟『省錢』一樣唸ㄕㄥˇ。」他說得對嗎？", ["不對，晨昏定省是探望問候，讀ㄒㄧㄥˇ", "對，兩個都讀ㄕㄥˇ", "不對，晨昏定省讀ㄒㄧㄥ（一聲）", "對，省字只有一種讀音"],
+  "晨昏定省＝早晚向父母問安，省是探望、問候，讀ㄒㄧㄥˇ。省錢是節約，讀ㄕㄥˇ。");
+q("c4-e105", "T1", 3, "adapt", "改編自 新北市崇林國中 107學年度第一學期第二次段考", "下列文句「」中的字，何者讀音標示正確？", ["逝者如斯夫！不「舍」晝夜：ㄕㄜˇ", "未成一「簣」：ㄍㄨㄟˋ", "是謂能「養」：一ㄤˇ", "「傳」不習乎：ㄓㄨㄢˋ"],
+  "不舍晝夜的舍通「捨」，停止，讀ㄕㄜˇ。簣ㄎㄨㄟˋ；是謂能養一ㄤˋ；傳不習乎ㄔㄨㄢˊ。");
+q("c4-e106", "T1", 2, "ext", "題型延伸", "「謀」「媒」「煤」三個字，讀音的關係是？", ["謀讀ㄇㄡˊ，媒、煤讀ㄇㄟˊ", "三字都讀ㄇㄟˊ", "三字都讀ㄇㄡˊ", "謀、媒讀ㄇㄡˊ，煤讀ㄇㄟˊ"],
+  "講義易混淆字：謀ㄇㄡˊ（計謀、謀生）；媒ㄇㄟˊ（媒人、媒體）；煤ㄇㄟˊ（煤炭）。");
+
+/* ===== T2 字形・改錯 ===== */
+q("c4-w01", "T2", 1, "orig", "講義 p.69 國字注音 3", "季路個性急「ㄗㄠˋ」，寫成國字是？", ["躁", "燥", "噪", "澡"],
+  "急躁、浮躁跟「腳」有關：人一急就跺腳，所以是<b>足字旁</b>。乾燥是火字旁（火烤就乾）；噪音是口字旁（嘴巴吵）；洗澡是水字旁。你寫成「燥」，是和『乾燥』記混了。", Object.assign(W("記憶不牢", 1), { h: "急起來會做什麼動作？跟哪個部首有關？" }));
+q("c4-w01a", "T2", 1, "var", "類題", "下列「」中的注音寫成國字後，何者是足字旁？", ["心浮氣「ㄗㄠˋ」", "天乾物「ㄗㄠˋ」", "「ㄗㄠˋ」音污染", "洗「ㄗㄠˋ」"],
+  "心浮氣躁（足字旁）；天乾物燥（火）；噪音（口）；洗澡（水）。", V("c4-w01"));
+q("c4-w01b", "T2", 2, "var", "類題", "下列文句，何者用字完全正確？", ["季路個性魯莽急躁，好逞血氣之勇", "冬天天氣乾躁，記得多喝水", "工地的燥音讓人無法專心", "他心浮氣燥，做事半途而廢"],
+  "急躁用足字旁。乾燥用火字旁；噪音用口字旁；心浮氣躁用足字旁。", V("c4-w01"));
+q("c4-w02", "T2", 1, "orig", "講義 p.69 國字注音 4", "冉有個性拘「ㄐㄧㄣˇ」，寫成國字是？", ["謹", "僅", "饉", "瑾"],
+  "拘謹＝小心謹慎、放不開，和「言行小心」有關，所以是<b>言字旁</b>。僅＝只有（僅僅），人字旁；饉＝饑饉（缺糧），食字旁。", Object.assign(W("記憶不牢", 1), { h: "「謹慎」的謹是什麼部首？" }));
+q("c4-w02a", "T2", 1, "var", "類題", "下列「」中的注音，何者應寫作「謹」？", ["子夏篤實「ㄐㄧㄣˇ」慎", "「ㄐㄧㄣˇ」差一筐土", "饑「ㄐㄧㄣˇ」", "「ㄐㄧㄣˇ」此一次"],
+  "篤實謹慎（言字旁）。僅差、僅此＝只（人字旁）；饑饉（食字旁）。", V("c4-w02"));
+q("c4-w02b", "T2", 2, "var", "類題", "下列「」中的注音寫成國字後，何組字形相同？", ["個性拘「ㄐㄧㄣˇ」／「ㄐㄧㄣˇ」言慎行", "「ㄐㄧㄣˇ」僅一次／「ㄐㄧㄣˇ」慎小心", "饑「ㄐㄧㄣˇ」／拘「ㄐㄧㄣˇ」", "「ㄐㄧㄣˇ」有的機會／「ㄐㄧㄣˇ」慎"],
+  "拘謹／謹言慎行，都是言字旁的「謹」。僅僅／謹慎；饑饉／拘謹；僅有／謹慎。", V("c4-w02"));
+q("c4-w05", "T2", 2, "orig", "講義 p.69 改錯 1", "「我們仔細沿讀經典，必能了解許多待人處世的道理，成為一個彬彬有理的君子。」這句話有幾個錯字？應如何訂正？", ["兩個：沿→研、理→禮", "一個：理→禮", "一個：沿→研", "兩個：處→虛、理→禮"],
+  "仔細「研讀」（研究閱讀）才對，「沿」是沿著；「彬彬有禮」是文雅有禮貌。你只找到「理→禮」。改錯題找到一個不能停，每個字都要掃過一次。", Object.assign(W("題意誤讀", 1), { h: "「仔細ㄧㄢˊ讀經典」是哪個ㄧㄢˊ？" }));
+q("c4-w05a", "T2", 2, "var", "類題", "下列文句，何者沒有錯別字？", ["曾子每天反省自己，可說是進德修業的典範", "他做事半途而費，總是前功盡棄", "讀書要持之以衡，不可一曝十寒", "孔子有教無累，弟子多達三千餘人"],
+  "半途而「廢」；持之以「恆」；有教無「類」。", V("c4-w05"));
+q("c4-w05b", "T2", 3, "var", "類題", "「孔子主張有教無類，悔人不倦，對後世影響深遠，被尊稱為至聖先師。」句中錯字的訂正，何者正確？", ["悔→誨", "類→累", "聖→勝", "師→獅"],
+  "誨人不倦＝教導人不知疲倦，「誨」是言字旁（用言語教導）；「悔」是後悔。", V("c4-w05"));
+q("c4-w06", "T2", 2, "orig", "講義 p.69 改錯 2", "「青年學子必須充實自己的知識，休養自己的品德，日後才能回饋社會，不負國家的栽培。」句中哪個字錯了？", ["休→修", "饋→匱", "栽→裁", "負→付"],
+  "品德要「修養」（陶冶、修身），「休養」是休息調養身體。回饋（回報）、栽培（培育）、不負（不辜負）都正確。你圈了「栽」，但「栽培」的栽是對的。", Object.assign(W("記憶不牢", 1), { h: "品德要「修」還是「休」？" }));
+q("c4-w06a", "T2", 1, "var", "類題", "下列「」中的詞語，何者用字正確？", ["「修養」品德", "生病要好好「修養」", "「休養」自己的品行", "放假在家「修息」"],
+  "品德、品行用「修養」；身體要「休養」；休息的「休」。", V("c4-w06"));
+q("c4-w06b", "T2", 2, "var", "類題", "下列「」中的注音寫成國字後，何組字形相同？", ["「ㄒㄧㄡ」身養性／「ㄒㄧㄡ」養品德", "「ㄒㄧㄡ」息片刻／「ㄒㄧㄡ」養品德", "「ㄒㄧㄡ」閒時光／「ㄒㄧㄡ」理電腦", "「ㄒㄧㄡ」假／「ㄒㄧㄡ」正錯誤"],
+  "修身養性／修養品德，都是「修」。休息／修養；休閒／修理；休假／修正。", V("c4-w06"));
+q("c4-w09", "T2", 2, "orig", "講義 p.70 學力活用 5", "下列「」中的注音寫成國字後，何組字形相同？", ["有勇無「ㄇㄡˊ」／出「ㄇㄡˊ」獻策", "功虧一「ㄎㄨㄟˋ」／不虞「ㄎㄨㄟˋ」乏", "有「ㄕˋ」無恐／「ㄕˋ」奉父母", "「ㄆㄧˋ」如為山／窮鄉「ㄆㄧˋ」壤"],
+  "有勇無謀／出謀獻策，都是「謀」。簣／匱；有恃無恐（恃＝依靠，心字旁）／侍奉（侍＝服侍，人字旁）；譬如／僻壤。", Object.assign(W("記憶不牢", 1), { h: "「有ㄕˋ無恐」是依靠，還是服侍？" }));
+q("c4-w09a", "T2", 1, "var", "類題", "「有『恃』無恐」和「『侍』奉父母」，兩個字怎麼分？", ["恃是心字旁，依靠；侍是人字旁，服侍長輩", "恃是人字旁，服侍；侍是心字旁，依靠", "兩個字可以通用", "恃是言字旁，承諾；侍是人字旁，等待"],
+  "有恃無恐＝有所依靠所以不怕（心裡有依靠，心字旁）；侍奉＝人在旁邊服侍（人字旁）。", V("c4-w09"));
+q("c4-w09b", "T2", 3, "var", "類題（考法同 新北市八里國中 109學年度段考）", "下列「」中的注音寫成國字後，何組字形不同？", ["「ㄆㄧˋ」如為山／偏「ㄆㄧˋ」", "未成一「ㄎㄨㄟˋ」／功虧一「ㄎㄨㄟˋ」", "不「ㄇㄡˊ」而合／有勇無「ㄇㄡˊ」", "「ㄕˋ」奉父母／服「ㄕˋ」"],
+  "譬如（言字旁，比喻）／偏僻（人字旁），字形不同。簣／簣；謀／謀；侍／侍都相同。", V("c4-w09"));
+q("c4-o06", "T2", 1, "orig", "講義 p.69 國字注音 2", "未成一「ㄎㄨㄟˋ」，寫成國字是？", ["簣", "潰", "匱", "饋"],
+  "簣＝盛土的竹器，所以是竹字頭。潰（水沖破）、匱（缺乏）、饋（贈送）。");
+q("c4-o07", "T2", 1, "orig", "講義 p.69 國字注音 1", "填平「ㄨㄚ」地，寫成國字是？", ["窪", "哇", "蛙", "娃"],
+  "窪地＝低陷的地方，穴字頭（洞穴往下凹）。");
+q("c4-o08", "T2", 1, "orig", "講義 p.69 國字注音 5（先寫成「費」再改對）", "半途而「ㄈㄟˋ」，寫成國字是？", ["廢", "費", "沸", "肺"],
+  "半途而廢＝事情沒做完就停止，廢是「停止、放棄」。費是花費。");
+q("c4-e201", "T2", 2, "ext", "題型延伸", "依部首判斷，下列「ㄎㄨㄟˋ」字的配對，何者正確？", ["盛土的竹器－簣", "大水沖破堤岸－饋", "缺乏、竭盡－聵", "致贈、贈送－潰"],
+  "看部首猜意思：簣（竹＝竹器）、潰（水＝沖破堤岸）、匱（匚＝櫃子空了，缺乏）、饋（食＝送食物，贈送）、聵（耳＝聽不見）。");
+q("c4-e202", "T2", 2, "ext", "題型延伸", "下列「」中的注音寫成國字，何者正確？", ["振聾發「ㄎㄨㄟˋ」－聵", "民窮財「ㄎㄨㄟˋ」－饋", "「ㄎㄨㄟˋ」堤－匱", "「ㄎㄨㄟˋ」贈－潰"],
+  "振聾發聵（耳朵聽不見）；民窮財匱；潰堤；饋贈。");
+q("c4-e203", "T2", 1, "ext", "題型延伸", "下列「」中的注音，何者應寫作「僻」？", ["窮鄉「ㄆㄧˋ」壤", "「ㄆㄧˋ」如為山", "「ㄆㄧˋ」喻修辭", "善於設「ㄆㄧˋ」"],
+  "窮鄉僻壤＝偏遠的地方，用「僻」。譬如、譬喻、設譬都是比喻，用「譬」（言字旁）。");
+q("c4-e204", "T2", 2, "ext", "題型延伸", "下列「」中的注音寫成國字後，何組字形相同？", ["「ㄇㄟˊ」體／蟲「ㄇㄟˊ」花", "「ㄇㄟˊ」炭／「ㄇㄟˊ」介", "「ㄇㄡˊ」生／「ㄇㄟˊ」人", "病「ㄇㄟˊ」蚊／「ㄇㄟˊ」礦"],
+  "媒體／蟲媒花，都是「媒」（居中聯繫）。煤炭／媒介；謀生／媒人；病媒／煤礦。");
+q("c4-e205", "T2", 3, "ext", "題型延伸", "下列文句，何者完全沒有錯字？", ["孔子首開私人講學之風，因材施教", "讀書不可半途而費，否則功虧一匱", "他個性孤癖，很少與同學來往", "面對困難要鍥而不捨，持之以衡"],
+  "半途而廢、功虧一簣；孤僻；持之以恆。");
+q("c4-e206", "T2", 3, "adapt", "改編自 桃園市同德國中 108學年度第一學期第二次段考", "下列「」中的注音寫成國字後，何組字形相同？", ["思而不學則「ㄉㄞˋ」／危「ㄉㄞˋ」", "「ㄉㄞˋ」惰偷安／思而不學則「ㄉㄞˋ」", "流金「ㄕㄨㄛˋ」石／「ㄕㄨㄛˋ」士", "自顧不「ㄒㄧㄚˊ」／引人「ㄒㄧㄚˊ」思"],
+  "思而不學則殆／危殆，都是「殆」（危險）。怠惰（心字底）／殆；鑠／碩；暇／遐。");
+
+/* ===== T3 字詞解釋・替換 ===== */
+q("c4-w10", "T3", 2, "orig", "講義 p.70 學力活用 7", "下列各「」中的字經替換後，何者意思改變了？", ["雖「覆」一簣，進，吾往也：蓋", "今之孝者，「是」謂能養：只", "「為」人謀而不忠乎：替", "譬如為山，未成一「簣」：筐"],
+  "覆＝倒、傾倒（倒下一筐土），換成「蓋」（遮蓋）意思就變了。課本注釋：是＝只、為＝替、簣＝盛土的竹器（筐），這三個替換後意思不變。你選了「是→只」，但注釋就寫著「是－只」。", Object.assign(W("觀念不懂", 1), { h: "翻開注釋：「是」的注釋是什麼？「覆」呢？" }));
+q("c4-w10a", "T3", 1, "var", "類題", "「雖覆一簣」的「覆」是什麼意思？", ["倒、傾倒", "遮蓋", "重複", "回覆"],
+  "注釋（三）：覆＝倒、傾倒。填平窪地時，把一筐土「倒」下去。", V("c4-w10"));
+q("c4-w10b", "T3", 3, "var", "類題", "下列「」中的字，何者解釋正確？", ["今之孝者，「是」謂能養：只", "譬如「平」地：平坦的", "雖「覆」一簣：覆蓋", "「傳」不習乎：傳遞"],
+  "是＝只（注釋一）。平＝填平（動詞）；覆＝倒；傳＝老師所傳授的課業。", V("c4-w10"));
+q("c4-o09", "T3", 1, "orig", "講義 p.69 解釋 2", "至於犬馬，皆能有「養」的「養」，意思是？", ["飼養", "奉養", "修養", "養育子女"],
+  "注釋②：對於狗和馬都能供給食物，養音一ㄤˇ，飼養。");
+q("c4-o10", "T3", 2, "orig", "講義 p.70 解釋 4", "譬如「平地」的意思是？", ["填平窪地", "平坦的土地", "平定天下", "地勢平緩"],
+  "注釋⑤：平地＝填平窪地。「平」在這裡是動詞（把它填平），不是形容詞「平坦」。");
+q("c4-o11", "T3", 1, "orig", "講義 p.70 解釋 3", "「未成一簣」的意思是？", ["山沒有堆成，只差一筐土", "一筐土都還沒倒", "竹筐沒有編好", "一次都沒有成功"],
+  "注釋④：指山沒有堆成，只差一筐土而已。");
+q("c4-o12", "T3", 2, "orig", "講義 p.70 解釋 5", "「三省吾身」的意思是？", ["拿三件事來反省自己", "每天反省三次", "反省三天", "三個人一起反省"],
+  "注釋⑦：三省吾身＝拿三件事來反省自己。「三」是三件事（忠、信、習），不是三次。");
+q("c4-o13", "T3", 1, "orig", "講義 p.70 解釋 6", "「傳不習乎」的意思是？", ["老師所傳授的課業，是否還未溫習呢？", "傳給別人的東西，是否還沒學會呢？", "傳說的事情，是否還不熟悉呢？", "教別人的時候，是否不習慣呢？"],
+  "注釋⑩：老師所傳授的課業，是否還未溫習呢？");
+q("c4-o14", "T3", 3, "orig", "講義 p.70 學力活用 8", "下列文句中的「而」字，何者可用「卻」字代換？", ["知其然「而」不知其所以然", "一「而」再，再「而」三", "置之死地「而」後生", "從今「而」後，不得再犯"],
+  "知道它是這樣，「卻」不知道為什麼是這樣——前後相反，是轉折。其他三個「而」都是順接（然後、以）。本課「為人謀而不忠乎」的而也接近轉折：替人辦事卻不盡心。");
+q("c4-o15", "T3", 1, "orig", "課文注釋⑨", "「與朋友交而不『信』乎」的「信」是？", ["誠信", "信件", "相信別人", "消息"],
+  "注釋⑨：信＝誠信。反省自己對朋友是否誠實不欺、信守承諾。");
+q("c4-o16", "T3", 2, "orig", "課文注釋（七）・要句精析 6", "「為人謀而不『忠』乎」的「忠」是？", ["盡心做事", "忠於國家", "忠厚老實", "忠告別人"],
+  "注釋（七）：忠＝盡心做事。要句精析：「忠」就是「盡己」，反省自己對人、對事是否盡心盡力。");
+q("c4-e301", "T3", 2, "ext", "題型延伸", "下列「為」字，何者讀音、意思與「為人謀而不忠乎」的「為」相同？", ["「為」民服務", "「為」山九仞", "事在人「為」", "「為」所欲為"],
+  "為人謀、為民服務的「為」都是替、給，讀ㄨㄟˋ。為山（堆）、人為（做）、為所欲為（做）都讀ㄨㄟˊ。");
+q("c4-e302", "T3", 2, "ext", "題型延伸", "「進，吾往也」的「往」是指？", ["前往，此指去填平窪地", "往昔、過去", "往來、交往", "嚮往、羨慕"],
+  "注釋⑥：往＝前往，此指去填平窪地。");
+q("c4-e303", "T3", 3, "ext", "題型延伸", "下列「」中的「平」字，何者是動詞？", ["譬如「平」地", "「平」坦", "「平」日", "公「平」"],
+  "平地＝把窪地「填平」，是動作（動詞）。平坦、公平是形容詞；平日是名詞性的詞。");
+q("c4-e304", "T3", 2, "ext", "題型延伸", "「吾『日』三省吾身」的「日」，與下列何者意思相同？", ["「日」行一善", "「日」光燈", "「日」出東方", "星期「日」"],
+  "日＝每天（注釋六）。日行一善＝每天做一件好事。其他都是太陽或星期天。");
+q("c4-e305", "T3", 3, "ext", "題型延伸", "下列「止」字，何者與「止，吾止也」的「止」意思相同？", ["適可而「止」", "舉「止」優雅", "「止」此一家，別無分號", "不「止」一次"],
+  "止＝停止（注釋二）。適可而止＝到恰當的程度就停止。舉止＝行為；止此一家、不止＝只。");
+q("c4-e306", "T3", 2, "ext", "題型延伸", "「不敬，何以別乎？」的「別」意思是？", ["分別、區別", "離別", "別人", "不要"],
+  "譯文：那與養狗和馬又有什麼「分別」呢？");
+
+/* ===== T4 文意與主旨 ===== */
+q("c4-w13", "T4", 2, "orig", "講義 p.71 學力活用 14", "子曰：「今之孝者，是謂能養。至於犬馬，皆能有養。不敬，何以別乎？」可見孔子認為當時的人對於「孝順」有何錯誤的觀念？", ["以物質條件為標準", "只知愚孝", "把犬馬放在父母親之前", "無法做到眾生平等"],
+  "「今之孝者，是謂能養」——當時的人以為讓父母吃飽穿暖（物質奉養）就是孝。孔子點出狗和馬也能被餵飽，差別在「敬」。課文沒有說時人把犬馬放在父母前面，犬馬只是拿來對比。", Object.assign(W("題意誤讀", 1), { h: "「今之孝者，是謂能養」說的是當時的人怎麼想？" }));
+q("c4-w13a", "T4", 2, "var", "類題", "「今之孝者，是謂能養」這句話在表達什麼？", ["當時的人認為能供給父母物質就是孝", "孔子認為奉養父母是最高的孝", "現在的人都不奉養父母", "孝順的人都很有能力"],
+  "要句精析 1：表達時人對於父母與犬馬皆能提供物質層面的供給。這是孔子要批評的觀念，不是他的主張。", V("c4-w13"));
+q("c4-w13b", "T4", 3, "var", "類題", "孔子拿「犬馬」和「父母」比較，真正想強調的是？", ["物質奉養誰都做得到，有沒有敬意才是孝與不孝的分別", "犬馬和父母一樣重要", "養犬馬比奉養父母簡單", "孝順要先從愛護動物做起"],
+  "章法分析 3：以人與狗和馬作對比，強調養親與養犬馬的差別就在「敬」字，若養親不敬則與養犬馬無異。", V("c4-w13"));
+q("c4-w15", "T4", 2, "orig", "講義 p.71 學力活用 16", "曾子曰：「吾日三省吾身：為人謀而不忠乎？與朋友交而不信乎？傳不習乎？」這句話闡述的是什麼道理？", ["進德修業", "待人接物", "仁民愛物", "設身處地"],
+  "三件事：忠（處事）、信（待人）是「進德」——修養品德；習（溫習課業）是「修業」——精進學業。題解說三則都是「進德修業」的道理。「待人接物」只涵蓋與人相處，漏了學習。", Object.assign(W("觀念不懂", 1), { h: "三件事裡有一件是課業，哪個選項同時包含品德和學業？" }));
+q("c4-w15a", "T4", 2, "var", "類題", "「吾日三省吾身」一則中，哪一句屬於「修業」（學業）的反省？", ["傳不習乎？", "為人謀而不忠乎？", "與朋友交而不信乎？", "吾日三省吾身"],
+  "傳不習乎＝老師傳授的課業是否溫習了，屬於學習（修業）。忠、信屬於品德（進德）。", V("c4-w15"));
+q("c4-w15b", "T4", 3, "var", "類題", "下列何者最能概括本課三則的共同主題？", ["都是進德修業的道理", "都在談如何孝順父母", "都在說明交友之道", "都是孔子回答弟子的問題"],
+  "題解：三則談論的面向雖不同（孝、為學、自省），但都是進德修業的道理。第三則是曾子說的，所以「都是孔子回答」錯。", V("c4-w15"));
+q("c4-o17", "T4", 1, "orig", "講義 p.67 讀後檢測 2", "子游問孝一則中，最能表現核心概念的「關鍵字」是？", ["敬", "養", "今", "別"],
+  "孝的真諦在於「敬」（要句精析 2）。");
+q("c4-o18", "T4", 1, "orig", "講義 p.67 讀後檢測 3", "「吾日三省吾身」一則的主旨為何？", ["曾子敘述自我反省的面向", "曾子以賢德之人為模範", "曾子提醒時人應及時行孝", "曾子提醒自己學習不可半途而廢"],
+  "第三則旨：曾子透過自省來培養理想的人格，敘述處事、待人、學習三個反省面向。");
+q("c4-o19", "T4", 2, "orig", "講義 p.67 讀後檢測 4", "孔子以「不敬，何以別乎？」反問子游，用意是？", ["引導子游思辨孝的真諦，凸顯物質奉養與恭敬孝親的差別", "稱許子游力行孝道", "強調對待犬馬與父母應一視同仁", "責備子游不孝順父母"],
+  "用反問引導子游自己想：只養不敬，和養犬馬有什麼不同？課文沒有稱讚或責備子游。");
+q("c4-o20", "T4", 2, "orig", "講義 p.67 讀後檢測 5", "「止，吾止也」與「進，吾往也」二句主要在凸顯什麼？", ["學習成敗與否操之在己", "止與進的學習成效不同", "學習步調要適時調整", "學習態度的反反覆覆"],
+  "兩句都用「吾」：停下來是我自己停的，前進是我自己去的——成敗在己。");
+q("c4-o21", "T4", 1, "orig", "講義 p.70 學力活用 4", "子曰：「今之孝者，是謂能養。至於犬馬，皆能有養。不敬，何以別乎？」孔子主要在說明什麼道理？", ["孝道不只在物質的滿足，更在心意的虔敬", "孝順的基本要求是使父母吃飽喝足", "古今對孝順的表現方式是迥然不同的", "孝順是言聽計從，如犬馬般地順從父母"],
+  "孝＝物質奉養＋恭敬之心，「敬」才是關鍵。");
+q("c4-o22", "T4", 1, "orig", "講義 p.70 學力活用 9", "孔子說：「譬如為山，未成一簣，止，吾止也；譬如平地，雖覆一簣，進，吾往也。」這段話說明什麼道理？", ["學貴有恆，成敗操之在我", "人生之路坎坷，到處充滿挑戰", "大自然時時啟示我們人生進退之道", "破壞自然就是阻斷人類生機"],
+  "第二則旨：為學必須不斷努力，不可半途而廢；止、進都是「吾」決定。");
+q("c4-o23", "T4", 2, "orig", "講義 p.67 讀後檢測 1（改為單選）", "本課三則的題材，不包括下列何者？", ["朋友互助之道", "學習態度", "孝順的真義", "自我反省"],
+  "三則＝孝的真諦、為學態度、自我反省。「與朋友交而不信乎」是反省自己的誠信，不是在講朋友互助。");
+q("c4-a01", "T4", 2, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "關於「譬如為山」一則，下列說明何者正確？", ["以「吾往也」「吾止也」強調進德修業操之在己", "用「平地」的例子說明半途而廢的害處", "用「為山」的例子說明鍥而不舍，金石可鏤", "全文主旨是勸人不要堆土造山"],
+  "為山（只差一筐卻停下）＝半途而廢；平地（才倒一筐但持續）＝鍥而不舍。兩例子剛好反過來。");
+q("c4-a02", "T4", 3, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "關於「子游問孝」一則，下列何者正確？", ["孔子和當時的人對於孝順的認知有差異", "是謂能「養」：音一ㄤˇ，飼養犬馬", "皆能有「養」：音一ㄤˋ，奉養父母", "孔子認為讓父母錦衣玉食是孝順最重要的表現"],
+  "時人認為「能養」就是孝，孔子認為「敬」才是關鍵，兩者認知不同。是謂能養＝一ㄤˋ奉養父母；皆能有養＝一ㄤˇ飼養犬馬，兩個讀音和意思剛好被對調。");
+q("c4-e401", "T4", 2, "ext", "題型延伸", "「譬如為山，未成一簣，止，吾止也」與下列哪一句意思最接近？", ["為山九仞，功虧一簣", "鍥而不舍，金石可鏤", "積沙成塔，集腋成裘", "登高必自卑，行遠必自邇"],
+  "要句精析 3：意近《尚書》「為山九仞，功虧一簣」。鍥而不舍是「平地」那一句的精神。");
+q("c4-e402", "T4", 2, "ext", "題型延伸", "「譬如平地，雖覆一簣，進，吾往也」表現出什麼精神？", ["積極進取，鍥而不舍", "安於現狀", "知足常樂", "見好就收"],
+  "要句精析 4：表現積極進取的精神，意同「鍥而不舍，金石可鏤」。");
+q("c4-e403", "T4", 3, "ext", "題型延伸", "孟子說：「有為者，譬若掘井，掘井九仞而不及泉，猶為棄井也。」這句話與本課哪一句意思最接近？", ["譬如為山，未成一簣，止，吾止也", "譬如平地，雖覆一簣，進，吾往也", "傳不習乎", "不敬，何以別乎"],
+  "挖井挖到很深卻沒挖到泉水就停，等於廢井——和堆山只差一筐就停下一樣，都是半途而廢、前功盡棄。");
+q("c4-e404", "T4", 2, "ext", "題型延伸", "曾子反省的三件事「忠、信、習」，依序對應的面向是？", ["處事、待人、學習", "待人、處事、學習", "學習、處事、待人", "處事、學習、待人"],
+  "文章結構表：為人謀而不忠（處事）、與朋友交而不信（待人）、傳不習（學習）。");
+q("c4-e405", "T4", 3, "ext", "題型延伸", "「止，吾止也」除了半途而廢，更含有下列何種意味？", ["功敗垂成，咎由自取", "時運不濟，非戰之罪", "知足不辱，知止不殆", "別人阻礙，無能為力"],
+  "要句精析 3：更含有「功敗垂成，咎由自取」的意味——是自己停下的，怪不了別人。");
+
+/* ===== T5 觀念應用・情境 ===== */
+q("c4-w14", "T5", 2, "orig", "講義 p.71 學力活用 15（生活題）", "小陳是一個公認的孝子，他要做到以下哪一項行為才算是真孝？", ["分辨是非，好言相對", "父母飲食，高檔為先", "無論對錯，資金相助", "一味附和，屈意承歡"],
+  "真孝要有「敬」：用尊重的態度好好說話；父母做錯也不是盲從，而是好言相勸。「飲食高檔」只是物質奉養（課文說犬馬也能有養）；「無論對錯都給錢」「一味附和」是盲從，不是敬。", Object.assign(W("觀念不懂", 1), { h: "課文說只有物質不夠，還要什麼？" }));
+q("c4-w14a", "T5", 2, "var", "類題", "下列哪一個做法最符合孔子所說的孝？", ["每天回家主動和父母問好，耐心聽他們說話", "買最貴的保健食品給父母，但很少和他們說話", "父母說什麼都照做，就算是錯的也不提醒", "給父母零用錢，但對他們說話很不耐煩"],
+  "有「敬」的態度才是孝。只給物質、或盲目順從，都沒有做到敬。", V("c4-w14"));
+q("c4-w14b", "T5", 3, "var", "類題", "阿明每個月給媽媽很多生活費，卻常常對媽媽大吼大叫。依孔子的看法，阿明的問題在於？", ["只有物質奉養，缺少恭敬之心", "給的生活費還不夠多", "沒有和媽媽住在一起", "沒有每天反省三次"],
+  "「不敬，何以別乎？」只供給物質而沒有敬，和養犬馬沒有分別。", V("c4-w14"));
+q("c4-o24", "T5", 2, "orig", "講義 p.71 學力活用 13", "「譬如為山……進，吾往也。」其成敗關鍵可用下列何者形容？", ["天下無難事，只怕有心人", "讀書破萬卷，下筆如有神", "合抱之木，生於毫末", "己所不欲，勿施於人"],
+  "成敗在「吾」：有沒有心堅持下去。合抱之木生於毫末是說大事從小處累積，不是在講成敗在己。");
+q("c4-o25", "T5", 1, "orig", "講義 p.71 學力活用 17", "下列何者最能闡述「馬拉松賽跑不能堅持到終點」的情況？", ["譬如為山，未成一簣，止，吾止也", "己所不欲，勿施於人", "吾日三省吾身", "學如不及，猶恐失之"],
+  "快到終點卻停下＝只差一筐土就停止。");
+q("c4-o26", "T5", 1, "orig", "講義 p.70 學力活用 6", "「與朋友交而不信乎？」由此可知曾子在對待朋友方面最重視何者？", ["講信修睦", "慷慨大方", "豪邁瀟灑", "成人之美"],
+  "信＝誠信。講信修睦＝講求信用、和睦相處。");
+q("c4-e501", "T5", 2, "ext", "題型延伸", "小美每天睡前檢查：今天幫同學做的事有沒有盡力？答應朋友的事有沒有做到？今天上的課有沒有複習？她的做法最接近哪一句？", ["吾日三省吾身", "譬如平地，雖覆一簣", "今之孝者，是謂能養", "不敬，何以別乎"],
+  "盡力（忠）、做到答應的事（信）、複習（習）——正是曾子每天反省的三件事。");
+q("c4-e502", "T5", 2, "ext", "題型延伸", "打掃時同學說：「反正只剩一個角落，明天再掃吧。」用本課哪一句提醒他最恰當？", ["譬如為山，未成一簣，止，吾止也", "與朋友交而不信乎", "至於犬馬，皆能有養", "譬如平地，雖覆一簣，進，吾往也"],
+  "只差一點點就完成卻停下＝未成一簣而止。");
+q("c4-e503", "T5", 3, "ext", "題型延伸", "小強成績墊底，但他每天多背五個單字，期末進步了三十名。下列何者最能形容他？", ["譬如平地，雖覆一簣，進，吾往也", "譬如為山，未成一簣，止，吾止也", "功虧一簣", "前功盡棄"],
+  "起點很低（才倒一筐土），但持續前進，終究能填平——持之以恆。");
+q("c4-e504", "T5", 2, "ext", "題型延伸", "小華在小組報告中負責查資料，卻隨便抄了幾句交差。依曾子的三省，他最該反省哪一項？", ["為人謀而不忠乎", "與朋友交而不信乎", "傳不習乎", "不敬，何以別乎"],
+  "替別人（小組）辦事卻不盡心＝為人謀而不忠。");
+q("c4-e505", "T5", 3, "ext", "題型延伸", "下列哪一個情境，最能說明「敬」才是孝的關鍵？", ["奶奶說話慢，小志總是耐心聽完再回答", "小英把最好吃的菜都夾給爸爸", "阿傑每月寄很多錢回家", "小芬幫爸媽買了按摩椅"],
+  "耐心聽完是態度上的尊重（敬）。其他三個都是物質上的給予，課文說物質奉養「犬馬皆能有養」。");
+q("c4-e506", "T5", 2, "ext", "題型延伸", "期中考前一天，阿豪才翻開課本，從頭讀到尾。依曾子的反省，他平時少做了哪件事？", ["傳不習乎（溫習老師教的課業）", "為人謀而不忠乎", "與朋友交而不信乎", "不敬，何以別乎"],
+  "平時沒有溫習老師傳授的課業。");
+
+/* ===== T6 修辭・作法・文體 ===== */
+q("c4-o28", "T6", 2, "orig", "講義 p.67 讀後檢測 6", "關於本課三則的作法，下列何者有誤？", ["三則皆透過師生一問一答的方式，呈現進德修業的道理", "子游問孝一則，透過「能養」與「犬馬皆能有養」的比較，凸顯孝親的真義", "譬如為山一則，以譬喻和對比闡明學貴有恆", "吾日三省吾身一則，以連續問句反思自己是否盡心"],
+  "只有第一則是子游問、孔子答。第二則只有「子曰」，第三則是曾子自述，都不是一問一答。");
+q("c4-k01", "T6", 1, "key", "講義 修辭彙要", "「譬如為山，未成一簣，止，吾止也；譬如平地，雖覆一簣，進，吾往也。」主要使用了哪些修辭？", ["譬喻兼映襯", "設問兼排比", "誇飾兼譬喻", "轉化兼映襯"],
+  "「譬如」→譬喻（把為學比作堆山、填地）；止／進、為山／平地相反對照→映襯。");
+q("c4-k02", "T6", 1, "key", "講義 修辭彙要", "「為人謀而不忠乎？與朋友交而不信乎？傳不習乎？」使用了哪一種修辭？", ["設問", "譬喻", "誇飾", "轉化"],
+  "連續用問句反省自己，是設問（反詰）。");
+q("c4-k03", "T6", 2, "key", "講義 要句精析 2", "「不敬，何以別乎？」這句問句的作用是？", ["用問句表達肯定的看法：沒有敬就無法分別", "表示孔子真的不知道答案", "是在詢問子游的意見", "表示驚訝"],
+  "激問（反詰）：答案在問題的反面。「何以別乎？」＝沒有分別。透過問句點明孝的真諦在於敬。");
+q("c4-k04", "T6", 1, "key", "講義 章法分析 3", "本課第一則把「人」與「犬馬」放在一起，用的是什麼手法來強調「敬」？", ["對比", "排比", "層遞", "類疊"],
+  "以人與狗和馬作對比：都能養，差別在敬。");
+q("c4-k05", "T6", 1, "key", "講義 章法分析 1", "論語屬於哪一種文體？", ["語錄體，屬記言體", "記敘文，屬記事體", "詩歌", "駢文"],
+  "論語為語錄，屬記言體。");
+q("c4-k06", "T6", 3, "ext", "題型延伸", "下列哪一句和「不敬，何以別乎？」一樣，答案在問題的反面（激問）？", ["學而時習之，不亦說乎？", "今天星期幾？", "你吃飽了嗎？", "什麼是孝？孝就是敬。"],
+  "「不亦說乎？」＝不也很快樂嗎→很快樂，答案在反面，是激問。「什麼是孝？孝就是敬」自問自答，是提問。其他是真的在問（疑問）。");
+q("c4-k07", "T6", 2, "ext", "題型延伸", "第二則「為山」與「平地」兩個譬喻，形成了什麼樣的對照？", ["一個差一點完成卻停下，一個剛開始卻持續前進", "一個在山上，一個在平地", "一個講孝順，一個講學習", "一個講朋友，一個講老師"],
+  "文章結構表：為山——半途而廢（敗）；平地——持之以恆（成）。");
+q("c4-a03", "T6", 2, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "關於《論語》選三則的敘述，下列何者有誤？", ["三則都是師生一問一答，討論學習與孝親之理", "譬如為山一則，以譬喻和對比闡明學貴有恆", "子游問孝一則，透過比較凸顯孝親的真義", "吾日三省吾身一則，曾子以連續問句自我反省"],
+  "第三則是曾子自述，第二則只有孔子說，不是三則都一問一答。");
+q("c4-k08", "T6", 2, "ext", "講義 語錄體簡介", "關於語錄體的特點，下列何者錯誤？", ["文辭華麗，多用典故", "文辭貼近口語，令人有親切之感", "所錄要言不煩，令人有精粹之感", "有感而發，不做無病呻吟"],
+  "語錄體三特點：貼近口語（親切）、要言不煩（精粹）、有感而發（真實）。不是華麗多典故。");
+
+/* ===== T7 論語與孔子常識 ===== */
+q("c4-o29", "T7", 2, "orig", "講義 p.71 學力活用 11（112會考）", "小寧對論語的筆記：「①編者是孔子，名丘，字仲尼，春秋魯國人。②是記錄人物言論的語錄。③儒家重要經典。④對中國文化有深遠的影響。」何者錯誤？", ["①", "②", "③", "④"],
+  "論語不是孔子編的，而是孔子的弟子和再傳弟子記述編輯而成。");
+q("c4-o30", "T7", 1, "orig", "講義 p.72 學力活用 23", "有關孔子的介紹，下列何者有誤？", ["名丘，字仲尼，戰國時代魯國人", "是儒家思想的代表人物", "是中國古代傑出的教育家、思想家", "他的思想和言行，主要保存在論語一書中"],
+  "孔子是「春秋」魯國人，不是戰國。");
+q("c4-k09", "T7", 1, "key", "講義 作者細說", "論語各篇的篇名是怎麼來的？", ["取每篇首章開頭的二、三個字", "依照內容主旨命名", "由孔子親自命名", "依照弟子的名字命名"],
+  "例如「學而」「為政」「子罕」，都是取首章開頭的字，篇名本身沒有特別意義。");
+q("c4-k10", "T7", 1, "key", "講義 課文前哨站", "孔子被後世尊稱為什麼？", ["至聖先師、萬世師表", "亞聖", "詩聖", "書聖"],
+  "亞聖是孟子、詩聖是杜甫、書聖是王羲之。");
+q("c4-k11", "T7", 2, "key", "講義 課文前哨站", "下列關於孔子教學的敘述，何者正確？", ["首開私人講學之風，有教無類", "只教貴族子弟", "弟子只有七十二人", "強調背誦，不重思辨"],
+  "有教無類＝不分貴賤都教；弟子三千餘人（身通六藝七十餘人）；強調主動學習和思辨，因材施教。");
+q("c4-k12", "T7", 1, "key", "講義 作者細說", "論語全書共有幾篇？", ["二十篇", "十篇", "三十篇", "七篇"],
+  "全書二十篇。");
+q("c4-a04", "T7", 2, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "同學們討論《論語》，下列何人的說法正確？", ["甲：《論語》是孔子與弟子及時人談論、對話的語錄，以記言為主", "乙：《論語》用簡短的故事傳達道理", "丙：《論語》詳細記載孔子一生的經歷，是道家經典", "丁：《論語》每個篇名都有特殊意義，和內容密切相關"],
+  "論語是語錄、記言體，不是故事；是儒家經典；篇名只是取首章開頭二、三字。");
+q("c4-a05", "T7", 3, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "如果搭時光機回到孔子的教室，最可能看到下列哪一件事？", ["弟子們熱烈討論孔子以「仁」為核心的學說", "德行科的顏淵白天睡覺，被孔子說「朽木不可雕也」", "孔子和弟子一起討論怎麼編寫《論語》", "孔子用「有教無類」的方式，對不同個性的學生給不同回答"],
+  "白天睡覺被罵的是宰我；論語是孔子過世後弟子編的；依個性給不同回答是「因材施教」，有教無類是不分貴賤都教。");
+q("c4-k13", "T7", 2, "ext", "講義 語錄體簡介", "在論語之後，下列哪一部書也可見到語錄的形式？", ["孟子", "詩經", "史記", "山海經"],
+  "語錄體簡介：在論語之後，孟子、墨子亦可見語錄之存。");
+q("c4-k14", "T7", 2, "ext", "講義 課文前哨站", "「允文允武」形容孔子什麼？", ["既精通詩書典籍，也學習射箭、駕車等技術", "文章寫得好，武功也高強", "允許文人和武人一起學習", "只重視文學"],
+  "孔子精讀詩書典籍，還學習射箭、駕馭馬車，所以說允文允武。");
+
+/* ===== T8 孔門四科十哲 ===== */
+q("c4-w08", "T8", 2, "orig", "講義 p.70 學力活用 2", "下列「孔門四科十哲」的配對，何者正確？", ["宰我：言語", "季路：文學", "子夏：德行", "顏淵：政事"],
+  "德行：顏淵、閔子騫、冉伯牛、仲弓；言語：宰我、子貢；政事：冉有、季路；文學：子游、子夏。口訣：<b>德行顏閔冉伯仲，言語宰貢，政事冉季，文學游夏</b>。", Object.assign(W("記憶不牢", 1), { h: "宰我、子貢是哪一科？口才好。" }));
+q("c4-w08a", "T8", 1, "var", "類題", "孔門四科十哲中，子游和子夏屬於哪一科？", ["文學", "德行", "言語", "政事"],
+  "文學科：子游（熟讀古代文獻、深通古禮）、子夏（好學深思、傳承弟子）。", V("c4-w08"));
+q("c4-w08b", "T8", 2, "var", "類題", "下列哪一組人物同屬「言語」科？", ["宰我、子貢", "冉有、季路", "顏淵、閔子騫", "子游、子夏"],
+  "言語：宰我（長於辯論）、子貢（口才佳、善經商）。冉有、季路是政事；顏淵、閔子騫是德行；子游、子夏是文學。", V("c4-w08"));
+q("c4-o31", "T8", 1, "orig", "講義 p.69 應用練習 1", "有關孔門四科十哲的敘述，下列何者正確？", ["孔子門下有不同專才的學生", "孔子的學生年齡皆相近", "孔子的學生都是魯國人", "孔子的學生皆口才極佳"],
+  "年齡從小孔子七歲到四十五歲都有；子貢、子夏是衛國人，子游是吳國人；只有言語科特別擅長口才。");
+q("c4-o32", "T8", 2, "orig", "講義 p.69 應用練習 2", "若十哲在同一班，下列班級幹部或活動代表的配對，何者最適切？", ["子夏：國文小老師", "季路：學藝股長", "顏淵：辯論比賽選手", "宰我：品德模範生"],
+  "子夏屬文學科、好學深思。辯論要找言語科的宰我；品德模範要找德行科的顏淵。");
+q("c4-o33", "T8", 1, "orig", "講義 p.69 應用練習 3", "從十哲的介紹中，誰的個性較為衝動、急躁？", ["季路", "冉有", "子夏", "仲弓"],
+  "季路（子路）個性魯莽，好逞血氣之勇。");
+q("c4-e801", "T8", 2, "ext", "題型延伸", "白天睡覺，被孔子訓斥「朽木不可雕也」的是誰？", ["宰我", "顏淵", "子貢", "季路"],
+  "宰我口才好、長於辯論，曾因白天睡覺被孔子訓斥。");
+q("c4-e802", "T8", 2, "ext", "題型延伸", "孔子弟子中最富裕、善於經商的是？", ["子貢", "子游", "冉伯牛", "閔子騫"],
+  "子貢：聰明伶俐、口才佳、善於經商，是孔子弟子中最富裕者。");
+q("c4-e803", "T8", 2, "ext", "題型延伸", "本課第一則「問孝」的子游，屬於四科中的哪一科？", ["文學", "德行", "政事", "言語"],
+  "子游屬文學科（姓言，名偃，吳國人）。");
+q("c4-e804", "T8", 3, "ext", "題型延伸", "下列人物與描述的配對，何者正確？", ["閔子騫：以孝順聞名鄉里", "冉有：口才好，長於辯論", "子夏：吳國人，小孔子四十五歲", "顏淵：曾在衛國任官"],
+  "閔子騫以孝順聞名。長於辯論是宰我；吳國人、小孔子四十五歲是子游（子夏是衛國人、小四十四歲）；在衛國任官的是季路。");
+q("c4-e805", "T8", 2, "ext", "題型延伸", "「安貧樂道、好學、不遷怒、不貳過」形容的是誰？", ["顏淵", "子貢", "宰我", "季路"],
+  "顏淵是孔子的得意門生，屬德行科。");
+q("c4-e806", "T8", 3, "ext", "題型延伸", "下列關於十哲姓名字號的敘述，何者正確？", ["季路姓仲，名由，字子路", "子貢姓子，名貢", "仲弓姓仲，名弓", "子游姓子，名游"],
+  "子貢姓端木名賜；仲弓姓冉名雍；子游姓言名偃。「子○」是字，不是姓。");
+
+/* ===== T9 成語俗諺名言 ===== */
+q("c4-w16", "T9", 2, "orig", "講義 p.71 學力活用 18", "下列成語皆與學習有關，何者屬於「貶義詞」？", ["囫圇吞棗", "舉一反三", "不恥下問", "鐵杵成針"],
+  "囫圇吞棗＝整顆棗子吞下不咀嚼，比喻讀書不求甚解，是貶義。舉一反三、不恥下問（肯向人請教，講義標「褒」）、鐵杵成針（有恆心）都是稱讚。", Object.assign(W("記憶不牢", 1), { h: "「不恥下問」是稱讚還是批評？講義成語表怎麼標？" }));
+q("c4-w16a", "T9", 1, "var", "類題", "下列出自論語的成語，何者是貶義？", ["巧言令色", "見賢思齊", "有教無類", "當仁不讓"],
+  "巧言令色＝話說得好聽、臉色裝和善，卻不誠懇（講義標「貶」）。", V("c4-w16"));
+q("c4-w16b", "T9", 2, "var", "類題", "下列成語，何者屬於褒義？", ["不恥下問", "道聽塗說", "言不及義", "巧言令色"],
+  "不恥下問（褒）。道聽塗說、言不及義、巧言令色都是貶義。", V("c4-w16"));
+q("c4-w17", "T9", 2, "orig", "講義 p.71 學力活用 20", "下列哪一組「不屬於」近義詞？", ["循循善誘／引人歧途", "半途而廢／前功盡棄", "功虧一簣／功敗垂成", "舉一反三／觸類旁通"],
+  "循循善誘＝有步驟地好好引導；引人歧途＝把人帶到錯路，意思相反。看到「不屬於」要先圈起來，找意思不同的那一組。", Object.assign(W("題意誤讀", 1), { h: "題目問的是「不屬於」近義詞。" }));
+q("c4-w17a", "T9", 2, "var", "類題", "下列哪一組成語意思相近？", ["功虧一簣／功敗垂成", "持之以恆／半途而廢", "後生可畏／老生常談", "有教無類／因材施教"],
+  "功虧一簣、功敗垂成都是快成功時失敗。有教無類（不分對象都教）和因材施教（依資質教）意思不同。", V("c4-w17"));
+q("c4-w17b", "T9", 3, "var", "類題", "下列各組成語，何者意思相反？", ["持之以恆／半途而廢", "溫故知新／溫故而知新", "舉一反三／觸類旁通", "見賢思齊／擇善而從"],
+  "持之以恆（堅持）與半途而廢（中途放棄）相反。其他三組意思相近。", V("c4-w17"));
+q("c4-w18", "T9", 2, "orig", "講義 p.71 學力活用 21（生活題）", "「小剛做事總是三分鐘熱度，不能□□□□，導致蹉跎歲月，一事無成。」缺空中「不宜」填入哪一個成語？", ["聚沙成塔", "鍥而不舍", "有始有終", "持之有恆"],
+  "空格要填「堅持到底」：鍥而不舍、有始有終、持之有恆都對。聚沙成塔＝積少成多，重點在累積，不是三分鐘熱度的反面。題目問「不宜」，要找最不合適的。", Object.assign(W("題意誤讀", 1), { h: "三個選項意思一樣、一個不一樣，問的是「不宜」。" }));
+q("c4-w18a", "T9", 2, "var", "類題", "「他學鋼琴□□□□，練了十年終於登台演出。」空格最適合填入？", ["持之以恆", "半途而廢", "功虧一簣", "一曝十寒"],
+  "練了十年＝持之以恆。一曝十寒＝努力一天、懈怠十天，正好相反。", V("c4-w18"));
+q("c4-w18b", "T9", 3, "var", "類題", "「只差最後一題就能全對，他卻因為粗心寫錯，真是□□□□。」下列何者「不宜」填入？", ["持之以恆", "功虧一簣", "功敗垂成", "前功盡棄"],
+  "只差最後一步卻失敗＝功虧一簣、功敗垂成、前功盡棄。持之以恆是稱讚有恆心，不合語境。", V("c4-w18"));
+q("c4-w19", "T9", 2, "orig", "講義 p.71 學力活用 22", "下列「」中的詞語皆出自論語，何者使用正確？", ["「人無遠慮，必有近憂」，凡事不能只考慮眼前，要做長久打算", "「小不忍則亂大謀」，這點小事由我來處理就可以了", "所謂「道不同，不相為謀」，不喜歡別人把垃圾堆在你家門口，就不要把垃圾堆在別人家門口", "由於主事者以身作則，於是「舉一反三」，全體一致實踐"],
+  "小事不必勞動大才，應用「割雞焉用牛刀」；不喜歡的事不要加給別人，應用「己所不欲，勿施於人」；上位者做榜樣大家跟著做是「風行草偃」。", Object.assign(W("觀念不懂", 1), { h: "每一句都用成語原本的意思代進去檢查。" }));
+q("c4-w19a", "T9", 2, "var", "類題", "「這點小事交給我就好，不必勞駕經理親自出馬。」可用哪一句論語？", ["割雞焉用牛刀", "小不忍則亂大謀", "人無遠慮，必有近憂", "己所不欲，勿施於人"],
+  "割雞焉用牛刀＝處理小事，不需要大才。", V("c4-w19"));
+q("c4-w19b", "T9", 3, "var", "類題", "下列「」中的成語，何者使用正確？", ["校長每天第一個到校撿垃圾，全校師生也跟著做，真是「風行草偃」", "他只會「巧言令色」，所以大家都很信任他", "你剛學會加法，真是「後生可畏」", "這場比賽我們輸了，真是「當仁不讓」"],
+  "風行草偃＝在上位者以德化民。巧言令色是貶義，不會讓人信任；後生可畏要年輕人超越前輩；當仁不讓是主動承擔該做的事。", V("c4-w19"));
+q("c4-w22", "T9", 2, "orig", "講義 p.72 學力活用 30（紅筆訂正）", "子曰：「後生可畏，焉知來者之不如今也！」此句意思與下列何者最接近？", ["年輕人值得欽佩，將來大有可為", "年輕人不爭氣，未來不可能有前途", "年輕人怕辛苦，以後就會嘗到苦果", "年輕人有夢想，昨天的一切讓它隨風飄走"],
+  "後生可畏＝年輕人常能超越前輩，令人敬畏（講義標「褒」）。「畏」是敬畏，不是可怕；「焉知來者之不如今」＝怎麼知道後輩比不上現在的人呢？", Object.assign(W("記憶不牢"), { h: "成語表：後生可畏是褒還是貶？" }));
+q("c4-w22a", "T9", 1, "var", "類題", "「後生可畏」的「畏」是什麼意思？", ["敬畏、佩服", "害怕、恐怖", "可惡", "畏縮"],
+  "年輕人能超越前輩，令人敬畏。", V("c4-w22"));
+q("c4-w22b", "T9", 2, "var", "類題", "下列哪一個情境最適合用「後生可畏」？", ["十二歲的小選手打敗了世界冠軍", "老師的教學經驗很豐富", "老爺爺身體很硬朗", "學弟上課常常遲到"],
+  "年輕人表現超越前輩，令人敬佩。", V("c4-w22"));
+q("c4-o27", "T9", 2, "orig", "講義 p.70 學力活用 3", "下列「」中的詞語，何者使用不當？", ["他是個潔身自愛的人，每天都記得「晨昏定省」", "他很有識人的能力，懂得「擇善而從」，是一個有為的青年", "做事不能只有三分鐘熱度，否則「功虧一簣」，後悔就來不及了", "一個能夠「溫故知新」的人，必然是個好學之人"],
+  "晨昏定省＝子女早晚向父母問安，和「潔身自愛」無關。");
+q("c4-o34", "T9", 2, "orig", "講義 p.72 學力活用 25", "下列關於論語名句的解釋，何者不正確？", ["知之為知之，不知為不知，是知也：每個人都有自己的專業，不要嘲笑不懂的人", "見賢思齊焉，見不賢而內自省也：要學習他人的優點，也要避免他人的錯誤", "人不知而不慍，不亦君子乎：君子不會因為不被看重而生氣", "譬如為山，未成一簣，止，吾止也：阻止自己成功的人通常是自己"],
+  "知之為知之……＝知道就說知道，不知道就說不知道，這才是真正的智慧（誠實的求知態度），和嘲笑別人無關。");
+q("c4-o35", "T9", 1, "orig", "講義 p.72 學力活用 24", "「逝者如斯夫！不舍晝夜。」孔子講這句話的意思是？", ["感嘆時光如流水，日夜不停留", "驚喜歲月如流水，奔流不止", "珍惜日夜的轉換，不浪費時間", "希望能日夜陪伴家有喪事的人"],
+  "逝者＝流逝的時光；不舍晝夜＝日夜不停。是感嘆，不是驚喜。");
+q("c4-e901", "T9", 2, "ext", "題型延伸", "「己所不欲，勿施於人」的意思是？", ["自己不喜歡的事物，不要加在別人身上", "自己想要的，也要分給別人", "不要強迫自己做不喜歡的事", "別人不要的東西，自己也不要"],
+  "講義成語表 18（97基測）。");
+q("c4-e902", "T9", 2, "ext", "題型延伸", "「見賢思齊」的意思是？", ["看到賢能的人，便想效法他", "看到賢能的人，便嫉妒他", "和賢能的人一起思考", "賢能的人想法都一樣"],
+  "講義成語表 3（98基測）。齊＝看齊、效法。");
+q("c4-e903", "T9", 3, "ext", "題型延伸", "下列「」中的成語，何者使用「不當」？", ["他上課常「言不及義」，所以同學都向他請教問題", "老師「有教無類」，不論學生成績好壞都用心教", "學長「當仁不讓」，主動接下最困難的工作", "爸爸說過去的事「既往不咎」，要我以後改進"],
+  "言不及義＝只說無聊話，沒談到正經道理（貶），同學不會因此向他請教。");
+q("c4-e904", "T9", 2, "ext", "題型延伸", "「溫故知新」與本課哪一句最相關？", ["傳不習乎", "不敬，何以別乎", "至於犬馬，皆能有養", "譬如為山"],
+  "溫故＝溫習學過的知識；傳不習乎＝反省老師傳授的課業有沒有溫習。");
+q("c4-e905", "T9", 2, "ext", "題型延伸", "「任重道遠」的意思是？", ["比喻長期肩負重大的任務", "道路太遠，走不到", "工作太重，想要放棄", "比喻目標太遠，不切實際"],
+  "講義成語表 8（99基測）：負擔繁重，路途遙遠。");
+q("c4-a06", "T9", 2, "adapt", "改編自 新北市崇林國中 107學年度第一學期第二次段考", "下列何者與「風行草偃」意思最接近？", ["上行下效", "山盟海誓", "不寒而慄", "山重水複"],
+  "風行草偃＝在上位者以德化民，風一吹草就倒向一邊；上行下效＝上面的人怎麼做，下面的人就跟著做。");
+q("c4-a07", "T9", 3, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "「逝者如斯夫！不舍晝夜。」這句話的主旨與下列何者相近？", ["少年易老學難成，一寸光陰不可輕", "玉不琢，不成器；人不學，不知道", "事之難易，不在大小，務在知時", "掘井九仞而不及泉，猶為棄井也"],
+  "都是感嘆時光流逝、提醒珍惜時間。玉不琢講學習的重要；掘井講半途而廢。");
+q("c4-e906", "T9", 1, "ext", "講義 名言佳句", "「學而不思則罔」「業精於勤荒於嬉」「知之者不如好之者」這些名言，都和什麼主題有關？", ["為學求知", "孝順父母", "交友之道", "治理國家"],
+  "講義「與為學求知相關的名言佳句」。");
+
+/* ===== T10 論語延伸閱讀 ===== */
+q("c4-w12", "T10", 3, "orig", "講義 p.71 學力活用 12（110會考）", "「有些人才，只是放錯了位置，就成了庸才。」這句話的涵義與下列何者最接近？", ["天地無棄物，用人當取其所長", "天才與瘋子往往只有一線之隔", "平凡人透過努力也能變得傑出", "人須自知自愛，方能獲得尊重"],
+  "關鍵詞是「放錯位置」：人才要放在適合的地方才能發揮。天地間沒有沒用的東西，用人要用他的長處——意思最接近。「努力也能傑出」講的是努力，題目講的是位置。", Object.assign(W("題意誤讀", 1), { h: "先圈出題目的關鍵詞：「放錯了位置」。" }));
+q("c4-w12a", "T10", 2, "var", "類題", "「千里馬常有，而伯樂不常有。」這句話感嘆的是？", ["人才常有，但能發掘人才的人很少", "好馬都跑得很遠", "伯樂不喜歡馬", "人才很少見"],
+  "千里馬比喻人才，伯樂比喻能識才、用才的人。", V("c4-w12"));
+q("c4-w12b", "T10", 3, "var", "類題", "公司讓不擅長說話、但做事細心的阿德去當會計，他表現傑出。這最能呼應哪一句？", ["用人當取其所長", "後生可畏", "己所不欲，勿施於人", "巧言令色，鮮矣仁"],
+  "把人放在適合他長處的位置，人才才能發揮。", V("c4-w12"));
+q("c4-w20", "T10", 3, "orig", "講義 p.72 學力活用 26（紅筆訂正）", "李安說：「與父母的關係，能夠彼此相愛就夠了，不必要製造一個階級觀念……我已經不教小孩『孝順』這個東西，只要他感受到我的愛，同時也愛我就夠了。」根據這段話，下列何者說明最恰當？", ["子女與父母間的關係應該是「愛」而非「孝」", "在「孝」的前提下，子女才會愛父母", "就算不愛父母，子女也必須孝順父母", "要以「愛」教育孩子，才能教出孝順的孩子"],
+  "李安說「不教孝順」「彼此相愛就夠了」——他主張用愛取代孝。「以愛教出孝順的孩子」又把孝當目標，和他說的『不教孝順』矛盾。閱讀題要對準作者原話，不要用自己的想法補。", Object.assign(W("題意誤讀"), { h: "李安說他「不教」什麼？" }));
+q("c4-w20a", "T10", 2, "var", "類題", "一位家長說：「我不要求孩子考第一，只希望他每天都比昨天的自己進步一點。」這位家長的想法是？", ["重視孩子自己的進步，而不是和別人比", "希望孩子考第一名", "不在乎孩子的學習", "要孩子每天和同學比較"],
+  "關鍵句「比昨天的自己進步」：比較對象是自己。", V("c4-w20"));
+q("c4-w20b", "T10", 3, "var", "類題", "某作家說：「我從不逼孩子讀書，我只是自己天天讀，孩子看久了也拿起書來。」下列何者最接近他的教育方法？", ["以身作則，讓孩子自然效法", "嚴格要求，定時檢查", "給予獎勵，讀一本給一次零用錢", "放任不管，讓孩子自生自滅"],
+  "自己天天讀，孩子跟著學＝以身作則。他不是放任，而是用行動影響。", V("c4-w20"));
+q("c4-w21", "T10", 3, "orig", "講義 p.72 學力活用 29（紅筆訂正）", "子曰：「視其所以，觀其所由，察其所安。人焉廋哉？人焉廋哉？」下列何者與這段話的意涵最接近？", ["聽其言而觀其行", "朝聞道，夕死可矣", "父母在，不遠遊，遊必有方", "不在其位，不謀其政"],
+  "看他做什麼、怎麼做、心安於什麼，這個人還能隱藏什麼呢？（廋＝隱藏）重點是「觀察一個人的行為來了解他」，和「聽了他的話，還要看他的行為」最接近。", Object.assign(W("觀念不懂"), { h: "視、觀、察都是在「看」一個人的什麼？" }));
+q("c4-w21a", "T10", 2, "var", "類題", "「人焉廋哉？」的「廋」是什麼意思？", ["隱藏", "瘦弱", "尋找", "休息"],
+  "廋（ㄙㄡ）＝隱藏。人焉廋哉＝這個人還能隱藏什麼呢？", V("c4-w21"));
+q("c4-w21b", "T10", 3, "var", "類題", "下列哪一種做法，最符合「聽其言而觀其行」？", ["選班長時，看誰平常真的熱心幫忙，而不只看誰政見說得好", "選口才最好的人當班長", "選成績最好的人當班長", "選人緣最好的人當班長"],
+  "不只聽他說什麼，還要看他實際做了什麼。", V("c4-w21"));
+q("c4-w23", "T10", 2, "orig", "講義 p.73 題組（一）1（紅筆訂正）", "子曰：「益者三友，損者三友：友直，友諒，友多聞，益矣；友便辟，友善柔，友便佞，損矣。」用下列哪一選項來詮釋「友直，友諒，友多聞，益矣」最恰當？", ["以友輔仁", "文以載道", "擇善固執", "獨善其身"],
+  "和正直、誠信、博學的人交朋友，朋友能幫助自己提升品德——就是「以友輔仁」（靠朋友輔助自己的仁德）。獨善其身是只顧好自己，和交友無關。", Object.assign(W("觀念不懂"), { h: "題目在講交「朋友」的好處。" }));
+q("c4-w23a", "T10", 2, "var", "類題", "「友便佞」的「便佞」是哪一種朋友？", ["善於隨口胡說、沒有真正學識的人", "正直的人", "誠信的人", "見多識廣的人"],
+  "譯文：和善於隨口胡說卻沒有真正學識的人交朋友，便有害了。", V("c4-w23"));
+q("c4-w23b", "T10", 3, "var", "類題", "依「益者三友」，下列哪一位最可能是「益友」？", ["你做錯事時會直接指出，還幫你一起改正的同學", "你說什麼都附和你的同學", "很會說好聽話討好老師的同學", "常常講大話卻說不出內容的同學"],
+  "直接指出錯誤＝友直。附和、討好是「善柔」，講大話是「便佞」，都是損友。", V("c4-w23"));
+q("c4-w24", "T10", 3, "orig", "講義 p.73 題組（二）4（紅筆訂正）", "子曰：「德之不脩，學之不講，聞義不能徙，不善不能改，是吾憂也。」下列何者「並非」孔子之憂？", ["不聽仁義之事", "不修養品德", "不講求學問", "無法改進過失"],
+  "「聞義不能徙」＝聽到了義卻不能去實踐（徙＝遷移，指去實踐），問題不在「不聽」，而在聽了不做。所以「不聽仁義之事」不是原文說的憂。", Object.assign(W("題意誤讀"), { h: "「聞義」是有聽到還是沒聽到？" }));
+q("c4-w24a", "T10", 2, "var", "類題", "「聞義不能徙」的意思是？", ["聽到合乎義的事，卻不能去實踐", "聽不到合乎義的事", "聽到義就搬家", "不願意聽別人的意見"],
+  "徙＝遷移，此指實踐「義」。", V("c4-w24"));
+q("c4-w24b", "T10", 2, "var", "類題", "「德之不脩」的「脩」通哪一個字？", ["修", "休", "秀", "羞"],
+  "講義注釋：脩通「修」，研習、修養。", V("c4-w24"));
+q("c4-w25", "T10", 2, "orig", "講義 p.73 題組（二）5（空白未答）", "根據子貢「君子之過也……更也，人皆仰之」和孔子「……不善不能改，是吾憂也」，君子勇於改過，正可避免孔子四憂中的哪一憂？", ["不善不能改", "德之不脩", "學之不講", "聞義不能徙"],
+  "「更也」＝改過；孔子憂的「不善不能改」＝有了錯誤不能改正。君子勇於改過，正好避免這一憂。", W("觀念不懂"));
+q("c4-w25a", "T10", 2, "var", "類題", "「更也，人皆仰之」的「更」是什麼意思？", ["改正", "更加", "打更", "更換衣服"],
+  "君子改過之後，人人都會仰望他。更＝改。", V("c4-w25"));
+q("c4-w25b", "T10", 3, "var", "類題", "下列何者最能表現「過則勿憚改」（有錯就不要怕改）的精神？", ["發現自己算錯，馬上承認並重新計算", "算錯了怕被笑，假裝沒發生", "把錯推給同學", "下次再改就好"],
+  "勇於改過＝發現錯誤立刻承認並改正。", V("c4-w25"));
+q("c4-w26", "T10", 2, "orig", "講義 p.73 題組（三）6（紅筆訂正）", "下列哪一句話警示了人「空想不學」，只會讓人思慮偏差，無法切實了解事理？", ["思而不學則殆", "學而不思則罔", "終日不食，終夜不寢，以思", "不如學也"],
+  "罔＝迷惘（只學不想→迷惑）；殆＝危險不安（只想不學→空想、偏差）。口訣：<b>只學不想變迷「罔」，只想不學很危「殆」</b>。", Object.assign(W("記憶不牢"), { h: "「思而不學」才是只想不學。" }));
+q("c4-w26a", "T10", 2, "var", "類題", "「學而不思則罔」的「罔」是什麼意思？", ["迷惘、困惑", "危險", "網子", "沒有"],
+  "罔通「惘」，迷惑、困惑。", V("c4-w26"));
+q("c4-w26b", "T10", 3, "var", "類題", "小傑只背課本的句子，從不想為什麼，考試題目一換問法就不會。他的情況最接近？", ["學而不思則罔", "思而不學則殆", "溫故知新", "不恥下問"],
+  "只學（背）不思考→迷惘，題目一變就不會。", V("c4-w26"));
+q("c4-o36", "T10", 2, "orig", "講義 p.71 學力活用 19（108會考）", "「我向默默耕耘者學習等待，也向堅持不懈者學習勇敢；我從高傲的人身上學會了彎腰，也從奢靡的人身上學到了簡樸。」這段文句最能呼應論語中的哪一段話？", ["三人行，必有我師焉。擇其善者而從之，其不善者而改之", "學而時習之，不亦說乎", "人之過也，各於其黨。觀過，斯知仁矣", "君子不重則不威，學則不固"],
+  "向好的人學優點（從之），從不好的人身上反省自己（改之）。");
+q("c4-o37", "T10", 2, "orig", "講義 p.72 學力活用 28（108會考）", "「寧可讓學得快的人等，也不能讓不會的人繼續不會。」下列何者最符合這句話所強調的教育理念？", ["無論良與莠，一個都不放棄", "強化資優教育，培養菁英", "提倡忍讓，加強品格教育", "視學生資質，給予適當教導"],
+  "重點是「不能讓不會的人繼續不會」——每個學生都要帶上來，一個都不放棄。");
+q("c4-o38", "T10", 2, "orig", "講義 p.73 題組（一）2", "孔子把「損友」與「益友」並列，有何意義？", ["使人心生警惕，然後慎思明辨", "令人心生徬徨，然後擇一而從", "讓人多交朋友，才能廣結善緣", "教人從中評估朋友的利用價值"],
+  "列出益友和損友，讓人警惕、分辨，謹慎交友。");
+q("c4-o39", "T10", 1, "orig", "講義 p.73 題組（二）3", "子貢說：「君子之過也，如日月之食焉。過也，人皆見之；更也，人皆仰之。」何者正確？", ["君子要勇於改過", "君子不應該犯錯", "君子若犯錯就代表品德有缺陷", "君子犯錯會被眾人交相指責"],
+  "君子犯錯像日蝕月蝕，人人看得到；改過之後，人人敬仰。");
+q("c4-o40", "T10", 1, "orig", "講義 p.73 題組（三）7", "「吾嘗終日不食，終夜不寢，以思，無益；不如學也。」這段話可用哪四個字來定義？", ["空想無益", "空口無憑", "空洞無物", "空空如也"],
+  "整天不吃、整夜不睡地空想，沒有益處，不如去學習。");
+q("c4-o41", "T10", 2, "orig", "講義 p.72 學力活用 27（生活題）", "亦承每次與他人溝通時總不在乎對方的感受，只喜歡爭辯、說理，認為自己的看法才是對的。根據下圖判斷，亦承最可能是何種溝通類型？", ["指責型", "超理智型", "討好型", "一致性型"],
+  "讀圖：縱軸上方「在乎他人」、下方「忽略他人」；橫軸右方「在乎自己」、左方「忽略自己」。亦承不在乎對方（忽略他人）、只覺得自己對（在乎自己）→右下角「指責」。超理智是自己和他人都忽略、只講道理。", { fig: "L:comm" });
+q("c4-a08", "T10", 3, "adapt", "改編自 桃園市同德國中 110學年度第一學期第二次段考", "老師請同學蒐集名言來詮釋《論語》文句，下列哪一組前後兩句意義最「不相關」？", ["為人謀而不忠乎？／紙上得來終覺淺，絕知此事要躬行", "傳不習乎？／學問是光明，愚昧是黑暗。念書吧！", "與朋友交而不信乎？／如果要別人誠信，首先自己要誠信", "不敬，何以別乎？／不順乎親，不可以為子"],
+  "「為人謀而不忠」講替人辦事要盡心；「紙上得來終覺淺」講知識要親身實踐，兩者無關。");
+q("c4-e1001", "T10", 2, "ext", "題型延伸", "子曰：「君子欲訥於言而敏於行。」（訥：說話遲鈍）這句話的意思是？", ["君子說話要謹慎，做事要勤快", "君子要能言善道", "君子不應該說話", "君子做事要慢慢來"],
+  "訥於言＝說話謹慎、不輕易出口；敏於行＝行動敏捷。");
+q("c4-e1002", "T10", 3, "ext", "題型延伸", "子曰：「三人行，必有我師焉。擇其善者而從之，其不善者而改之。」下列何者最能體現這句話？", ["看到同學做錯事被罰，提醒自己不要犯同樣的錯", "只向成績比自己好的人學習", "和三個人一起走路比較安全", "不善的人要遠離，不必理他"],
+  "不善的人也能當老師：看到他的錯誤，回頭改正自己（其不善者而改之）。");
+q("c4-e1003", "T10", 2, "ext", "題型延伸", "子曰：「學而時習之，不亦說乎？」句中的「說」是什麼意思？", ["喜悅，同「悅」", "說話", "解說", "遊說"],
+  "說通「悅」，讀ㄩㄝˋ。學了又時常溫習，不也很快樂嗎？");
+q("c4-e1004", "T10", 3, "ext", "題型延伸", "子曰：「君子不器。」（器：器具，通常只有一種用途）這句話最可能的意思是？", ["君子不應像器具一樣只有一種用途，要能多方發展", "君子不使用器具", "君子不重視物質", "君子要像器具一樣實用"],
+  "器具只能做一件事，君子要博學多能，不局限於一種用途。");
+q("c4-e1005", "T10", 2, "ext", "題型延伸", "子曰：「知者不惑，仁者不憂，勇者不懼。」下列配對何者正確？", ["有智慧的人不會迷惑", "有仁德的人不會害怕", "勇敢的人不會憂愁", "有智慧的人不會憂愁"],
+  "知者（智者）→不惑；仁者→不憂；勇者→不懼，三組一一對應。");
+
+/* ===== T11 稱謂借代 ===== */
+q("c4-w11", "T11", 3, "orig", "講義 p.70 學力活用 10", "白居易詩「令公桃李滿天下」，後人以「桃李」代稱學生。下列「」中的詞語，何者也是指稱學生？", ["孔子特別讚賞顏回這位「受業」", "南國有佳人，容華若「桃李」", "學而不得其門，還望「西席」多方指導", "子之武城，聞弦歌之聲，「夫子」莞爾而笑"],
+  "受業＝接受教導的人，即學生（學生也自稱「受業某某」）。西席＝老師（古代主人坐東、老師坐西）；夫子＝對老師的尊稱；「容華若桃李」的桃李是形容美人容貌——同一個詞在不同句子意思不同。", Object.assign(W("觀念不懂", 1), { h: "「容華若桃李」在形容什麼？要看整句意思。" }));
+q("c4-w11a", "T11", 2, "var", "類題", "下列哪一個詞語是指「老師」？", ["西席", "桃李", "門生", "受業"],
+  "西席＝老師。桃李、門生、受業都指學生。", V("c4-w11"));
+q("c4-w11b", "T11", 3, "var", "類題", "下列「」中的詞語，何者「不是」指老師？", ["孔子「門下」弟子三千", "「夫子」莞爾而笑", "還望「西席」多方指導", "孔子為萬世「師表」"],
+  "門下＝門生、學生。夫子、西席、師表都指老師。", V("c4-w11"));
+q("c4-e1101", "T11", 2, "ext", "題型延伸", "「孔子門下有學生三千，可說是桃李滿天下。」句中的「桃李」指的是？", ["學生", "水果", "美女", "花園"],
+  "桃李代稱學生，桃李滿天下＝學生遍布各地。");
+q("c4-e1102", "T11", 2, "ext", "題型延伸", "下列何者是對老師的尊稱？", ["夫子", "門生", "後生", "受業"],
+  "夫子是學生對老師（孔子）的尊稱。門生、受業指學生；後生指年輕人。");
+q("c4-e1103", "T11", 3, "ext", "題型延伸", "「春風化雨」通常用來稱讚什麼？", ["老師教導有方", "天氣宜人", "學生用功", "朋友情深"],
+  "春風化雨比喻良好的教育像春風春雨滋潤萬物，用來稱讚老師。");
+q("c4-e1104", "T11", 2, "ext", "題型延伸", "「程門立雪」（學生在雪中站著等老師醒來）這個典故最能表現什麼？", ["尊師重道", "下雪天很冷", "喜歡雪景", "學生調皮"],
+  "宋代楊時在程頤門外雪中等候，表現對老師的尊敬。");
+q("c4-e1105", "T11", 3, "ext", "題型延伸", "孔子被尊稱為「萬世師表」，「師表」的意思是？", ["值得學習的表率", "老師的手錶", "老師的表格", "表演的老師"],
+  "師表＝在品德學問上可作為別人學習榜樣的人。");
+q("c4-e1106", "T11", 2, "ext", "題型延伸", "「杏壇」一詞常用來指？", ["教育界", "醫學界", "農業界", "演藝界"],
+  "相傳孔子在杏壇講學，後來用杏壇代稱教育界。（醫學界是「杏林」，別混淆。）");
+
+window.C4BANK = B;
+
+window.C4TYPES = [
+  { id: "T1", main: 1, name: "字音（一字多音）", ask: "「」中的字讀音何組相同／不同、注音標示何者正確", key: "養：奉養一ㄤˋ／飼養一ㄤˇ；省：反省ㄒㄧㄥˇ／省略ㄕㄥˇ；傳：傳授ㄔㄨㄢˊ／自傳ㄓㄨㄢˋ；為山ㄨㄟˊ／為人ㄨㄟˋ。", trap: "奉養和癢只差聲調；同一題前後兩個「養」意思不同。" },
+  { id: "T2", main: 1, name: "字形・改錯", ask: "注音寫成國字、何組字形相同、找錯字並訂正", key: "看部首猜意思：簣竹、潰水、匱匚、饋食、聵耳；躁（足）燥（火）；謹（言）僅（人）；恃（心）侍（人）。", trap: "改錯題可能不只一個錯字，每個字都要掃過。" },
+  { id: "T3", main: 1, name: "字詞解釋・替換", ask: "「」中的字解釋、替換後意思是否改變、「而」字用法", key: "是＝只、覆＝倒、平＝填平（動詞）、為＝替、三省＝三件事、忠＝盡心、信＝誠信、傳＝傳授的課業。", trap: "覆不是「蓋」；平地的平是動詞；三省不是三次。" },
+  { id: "T4", main: 1, name: "課文文意與主旨", ask: "某句在表達什麼、孔子認為的錯誤觀念、三則主旨", key: "第一則：孝在「敬」；第二則：學貴有恆、成敗在己；第三則：忠信習＝進德修業。", trap: "「今之孝者，是謂能養」是時人觀念，不是孔子主張。" },
+  { id: "T5", main: 1, name: "觀念應用・生活情境", ask: "情境中的人最符合哪一句、怎樣才是真孝", key: "找情境的關鍵動作，對應到「敬／止／進／忠／信／習」。", trap: "物質給得再多都不等於敬；盲從也不是敬。" },
+  { id: "T6", main: 0, name: "修辭・作法・文體", ask: "使用何種修辭、本課作法何者有誤、語錄體特點", key: "第二則譬喻兼映襯；第三則連續設問（反詰）；第一則人與犬馬對比。語錄體屬記言體。", trap: "只有第一則是師生一問一答；第三則是曾子自述。" },
+  { id: "T7", main: 0, name: "論語與孔子常識", ask: "論語成書、篇名、孔子生平與稱號", key: "論語由孔子弟子及再傳弟子編成，二十篇，取首章開頭二三字為篇名；孔子春秋魯國人，至聖先師、萬世師表。", trap: "編者不是孔子；孔子是春秋，不是戰國。" },
+  { id: "T8", main: 0, name: "孔門四科十哲", ask: "人物與科別配對、人物特點", key: "德行顏閔冉伯仲，言語宰貢，政事冉季，文學游夏。", trap: "白天睡覺的是宰我；子游吳國人、子夏衛國人。" },
+  { id: "T9", main: 1, name: "成語・俗諺・名言", ask: "成語釋義、褒貶、近義／反義、使用正誤、填空", key: "先把成語原本的意思代回句子檢查；看清楚題目問「不屬於」「不宜」「不當」。", trap: "反向問法（不屬於、不宜）最常失分；不恥下問、後生可畏是褒義。" },
+  { id: "T10", main: 1, name: "論語延伸閱讀・閱讀理解", ask: "課外論語句意、與哪句意思最接近、短文閱讀", key: "先圈出原文關鍵詞再對選項；罔＝迷惘、殆＝危險；聞義不能徙＝聽了不做。", trap: "選項常偷換一兩個字（不聽／不做、愛／孝）。" },
+  { id: "T11", main: 0, name: "稱謂與借代", ask: "何者指學生／老師", key: "學生：桃李、門生、受業、門下；老師：夫子、西席、師表、杏壇。", trap: "同一個詞在不同句子意思不同（容華若桃李＝美貌）。" }
+];
+
+window.LFIG = {
+  comm: () => `<svg viewBox="0 0 320 250" role="img" aria-label="人際互動的四種溝通類型座標圖">
+    <text x="160" y="18" text-anchor="middle" style="fill:var(--ink);font-size:16px;font-weight:700">人際互動的四種溝通類型</text>
+    <line x1="160" y1="50" x2="160" y2="215" style="stroke:var(--ink2);stroke-width:1.5"/><line x1="78" y1="132" x2="246" y2="132" style="stroke:var(--ink2);stroke-width:1.5"/>
+    <path d="M160 44l-5 9h10z M252 132l-9-5v10z" style="fill:var(--ink2)"/>
+    <text x="160" y="40" text-anchor="middle" style="fill:var(--warn);font-size:15px">在乎他人</text>
+    <text x="160" y="240" text-anchor="middle" style="fill:var(--warn);font-size:15px">忽略他人</text>
+    <text x="316" y="137" text-anchor="end" style="fill:var(--warn);font-size:15px">在乎自己</text>
+    <text x="4" y="137" style="fill:var(--warn);font-size:15px">忽略自己</text>
+    <text x="118" y="95" text-anchor="middle" style="fill:var(--ink);font-size:17px">討好</text>
+    <text x="205" y="95" text-anchor="middle" style="fill:var(--ink);font-size:17px">一致性</text>
+    <text x="118" y="182" text-anchor="middle" style="fill:var(--ink);font-size:17px">超理智</text>
+    <text x="205" y="182" text-anchor="middle" style="fill:var(--ink);font-size:17px">指責</text></svg>`
+};
+})();
+
+</script>
+<script>
+/* 國文 第4課 論語選：學習內容、逐步圖解、互動 */
+(function () {
+const T = (p, s) => `<span data-p="${p}">${s}</span>`;
+
+/* ---------- 逐步圖解設定 ---------- */
+window.CWALK = {
+  jg: { title: "整課架構：三則各講什麼", fig: `<div class="cw-tree">
+      <div class="cw-root" data-p="root">論語選（語錄體・記言體）</div>
+      <div class="cw-br">
+        <div class="cw-box" data-p="b1"><b>（一）孝的真諦</b><small>子游問孝・孔子答</small><i>關鍵字：敬</i></div>
+        <div class="cw-box" data-p="b2"><b>（二）態度決定成敗</b><small>子曰・譬喻兼映襯</small><i>關鍵字：恆、吾</i></div>
+        <div class="cw-box" data-p="b3"><b>（三）自省惕勵</b><small>曾子自述・連續設問</small><i>關鍵字：忠、信、習</i></div>
+      </div>
+      <div class="cw-sum" data-p="sum">共同主旨：進德修業（品德＋學業）</div></div>`,
+    steps: [
+      { p: ["b1"], name: "（一）孝的真諦", note: "時人以為「能養」就是孝；孔子說犬馬也能養，差別在<b class='r'>敬</b>。" },
+      { p: ["b2"], name: "（二）態度決定成敗", note: "為山差一筐而<b>止</b>＝半途而廢（敗）；平地才一筐而<b>進</b>＝持之以恆（成）。止、進都是「吾」→<b class='r'>成敗在己</b>。" },
+      { p: ["b3"], name: "（三）自省惕勵", note: "曾子每天反省三件事：處事<b>忠</b>、待人<b>信</b>、學習<b>習</b>。" },
+      { p: ["sum"], name: "共同主旨：進德修業", note: "三則面向不同，但都是進德（品德）修業（學業）的道理，言淺意深。" }],
+    mn: ["敬", "恆", "忠信習", "進德修業"],
+    extra: { root: "論語：孔子弟子及再傳弟子記述編輯，屬語錄體（記言體）。點三個方框看各則重點。" } },
+
+  t1: { title: "第一則　子游問孝（逐句）", fig: `<div class="cw-text">${T("a", "子游問孝。")}${T("b", "子曰：")}${T("c", "「今之孝者，是謂能養。")}${T("d", "至於犬馬，皆能有養。")}${T("e", "不敬，何以別乎？」")}<span class="cw-src">（為政篇）</span></div>
+      <div class="cw-cmp"><div data-p="P"><b>對父母</b><span>養（一ㄤˋ）＋<b class="r">敬</b></span></div><div data-p="D"><b>對犬馬</b><span>養（一ㄤˇ）</span></div></div>`,
+    steps: [
+      { p: ["a"], name: "子游問孝", note: "子游（孔門<b>文學</b>科，姓言名偃）向孔子請教孝道。" },
+      { p: ["c"], name: "今之孝者，是謂能養", note: "現在所謂盡孝的人，<b>只</b>是用飲食、物質侍奉父母。是＝只；養 <b class='r'>一ㄤˋ</b>（奉養）。⚠ 這是<b>當時的人</b>的看法，不是孔子的主張。" },
+      { p: ["d", "D"], name: "至於犬馬，皆能有養", note: "對於狗和馬也都能供給食物飼養。養 <b class='r'>一ㄤˇ</b>（飼養）。拿人和犬馬作<b>對比</b>。" },
+      { p: ["e", "P"], name: "不敬，何以別乎？", note: "沒有誠敬之心，和養狗馬有什麼分別？用反問（激問）點出：孝的真諦在<b class='r'>敬</b>。" }],
+    mn: ["問孝", "能養（四聲）", "犬馬（三聲）", "敬"],
+    extra: { b: "「子曰」：孔子說。第一則是師生一問一答（只有這一則是問答）。" } },
+
+  t2: { title: "第二則　譬如為山（逐句＋圖）", fig: `<div class="cw-text">${T("a", "子曰：「譬如為山，")}${T("b", "未成一簣，")}${T("c", "止，吾止也；")}${T("d", "譬如平地，")}${T("e", "雖覆一簣，")}${T("f", "進，吾往也。」")}<span class="cw-src">（子罕篇）</span></div>
+      <svg viewBox="0 0 360 200" class="cw-svg" role="img" aria-label="堆山與填平窪地示意圖">
+        <line x1="0" y1="130" x2="360" y2="130" style="stroke:var(--ink2);stroke-width:2"/>
+        <g data-p="mt">${[0, 1, 2, 3].map(r => Array.from({ length: 4 - r }, (_, c) => `<rect x="${30 + r * 14 + c * 28}" y="${106 - r * 22}" width="26" height="20" rx="4" style="fill:#C9A46A;stroke:#8B6B3A"/>`).join("")).join("")}<text x="86" y="156" text-anchor="middle" style="fill:var(--ink);font-size:17px">堆土成山</text></g>
+        <g data-p="gap"><rect x="72" y="18" width="26" height="20" rx="4" style="fill:none;stroke:var(--red);stroke-width:2;stroke-dasharray:4 3"/><text x="104" y="34" style="fill:var(--red);font-size:16px;font-weight:700">差一簣</text></g>
+        <g data-p="stop"><circle cx="172" cy="88" r="18" style="fill:var(--red)"/><text x="172" y="94" text-anchor="middle" style="fill:#fff;font-size:18px;font-weight:700">止</text></g>
+        <g data-p="pit"><path d="M215 130 Q270 178 325 130" style="fill:var(--paper);stroke:var(--ink2);stroke-width:2"/><text x="270" y="194" text-anchor="middle" style="fill:var(--ink);font-size:17px">填平窪地</text></g>
+        <g data-p="bk"><path d="M248 74 h44 l-6 26 h-32z" style="fill:#C9A46A;stroke:#8B6B3A"/><text x="270" y="64" text-anchor="middle" style="fill:var(--ink);font-size:16px">倒一筐</text><path d="M262 104 l-4 18 M270 104 v20 M278 104 l4 18" style="stroke:#8B6B3A;stroke-width:2"/></g>
+        <g data-p="go"><path d="M302 34 h44 m-9 -7 l9 7 -9 7" style="stroke:var(--ok);stroke-width:3;fill:none"/><text x="322" y="22" text-anchor="middle" style="fill:var(--ok);font-size:17px;font-weight:700">進</text></g>
+      </svg>`,
+    steps: [
+      { p: ["a", "mt"], name: "譬如為山", note: "為學好比堆土成山。為 <b class='r'>ㄨㄟˊ</b>（堆），不是「替」。" },
+      { p: ["b", "gap"], name: "未成一簣", note: "只差一筐土就堆成了。簣 <b class='r'>ㄎㄨㄟˋ</b>，盛土的竹器（竹字頭）。" },
+      { p: ["c", "stop"], name: "止，吾止也", note: "停下來，是<b>我自己</b>停的 → 半途而廢（敗）、功虧一簣、功敗垂成，咎由自取。" },
+      { p: ["d", "pit"], name: "譬如平地", note: "又如同填平窪地。<b class='r'>平＝填平，動詞</b>，不是平坦。" },
+      { p: ["e", "bk"], name: "雖覆一簣", note: "雖然只倒下一筐土。<b class='r'>覆＝倒、傾倒</b>，不是覆蓋！" },
+      { p: ["f", "go"], name: "進，吾往也", note: "繼續倒下去，是<b>我自己</b>前往努力 → 持之以恆（成）、鍥而不舍。修辭：<b>譬喻兼映襯</b>。" }],
+    mn: ["為山", "一簣", "止", "平地", "覆＝倒", "往"] },
+
+  t3: { title: "第三則　吾日三省吾身（逐句＋圖）", fig: `<div class="cw-text">${T("a", "曾子曰：「吾日三省吾身：")}${T("b", "為人謀而不忠乎？")}${T("c", "與朋友交而不信乎？")}${T("d", "傳不習乎？」")}<span class="cw-src">（學而篇）</span></div>
+      <svg viewBox="0 0 360 170" class="cw-svg" role="img" aria-label="三省示意圖">
+        <g data-p="me"><circle cx="180" cy="72" r="32" style="fill:var(--sheet);stroke:var(--ink);stroke-width:2"/><text x="180" y="70" text-anchor="middle" style="fill:var(--ink);font-size:17px;font-weight:700">吾身</text><text x="180" y="89" text-anchor="middle" style="fill:var(--ink2);font-size:14px">每天</text></g>
+        <g data-p="k1"><line x1="152" y1="58" x2="110" y2="42" style="stroke:var(--rule);stroke-width:2"/><rect x="6" y="12" width="104" height="54" rx="8" style="fill:var(--sheet);stroke:var(--blue);stroke-width:2"/><text x="58" y="36" text-anchor="middle" style="fill:var(--blue);font-size:17px;font-weight:700">處事・忠</text><text x="58" y="57" text-anchor="middle" style="fill:var(--ink2);font-size:14px">進德</text></g>
+        <g data-p="k2"><line x1="208" y1="58" x2="250" y2="42" style="stroke:var(--rule);stroke-width:2"/><rect x="250" y="12" width="104" height="54" rx="8" style="fill:var(--sheet);stroke:var(--blue);stroke-width:2"/><text x="302" y="36" text-anchor="middle" style="fill:var(--blue);font-size:17px;font-weight:700">待人・信</text><text x="302" y="57" text-anchor="middle" style="fill:var(--ink2);font-size:14px">進德</text></g>
+        <g data-p="k3"><line x1="180" y1="104" x2="180" y2="116" style="stroke:var(--rule);stroke-width:2"/><rect x="95" y="116" width="170" height="48" rx="8" style="fill:var(--sheet);stroke:var(--ok);stroke-width:2"/><text x="180" y="146" text-anchor="middle" style="fill:var(--ok);font-size:17px;font-weight:700">學習・習（修業）</text></g>
+      </svg>`,
+    steps: [
+      { p: ["a", "me"], name: "吾日三省吾身", note: "我<b>每天</b>拿<b>三件事</b>反省自己。日＝每天；三＝三件事（不是三次）；省 <b class='r'>ㄒㄧㄥˇ</b>。" },
+      { p: ["b", "k1"], name: "為人謀而不忠乎？（處事）", note: "替別人辦事，是否有不盡心的地方？為 <b class='r'>ㄨㄟˋ＝替</b>；忠＝盡己、盡心做事。" },
+      { p: ["c", "k2"], name: "與朋友交而不信乎？（待人）", note: "與朋友交往，是否有不誠信之處？信＝誠信，誠實不欺、信守承諾。" },
+      { p: ["d", "k3"], name: "傳不習乎？（學習）", note: "老師所傳授的課業，是否還未溫習呢？傳 <b class='r'>ㄔㄨㄢˊ</b>。三句連續<b>設問（反詰）</b>深自省思。" }],
+    mn: ["三省", "忠", "信", "習"] },
+
+  yin: { title: "一字多音：養・省・傳・為", fig: `<div class="cw-yin">
+      <div><b data-p="cY">養</b><span data-p="y1">一ㄤˇ</span><span data-p="y2">一ㄤˋ</span></div>
+      <div><b data-p="cX">省</b><span data-p="x1">ㄒㄧㄥˇ</span><span data-p="x2">ㄕㄥˇ</span></div>
+      <div><b data-p="cC">傳</b><span data-p="c1">ㄔㄨㄢˊ</span><span data-p="c2">ㄓㄨㄢˋ</span></div>
+      <div><b data-p="cW">為</b><span data-p="w1">ㄨㄟˊ</span><span data-p="w2">ㄨㄟˋ</span></div></div>`,
+    steps: [
+      { p: ["y1"], name: "養　一ㄤˇ", note: "照顧、撫育、陶冶：養育、撫養、<b>飼養（犬馬皆能有養）</b>、修養、養氣。" },
+      { p: ["y2"], name: "養　一ㄤˋ", note: "<b class='r'>晚輩供養長輩</b>：奉養父母、孝養、<b>是謂能養</b>。口訣：往上奉養讀四聲。" },
+      { p: ["x1"], name: "省　ㄒㄧㄥˇ", note: "檢討（反省、內省、<b>三省吾身</b>）、探望（省親、晨昏定省）、領悟（省悟、發人深省）。" },
+      { p: ["x2"], name: "省　ㄕㄥˇ", note: "行政區（廣東省）、節約（節省、省錢）、去掉（省略）。" },
+      { p: ["c1"], name: "傳　ㄔㄨㄢˊ", note: "教授（<b>傳不習乎</b>、傳授）、遞送（傳遞、傳球）、流布（傳播、傳染）、叫人來（傳喚）、表達（傳神、眉目傳情）。" },
+      { p: ["c2"], name: "傳　ㄓㄨㄢˋ", note: "解釋經義的書（左傳、公羊傳）、記載一生的文字（自傳、傳記）。" },
+      { p: ["w1"], name: "為　ㄨㄟˊ", note: "做、堆：<b>譬如為山</b>（堆土成山）、事在人為、為所欲為。" },
+      { p: ["w2"], name: "為　ㄨㄟˋ", note: "替、給：<b>為人謀而不忠乎</b>、為民服務。" }],
+    mn: ["養ˇ飼", "養ˋ奉", "省ㄒ反", "省ㄕ節", "傳ㄔ授", "傳ㄓ記", "為ˊ堆", "為ˋ替"],
+    extra: { cY: "「養」有兩個讀音，點右邊的注音看用法。重點：奉養父母讀一ㄤˋ。", cX: "「省」有兩個讀音，點右邊的注音看用法。", cC: "「傳」有兩個讀音，點右邊的注音看用法。", cW: "「為」在本課有兩個讀音：為山ㄨㄟˊ、為人謀ㄨㄟˋ。" } },
+
+  xing: { title: "ㄎㄨㄟˋ 五兄弟：看部首就知道意思", fig: `<div class="cw-chars">
+      <div data-p="k1"><b><i>竹</i>簣</b><small>功虧一簣</small></div>
+      <div data-p="k2"><b><i>水</i>潰</b><small>潰堤</small></div>
+      <div data-p="k3"><b><i>匚</i>匱</b><small>匱乏</small></div>
+      <div data-p="k4"><b><i>食</i>饋</b><small>回饋</small></div>
+      <div data-p="k5"><b><i>耳</i>聵</b><small>振聾發聵</small></div></div>`,
+    steps: [
+      { p: ["k1"], name: "簣（竹）", note: "盛土的竹器 → 未成一簣、功虧一簣。" },
+      { p: ["k2"], name: "潰（水）", note: "大水沖破堤岸（潰堤）；敗逃、逃散（軍心潰散）。" },
+      { p: ["k3"], name: "匱（匚）", note: "匚像櫃子，櫃子空了 → 缺乏、竭盡：不虞匱乏、民窮財匱。" },
+      { p: ["k4"], name: "饋（食）", note: "送食物給人 → 致贈、贈送：回饋、饋贈。" },
+      { p: ["k5"], name: "聵（耳）", note: "耳朵聽不見；糊塗不明事理：振聾發聵、昏聵。" }],
+    mn: ["竹", "水", "匚", "食", "耳"] },
+
+  xing2: { title: "意帆寫錯的字：部首對照", fig: `<div class="cw-pairs">
+      <div data-p="p1"><b>躁</b><span>足</span><b class="x">燥</b><span>火</span></div>
+      <div data-p="p2"><b>謹</b><span>言</span><b class="x">僅</b><span>人</span></div>
+      <div data-p="p3"><b>修</b><span>品德</span><b class="x">休</b><span>休息</span></div>
+      <div data-p="p4"><b>研</b><span>研讀</span><b class="x">沿</b><span>沿著</span></div>
+      <div data-p="p5"><b>恃</b><span>心</span><b class="x">侍</b><span>人</span></div>
+      <div data-p="p6"><b>譬</b><span>言</span><b class="x">僻</b><span>人</span></div></div>`,
+    steps: [
+      { p: ["p1"], name: "急躁（足）≠ 乾燥（火）", note: "人一急就跺腳 → 足字旁：急躁、浮躁、心浮氣躁。火烤才乾 → 乾燥。噪音（口）、洗澡（水）。" },
+      { p: ["p2"], name: "拘謹（言）≠ 僅有（人）", note: "說話做事小心 → 言字旁：謹慎、拘謹、謹言慎行。僅＝只有。饑饉（食）＝缺糧。" },
+      { p: ["p3"], name: "修養品德 ≠ 休養身體", note: "品德、品行要「修」：修身、修養。身體生病要「休」養。" },
+      { p: ["p4"], name: "研讀經典 ≠ 沿路", note: "仔細研究閱讀＝研讀。沿＝沿著。改錯題要每個字掃過，不要找到一個就停。" },
+      { p: ["p5"], name: "有恃無恐（心）≠ 侍奉（人）", note: "心裡有依靠 → 恃。人在旁邊服侍 → 侍奉父母。" },
+      { p: ["p6"], name: "譬如（言）≠ 偏僻（人）", note: "用言語打比方 → 譬喻、譬如。偏遠、孤僻、冷僻 → 僻。" }],
+    mn: ["躁足", "謹言", "修德", "研讀", "恃心", "譬言"] },
+
+  km: { title: "孔門四科十哲", fig: `<div class="cw-km">
+      <div class="cw-kz" data-p="kz">孔子</div>
+      <div><h4>德行</h4><span data-p="yy">顏淵</span><span data-p="mz">閔子騫</span><span data-p="bn">冉伯牛</span><span data-p="zg">仲弓</span></div>
+      <div><h4>言語</h4><span data-p="zw">宰我</span><span data-p="zgg">子貢</span></div>
+      <div><h4>政事</h4><span data-p="ry">冉有</span><span data-p="jl">季路</span></div>
+      <div><h4>文學</h4><span data-p="zy">子游</span><span data-p="zx">子夏</span></div></div>`,
+    steps: [
+      { p: ["yy"], m: 0, name: "顏淵（德行）", note: "姓顏名回字子淵。安貧樂道、好學、不遷怒、不貳過，孔子的得意門生。" },
+      { p: ["mz"], m: 0, name: "閔子騫（德行）", note: "姓閔名損。大方穩重，以孝順聞名鄉里。" },
+      { p: ["bn"], m: 0, name: "冉伯牛（德行）", note: "姓冉名耕。以美德著稱。" },
+      { p: ["zg"], m: 0, name: "仲弓（德行）", note: "姓冉名雍。為人敦厚、氣度寬宏。" },
+      { p: ["zw"], m: 1, name: "宰我（言語）", note: "姓宰名予。口才好、長於辯論；白天睡覺被罵「朽木不可雕也」。" },
+      { p: ["zgg"], m: 1, name: "子貢（言語）", note: "姓端木名賜，衛國人。口才佳、善經商，弟子中最富裕。" },
+      { p: ["ry"], m: 2, name: "冉有（政事）", note: "姓冉名求。個性拘謹、多才多藝、勇武善戰，在魯國任官。" },
+      { p: ["jl"], m: 2, name: "季路（政事）", note: "姓仲名由，字子路。正直率真、見義勇為，在衛國任官；個性魯莽急躁。" },
+      { p: ["zy"], m: 3, name: "子游（文學）", note: "姓言名偃，吳國人，小孔子 45 歲。熟讀古代文獻、深通古禮（本課問孝的人）。" },
+      { p: ["zx"], m: 3, name: "子夏（文學）", note: "姓卜名商，衛國人，小孔子 44 歲。篤實謹慎、好學深思，在魏國講學。" }],
+    mn: ["德行顏閔冉伯仲", "言語宰貢", "政事冉季", "文學游夏"],
+    extra: { kz: "孔子是老師本人，不在十哲裡。十哲是孔子依品行和專長分成四科的十位學生。" } }
+};
+
+/* ---------- 配對遊戲（沿用網站的配對元件） ---------- */
+window.MATCH34 = {
+  cy1: { title: "成語配對：成語 ↔ 意思", pairs: [["有教無類", "施教對象不分貴賤貧富"], ["見賢思齊", "看到賢能的人想效法"], ["不恥下問", "不以向不如己者請教為恥"], ["巧言令色", "說好聽話、裝和善卻不誠懇"], ["後生可畏", "年輕人能超越前輩，令人敬畏"], ["割雞焉用牛刀", "處理小事不需大才"], ["風行草偃", "在上位者以德化民"], ["既往不咎", "過去的事不再追究"]] },
+  cy2: { title: "名言配對：句子 ↔ 意思", pairs: [["學而不思則罔", "只學不想會迷惘"], ["思而不學則殆", "只想不學會危殆"], ["己所不欲，勿施於人", "自己不要的別加給別人"], ["人無遠慮，必有近憂", "不做長遠打算，很快有憂患"], ["小不忍則亂大謀", "小事不忍耐會壞大計"], ["溫故知新", "複習舊知識，獲得新體會"]] },
+  km2: { title: "人物配對：十哲 ↔ 特點", pairs: [["顏淵", "安貧樂道、不貳過"], ["閔子騫", "以孝順聞名"], ["宰我", "晝寢被罵朽木"], ["子貢", "善經商、最富裕"], ["季路", "魯莽、好逞血氣之勇"], ["子游", "吳國人、深通古禮"], ["子夏", "衛國人、好學深思"], ["冉有", "拘謹、多才多藝"]] },
+  call: { title: "稱謂配對：詞語 ↔ 指誰", pairs: [["桃李", "學生（桃李滿天下）"], ["西席", "老師（主人坐東、師坐西）"], ["受業", "學生（接受教導的人）"], ["夫子", "對老師的尊稱"], ["杏壇", "教育界"], ["杏林", "醫學界"]] }
+};
+
+/* ---------- 褒貶分類 ---------- */
+window.CSORT = {
+  by: { title: "褒義還是貶義？一個一個分", cats: ["褒義", "貶義"], items: [["有教無類", 0], ["道聽塗說", 1], ["見賢思齊", 0], ["舉一反三", 0], ["巧言令色", 1], ["不恥下問", 0], ["言不及義", 1], ["後生可畏", 0], ["當仁不讓", 0], ["囫圇吞棗", 1], ["鐵杵成針", 0], ["半途而廢", 1]],
+    why: { "有教無類": "老師不分貴賤都教，稱讚。", "道聽塗說": "沒有根據的話，批評。", "見賢思齊": "想效法賢人，稱讚。", "舉一反三": "能觸類旁通，稱讚。", "巧言令色": "不誠懇，批評。", "不恥下問": "肯向人請教，稱讚（意帆曾錯在這裡）。", "言不及義": "只說無聊話，批評。", "後生可畏": "年輕人值得敬畏，稱讚（意帆曾錯在這裡）。", "當仁不讓": "主動承擔該做的事，稱讚。", "囫圇吞棗": "讀書不求甚解，批評。", "鐵杵成針": "有恆心，稱讚。", "半途而廢": "有始無終，批評。" } }
+};
+
+/* ---------- 互動元件 ---------- */
+window.ANIM_EXTRA = {
+  cwalk(el, animOn) {
+    const C = window.CWALK[el.dataset.set]; if (!C) return;
+    const n = C.steps.length, mn = C.mn || [];
+    let i = -1, timer = null, self = null;
+    el.innerHTML = `<div class="lab cw"><h3>${C.title}</h3>
+      <div class="stage cw-fig">${C.fig}</div>
+      ${mn.length ? `<div class="mn" aria-label="口訣">${mn.map((m, j) => `<span data-mn="${j}">${m}</span>`).join("")}</div>` : ""}
+      <div class="readout" aria-live="polite">按「播放」一步一步看，或直接點圖上的字。</div>
+      <div class="stepper">${C.steps.map((s, j) => `<button data-st="${j}" aria-label="第 ${j + 1} 步">${j + 1}</button>`).join("")}</div>
+      <div class="row cw-ctl"><button class="btn sm" data-c="play">▶ 播放</button><button class="btn sm ghost" data-c="prev">上一步</button><button class="btn sm ghost" data-c="next">下一步</button><button class="btn sm ghost" data-c="all">全部顯示</button><button class="btn sm ghost" data-c="reset">重來</button><button class="btn sm red" data-c="self">自己背</button></div>
+      <div class="row cw-self" hidden><button class="btn sm" data-c="show">看答案</button><button class="btn sm ghost" data-c="ok" disabled>我答對</button><button class="btn sm ghost" data-c="ng" disabled>我答錯</button><button class="btn sm ghost" data-c="quit">結束自己背</button></div>
+      <div class="label cw-cardlb">背誦卡（動畫走到哪，就背到哪）</div><ol class="wcard"></ol></div>`;
+    const fig = el.querySelector(".cw-fig"), out = el.querySelector(".readout"), card = el.querySelector(".wcard"), playB = el.querySelector('[data-c="play"]');
+    const ctl = el.querySelector(".cw-ctl"), selfRow = el.querySelector(".cw-self"), cardLb = el.querySelector(".cw-cardlb");
+    const parts = [...fig.querySelectorAll("[data-p]")];
+    const stop = () => { clearInterval(timer); timer = null; playB.textContent = "▶ 播放"; };
+    const mark = (ps) => { parts.forEach(x => x.classList.toggle("hl", ps.includes(x.dataset.p))); fig.classList.toggle("dim", ps.length > 0); };
+    const mnUpto = j => el.querySelectorAll("[data-mn]").forEach(s => { const k = +s.dataset.mn; s.classList.toggle("on", j >= 0 && k <= (C.steps[j] && C.steps[j].m != null ? C.steps[j].m : j)); });
+    function set(j) {
+      i = Math.max(-1, Math.min(n - 1, j));
+      el.querySelectorAll("[data-st]").forEach(b => b.setAttribute("aria-current", +b.dataset.st === i));
+      if (i < 0) { mark([]); mnUpto(-1); card.innerHTML = ""; out.className = "readout"; out.textContent = "按「播放」一步一步看，或直接點圖上的字。"; return; }
+      const s = C.steps[i]; mark(s.p); mnUpto(i);
+      out.className = "readout"; out.innerHTML = `<b>${i + 1}／${n}　${s.name}</b><br>${s.note}`;
+      card.innerHTML = C.steps.slice(0, i + 1).map((x, k) => `<li class="${k === i ? "warn" : ""}"><b>${x.name}</b>：${x.note}</li>`).join("");
+    }
+    function showAll() { stop(); set(n - 1); mark([]); mnUpto(n - 1); out.innerHTML = `<b>全部 ${n} 步</b>：背誦卡已完整列出，按「自己背」檢查自己。`; }
+    function selfStep() {
+      const s = C.steps[self.k]; mark(s.p);
+      out.className = "readout"; out.innerHTML = `<b>自己背 ${self.k + 1}／${n}</b>：看發亮的地方，先說出它的<b>意思和重點</b>，再按「看答案」。`;
+      el.querySelector('[data-c="show"]').disabled = false; el.querySelector('[data-c="ok"]').disabled = true; el.querySelector('[data-c="ng"]').disabled = true;
+    }
+    function selfEnd() {
+      out.className = "readout " + (self.ok === n ? "ok" : "bad");
+      out.innerHTML = `<b>自己背完成：答對 ${self.ok}／${n}</b>${self.miss.length ? `<br>再看一次：${self.miss.map(k => C.steps[k].name).join("、")}` : "<br>全部記住了！"}`;
+      self = null; ctl.hidden = false; selfRow.hidden = true; card.hidden = false; cardLb.hidden = false; mark([]);
+    }
+    el.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { if (self) return; stop(); set(+b.dataset.st); });
+    el.querySelector('[data-c="play"]').onclick = () => {
+      if (timer) return stop();
+      if (!animOn()) return showAll();
+      if (i >= n - 1) set(-1);
+      set(i + 1); playB.textContent = "⏸ 暫停";
+      timer = setInterval(() => { if (!document.body.contains(el)) return stop(); if (i >= n - 1) return stop(); set(i + 1); }, 2600);
+    };
+    el.querySelector('[data-c="prev"]').onclick = () => { stop(); set(i - 1); };
+    el.querySelector('[data-c="next"]').onclick = () => { stop(); set(i + 1); };
+    el.querySelector('[data-c="all"]').onclick = showAll;
+    el.querySelector('[data-c="reset"]').onclick = () => { stop(); set(-1); };
+    el.querySelector('[data-c="self"]').onclick = () => { stop(); set(-1); self = { k: 0, ok: 0, miss: [] }; ctl.hidden = true; selfRow.hidden = false; card.hidden = true; cardLb.hidden = true; mnUpto(-1); selfStep(); };
+    el.querySelector('[data-c="show"]').onclick = () => { if (!self) return; const s = C.steps[self.k]; out.innerHTML = `<b>${s.name}</b><br>${s.note}<br><span class="muted">你剛剛說對了嗎？</span>`; el.querySelector('[data-c="show"]').disabled = true; el.querySelector('[data-c="ok"]').disabled = false; el.querySelector('[data-c="ng"]').disabled = false; };
+    const grade = ok => { if (!self) return; if (ok) self.ok++; else self.miss.push(self.k); self.k++; if (self.k >= n) selfEnd(); else selfStep(); };
+    el.querySelector('[data-c="ok"]').onclick = () => grade(true);
+    el.querySelector('[data-c="ng"]').onclick = () => grade(false);
+    el.querySelector('[data-c="quit"]').onclick = () => { if (!self) return; self = null; ctl.hidden = false; selfRow.hidden = true; card.hidden = false; cardLb.hidden = false; set(-1); };
+    parts.forEach(x => x.addEventListener("click", e => {
+      e.stopPropagation(); if (self) return;
+      const key = x.dataset.p, j = C.steps.findIndex(s => s.p.includes(key));
+      if (j >= 0) { stop(); set(j); }
+      else { stop(); mark([key]); out.className = "readout bad"; out.innerHTML = (C.extra && C.extra[key]) || "這個部分不在這份背誦清單裡。"; }
+    }));
+  },
+  csort(el) {
+    const C = window.CSORT[el.dataset.set]; if (!C) return;
+    let items = [], k = 0, ok = 0, wrong = [];
+    const start = () => { items = C.items.slice().sort(() => Math.random() - .5); k = 0; ok = 0; wrong = []; draw(); };
+    el.innerHTML = `<div class="lab"><h3>${C.title}</h3><div class="cw-sortq"></div><div class="row cw-sortb">${C.cats.map((c, j) => `<button class="btn sm ${j ? "red" : ""}" data-cat="${j}">${c}</button>`).join("")}</div><div class="readout" aria-live="polite">看到成語，按「褒義」或「貶義」。</div><div class="row"><button class="btn sm ghost" data-c="again">重來</button></div></div>`;
+    const qd = el.querySelector(".cw-sortq"), out = el.querySelector(".readout"), btns = el.querySelectorAll("[data-cat]");
+    function draw() {
+      if (k >= items.length) { qd.innerHTML = `<b>${ok}／${items.length}</b>`; btns.forEach(b => b.disabled = true); out.className = "readout " + (ok === items.length ? "ok" : "bad"); out.innerHTML = ok === items.length ? "全部分對！" : `再看一次：${wrong.join("、")}`; return; }
+      btns.forEach(b => b.disabled = false); qd.innerHTML = `<span class="muted">${k + 1}／${items.length}</span><b>${items[k][0]}</b>`;
+    }
+    btns.forEach(b => b.onclick = () => {
+      const it = items[k]; if (!it) return; const right = +b.dataset.cat === it[1];
+      if (right) ok++; else wrong.push(it[0]);
+      out.className = "readout " + (right ? "ok" : "bad"); out.innerHTML = `${right ? "對！" : "不對。"}「${it[0]}」是<b>${C.cats[it[1]]}</b>：${(C.why || {})[it[0]] || ""}`;
+      k++; setTimeout(draw, 0);
+    });
+    el.querySelector('[data-c="again"]').onclick = start;
+    start();
+  }
+};
+
+/* ---------- 學習節點 ---------- */
+const NODES = [
+ { id: "N1", main: 1, t: "全課架構：三則一張圖", sub: "孝要敬、學要恆、每天自省", types: ["T4", "T6"], html: `
+  <div data-anim="cwalk" data-set="jg"></div>
+  <div class="tblwrap"><table class="kt w"><tr><th></th><th>（一）子游問孝</th><th>（二）譬如為山</th><th>（三）三省吾身</th></tr>
+  <tr><th>說話的人</th><td>子游問、孔子答</td><td>孔子（子曰）</td><td>曾子自述</td></tr>
+  <tr><th>主旨</th><td>孝的真諦在<b class="r">敬</b></td><td>學貴有<b class="r">恆</b>，成敗在己</td><td>透過<b class="r">自省</b>培養理想人格</td></tr>
+  <tr><th>寫法</th><td>人與犬馬<b>對比</b>＋反問</td><td><b>譬喻兼映襯</b></td><td>連續<b>設問（反詰）</b></td></tr>
+  <tr><th>出處</th><td>為政篇</td><td>子罕篇</td><td>學而篇</td></tr></table></div>
+  <p class="why">三則面向不同，但都是<b>進德修業</b>的道理，<b>言淺意深</b>（言辭淺近，意義深遠）。⚠ 只有第一則是師生一問一答。</p>` },
+ { id: "N2", main: 1, t: "第一則　子游問孝", sub: "能養不夠，孝在「敬」", types: ["T4", "T5", "T3"], html: `
+  <div data-anim="cwalk" data-set="t1"></div>
+  <table class="kt"><tr><th>是</th><td>只（是謂能養＝只是說能養）</td></tr>
+  <tr><th>養（一ㄤˋ）</th><td>是謂能養：以衣食侍奉父母</td></tr>
+  <tr><th>養（一ㄤˇ）</th><td>皆能有養：飼養（犬馬）</td></tr>
+  <tr><th>別</th><td>分別、區別</td></tr></table>
+  <ul class="pts"><li>「今之孝者，是謂能養」是<b class="r">當時的人</b>的錯誤觀念：<b>以物質條件為孝的標準</b>。</li>
+  <li>真孝＝物質奉養＋<b class="r">恭敬之心</b>。盲從（一味附和、無論對錯都給錢）也不是敬；「分辨是非，好言相對」才是。</li></ul>
+  <div class="mnemo">意帆錯過：「以物質為標準」選成「把犬馬放在父母前」、真孝選成「飲食高檔為先」。<b>看到「孝」先想：有沒有「敬」？</b></div>` },
+ { id: "N3", main: 1, t: "第二則　譬如為山", sub: "止＝敗、進＝成，都在「吾」", types: ["T4", "T5", "T3"], html: `
+  <div data-anim="cwalk" data-set="t2"></div>
+  <table class="kt"><tr><th></th><th>為山</th><th>平地</th></tr>
+  <tr><th>處境</th><td>只差一簣（接近成功）</td><td>才覆一簣（剛開始）</td></tr>
+  <tr><th>決定</th><td>止，吾止也</td><td>進，吾往也</td></tr>
+  <tr><th>結果</th><td>半途而廢、功虧一簣（敗）</td><td>持之以恆、鍥而不舍（成）</td></tr>
+  <tr><th>相關名言</th><td>為山九仞，功虧一簣（尚書）；掘井九仞而不及泉，猶為棄井也（孟子）</td><td>鍥而不舍，金石可鏤</td></tr></table>
+  <p class="why"><b>為什麼「功虧一簣」＝半途而廢？</b>《尚書》：「為山九仞，功虧一簣。」堆九仞高的山，只差一筐土而沒成功。比喻事情只差最後一步，卻因未能堅持到底而前功盡棄。</p>
+  <div class="mnemo"><b>覆＝倒</b>（不是蓋）・<b>平＝填平</b>（動詞）・<b>為山 ㄨㄟˊ</b>・<b>簣 竹字頭</b></div>` },
+ { id: "N4", main: 1, t: "第三則　吾日三省吾身", sub: "忠（處事）・信（待人）・習（學習）", types: ["T4", "T5", "T3"], html: `
+  <div data-anim="cwalk" data-set="t3"></div>
+  <table class="kt"><tr><th>反省的事</th><th>面向</th><th>重點字</th></tr>
+  <tr><td>為人謀而不忠乎？</td><td>處事</td><td>為ㄨㄟˋ＝替；忠＝盡己、盡心</td></tr>
+  <tr><td>與朋友交而不信乎？</td><td>待人</td><td>信＝誠信（講信修睦）</td></tr>
+  <tr><td>傳不習乎？</td><td>學習</td><td>傳ㄔㄨㄢˊ＝老師傳授的課業；習＝溫習</td></tr></table>
+  <ul class="pts"><li>忠、信 → <b>進德</b>；習 → <b>修業</b>。整句闡述的是<b class="r">進德修業</b>（意帆曾選「待人接物」，漏了學習）。</li>
+  <li>三＝三件事，不是三次；日＝每天；省ㄒㄧㄥˇ。</li></ul>` },
+ { id: "N5", main: 1, t: "字音：一字多音", sub: "養・省・傳・為", types: ["T1"], html: `
+  <div data-anim="cwalk" data-set="yin"></div>
+  <div class="mnemo">意帆錯兩次的「養」：<b>往上奉養讀四聲</b>（奉養、孝養、是謂能養 一ㄤˋ），其他都三聲。<br>「癢」是一ㄤˇ，跟奉養只差聲調——最常見的陷阱。</div>
+  <table class="kt"><tr><th>駕馭</th><td>馭 ㄩˋ（六藝的「御」也是駕車，ㄩˋ）</td></tr>
+  <tr><th>記載</th><td>ㄗㄞˇ（載重、載運才是ㄗㄞˋ）</td></tr>
+  <tr><th>謀／媒／煤</th><td>ㄇㄡˊ／ㄇㄟˊ／ㄇㄟˊ</td></tr>
+  <tr><th>不舍晝夜</th><td>舍通「捨」，ㄕㄜˇ</td></tr></table>` },
+ { id: "N6", main: 1, t: "字形：易混淆字與改錯", sub: "看部首猜意思", types: ["T2"], html: `
+  <div data-anim="cwalk" data-set="xing"></div>
+  <div data-anim="cwalk" data-set="xing2"></div>
+  <table class="kt"><tr><th>謀ㄇㄡˊ</th><td>商議（謀畫、不謀而合）、計策（計謀、有勇無謀）、營求（謀職、謀生）、陷害（謀害）</td></tr>
+  <tr><th>媒ㄇㄟˊ</th><td>媒人、媒婆；媒介、媒體、病媒、風媒、蟲媒</td></tr>
+  <tr><th>煤ㄇㄟˊ</th><td>煤炭、煤礦、煤層、煤田</td></tr>
+  <tr><th>譬ㄆㄧˋ</th><td>比喻：譬如、譬喻</td></tr>
+  <tr><th>僻ㄆㄧˋ</th><td>偏遠（偏僻、僻靜）、少見（冷僻、生僻）、性情怪（孤僻、乖僻）</td></tr></table>
+  <p class="why"><b>改錯題 SOP</b>：①每個字都掃一次，找到一個不要停 ②常錯的有「研讀→沿讀」「彬彬有禮→理」「修養→休養」「誨人不倦→悔」 ③把可疑字換成同音字，看哪個意思對。</p>` },
+ { id: "N7", main: 0, t: "論語與孔子", sub: "成書、篇名、語錄體、孔子生平", types: ["T7"], html: `
+  <table class="kt"><tr><th>論語</th><td>孔子與弟子及時人談論、應答的<b>語錄</b>；由<b class="r">孔子的弟子和再傳弟子</b>記述編輯（不是孔子編）</td></tr>
+  <tr><th>篇數・篇名</th><td>二十篇；取<b>首章開頭二、三字</b>為篇名（學而、為政、子罕）</td></tr>
+  <tr><th>地位</th><td>儒家重要經典，對中國歷史文化影響深遠</td></tr>
+  <tr><th>孔子</th><td>名丘，字仲尼，<b class="r">春秋</b>魯國人；儒家代表；好學不倦、允文允武（詩書＋射箭、駕馭馬車）</td></tr>
+  <tr><th>教學</th><td>首開<b>私人講學</b>之風、<b>有教無類</b>、誨人不倦；弟子三千餘人，身通六藝者七十餘人；強調主動學習與思辨，<b>因材施教</b></td></tr>
+  <tr><th>尊稱</th><td>至聖先師、萬世師表</td></tr></table>
+  <div class="label">語錄體三特點</div>
+  <ul class="pts"><li>文辭貼近口語 → 親切</li><li>要言不煩 → 精粹</li><li>有感而發，不做無病呻吟 → 真實</li><li>論語之後，<b>孟子、墨子</b>也可見語錄。屬<b>記言體</b>。</li></ul>
+  <p class="note">⚠ 有教無類＝不分貴賤都教；因材施教＝依個性資質給不同教法，兩個常被對調。</p>` },
+ { id: "N8", main: 0, t: "修辭與章法", sub: "譬喻・映襯・對比・設問", types: ["T6"], html: `
+  <table class="kt"><tr><th>譬喻兼映襯</th><td>譬如為山……譬如平地……（為學比作堆山、填地；止／進相反對照）</td></tr>
+  <tr><th>對比</th><td>第一則：人與犬馬都能養，差別在敬</td></tr>
+  <tr><th>設問（反詰）</th><td>為人謀而不忠乎？與朋友交而不信乎？傳不習乎？——連續設問深自省思</td></tr>
+  <tr><th>激問</th><td>不敬，何以別乎？——答案在反面（沒有分別）</td></tr></table>
+  <ul class="pts"><li>前兩則是孔子說的，第三則是曾子說的；文字接近當時口語，以古文而言簡潔明白。</li>
+  <li>本課選自論語，為<b>語錄</b>，屬<b>記言體</b>。</li></ul>` },
+ { id: "N9", main: 0, t: "孔門四科十哲", sub: "德行・言語・政事・文學", types: ["T8"], html: `
+  <div data-anim="cwalk" data-set="km"></div>
+  <div class="mnemo">口訣：<b>德行顏閔冉伯仲，言語宰貢，政事冉季，文學游夏</b></div>
+  <div data-anim="match" data-set="km2"></div>
+  <p class="note">「子○」多半是字，不是姓：子貢姓端木、子游姓言、子夏姓卜、季路（子路）姓仲。</p>` },
+ { id: "N10", main: 1, t: "成語・俗諺・名言", sub: "釋義、褒貶、反向問法", types: ["T9"], html: `
+  <div data-anim="csort" data-set="by"></div>
+  <div class="tblwrap"><table class="kt"><tr><th>成語</th><th>意思</th></tr>
+  <tr><td>有教無類（褒）</td><td>施教對象沒有貴賤貧富之分</td></tr><tr><td>道聽塗說（貶）</td><td>沒有證實、缺乏根據的話</td></tr>
+  <tr><td>見賢思齊（褒）</td><td>看到賢能的人便想效法</td></tr><tr><td>舉一反三（褒）</td><td>舉一例而能曉喻其他</td></tr>
+  <tr><td>巧言令色（貶）</td><td>話說得動聽、臉色裝和善，卻不誠懇</td></tr><tr><td>既往不咎</td><td>過去的事不再追究</td></tr>
+  <tr class="hl"><td>不恥下問（褒）</td><td>不以向身分低或學問淺的人求教為恥</td></tr><tr><td>任重道遠</td><td>長期肩負重大任務</td></tr>
+  <tr><td>言不及義（貶）</td><td>只說無聊話，不談正經道理</td></tr><tr><td>成人之美</td><td>成全別人的好事</td></tr>
+  <tr><td>風行草偃</td><td>在上位者以德化民（近義：上行下效）</td></tr><tr class="hl"><td>後生可畏（褒）</td><td>年輕人能超越前輩，令人敬畏</td></tr>
+  <tr><td>當仁不讓（褒）</td><td>遇到該做的事主動承擔</td></tr><tr><td>戰戰兢兢</td><td>戒懼謹慎</td></tr>
+  <tr><td>溫故知新</td><td>複習學過的知識而有新體會</td></tr><tr class="hl"><td>人無遠慮，必有近憂</td><td>不作長遠打算，很快就有憂患</td></tr>
+  <tr class="hl"><td>小不忍則亂大謀</td><td>小事不忍耐，會壞了全盤大計</td></tr><tr><td>己所不欲，勿施於人</td><td>自己不喜歡的，不要加在別人身上</td></tr>
+  <tr class="hl"><td>割雞焉用牛刀</td><td>處理小事不需大才</td></tr></table></div>
+  <div data-anim="match" data-set="cy1"></div>
+  <p class="why"><b>反向問法 SOP</b>：題目有「不屬於」「不宜」「不當」「並非」「有誤」→ 先<b class="r">圈起來</b>。四個選項逐一判斷「對／錯」，再選題目要的那一個。意帆這類題錯了 3 題（近義詞不屬於、不宜填入、並非孔子之憂）。</p>
+  <div class="label">為學求知名言</div>
+  <ul class="pts"><li>玉不琢，不成器；人不學，不知道。（禮記・學記）</li><li>學而不思則罔，思而不學則殆。（論語）<b class="r">罔＝迷惘、殆＝危險</b></li><li>知之者不如好之者，好之者不如樂之者。（論語）</li><li>業精於勤荒於嬉，行成於思毀於隨。（韓愈）</li><li>知之為知之，不知為不知，是知也。（論語）＝誠實面對自己知道與不知道</li></ul>
+  <div data-anim="match" data-set="cy2"></div>` },
+ { id: "N11", main: 1, t: "延伸閱讀與稱謂", sub: "課外論語、閱讀題、桃李西席", types: ["T10", "T11"], html: `
+  <table class="kt"><tr><th>原文</th><th>意思</th></tr>
+  <tr><td>益者三友：友直，友諒，友多聞</td><td>和正直、誠信、博學的人交友有益 → <b>以友輔仁</b></td></tr>
+  <tr><td>損者三友：友便辟，友善柔，友便佞</td><td>裝模作樣、討好逢迎、隨口胡說的人有害</td></tr>
+  <tr><td>君子之過也，如日月之食焉……更也，人皆仰之</td><td>君子犯錯人人看見，改過後人人敬仰 → 勇於改過</td></tr>
+  <tr><td>德之不脩，學之不講，聞義不能徙，不善不能改</td><td>孔子四憂；<b class="r">聞義不能徙＝聽了義卻不實踐</b>（不是不聽）</td></tr>
+  <tr><td>視其所以，觀其所由，察其所安。人焉廋哉？</td><td>觀察行為就能了解一個人（廋＝隱藏）→ 聽其言而觀其行</td></tr>
+  <tr><td>三人行，必有我師焉</td><td>好的跟著學，不好的拿來改正自己</td></tr>
+  <tr><td>逝者如斯夫！不舍晝夜</td><td>感嘆時光如流水日夜不停</td></tr></table>
+  <div data-anim="match" data-set="call"></div>
+  <p class="why"><b>閱讀題 SOP</b>：①先圈題目問什麼 ②在原文圈出關鍵詞（例如「放錯了位置」「不教孝順」） ③每個選項都回原文對照，偷換一兩個字的就刪掉。</p>` },
+ { id: "N12", main: 2, t: "融會貫通：三則一起考", sub: "進德修業＋情境應用", types: ["T5", "T4"], html: `
+  <div class="flow"><span class="hot">孝：敬</span><i>＋</i><span class="hot">學：恆</span><i>＋</i><span class="hot">省：忠信習</span><i>＝</i><span>進德修業</span></div>
+  <table class="kt"><tr><th>情境</th><th>對應哪一句</th></tr>
+  <tr><td>給父母很多錢，卻對他們大吼</td><td>不敬，何以別乎（只有養，沒有敬）</td></tr>
+  <tr><td>馬拉松快到終點卻放棄</td><td>譬如為山，未成一簣，止，吾止也</td></tr>
+  <tr><td>成績墊底，每天多背五個單字</td><td>譬如平地，雖覆一簣，進，吾往也</td></tr>
+  <tr><td>小組報告隨便交差</td><td>為人謀而不忠乎</td></tr>
+  <tr><td>答應朋友的事沒做到</td><td>與朋友交而不信乎</td></tr>
+  <tr><td>考前一天才翻課本</td><td>傳不習乎</td></tr></table>
+  <p class="why">每次練習前先問自己：題目在講「孝」「學」還是「省」？再找關鍵字：<b>敬・止／進・忠／信／習</b>。</p>` }
+];
+
+window.LEARN_EXTRA = { L4: { root: "孔子和曾子教我們做人、做學問：<b class='r'>孝要敬、學要恆、每天自省</b>——三則都是進德修業", nodes: NODES,
+  tree: [["N1"], ["N2", "N5"], ["N3", "N6"], ["N4"], ["N10", "N11"]], other: ["N7", "N8", "N9"], sum: ["N12"],
+  hint: "先看「全課架構」，再照順序學三則課文（紅框＝必考核心）。每一則都有逐句動畫，走到哪就背到哪，最後用「自己背」檢查。" } };
+})();
+
+</script>
+<script>
+!function () {
+"use strict";
+/* ========== 資料 ========== */
+const EXAM = new Date(2026, 11, 1), EXAM_TXT = "12/1（二）";
+const REL = "c4-r1", REL_TXT = "11/14 上線";
+const MASTER_N = 2; // 國文：錯題連續答對 2 次才算熟練
+const KEY2 = "yf_chi_v2", KEY1 = "yf_chi_v1";
+const REASONS = ["觀念不懂", "記憶不牢", "題意誤讀", "粗心"];
+const BK4 = (window.C4BANK || []).map(x => Object.assign({ u: "L4" }, x));
+const UNITS = {
+  "L4": { id: "L4", name: "第4課 論語選", sub: "國文第一冊｜第 4 課 論語選（子游問孝・譬如為山・三省吾身）", types: window.C4TYPES || [], bank: BK4, gate: true }
+};
+const Q = {}; BK4.forEach(q => Q[q.id] = q);
+const TYPE = {}; Object.values(UNITS).forEach(u => u.types.forEach((t, i) => TYPE[t.id] = Object.assign(t, { u: u.id, i })));
+
+/* ========== 狀態 ========== */
+function fresh() {
+  return { v: 2, created: Date.now(), st: {}, U: { "L4": { quizzes: [], qz: null, unlocked: false } },
+    tf: {}, tdone: {}, cnt: 0, due: [], extra: [], last: {}, seen: {}, nodes: {}, unit: "L4", tab: "home",
+    sub: { learn: "map", practice: "types", quiz: "test" }, node: "N1", pm: null, anim: true, rel: "", mig1: false, forced: null, view: null };
+}
+let S;
+function load() {
+  try { S = JSON.parse(localStorage.getItem(KEY2)); } catch (e) { S = null; }
+  if (!S || S.v !== 2 || !S.st) S = fresh();
+  const f = fresh();
+  for (const k in f) if (S[k] === undefined) S[k] = f[k];
+  for (const u in f.U) if (!S.U[u]) S.U[u] = f.U[u];
+  if (!UNITS[S.unit]) S.unit = "L4";
+  if (!S.mig1) migrateV1();
+  seed(); save();
+}
+function migrateV1() {
+  let o = null;
+  try { o = JSON.parse(localStorage.getItem(KEY1)); } catch (e) { o = null; }
+  S.mig1 = true;
+  if (!o || !o.st) return;
+  const now = Date.now();
+  for (const id in o.st) {
+    if (S.st[id]) continue;
+    const x = o.st[id];
+    S.st[id] = { n: x.n || 0, ok: x.ok || 0, streak: x.streak || 0, wrong: !!x.wrong, from: x.from || "講義", fw: x.wrong ? now : null,
+      mastered: x.wrong && (x.streak || 0) >= MASTER_N ? now : null, lastOk: x.n ? (x.streak > 0) : undefined, rs: [], v1: 1 };
+  }
+  if (Array.isArray(o.quizzes) && !S.U.L.quizzes.length) {
+    S.U.L.quizzes = o.quizzes.map(r => {
+      const types = {}; for (const ch in (r.chs || {})) types[CHMAP[ch] || ch] = r.chs[ch];
+      return Object.assign({}, r, { types, v1: 1 });
+    });
+  }
+  if (o.qz && !S.U.L.qz) S.U.L.qz = o.qz;
+  save();
+}
+function seed() {
+  const now = Date.now();
+  Object.values(Q).forEach(q => {
+    if (!q.w || S.st[q.id]) return;
+    S.st[q.id] = { n: 0, ok: 0, streak: 0, wrong: true, from: "講義", fw: now, mastered: null, rs: q.c ? [{ r: q.c, at: now, src: "講義診斷" }] : [] };
+    if (!S.tf[q.t]) S.tf[q.t] = { since: now, res: [] };
+  });
+}
+function save() { try { localStorage.setItem(KEY2, JSON.stringify(S)); } catch (e) {} }
+
+/* ========== 引擎 ========== */
+const st = id => S.st[id] || (S.st[id] = { n: 0, ok: 0, streak: 0, wrong: false, rs: [] });
+const isOpen = id => { const x = S.st[id]; return !!(x && x.wrong && !x.mastered); };
+const bankU = u => UNITS[u].bank;
+const typesU = u => UNITS[u].types;
+const openIn = pred => Object.keys(S.st).filter(id => Q[id] && isOpen(id) && pred(Q[id]));
+function schedule(id, gap) { S.due = S.due.filter(d => d.id !== id); S.due.push({ id, at: S.cnt + gap }); }
+function pushExtra(id) {
+  const q = Q[id], bank = bankU(q.u), add = [];
+  bank.forEach(x => { if (x.id !== id && (x.of === id || (q.of && (x.of === q.of || x.id === q.of)))) add.push(x.id); });
+  const ext = bank.filter(x => x.t === q.t && x.id !== id && ["ext", "adapt", "key", "cap"].includes(x.k) && !isOpen(x.id));
+  ext.sort((a, b) => (st(a.id).n ? 1 : 0) - (st(b.id).n ? 1 : 0) || (st(a.id).lastOk ? 1 : 0) - (st(b.id).lastOk ? 1 : 0));
+  ext.slice(0, 5).forEach(x => add.push(x.id));
+  S.extra = [...new Set([...add, ...S.extra])].slice(0, 60);
+}
+function answer(id, ok, from) {
+  const x = st(id), q = Q[id], now = Date.now();
+  x.n++; x.at = now; x.lastOk = ok; S.last[id] = S.cnt;
+  if (ok) {
+    x.ok++; x.streak++;
+    if (x.wrong && !x.mastered) { if (x.streak >= MASTER_N) x.mastered = now; else schedule(id, 5); }
+  } else {
+    x.streak = 0;
+    if (!x.wrong || x.mastered) { x.wrong = true; x.from = from; x.fw = x.fw || now; if (x.mastered) { x.reopen = (x.reopen || 0) + 1; x.mastered = null; } }
+    x.lw = now; schedule(id, 3); pushExtra(id);
+    S.tf[q.t] = { since: now, res: [] };
+  }
+  const f = S.tf[q.t];
+  if (f && ok) {
+    f.res.push(1); if (f.res.length > 10) f.res.shift();
+    if (!openIn(z => z.t === q.t).length && f.res.length >= 10 && f.res.reduce((a, b) => a + b, 0) >= 9) { delete S.tf[q.t]; S.tdone[q.t] = now; }
+  }
+  S.cnt++; save();
+}
+function tstat(t) {
+  const qs = bankU(TYPE[t].u).filter(q => q.t === t), B = qs.filter(q => q.lv === "b"), A = qs.filter(q => q.lv === "a");
+  const ans = a => a.filter(q => S.st[q.id] && S.st[q.id].n > 0).length, okc = a => a.filter(q => S.st[q.id] && S.st[q.id].lastOk).length;
+  const open = openIn(q => q.t === t).length;
+  const r = { qs, B, A, bAns: ans(B), bOk: okc(B), aAns: ans(A), aOk: okc(A), open, flag: !!S.tf[t] };
+  r.basicDone = r.bAns === B.length && r.bOk >= 0.8 * B.length && open === 0;
+  r.advDone = A.length === 0 || (r.aAns === A.length && r.aOk >= 0.8 * A.length);
+  r.done = r.basicDone && r.advDone && !r.flag;
+  r.pct = Math.round(100 * okc(qs) / qs.length);
+  r.label = r.flag ? ["待加強", "bad"] : !r.basicDone ? ["基礎層", "warn"] : !r.advDone ? ["進階層", "info"] : ["完成", "ok"];
+  return r;
+}
+function testUnlocked(u) {
+  const U = S.U[u];
+  if (!UNITS[u].gate || U.unlocked || U.quizzes.length) return true;
+  if (typesU(u).every(t => { const s = tstat(t.id); return s.basicDone && s.advDone; })) { U.unlocked = true; save(); return true; }
+  return false;
+}
+function pickNext(pm) {
+  const u = S.unit, sc = q => q && q.u === u && (pm.mode !== "type" || q.t === pm.t);
+  const recent = id => S.last[id] != null && S.cnt - S.last[id] < 3;
+  if (S.forced && sc(Q[S.forced])) { const id = S.forced; S.forced = null; return { id, why: "錯題本" }; }
+  for (let pass = 0; pass < 2; pass++) {
+    const okR = id => pass === 1 || !recent(id);
+    const di = S.due.findIndex(d => d.at <= S.cnt && sc(Q[d.id]) && isOpen(d.id) && okR(d.id));
+    if (di >= 0) { const id = S.due[di].id; S.due.splice(di, 1); return { id, why: "錯題重現" }; }
+    const ei = S.extra.findIndex(id => sc(Q[id]) && okR(id));
+    if (ei >= 0) { const id = S.extra[ei]; S.extra.splice(ei, 1); return { id, why: Q[id].of ? "錯題類題" : isOpen(id) ? "錯題本" : "題型延伸題" }; }
+    const ow = openIn(sc).filter(okR).sort((a, b) => st(a).streak - st(b).streak || (st(a).fw || 0) - (st(b).fw || 0));
+    if (ow.length) return { id: ow[0], why: "錯題本" };
+    if (pm.mode === "wrong") { if (pass === 1) return null; continue; }
+    if (pm.mode === "type") {
+      const s = tstat(pm.t);
+      const lay = (arr, name) => {
+        const un = arr.filter(q => !(S.st[q.id] && S.st[q.id].n) && okR(q.id));
+        if (un.length) return { id: un[0].id, why: name };
+        const bad = arr.filter(q => S.st[q.id] && S.st[q.id].lastOk === false && okR(q.id));
+        if (bad.length) return { id: bad[0].id, why: name + "（再練一次）" };
+        return null;
+      };
+      let r = lay(s.B, "基礎層"); if (r) return r;
+      if (s.basicDone) { r = lay(s.A, "進階層"); if (r) return r; }
+    }
+    const pool = bankU(u).filter(q => sc(q) && okR(q.id)).sort((a, b) => (st(a.id).lastOk ? 1 : 0) - (st(b.id).lastOk ? 1 : 0) || st(a.id).streak - st(b.id).streak || (S.last[a.id] ?? -1) - (S.last[b.id] ?? -1));
+    if (pool.length) return { id: pool[0].id, why: "複習" };
+  }
+  return null;
+}
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function orderFor(q) {
+  const idx = q.o.map((_, i) => i), K = "甲乙丙丁戊己";
+  if (q.o.every(s => s.length === 1 && K.includes(s))) return idx.sort((a, b) => K.indexOf(q.o[a]) - K.indexOf(q.o[b]));
+  return shuffle(idx);
+}
+function buildQuiz(u) {
+  const bank = bankU(u), types = typesU(u), U = S.U[u], prev = U.quizzes[U.quizzes.length - 1], N = Math.min(50, bank.length);
+  const pick = [], has = new Set(), add = id => { if (id && Q[id] && !has.has(id) && pick.length < N) { has.add(id); pick.push(id); } };
+  const rr = (pool, need) => { // 各題型輪流取題
+    const by = {}; types.forEach(t => by[t.id] = pool.filter(q => q.t === t.id && !has.has(q.id)));
+    let n = 0, moved = true;
+    while (n < need && moved) { moved = false; for (const t of types) { const q = by[t.id].shift(); if (q && !has.has(q.id) && pick.length < N) { add(q.id); n++; moved = true; if (n >= need) break; } } }
+  };
+  const fill = (avoid) => {
+    let pool = shuffle(bank.filter(q => !has.has(q.id)));
+    if (avoid) pool = [...pool.filter(q => !avoid.has(q.id)), ...pool.filter(q => avoid.has(q.id))];
+    const need3 = Math.max(0, Math.ceil(N * 0.2) - pick.filter(id => Q[id].s === 3).length);
+    rr(pool.filter(q => q.s === 3), need3);
+    rr(pool, N - pick.length);
+  };
+  if (!prev) { bank.filter(q => q.w).forEach(q => add(q.id)); fill(null); }
+  else {
+    prev.wrong.forEach(add);
+    prev.wrong.forEach(id => { const q = Q[id]; if (!q) return; const v = bank.find(x => x.id !== id && !has.has(x.id) && (x.of === id || (q.of && (x.of === q.of || x.id === q.of)))); if (v) add(v.id); });
+    const wt = [...new Set(prev.wrong.filter(id => Q[id]).map(id => Q[id].t))];
+    wt.forEach(t => { const ex = shuffle(bank.filter(x => x.t === t && ["ext", "adapt", "key", "cap"].includes(x.k) && !prev.ids.includes(x.id) && !has.has(x.id)))[0]; if (ex) add(ex.id); });
+    openIn(q => q.u === u).forEach(add);
+    fill(new Set(prev.ids));
+  }
+  const ti = {}; types.forEach((t, i) => ti[t.id] = i);
+  return shuffle(pick).sort((a, b) => ti[Q[a].t] - ti[Q[b].t]);
+}
+
+/* ========== 小工具 ========== */
+const $ = s => document.querySelector(s), view = $("#view");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const plain = s => String(s).replace(/<[^>]+>/g, "");
+const stars = n => '<span class="stars" aria-label="難度 ' + n + ' 顆星">' + "★".repeat(n) + "</span>";
+const fmtD = t => { const d = new Date(t); return (d.getMonth() + 1) + "/" + d.getDate(); };
+const pips = n => '<span class="pips" aria-label="連對 ' + n + ' 次">' + Array.from({ length: MASTER_N }, (_, i) => i).map(i => `<i class="${i < n ? "on" : ""}"></i>`).join("") + "</span>";
+const kindPill = q => q.w ? (q.ug ? '<span class="pill bad">講義錯題（家長尚未批改）</span>' : '<span class="pill bad">講義錯題</span>') : q.k === "var" ? '<span class="pill warn">錯題類題</span>' : q.k === "cap" ? '<span class="pill info">會考／基測原題</span>' : q.k === "adapt" ? '<span class="pill info">外部考題改編</span>' : q.k === "ext" ? '<span class="pill info">延伸題</span>' : q.k === "orig" ? '<span class="pill gray">講義題</span>' : '<span class="pill gray">重點題</span>';
+function fig(q) {
+  if (!q.fig) return "";
+  let h = "";
+  if (q.fig.startsWith("img:")) h = q.fig.slice(4).split(",").map(m => { const w = m.endsWith("!"), n = m.replace("!", ""); return `<a href="img/cap/${n}.jpg" target="_blank" rel="noopener"><img class="qimg${w ? " wide" : ""}" src="img/cap/${n}.jpg" alt="題目附圖（點一下放大）" loading="lazy"></a>`; }).join("") + (q.fig.includes("!") ? '<div class="muted" style="font-size:.8rem;text-align:center">表格較寬，可左右滑動或點圖放大</div>' : "");
+  else if (q.fig.startsWith("L:")) { const f = window.LFIG && window.LFIG[q.fig.slice(2)]; h = f ? f(false) : ""; }
+  else if (q.fig.startsWith("c4:")) h = window.FIG4 ? window.FIG4(q.fig.slice(3)) : "";
+  else h = window.FIG34 ? window.FIG34(q.fig) : "";
+  return h ? `<div class="fig">${h}</div>` : "";
+}
+function days() { const d = new Date(); d.setHours(0, 0, 0, 0); return Math.round((EXAM - d) / 864e5); }
+function go(tab, sub) { S.tab = tab; if (sub) S.sub[tab] = sub; save(); render(); window.scrollTo(0, 0); }
+
+/* ========== 外框 ========== */
+function chrome() {
+  const U = UNITS[S.unit];
+  $("#unitSub").textContent = U.sub;
+  const d = days();
+  $("#count").innerHTML = d > 0 ? `<span>距離段考 ${EXAM_TXT}</span><b>${d}</b> 天` : d === 0 ? "<b>今天段考</b><span>看筆記重點就好</span>" : "<span>段考已結束</span>";
+  $("#units").innerHTML = Object.values(UNITS).map(u => `<button class="chip" data-unit="${u.id}" aria-pressed="${u.id === S.unit}">${u.name}</button>`).join("");
+  $("#units").querySelectorAll("[data-unit]").forEach(b => b.onclick = () => { S.unit = b.dataset.unit; S.pm = null; cur = null; save(); render(); });
+  const open = openIn(q => q.u === S.unit).length;
+  document.querySelectorAll("#tabs button").forEach(b => {
+    b.setAttribute("aria-current", b.dataset.tab === S.tab);
+    const dot = b.querySelector(".dot"); if (dot) dot.remove();
+    if (b.dataset.tab === "book" && open) b.insertAdjacentHTML("beforeend", `<span class="dot">${open}</span>`);
+  });
+  document.documentElement.classList.toggle("noanim", !S.anim);
+}
+function subtabs(tab, items) {
+  return `<div class="subtabs" role="tablist">${items.map(([k, n]) => `<button role="tab" data-sub="${k}" aria-current="${S.sub[tab] === k}">${n}</button>`).join("")}</div>`;
+}
+function bindSub(tab) { view.querySelectorAll("[data-sub]").forEach(b => b.onclick = () => { S.sub[tab] = b.dataset.sub; if (tab === "practice" && b.dataset.sub === "run") { } save(); render(); }); }
+function render() {
+  chrome();
+  ({ home: vHome, learn: vLearn, practice: vPractice, book: vBook, quiz: vQuiz }[S.tab] || vHome)();
+  mountAnims();
+}
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => { if (b.dataset.tab === "practice" && S.tab === "practice") { S.pm = null; cur = null; } go(b.dataset.tab); });
+
+/* ========== 首頁 ========== */
+function tasks() {
+  const u = S.unit, U = S.U[u], out = [];
+  if (U.qz) out.push([`繼續第 ${U.quizzes.length + 1} 次測驗（已作答 ${Object.keys(U.qz.ans).length} 題）`, "繼續", () => go("quiz", "test")]);
+  const LN = LEARN[u]; if (LN) { const n = LN.nodes.filter(x => S.seen[x.id]).length; if (n < LN.nodes.length) out.push([`學習：先看架構，再看完 ${LN.nodes.length} 個觀念（已看 ${n}）`, "去學習", () => go("learn", n ? "study" : "map")]); }
+  const open = openIn(q => q.u === u).length;
+  if (open) out.push([`錯題本：${open} 題待熟練（每題要連續答對 ${MASTER_N} 次）`, "錯題特訓", () => startPractice({ mode: "wrong" })]);
+  typesU(u).filter(t => S.tf[t.id]).slice(0, 2).forEach(t => out.push([`加強題型：${t.name}`, "練這型", () => startPractice({ mode: "type", t: t.id })]));
+  const nx = typesU(u).find(t => !tstat(t.id).done && !S.tf[t.id]);
+  if (nx) { const s = tstat(nx.id); out.push([`題型 ${nx.name}：${s.basicDone ? `進階層 ${s.aAns}/${s.A.length}` : `基礎層 ${s.bAns}/${s.B.length}`}`, "練習", () => startPractice({ mode: "type", t: nx.id })]); }
+  if (testUnlocked(u) && !U.qz) out.push([`測驗：第 ${U.quizzes.length + 1} 次（50 題，目標連續兩次 ≥ 96 分）`, "去測驗", () => go("quiz", "test")]);
+  return out.slice(0, 5);
+}
+function readiness(u) {
+  const qs = S.U[u].quizzes, a = qs[qs.length - 1], b = qs[qs.length - 2];
+  if (a && a.score >= 100) return ["已拿到 100 分", "ok"];
+  if (a && b && a.score >= 96 && b.score >= 96) return ["準備完成（連續兩次 ≥ 96），繼續練到 100 分", "ok"];
+  return ["目標：測驗連續兩次 ≥ 96 分，再練到 100 分", "warn"];
+}
+function vHome() {
+  const u = S.unit, U = S.U[u], T = tasks(), last = U.quizzes[U.quizzes.length - 1];
+  const done = typesU(u).filter(t => tstat(t.id).done).length, open = openIn(q => q.u === u).length;
+  const flags = typesU(u).filter(t => S.tf[t.id]);
+  const rd = readiness(u);
+  view.innerHTML = `<div class="section">
+    ${S.rel !== REL ? `<div class="banner"><div class="label">本次更新（${REL_TXT}）</div><ul>
+      <li><b>國文第 4 課〈論語選〉複習網站上線</b>：12 個觀念（三則課文都有逐句動畫，走到哪背到哪，還有「自己背」）、11 個題型、193 題。</li>
+      <li>講義上的 <b>26 題錯題</b>已放進錯題本：其中 p.69～71 沒有紅筆的部分，是依解析批改的。</li>
+      <li>錯一題會自動加練 2 道類題和同題型延伸題；國文錯題<b>連續答對 2 次</b>才算熟練。</li>
+      <li>延伸題含改編自桃園同德、新北崇林、八里國中段考的題目，每題都標出處。</li></ul>
+      <div><button class="btn sm" id="relOk">知道了</button></div></div>` : ""}
+    <div class="sheet"><div class="label">今天先做這些（${UNITS[u].name}）</div>
+      <ul class="tasks" style="margin-top:8px">${T.length ? T.map((t, i) => `<li><b class="n">${i + 1}</b><span>${t[0]}</span><button class="btn sm ghost" data-task="${i}">${t[1]}</button></li>`).join("") : "<li><b class='n'>✓</b><span>這一課都練完了，可以多考幾次測驗衝 100 分。</span><span></span></li>"}</ul></div>
+    <div class="meter">
+      <div><b>${open}</b><span>錯題本待熟練</span></div>
+      <div><b>${done}/${typesU(u).length}</b><span>題型完成</span></div>
+      <div><b>${U.quizzes.length}</b><span>測驗次數</span></div>
+      <div><b>${last ? last.score : "—"}</b><span>最近測驗分數</span></div></div>
+    <div class="sheet"><span class="pill ${rd[1]}">${rd[0]}</span>
+      ${flags.length ? `<div class="label" style="margin-top:12px">待加強題型（點一下直接練）</div><div class="chips" style="margin-top:6px">${flags.map(t => `<button class="chip flag" data-ptype="${t.id}">${t.name}</button>`).join("")}</div>` : `<p class="muted" style="margin-top:8px">目前沒有待加強的題型。</p>`}</div>
+    <div class="sheet"><div class="label">進度備份</div>
+      <p class="muted" style="margin-top:6px">進度存在這支手機的這個瀏覽器裡。請固定用同一支手機、同一個瀏覽器。要換手機、換瀏覽器或清除瀏覽資料前，先按「產生備份碼」，把備份碼傳給爸爸保存。</p>
+      <div class="row" style="margin-top:10px"><button class="btn sm" id="exp">產生備份碼</button><button class="btn sm ghost" id="imp">匯入備份碼</button>
+        <label class="row" style="gap:6px;font-size:.9rem"><input type="checkbox" id="anim" ${S.anim ? "checked" : ""}> 播放動畫</label></div>
+      <div id="bk"></div></div>
+  </div>`;
+  const r = $("#relOk"); if (r) r.onclick = () => { S.rel = REL; save(); render(); };
+  view.querySelectorAll("[data-task]").forEach(b => b.onclick = () => T[+b.dataset.task][2]());
+  view.querySelectorAll("[data-ptype]").forEach(b => b.onclick = () => startPractice({ mode: "type", t: b.dataset.ptype }));
+  $("#anim").onchange = e => { S.anim = e.target.checked; save(); chrome(); };
+  $("#exp").onclick = () => {
+    let code = ""; try { code = "YFC2." + btoa(unescape(encodeURIComponent(JSON.stringify(S)))); } catch (e) { code = ""; }
+    $("#bk").innerHTML = `<div class="section" style="margin-top:10px"><textarea id="code" readonly>${code}</textarea><div class="row"><button class="btn sm" id="cp">複製備份碼</button><span class="muted" id="cpMsg"></span></div></div>`;
+    $("#cp").onclick = () => {
+      const ta = $("#code");
+      const ok = () => $("#cpMsg").textContent = "已複製，貼到 LINE 傳給爸爸保存。";
+      const fail = () => { ta.focus(); ta.select(); $("#cpMsg").textContent = "已選取，請長按或按右鍵複製。"; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, fail); } catch (e) { fail(); }
+    };
+  };
+  $("#imp").onclick = () => {
+    $("#bk").innerHTML = `<div class="section" style="margin-top:10px"><textarea id="code2" placeholder="把備份碼貼在這裡"></textarea><div class="row"><button class="btn sm red" id="doImp">用這份備份取代目前進度</button><span class="muted" id="impMsg"></span></div></div>`;
+    $("#doImp").onclick = () => {
+      const v = $("#code2").value.trim();
+      try {
+        if (!v.startsWith("YFC2.")) throw 0;
+        const o = JSON.parse(decodeURIComponent(escape(atob(v.slice(5)))));
+        if (o.v !== 2 || !o.st || !o.U) throw 0;
+        S = o; load2(); if (!UNITS[S.unit]) S.unit = "L4"; save(); render();
+      } catch (e) { $("#impMsg").textContent = "備份碼不正確，請確認是完整複製的「YFC2.」開頭的國文備份碼。"; }
+    };
+  };
+}
+function load2() { const f = fresh(); for (const k in f) if (S[k] === undefined) S[k] = f[k]; for (const u in f.U) if (!S.U[u]) S.U[u] = f.U[u]; S.mig1 = true; seed(); }
+
+/* ========== 學習 ========== */
+const LEARN = window.LEARN_EXTRA || {};
+function nodeBtn(n) {
+  const cls = n.main === 1 ? "main" : n.main === 2 ? "sum" : "";
+  return `<button class="node ${cls}" data-node="${n.id}"><span class="tag">${n.main === 1 ? "主" : n.main === 2 ? "串聯" : "次"}</span><span><span class="k">${n.t}</span><span class="s">${n.sub}</span></span>${S.seen[n.id] ? '<span class="seen">✓ 看過</span>' : "<span></span>"}</button>`;
+}
+function vLearn() {
+  const LN = LEARN[S.unit];
+  if (!LN) return vLegacyNotes();
+  const N = {}; LN.nodes.forEach(n => N[n.id] = n);
+  let h = subtabs("learn", [["map", "知識架構"], ["study", "觀念學習"]]);
+  if (S.sub.learn === "map") {
+    h += `<div class="section"><p class="muted">${LN.hint}</p>
+      <div class="root"><div class="label" style="font-family:var(--sans)">本課的核心問題</div>${LN.root}</div>
+      <div class="tree">${LN.tree.map(g => nodeBtn(N[g[0]]) + (g.length > 1 ? `<div class="branch">${g.slice(1).map(id => nodeBtn(N[id])).join("")}</div>` : "")).join("")}</div>
+      ${LN.other.length ? `<div class="label">其他次要觀念</div><div class="tree">${LN.other.map(id => nodeBtn(N[id])).join("")}</div>` : ""}
+      ${LN.sum.length ? `<div class="label">融會貫通</div><div class="tree">${LN.sum.map(id => nodeBtn(N[id])).join("")}</div>` : ""}</div>`;
+  } else {
+    S.nodes = S.nodes || {};
+    const n = N[S.nodes[S.unit]] || N[S.node] || LN.nodes[0], i = LN.nodes.indexOf(n), nx = LN.nodes[i + 1];
+    S.seen[n.id] = 1; save();
+    const dig = () => window.DIGEST_SVG ? window.DIGEST_SVG(window.DIG_NAMES) : "";
+    const body = n.html.replace('${"__DIGEST__"}', dig()).replace("__DIGEST__", dig());
+    h += `<div class="section"><div class="chips">${LN.nodes.map(x => `<button class="chip" data-node="${x.id}" aria-pressed="${x.id === n.id}">${x.main === 1 ? "主" : x.main === 2 ? "串" : "次"}・${x.t}</button>`).join("")}</div>
+      <article class="sheet learn"><h2><span class="pill ${n.main === 1 ? "bad" : n.main === 2 ? "info" : "gray"}">${n.main === 1 ? "主觀念" : n.main === 2 ? "融會貫通" : "次觀念"}</span>${n.t}</h2>
+      <div class="body">${body}</div>
+      <div class="row" style="margin-top:14px">${n.types.map(t => `<button class="btn sm" data-ptype="${t}">練題型：${TYPE[t].name}</button>`).join("")}
+        ${nx ? `<button class="btn sm ghost" data-node="${nx.id}">下一個觀念：${nx.t} →</button>` : ""}</div></article></div>`;
+  }
+  view.innerHTML = h; bindSub("learn");
+  view.querySelectorAll("[data-node]").forEach(b => b.onclick = () => { S.nodes = S.nodes || {}; S.nodes[S.unit] = b.dataset.node; S.node = b.dataset.node; S.sub.learn = "study"; save(); render(); window.scrollTo(0, 0); });
+  view.querySelectorAll("[data-ptype]").forEach(b => b.onclick = () => startPractice({ mode: "type", t: b.dataset.ptype }));
+}
+function vLegacyNotes() {
+  const NOTES = window.LNOTES || {};
+  view.innerHTML = `<div class="section"><p class="muted">3-1～3-3 是上次段考的範圍，這裡保留意帆的筆記重點。題目、錯題本和測驗分數都和以前一樣延續。</p>
+    ${Object.keys(NOTES).map(ch => `<div class="sheet learn"><h2>${ch}</h2><div class="body">${NOTES[ch].map(sec => `<h3>${sec.h}</h3><table class="kt">${sec.items.map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</table>`).join("")}</div></div>`).join("")}</div>`;
+}
+
+/* ========== 題型與練習 ========== */
+let cur = null;
+function startPractice(pm) { S.pm = pm; cur = null; S.tab = "practice"; S.sub.practice = "run"; save(); render(); window.scrollTo(0, 0); }
+function vPractice() {
+  let h = subtabs("practice", [["types", "題型地圖"], ["run", "練習"]]);
+  if (S.sub.practice === "types") {
+    const open = openIn(q => q.u === S.unit).length;
+    h += `<div class="section"><p class="muted">這一課所有的考法分成 ${typesU(S.unit).length} 個題型。每個題型先練基礎層（講義、筆記題），正確率 80% 以上且錯題清空後，才會開放進階層（延伸題與外部考題）。</p>
+      ${open ? `<button class="btn red" id="goWrong">錯題特訓（${open} 題）</button>` : ""}
+      <div class="cols">${typesU(S.unit).map(t => typeCard(t)).join("")}</div></div>`;
+  } else h += practiceRun();
+  view.innerHTML = h; bindSub("practice");
+  const gw = $("#goWrong"); if (gw) gw.onclick = () => startPractice({ mode: "wrong" });
+  view.querySelectorAll("[data-ptype]").forEach(b => b.onclick = () => startPractice({ mode: "type", t: b.dataset.ptype }));
+  view.querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { const d = $("#ex" + b.dataset.ex); d.hidden = !d.hidden; });
+  bindRun();
+}
+function typeCard(t) {
+  const s = tstat(t.id), ow = s.qs.filter(q => q.w).length, ex = s.qs.find(q => q.k === "orig") || s.qs[0];
+  return `<div class="sheet typecard"><div class="hd"><h3>${t.name}</h3><span class="row" style="gap:6px"><span class="pill ${t.main ? "bad" : "gray"}">${t.main ? "主" : "次"}</span><span class="pill ${s.label[1]}">${s.label[0]}</span></span></div>
+    <dl><dt>常見問法</dt><dd>${t.ask}</dd><dt>判斷關鍵</dt><dd>${t.key}</dd><dt>常見陷阱</dt><dd>${t.trap}${ow ? ` <b class="r">（講義錯 ${ow} 題）</b>` : ""}</dd></dl>
+    <div class="bar"><i style="width:${s.pct}%"></i></div>
+    <div class="muted">熟練度 ${s.pct}%｜基礎層 ${s.bAns}/${s.B.length}${s.A.length ? `｜進階層 ${s.basicDone ? s.aAns + "/" + s.A.length : "未開放"}` : ""}${s.open ? `｜<b class="r">錯題 ${s.open}</b>` : ""}</div>
+    <div class="row"><button class="btn sm" data-ptype="${t.id}">練習這個題型</button><button class="btn sm ghost" data-ex="${t.id}">看例題</button></div>
+    <div id="ex${t.id}" hidden class="qcard" style="background:var(--paper)"><div class="qtext">${ex.q}</div>${fig(ex)}<div class="muted">答案：${ex.o[ex.a]}</div><div style="font-size:.93rem">${ex.e}</div></div></div>`;
+}
+function practiceRun() {
+  if (!S.pm || (S.pm.mode === "type" && TYPE[S.pm.t] && TYPE[S.pm.t].u !== S.unit)) {
+    const open = openIn(q => q.u === S.unit).length;
+    return `<div class="section"><div class="sheet"><div class="label">選一種練習</div><div class="row" style="margin-top:8px">${open ? `<button class="btn red" id="goWrong">錯題特訓（${open} 題）</button>` : '<span class="muted">錯題本是空的。</span>'}</div>
+      <div class="tree" style="margin-top:12px">${typesU(S.unit).map(t => { const s = tstat(t.id); return `<button class="node ${t.main ? "main" : ""}" data-ptype="${t.id}"><span class="pill ${s.label[1]}">${s.label[0]}</span><span><span class="k">${t.name}</span><span class="s">熟練度 ${s.pct}%</span></span><span></span></button>`; }).join("")}</div></div></div>`;
+  }
+  const pm = S.pm;
+  if (!cur) {
+    const nx = pickNext(pm);
+    if (!nx) return `<div class="section"><div class="sheet"><h2>錯題本清空了！</h2><p style="margin-top:8px">所有錯題都已連續答對 ${MASTER_N} 次。可以回到題型練習，或去考一次測驗。</p><div class="row" style="margin-top:10px"><button class="btn" id="toTypes">回題型地圖</button></div></div></div>`;
+    cur = { id: nx.id, why: nx.why, order: orderFor(Q[nx.id]), tries: 0, wrongs: [], done: false, res: null, reason: null };
+  }
+  const q = Q[cur.id], x = S.st[q.id] || {};
+  const head = pm.mode === "wrong" ? `錯題特訓｜剩 ${openIn(z => z.u === S.unit).length} 題` : (() => { const s = tstat(pm.t); return `${TYPE[pm.t].name}｜<span class="pill ${s.label[1]}">${s.label[0]}</span>　基礎 ${s.bAns}/${s.B.length}${s.A.length ? `　進階 ${s.basicDone ? s.aAns + "/" + s.A.length : "未開放"}` : ""}`; })();
+  return `<div class="section qwrap"><div class="row" style="justify-content:space-between"><b style="font-size:.95rem">${head}</b><button class="btn sm ghost" id="pmExit">換練習</button></div>
+    ${qCard(q, cur, x)}</div>`;
+}
+function qCard(q, c, x) {
+  const L = "ABCD";
+  const opts = c.order.map((oi, i) => {
+    let cls = "";
+    if (c.done && oi === q.a) cls = "right"; else if (c.wrongs.includes(i)) cls = "wrong";
+    return `<button class="opt ${cls}" data-o="${i}" ${c.done || c.wrongs.includes(i) ? "disabled" : ""}><span class="L">(${L[i]})</span><span>${q.o[oi]}</span></button>`;
+  }).join("");
+  let fb = "";
+  if (!c.done && c.tries === 1) fb = `<div class="verdict hint"><h4>不對，再想一次</h4><div>提示：${q.h || TYPE[q.t].key}</div><div class="muted">這一題已記進錯題本，第二次答對也要再練 ${MASTER_N} 次。</div></div>`;
+  if (c.done) {
+    const ok = c.res === "ok";
+    fb = `<div class="verdict ${ok ? "ok" : "bad"}"><h4>${ok ? "答對了" : c.res === "ok2" ? "第二次答對，但第一次答錯，已記入錯題本" : "答錯了，正確答案是：" + q.o[q.a]}</h4><div>${q.e}</div>
+      ${ok ? "" : `<div><div class="label" style="margin-bottom:6px">這題錯的原因是？（點一個才能繼續）</div><div class="reasons">${REASONS.map(r => `<button data-r="${r}" aria-pressed="${c.reason === r}">${r}</button>`).join("")}</div></div>`}</div>
+      <div class="row"><button class="btn red" id="next" ${!ok && !c.reason ? "disabled" : ""}>下一題</button></div>`;
+  }
+  const streak = x.wrong && !x.mastered ? `<span>錯題進度 ${pips(x.streak || 0)}</span>` : "";
+  return `<div class="qcard"><div class="qmeta"><span class="pill info">${c.why}</span>${kindPill(q)}${stars(q.s)}<span>${esc(q.src)}${q.pr ? "（全國答對率 " + q.pr + "%）" : ""}</span>${q.sus ? '<span class="pill gray">紅筆重描，原答案看不清</span>' : ""}${streak}</div>
+    <div class="qtext">${q.q}</div>${fig(q)}<div class="opts">${opts}</div>${fb}</div>`;
+}
+function bindRun() {
+  const ex = $("#pmExit"); if (ex) ex.onclick = () => { S.pm = null; cur = null; save(); render(); };
+  const gw = $("#goWrong"); if (gw) gw.onclick = () => startPractice({ mode: "wrong" });
+  const tt = $("#toTypes"); if (tt) tt.onclick = () => { S.pm = null; go("practice", "types"); };
+  if (!cur) return;
+  const q = Q[cur.id];
+  view.querySelectorAll("[data-o]").forEach(b => b.onclick = () => {
+    if (cur.done) return;
+    const i = +b.dataset.o, oi = cur.order[i];
+    if (oi === q.a) { if (cur.tries === 0) { answer(q.id, true, "練習"); cur.res = "ok"; } else cur.res = "ok2"; cur.done = true; }
+    else if (cur.tries === 0) { answer(q.id, false, "練習"); cur.tries = 1; cur.wrongs.push(i); }
+    else { cur.wrongs.push(i); cur.done = true; cur.res = "bad"; }
+    render();
+  });
+  view.querySelectorAll("[data-r]").forEach(b => b.onclick = () => { cur.reason = b.dataset.r; const x = st(q.id); x.rs = x.rs || []; x.rs.push({ r: cur.reason, at: Date.now(), src: "練習" }); save(); render(); });
+  const nx = $("#next"); if (nx) nx.onclick = () => { cur = null; render(); window.scrollTo(0, 0); };
+}
+
+/* ========== 錯題本 ========== */
+function vBook() {
+  const u = S.unit, all = Object.keys(S.st).filter(id => Q[id] && Q[id].u === u && S.st[id].wrong);
+  const open = all.filter(isOpen), done = all.filter(id => !isOpen(id));
+  const qzs = S.U[u].quizzes.filter(r => r.wrong && r.wrong.length).slice().reverse();
+  const item = id => { const q = Q[id], x = S.st[id], rs = x.rs && x.rs.length ? x.rs[x.rs.length - 1].r : "未標記";
+    return `<div class="wb"><div class="q">${plain(q.q).slice(0, 70)}${plain(q.q).length > 70 ? "…" : ""}</div><div class="row" style="gap:6px">${pips(x.streak || 0)}<button class="btn sm ghost" data-one="${id}">練這題</button></div>
+      <div class="m">來源：${x.from || "練習"}｜第一次錯：${x.fw ? fmtD(x.fw) : "—"}｜原因：${rs}${q.sus ? "｜紅筆重描，原答案看不清" : ""}${x.reopen ? "｜熟練後又錯過" : ""}</div></div>`; };
+  let byT = typesU(u).map(t => [t, open.filter(id => Q[id].t === t.id)]).filter(x => x[1].length);
+  view.innerHTML = `<div class="section">
+    <div class="meter"><div><b>${open.length}</b><span>待熟練</span></div><div><b>${done.length}</b><span>已熟練</span></div><div><b>${typesU(u).filter(t => S.tf[t.id]).length}</b><span>待加強題型</span></div><div><b>${MASTER_N}</b><span>連對幾次算熟練</span></div></div>
+    ${open.length ? `<button class="btn red" id="goWrong">錯題特訓（${open.length} 題）</button>` : `<div class="sheet"><b>錯題本目前是空的。</b><span class="muted">練習或測驗答錯的題目會自動放進來。</span></div>`}
+    ${qzs.length ? `<div class="sheet"><div class="label">每次測驗的錯題（全部熟練才算過關）</div>${qzs.map(r => { const m = r.wrong.filter(id => !isOpen(id)).length; return `<details style="margin-top:8px"><summary>第 ${r.n} 次測驗（${r.score} 分）：錯 ${r.wrong.length} 題，已熟練 ${m}/${r.wrong.length} ${m === r.wrong.length ? '<span class="pill ok">過關</span>' : ""}</summary>${r.wrong.filter(id => Q[id]).map(id => isOpen(id) ? item(id) : `<div class="wb"><div class="q">${plain(Q[id].q).slice(0, 60)}…</div><span class="pill ok">已熟練</span></div>`).join("")}</details>`; }).join("")}</div>` : ""}
+    ${byT.map(([t, ids]) => `<div class="sheet"><div class="row" style="justify-content:space-between"><h3>${t.name}</h3><span class="pill ${S.tf[t.id] ? "bad" : "gray"}">${ids.length} 題${S.tf[t.id] ? "・待加強" : ""}</span></div>${ids.map(item).join("")}</div>`).join("")}
+    ${done.length ? `<details class="sheet"><summary>已熟練（${done.length} 題）</summary>${done.map(id => { const x = S.st[id]; return `<div class="wb"><div class="q">${plain(Q[id].q).slice(0, 60)}…</div><span class="pill ok">已熟練</span><div class="m">第一次錯：${x.fw ? fmtD(x.fw) : "—"}｜熟練：${x.mastered ? fmtD(x.mastered) : "—"}｜原因：${(x.rs || []).map(r => r.r).filter((v, i, a) => a.indexOf(v) === i).join("、") || "—"}</div></div>`; }).join("")}</details>` : ""}
+  </div>`;
+  const gw = $("#goWrong"); if (gw) gw.onclick = () => startPractice({ mode: "wrong" });
+  view.querySelectorAll("[data-one]").forEach(b => b.onclick = () => { S.forced = b.dataset.one; startPractice({ mode: "wrong" }); });
+}
+
+/* ========== 測驗與成績 ========== */
+let confirmSubmit = false, tick = null;
+function vQuiz() {
+  const u = S.unit, U = S.U[u];
+  let h = subtabs("quiz", [["test", "測驗"], ["rec", "成績紀錄"]]);
+  if (S.sub.quiz === "result") h = subtabs("quiz", [["test", "測驗"], ["rec", "成績紀錄"]]) + resultView(U.quizzes.find(r => r.n === S.view) || U.quizzes[U.quizzes.length - 1]);
+  else if (S.sub.quiz === "rec") h += recView();
+  else if (U.qz) h += quizRun();
+  else h += quizStart();
+  view.innerHTML = h; bindSub("quiz"); bindQuiz();
+}
+function quizStart() {
+  const u = S.unit, U = S.U[u], last = U.quizzes[U.quizzes.length - 1], rd = readiness(u);
+  if (!testUnlocked(u)) {
+    const rows = typesU(u).map(t => { const s = tstat(t.id); const ok = s.basicDone && s.advDone; return `<div class="wb"><div class="q">${t.name}</div><span class="pill ${ok ? "ok" : s.label[1]}">${ok ? "完成" : s.label[0]}</span></div>`; }).join("");
+    return `<div class="section qwrap"><div class="lock"><h2>第 1 次測驗還沒開放</h2><p>每個題型的基礎層和進階層都練完（正確率 80% 以上、錯題清空）就會開放。先把題型一個一個練熟，測驗才考得出真實力。</p><div>${rows}</div><button class="btn" id="toPractice">去題型練習</button></div></div>`;
+  }
+  return `<div class="section qwrap"><div class="sheet"><h2>${UNITS[u].name}｜第 ${U.quizzes.length + 1} 次測驗</h2>
+    <p style="margin-top:8px">本課混合測驗，50 題、每題 2 分，滿分 100。全部寫完再交卷，交卷後立刻批改，錯題自動進錯題本。建議像段考一樣：不看課本，45 分鐘內寫完，留 5 分鐘檢查「不屬於／不宜／有誤」這類反向題。</p>
+    <p class="muted" style="margin-top:6px">${last ? `這次會先考上次錯的 ${last.wrong.length} 題，再加它們的類題和同題型延伸題、錯題本還沒熟練的題目，最後補滿重點題。` : "第 1 次：講義錯題＋各題型重點題混合，至少 20% 是拉分題。"}</p>
+    <div class="row" style="margin-top:10px"><button class="btn red" id="qStart">開始第 ${U.quizzes.length + 1} 次測驗</button><span class="pill ${rd[1]}">${rd[0]}</span></div></div>
+    ${U.quizzes.length ? `<button class="btn ghost" id="toRec">看成績紀錄（${U.quizzes.length} 次）</button>` : ""}</div>`;
+}
+function quizRun() {
+  const U = S.U[S.unit], z = U.qz, i = z.cur, q = Q[z.ids[i]], ord = z.orders[i], n = Object.keys(z.ans).length, L = "ABCD";
+  const left = z.ids.length - n;
+  return `<div class="section qwrap"><div class="row" style="justify-content:space-between"><b>第 ${U.quizzes.length + 1} 次測驗｜已作答 ${n}/${z.ids.length}</b><span class="muted" id="clock"></span></div>
+    <div class="sheetgrid">${z.ids.map((_, j) => `<button data-j="${j}" class="${z.ans[j] != null ? "done" : ""} ${j === i ? "cur" : ""}" aria-label="第 ${j + 1} 題">${j + 1}</button>`).join("")}</div>
+    <div class="qcard"><div class="qmeta"><span>第 ${i + 1} 題</span>${stars(q.s)}<span>${TYPE[q.t].name}</span></div><div class="qtext">${q.q}</div>${fig(q)}
+      <div class="opts">${ord.map((oi, k) => `<button class="opt ${z.ans[i] === oi ? "sel" : ""}" data-qa="${oi}"><span class="L">(${L[k]})</span><span>${q.o[oi]}</span></button>`).join("")}</div></div>
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" id="qPrev" ${i === 0 ? "disabled" : ""}>上一題</button>
+      ${i < z.ids.length - 1 ? `<button class="btn" id="qNext">下一題</button>` : ""}<button class="btn red" id="qSub">交卷</button></div>
+    ${confirmSubmit ? `<div class="confirm"><b>還有 ${left} 題沒寫，確定要交卷嗎？沒寫的算錯。</b><div class="row"><button class="btn red" id="qSubYes">確定交卷</button><button class="btn ghost" id="qSubNo">回去寫</button></div></div>` : ""}</div>`;
+}
+function submitQuiz() {
+  const u = S.unit, U = S.U[u], z = U.qz, ans = {}, wrong = [], types = {};
+  let correct = 0;
+  z.ids.forEach((id, j) => {
+    const q = Q[id], ok = z.ans[j] === q.a;
+    ans[id] = z.ans[j] == null ? null : z.ans[j];
+    types[q.t] = types[q.t] || [0, 0]; types[q.t][1]++;
+    if (ok) { correct++; types[q.t][0]++; } else wrong.push(id);
+    answer(id, ok, "測驗");
+  });
+  const r = { n: U.quizzes.length + 1, date: Date.now(), ids: z.ids, orders: z.orders, ans, wrong, correct, total: z.ids.length, score: Math.round(correct * 100 / z.ids.length), dur: Math.max(1, Math.round((Date.now() - z.start) / 6e4)), types };
+  U.quizzes.push(r); U.qz = null; confirmSubmit = false; S.view = r.n; S.sub.quiz = "result"; save(); render(); window.scrollTo(0, 0);
+}
+function resultView(r) {
+  if (!r) return "";
+  const u = S.unit, prev = S.U[u].quizzes.find(x => x.n === r.n - 1), rd = readiness(u), L = "ABCD";
+  const typeRows = Object.keys(r.types || {}).sort((a, b) => (TYPE[a] ? TYPE[a].i : 0) - (TYPE[b] ? TYPE[b].i : 0)).map(t => { const [o, n] = r.types[t]; return `<tr><td>${TYPE[t] ? TYPE[t].name : t}</td><td>${o}/${n}</td><td>${n ? Math.round(o * 100 / n) : 0}%</td></tr>`; }).join("");
+  return `<div class="section qwrap">
+    <div class="shot"><div class="label">意帆｜${UNITS[u].name}｜第 ${r.n} 次測驗｜${fmtD(r.date)}</div>
+      <div class="score">${r.score}<small> / 100</small></div>
+      <div>答對 ${r.correct}/${r.total} 題｜用時 ${r.dur} 分鐘${prev ? `｜上次 ${prev.score} 分（${r.score - prev.score >= 0 ? "+" : ""}${r.score - prev.score}）` : ""}</div>
+      <div><span class="pill ${rd[1]}">${rd[0]}</span></div>
+      <div class="muted">請把這個畫面截圖傳給爸爸。成績也保存在「成績紀錄」。</div></div>
+    <div class="sheet"><div class="label">各題型答對率</div><div style="overflow-x:auto"><table class="hist"><tr><th>題型</th><th>答對</th><th>答對率</th></tr>${typeRows}</table></div></div>
+    ${r.wrong.length ? `<div class="sheet"><div class="label">錯題詳解（已自動放進錯題本，請點選錯的原因）</div>
+      ${r.wrong.filter(id => Q[id]).map(id => { const q = Q[id], c = r.ans[id], x = st(id), last = (x.rs || []).filter(z => z.src === "測驗" + r.n).pop();
+        return `<div class="qcard" style="margin-top:10px;background:var(--paper)"><div class="qmeta">${kindPill(q)}${stars(q.s)}<span>${TYPE[q.t].name}</span></div><div class="qtext">${q.q}</div>${fig(q)}
+        <div>你的答案：<b class="r">${c == null ? "沒作答" : q.o[c]}</b>　正確答案：<b style="color:var(--ok)">${q.o[q.a]}</b></div><div style="font-size:.95rem">${q.e}</div>
+        <div class="reasons">${REASONS.map(z => `<button data-qr="${id}" data-r="${z}" aria-pressed="${last && last.r === z}">${z}</button>`).join("")}</div></div>`; }).join("")}</div>` : `<div class="sheet"><b>全對！</b></div>`}
+    <div class="row"><button class="btn" id="toBook">去錯題本</button><button class="btn ghost" id="toRec">成績紀錄</button></div></div>`;
+}
+function chart(qs) {
+  if (qs.length < 1) return "";
+  const W = 360, H = 170, ox = 36, oy = 140, w = W - ox - 16, lo = 40, sy = 120 / (100 - lo);
+  const X = i => ox + (qs.length === 1 ? w / 2 : i * w / (qs.length - 1)), Y = v => oy - (Math.max(v, lo) - lo) * sy;
+  const pts = qs.map((r, i) => [X(i), Y(r.score)]);
+  return `<div class="fig"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="分數走勢">
+    ${[40, 60, 80, 100].map(v => `<line x1="${ox}" x2="${ox + w}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line)"/><text x="${ox - 6}" y="${Y(v) + 4}" text-anchor="end" style="fill:var(--ink2);font-size:11px;font-family:var(--mono)">${v}</text>`).join("")}
+    <line x1="${ox}" x2="${ox + w}" y1="${Y(96)}" y2="${Y(96)}" style="stroke:var(--red);stroke-dasharray:5 4"/><text x="${ox + w}" y="${Y(96) - 5}" text-anchor="end" style="fill:var(--red);font-size:11px;font-family:var(--sans)">目標 96</text>
+    <path d="M${pts.map(p => p.join(" ")).join("L")}" style="fill:none;stroke:var(--blue);stroke-width:2.2"/>
+    ${pts.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="${i === pts.length - 1 ? 5 : 3.5}" style="fill:var(--blue)"/><text x="${p[0]}" y="${H - 8}" text-anchor="middle" style="fill:var(--ink2);font-size:11px;font-family:var(--mono)">${qs[i].n}</text>`).join("")}
+    <text x="${pts[pts.length - 1][0]}" y="${pts[pts.length - 1][1] - 9}" text-anchor="middle" style="fill:var(--ink);font-size:12px;font-weight:700;font-family:var(--mono)">${qs[qs.length - 1].score}</text></svg></div>`;
+}
+function recView() {
+  const qs = S.U[S.unit].quizzes, rd = readiness(S.unit);
+  if (!qs.length) return `<div class="section qwrap"><div class="sheet">還沒有測驗紀錄。</div></div>`;
+  return `<div class="section qwrap"><div class="sheet"><div class="row" style="justify-content:space-between"><div class="label">分數走勢（${UNITS[S.unit].name}）</div><span class="pill ${rd[1]}">${rd[0]}</span></div>${chart(qs)}</div>
+    <div class="sheet" style="overflow-x:auto"><table class="hist"><tr><th>次</th><th>日期</th><th>分數</th><th>用時</th><th>錯題熟練</th></tr>
+    ${qs.slice().reverse().map(r => { const m = r.wrong.filter(id => !isOpen(id)).length; return `<tr class="click" data-rec="${r.n}"><td>${r.n}</td><td>${fmtD(r.date)}</td><td><b>${r.score}</b></td><td>${r.dur} 分</td><td>${r.wrong.length ? `${m}/${r.wrong.length}` : "全對"}</td></tr>`; }).join("")}</table>
+    <p class="muted" style="margin-top:6px">點任一列看那次的錯題與詳解。</p></div></div>`;
+}
+function bindQuiz() {
+  const u = S.unit, U = S.U[u];
+  const on = (id, f) => { const e = $("#" + id); if (e) e.onclick = f; };
+  on("toPractice", () => go("practice", "types"));
+  on("toRec", () => go("quiz", "rec"));
+  on("toBook", () => go("book"));
+  on("qStart", () => { const ids = buildQuiz(u); U.qz = { ids, orders: ids.map(id => orderFor(Q[id])), ans: {}, start: Date.now(), cur: 0 }; save(); render(); });
+  view.querySelectorAll("[data-rec]").forEach(b => b.onclick = () => { S.view = +b.dataset.rec; S.sub.quiz = "result"; save(); render(); window.scrollTo(0, 0); });
+  view.querySelectorAll("[data-qr]").forEach(b => b.onclick = () => { const x = st(b.dataset.qr); x.rs = x.rs || []; x.rs.push({ r: b.dataset.r, at: Date.now(), src: "測驗" + S.view }); save(); render(); });
+  if (!U.qz || S.sub.quiz !== "test") { clearInterval(tick); return; }
+  const z = U.qz;
+  view.querySelectorAll("[data-j]").forEach(b => b.onclick = () => { z.cur = +b.dataset.j; confirmSubmit = false; save(); render(); });
+  view.querySelectorAll("[data-qa]").forEach(b => b.onclick = () => { z.ans[z.cur] = +b.dataset.qa; save(); render(); });
+  on("qPrev", () => { z.cur--; save(); render(); window.scrollTo(0, 0); });
+  on("qNext", () => { z.cur++; save(); render(); window.scrollTo(0, 0); });
+  on("qSub", () => { if (Object.keys(z.ans).length < z.ids.length) { confirmSubmit = true; render(); } else submitQuiz(); });
+  on("qSubYes", submitQuiz);
+  on("qSubNo", () => { confirmSubmit = false; render(); });
+  clearInterval(tick);
+  const upd = () => { const c = $("#clock"); if (!c) return clearInterval(tick); const m = Math.floor((Date.now() - z.start) / 6e4); c.textContent = `已用 ${m} 分鐘`; };
+  upd(); tick = setInterval(upd, 15000);
+}
+
+/* ========== 動畫與互動 ========== */
+const ANIM = {
+  walk(el) { window.mountWalk(el, el.dataset.cfg, () => S.anim); },
+  gate(el) {
+    el.innerHTML = `<div class="lab"><h3>細胞膜的門：誰進得去？</h3><div class="stage"><svg viewBox="0 0 360 120"><rect x="200" y="0" width="12" height="120" style="fill:var(--rule)"/><rect x="200" y="50" width="12" height="20" style="fill:var(--paper)"/><text x="230" y="20" style="fill:var(--ink2);font-size:12px">細胞內</text><text x="20" y="20" style="fill:var(--ink2);font-size:12px">消化道</text>
+      <g id="gItem" style="transition:transform 1.2s ease"></g></svg></div>
+      <div class="row"><button class="btn sm" data-g="big">送一個「澱粉」（大分子）</button><button class="btn sm" data-g="small">送一個「葡萄糖」（小分子）</button></div><div class="readout" id="gOut">點按鈕看看。</div></div>`;
+    const g = el.querySelector("#gItem"), out = el.querySelector("#gOut");
+    el.querySelectorAll("[data-g]").forEach(b => b.onclick = () => {
+      const big = b.dataset.g === "big";
+      g.style.transition = "none"; g.style.transform = "translate(0,0)";
+      g.innerHTML = big ? `<g transform="translate(40,40)">${[0, 1, 2, 3, 4, 5].map(i => `<circle cx="${i * 12}" cy="${(i % 2) * 10 + 10}" r="8" style="fill:var(--blue)"/>`).join("")}</g>` : `<circle cx="60" cy="60" r="7" style="fill:var(--red)"/>`;
+      void g.getBoundingClientRect();
+      g.style.transition = S.anim ? "transform 1.2s ease" : "none";
+      g.style.transform = big ? "translate(80px,0)" : "translate(220px,0)";
+      out.className = "readout " + (big ? "bad" : "ok");
+      out.textContent = big ? "澱粉太大，卡在細胞膜外面。要先在消化道被分解成葡萄糖。" : "葡萄糖是小分子，可以通過細胞膜進入細胞。這就是「吸收」。";
+    });
+  },
+  match(el) {
+    const M = window.MATCH34[el.dataset.set]; let sel = null, done = 0;
+    const left = M.pairs.map((p, i) => ({ t: p[0], i })), right = shuffle(M.pairs.map((p, i) => ({ t: p[1], i })));
+    el.innerHTML = `<div class="lab"><h3>${M.title}</h3><p class="muted">先點左邊，再點右邊對應的答案。</p><div class="matchgrid">${left.map((l, k) => `<button data-l="${l.i}">${l.t}</button><button data-rr="${right[k].i}">${right[k].t}</button>`).join("")}</div><div class="readout" id="mOut">配對 0/${M.pairs.length}</div></div>`;
+    const out = el.querySelector("#mOut");
+    el.querySelectorAll("[data-l]").forEach(b => b.onclick = () => { if (b.classList.contains("done")) return; el.querySelectorAll("[data-l]").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b; });
+    el.querySelectorAll("[data-rr]").forEach(b => b.onclick = () => {
+      if (!sel || b.classList.contains("done")) return;
+      if (sel.dataset.l === b.dataset.rr) { sel.classList.remove("sel"); sel.classList.add("done"); b.classList.add("done"); sel = null; done++; out.className = "readout ok"; out.textContent = done === M.pairs.length ? "全部配對完成！" : `配對 ${done}/${M.pairs.length}`; }
+      else { b.classList.remove("no"); void b.offsetWidth; b.classList.add("no"); out.className = "readout bad"; out.textContent = `「${sel.textContent}」不是「${b.textContent}」，再試一次。`; }
+    });
+  },
+  peristalsis(el) {
+    el.innerHTML = `<div class="lab"><h3>蠕動：肌肉一圈一圈收縮</h3><div class="stage"><svg viewBox="0 0 120 220" style="max-width:140px"><path d="M45 5V215M75 5V215" style="stroke:var(--ink2);stroke-width:3"/>
+      <g id="pRing"><path d="M45 0q10 6 0 12M75 0q-10 6 0 12" style="stroke:var(--red);stroke-width:4;fill:none"/></g><ellipse id="pBolus" cx="60" cy="30" rx="13" ry="16" style="fill:#7BC46B"/></svg></div>
+      <div class="row"><button class="btn sm" id="pGo">播放</button></div><div class="readout" id="pOut">紅色是收縮的肌肉，綠色是吞下的食物。</div></div>`;
+    const b = el.querySelector("#pBolus"), r = el.querySelector("#pRing"), out = el.querySelector("#pOut");
+    el.querySelector("#pGo").onclick = () => {
+      if (!S.anim) { b.setAttribute("cy", 190); r.setAttribute("transform", "translate(0,160)"); out.textContent = "肌肉在食物後方收縮，把食物一路推到胃。不靠重力，所以倒立也能吞。"; return; }
+      let y = 30; const t0 = performance.now();
+      const step = t => { y = 30 + Math.min(1, (t - t0) / 2400) * 160; b.setAttribute("cy", y); r.setAttribute("transform", `translate(0,${y - 40})`); if (y < 190) requestAnimationFrame(step); else out.textContent = "肌肉在食物後方收縮，把食物一路推到胃。不靠重力，所以倒立也能吞。"; };
+      requestAnimationFrame(step);
+    };
+  },
+  villi(el) {
+    const flat = "M10 80 H350", fold = (() => { let d = "M10 80"; for (let x = 10; x < 350; x += 20) d += ` V40 a6 6 0 0 1 12 0 V80 H${x + 20}`; return d; })();
+    el.innerHTML = `<div class="lab"><h3>絨毛讓吸收面積變大</h3><div class="stage"><svg viewBox="0 0 360 100"><path id="vPath" d="${flat}" style="fill:none;stroke:var(--red);stroke-width:3"/></svg></div>
+      <div class="row"><button class="btn sm" data-v="flat" aria-pressed="true">平平的內壁</button><button class="btn sm ghost" data-v="fold">有絨毛的內壁</button></div><div class="readout" id="vOut">同樣長度的小腸，內壁平平的。</div></div>`;
+    const p = el.querySelector("#vPath"), out = el.querySelector("#vOut"), base = 340;
+    el.querySelectorAll("[data-v]").forEach(b => b.onclick = () => {
+      const f = b.dataset.v === "fold"; p.setAttribute("d", f ? fold : flat);
+      let len = base; try { len = p.getTotalLength(); } catch (e) {}
+      out.className = "readout " + (f ? "ok" : "");
+      out.textContent = f ? `紅線（吸收面）的長度變成平的約 ${(len / base).toFixed(1)} 倍。真正的小腸還有皺褶和更小的突起，吸收面積大得多。` : "同樣長度的小腸，內壁平平的。";
+    });
+  },
+  enzyme(el) {
+    el.innerHTML = `<div class="lab"><h3>酵素實驗台：溫度</h3><p class="muted">人體酵素最適溫度約 37°C；這支酵素超過 50°C 就永久失活。</p>
+      <div class="slider"><label for="eT">溫度</label><input id="eT" type="range" min="0" max="80" value="37"><output id="eTo">37°C</output></div>
+      <div class="bar"><i id="eBar" style="width:100%"></i></div><div class="readout" id="eOut"></div><div class="row"><button class="btn sm ghost" id="eNew">換一管新的酵素</button></div></div>
+      <div class="lab" style="margin-top:10px"><h3>酵素實驗台：酸鹼值</h3>
+      <div class="chips"><button class="chip" data-p="2" aria-pressed="true">胃的酵素</button><button class="chip" data-p="7">唾液的酵素</button><button class="chip" data-p="8.5">小腸的酵素</button></div>
+      <div class="slider"><label for="eP">pH 值</label><input id="eP" type="range" min="0" max="14" step="0.5" value="2"><output id="ePo">2</output></div>
+      <div class="bar"><i id="pBar" style="width:100%"></i></div><div class="readout" id="pOut2"></div></div>`;
+    let dead = false, opt = 2;
+    const T = el.querySelector("#eT"), P = el.querySelector("#eP");
+    const act = t => t <= 37 ? Math.max(0.05, t / 37) : t <= 50 ? Math.cos((t - 37) / 13 * Math.PI / 2) : 0;
+    const upT = () => {
+      const t = +T.value; if (t > 50) dead = true;
+      const a = dead ? 0 : act(t);
+      el.querySelector("#eTo").textContent = t + "°C"; el.querySelector("#eBar").style.width = Math.round(a * 100) + "%";
+      const o = el.querySelector("#eOut");
+      o.className = "readout " + (dead ? "bad" : a > 0.8 ? "ok" : "");
+      o.textContent = dead ? (t > 50 ? "超過 50°C：酵素結構被破壞，永久失活。" : `已經被高溫破壞過，就算降回 ${t}°C 也救不回來（活性 0）。`) : t < 20 ? `低溫：活性很低，但只是「暫時」的，回溫就恢復（像冰箱保存食物）。活性 ${Math.round(a * 100)}%` : `活性 ${Math.round(a * 100)}%${Math.abs(t - 37) <= 2 ? "，接近最適溫度。" : ""}`;
+    };
+    const upP = () => {
+      const p = +P.value, a = Math.exp(-Math.pow((p - opt) / 1.8, 2));
+      el.querySelector("#ePo").textContent = p; el.querySelector("#pBar").style.width = Math.round(a * 100) + "%";
+      const o = el.querySelector("#pOut2"); o.className = "readout " + (a > 0.8 ? "ok" : a < 0.2 ? "bad" : "");
+      o.textContent = `pH ${p}（${p < 7 ? "酸性" : p === 7 ? "中性" : "鹼性"}）：活性 ${Math.round(a * 100)}%。這種酵素最適 pH 約 ${opt}。`;
+    };
+    T.oninput = upT; P.oninput = upP;
+    el.querySelector("#eNew").onclick = () => { dead = false; T.value = 37; upT(); };
+    el.querySelectorAll("[data-p]").forEach(b => b.onclick = () => { opt = +b.dataset.p; el.querySelectorAll("[data-p]").forEach(x => x.setAttribute("aria-pressed", x === b)); upP(); });
+    upT(); upP();
+  },
+  emulsify(el) {
+    const big = `<circle cx="180" cy="60" r="45" style="fill:#F2D16B;stroke:#B89A2E"/>`;
+    let small = ""; for (let i = 0; i < 27; i++) { const a = i * 2.4, r = 12 + (i % 9) * 6; small += `<circle cx="${(180 + Math.cos(a) * r * 2.2).toFixed(0)}" cy="${(60 + Math.sin(a) * r).toFixed(0)}" r="15" style="fill:#F2D16B;stroke:#B89A2E"/>`; }
+    el.innerHTML = `<div class="lab"><h3>膽汁的乳化：把大油滴打散</h3><div class="stage"><svg viewBox="0 0 360 120" id="emS">${big}</svg></div>
+      <div class="row"><button class="btn sm" id="emGo">加入膽汁</button><button class="btn sm ghost" id="emBack">重來</button></div><div class="readout" id="emOut">一大滴油，胰液的酵素只能從表面慢慢分解。</div></div>`;
+    const s = el.querySelector("#emS"), out = el.querySelector("#emOut");
+    el.querySelector("#emGo").onclick = () => { s.innerHTML = small; out.className = "readout ok"; out.textContent = "變成 27 顆小油滴，總表面積變成原來的 3 倍，酵素更容易分解。膽汁沒有酵素，脂質還沒被分解成脂肪酸和甘油。"; };
+    el.querySelector("#emBack").onclick = () => { s.innerHTML = big; out.className = "readout"; out.textContent = "一大滴油，胰液的酵素只能從表面慢慢分解。"; };
+  },
+  lab(el) {
+    const C = { iod: "#C98A2B", bb: "#2C2766", ben: "#8EC5E8", grn: "#7DBE5A", org: "#E8873A", red: "#C8452E", clr: "#DCE6F2" };
+    const tubes = [
+      { n: "澱粉液", st: 1, su: 0, why: "有澱粉、沒有糖" },
+      { n: "葡萄糖液", st: 0, su: 3, why: "有糖、沒有澱粉" },
+      { n: "澱粉液＋唾液 37°C", st: 0, su: 2, why: "唾液把澱粉分解成糖" },
+      { n: "澱粉液＋煮沸過的唾液", st: 1, su: 0, why: "酵素被高溫破壞，澱粉還在" },
+      { n: "水", st: 0, su: 0, why: "什麼都沒有（對照）" }
+    ];
+    el.innerHTML = `<div class="lab"><h3>試劑實驗室</h3><div class="bath" id="lBath"><div class="tubes">${tubes.map((t, i) => `<div class="tube"><div class="glass"><span class="drop" id="lD${i}"></span><div class="liq" id="lL${i}" style="background:${C.clr}"></div></div><span>${t.n}</span></div>`).join("")}</div></div>
+      <div class="row"><button class="btn sm" id="lI">滴碘液</button><button class="btn sm" id="lB">滴本氏液</button><button class="btn sm red" id="lH" disabled>隔水加熱</button><button class="btn sm ghost" id="lR">重來</button></div>
+      <div class="readout" id="lOut">選一種試劑。</div></div>`;
+    const out = el.querySelector("#lOut"), bath = el.querySelector("#lBath"), H = el.querySelector("#lH");
+    const drop = (col, cb) => { tubes.forEach((_, i) => { const d = el.querySelector("#lD" + i); d.style.background = col; d.classList.remove("go"); void d.offsetWidth; if (S.anim) d.classList.add("go"); }); setTimeout(cb, S.anim ? 650 : 0); };
+    const color = f => tubes.forEach((t, i) => el.querySelector("#lL" + i).style.backgroundColor = f(t));
+    el.querySelector("#lI").onclick = () => { H.disabled = true; bath.classList.remove("on"); drop(C.iod, () => { color(t => t.st ? C.bb : C.iod); out.className = "readout"; out.innerHTML = "碘液不用加熱。<b>藍黑色＝有澱粉</b>（澱粉液、煮沸過的唾液）；<b>黃褐色＝碘液原色＝沒有澱粉</b>（葡萄糖液、被唾液分解過的、水）。"; }); };
+    el.querySelector("#lB").onclick = () => { bath.classList.remove("on"); drop(C.ben, () => { color(() => C.ben); H.disabled = false; out.className = "readout bad"; out.textContent = "全部都是淡藍色——本氏液還沒加熱，不能下結論。按「隔水加熱」。"; }); };
+    H.onclick = () => { H.disabled = true; bath.classList.add("on"); setTimeout(() => { color(t => [C.ben, C.grn, C.org, C.red][t.su]); out.className = "readout ok"; out.innerHTML = "加熱後：<b>葡萄糖液變紅（糖多）</b>、<b>澱粉＋唾液變橙（唾液分解出糖）</b>；澱粉液、煮沸唾液、水維持淡藍（沒有糖）。"; }, S.anim ? 1200 : 0); };
+    el.querySelector("#lR").onclick = () => { H.disabled = true; bath.classList.remove("on"); color(() => C.clr); out.className = "readout"; out.textContent = "選一種試劑。"; };
+  },
+  gate2(el) {
+    el.innerHTML = `<div class="lab"><h3>半透膜實驗（經典題 13）</h3><div class="stage" id="mS"></div>
+      <div class="row"><button class="btn sm" id="mWait">靜置一段時間</button><button class="btn sm" id="mI" disabled>兩邊滴碘液</button><button class="btn sm" id="mB" disabled>兩邊滴本氏液並加熱</button><button class="btn sm ghost" id="mR">重來</button></div><div class="readout" id="mOut">試管裝葡萄糖液（紅點），燒杯裝澱粉液（藍圈），膜只讓小分子通過。</div></div>`;
+    const S0 = { moved: false, tube: "var(--sheet)", beak: "var(--sheet)" };
+    const draw = () => {
+      let g = "", s = ""; const gp = S0.moved ? [[170, 70], [178, 120], [100, 150], [250, 170], [130, 190], [230, 140]] : [[170, 70], [182, 92], [168, 112], [186, 124], [176, 146], [174, 60]];
+      gp.forEach(([x, y]) => g += `<circle cx="${x}" cy="${y}" r="3.5" style="fill:var(--red)"/>`);
+      [[110, 140], [130, 176], [240, 150], [228, 184], [104, 190]].forEach(([x, y]) => s += `<circle cx="${x}" cy="${y}" r="7" style="fill:none;stroke:var(--blue);stroke-width:2"/>`);
+      el.querySelector("#mS").innerHTML = `<svg viewBox="0 0 360 230"><path d="M80 90v130h200V90" style="fill:none;stroke:var(--ink);stroke-width:2"/><rect x="82" y="120" width="196" height="98" style="fill:${S0.beak};transition:fill 1s"/><path d="M160 20v140h36V20" style="fill:${S0.tube};stroke:var(--ink);stroke-width:2;transition:fill 1s"/><line x1="156" y1="160" x2="200" y2="160" style="stroke:var(--ink);stroke-width:3"/>${g}${s}<text x="206" y="40" style="fill:var(--ink2);font-size:12px">試管</text><text x="286" y="130" style="fill:var(--ink2);font-size:12px">燒杯</text></svg>`;
+    };
+    draw();
+    const out = el.querySelector("#mOut");
+    el.querySelector("#mWait").onclick = () => { S0.moved = true; draw(); el.querySelector("#mI").disabled = el.querySelector("#mB").disabled = false; out.textContent = "葡萄糖（小）穿過膜，兩邊都有了；澱粉（大）過不去，還在燒杯。"; };
+    el.querySelector("#mI").onclick = () => { S0.beak = "#2C2766"; S0.tube = "#C98A2B"; draw(); out.className = "readout"; out.textContent = "碘液：只有燒杯變藍黑（有澱粉），試管黃褐（沒有澱粉）。"; };
+    el.querySelector("#mB").onclick = () => { S0.beak = "#E8873A"; S0.tube = "#C8452E"; draw(); out.className = "readout ok"; out.textContent = "本氏液加熱：試管和燒杯都變色，因為兩邊都有葡萄糖。這就是經典題 13 的答案。"; };
+    el.querySelector("#mR").onclick = () => { S0.moved = false; S0.beak = S0.tube = "var(--sheet)"; draw(); el.querySelector("#mI").disabled = el.querySelector("#mB").disabled = true; out.className = "readout"; out.textContent = "試管裝葡萄糖液（紅點），燒杯裝澱粉液（藍圈），膜只讓小分子通過。"; };
+  },
+  journey(el) {
+    const J = window.JOURNEY; let i = -1, timer = null;
+    el.innerHTML = `<div class="lab"><h3>一口漢堡的旅程</h3><div class="stepper">${J.map((s, k) => `<button data-js="${k}">${s.at}</button>`).join("")}</div>
+      <div class="label">離開這一站時，還沒被消化的量</div>
+      <div class="jbars"><div><span>澱粉</span><div class="bar"><i id="jS" style="width:100%;background:var(--blue)"></i></div><em id="jSv">100%</em></div>
+      <div><span>蛋白質</span><div class="bar"><i id="jP" style="width:100%;background:var(--red)"></i></div><em id="jPv">100%</em></div>
+      <div><span>脂質</span><div class="bar"><i id="jF" style="width:100%;background:var(--warn)"></i></div><em id="jFv">100%</em></div></div>
+      <div class="readout" id="jOut">按「自動播放」或點任一站。</div><div class="row"><button class="btn sm" id="jPlay">自動播放</button></div></div>`;
+    const set = k => { i = k; const s = J[k]; [["S", s.s], ["P", s.p], ["F", s.f]].forEach(([n, v]) => { el.querySelector("#j" + n).style.width = v + "%"; el.querySelector("#j" + n + "v").textContent = v + "%"; }); el.querySelector("#jOut").innerHTML = `<b>${s.at}</b>：${s.txt}`; el.querySelectorAll("[data-js]").forEach(b => b.setAttribute("aria-current", +b.dataset.js === k)); };
+    el.querySelectorAll("[data-js]").forEach(b => b.onclick = () => { clearInterval(timer); set(+b.dataset.js); });
+    el.querySelector("#jPlay").onclick = () => { clearInterval(timer); if (!S.anim) return set(J.length - 1); set(0); timer = setInterval(() => { if (i >= J.length - 1 || !document.body.contains(el)) return clearInterval(timer); set(i + 1); }, 2200); };
+  }
+};
+function mountAnims() { view.querySelectorAll("[data-anim]").forEach(el => { const f = ANIM[el.dataset.anim] || ((window.ANIM_EXTRA || {})[el.dataset.anim] ? (e => window.ANIM_EXTRA[e.dataset.anim](e, () => S.anim)) : null); if (f && !el.dataset.done) { el.dataset.done = 1; try { f(el); } catch (e) { el.innerHTML = ""; } } }); }
+
+/* ========== 開始 ========== */
+load();
+if (S.tab === "practice" && S.sub.practice === "run" && !S.pm) S.sub.practice = "types";
+render();
+}();
+
+</script>
+</body></html>
