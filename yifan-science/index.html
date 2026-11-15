@@ -153,6 +153,7 @@ nav.tabs button[aria-current=true]{color:var(--red);font-weight:700}
 .qmeta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--ink2)}
 .qtext{font-size:1.06rem;font-weight:500}
 .fig{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px}
+.sync{flex-basis:100%;font-size:.75rem;text-align:right;min-height:1em}.sync.ok{color:var(--ok,#2e7d32)}.sync.warn{color:#b26a00}.sync.gray{color:#888}
 .fig .qimg{display:block;max-width:100%;height:auto;margin:4px auto;background:#fff}
 .fig .qimg.wide{max-width:none;width:640px}
 .opt .oimg{display:block;max-width:120px;width:100%;height:auto;background:#fff;border-radius:4px}
@@ -206,7 +207,7 @@ textarea{width:100%;min-height:90px;font-family:var(--mono);font-size:.78rem;bor
 .noanim *{transition:none!important;animation:none!important}
 </style>
 <div class="wrap" id="app">
-  <header class="top"><h1>意帆的自然衝刺<small id="unitSub">第 3 章 生物體的營養</small></h1><div class="count" id="count"></div></header>
+  <header class="top"><h1>意帆的自然衝刺<small id="unitSub">第 3 章 生物體的營養</small></h1><div class="count" id="count"></div><div class="sync gray" id="sync"></div></header>
   <div class="units" id="units"></div>
   <main id="view"></main>
 </div>
@@ -1372,11 +1373,87 @@ window.JOURNEY = [
 
 </script>
 <script>
+/* 雲端進度同步（各科共用）
+   進度存在雲端資料庫，任何裝置、任何瀏覽器打開同一個網址都接續同一份進度。
+   本機 localStorage 只當快取：離線時照常練習，連上網後自動合併上傳。 */
+window.CloudSync = (function () {
+  const API = "https://lmdxdwkgdiccsgytambx.supabase.co/rest/v1/rpc/";
+  const APIKEY = "sb_publishable_Np_R4cgqHCbGWx0f1zlC5g_6v6RZJdj";
+  let C = null, rev = 0, dirty = false, timer = null, busy = false, again = false, status = "";
+  const mk = s => C.ls + "_" + s;
+  const meta = () => { try { localStorage.setItem(mk("rev"), String(rev)); localStorage.setItem(mk("dirty"), dirty ? "1" : "0"); } catch (e) {} };
+  const say = s => { if (s !== status) { status = s; try { C.onStatus && C.onStatus(s); } catch (e) {} } };
+  async function call(fn, body, keepalive) {
+    const r = await fetch(API + fn, { method: "POST", keepalive: !!keepalive, headers: { apikey: APIKEY, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!r.ok) throw new Error("http " + r.status);
+    return r.json();
+  }
+  async function push() {
+    for (let i = 0; i < 5; i++) {
+      const res = await call("put_progress", { p_k: C.key, p_data: C.get(), p_base: rev });
+      if (res && res.ok) { rev = res.rev; dirty = false; meta(); return; }
+      // 別台裝置先存了新進度：合併後再存
+      if (res && res.data) { C.set(C.merge(C.get(), res.data)); C.onChange && C.onChange(); }
+      rev = (res && res.rev) || 0; meta();
+    }
+    throw new Error("conflict loop");
+  }
+  async function sync(full) {
+    if (!C) return;
+    if (busy) { again = true; return; }
+    busy = true; say("sync");
+    try {
+      const cloudRev = await call("get_rev", { p_k: C.key });
+      if (cloudRev > rev || (full && cloudRev && cloudRev !== rev)) {
+        const res = await call("get_progress", { p_k: C.key });
+        if (res && res.data) {
+          if (dirty || rev === 0) { C.set(C.merge(C.get(), res.data)); dirty = true; }
+          else C.set(res.data);
+          rev = res.rev; meta();
+          C.onChange && C.onChange();
+        }
+      }
+      if (dirty || cloudRev === 0) await push();
+      say("ok");
+    } catch (e) { say(navigator.onLine === false ? "offline" : "err"); }
+    busy = false;
+    if (again) { again = false; setTimeout(() => sync(false), 50); }
+  }
+  function init(cfg) {
+    C = cfg;
+    try { rev = +localStorage.getItem(mk("rev")) || 0; dirty = localStorage.getItem(mk("dirty")) === "1"; } catch (e) {}
+    sync(true);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") sync(false);
+      else if (dirty) { clearTimeout(timer); flush(); }
+    });
+    window.addEventListener("online", () => sync(false));
+    window.addEventListener("focus", () => sync(false));
+    window.addEventListener("pagehide", () => { if (dirty) flush(); });
+    setInterval(() => { if (document.visibilityState === "visible") sync(false); }, 45000);
+  }
+  function flush() {
+    // 關閉頁面前盡量送出（keepalive 有 64KB 限制，太大就交給下次開啟時同步）
+    try {
+      const body = { p_k: C.key, p_data: C.get(), p_base: rev };
+      if (JSON.stringify(body).length < 60000) call("put_progress", body, true).then(r => { if (r && r.ok) { rev = r.rev; dirty = false; meta(); } }).catch(() => {});
+    } catch (e) {}
+  }
+  function touch() {
+    if (!C) return;
+    dirty = true; meta(); say("pending");
+    clearTimeout(timer); timer = setTimeout(() => sync(false), 1200);
+  }
+  return { init, touch, sync, state: () => ({ rev, dirty, status }) };
+})();
+
+</script>
+<script>
 !function () {
 "use strict";
 /* ========== 資料 ========== */
 const EXAM = new Date(2026, 11, 1), EXAM_TXT = "12/1（二）";
-const REL = "r6-cap", REL_TXT = "11/9 更新";
+const REL = "r7-cloud", REL_TXT = "11/15 更新";
 const MASTER_N = 3; // 自然是弱科：錯題連續答對 3 次才算熟練
 const KEY2 = "yf_sci_v2", KEY1 = "yf_sci_v1";
 const REASONS = ["觀念不懂", "記憶不牢", "題意誤讀", "粗心"];
@@ -1447,7 +1524,48 @@ function seed() {
     if (!S.tf[q.t]) S.tf[q.t] = { since: now, res: [] };
   });
 }
-function save() { try { localStorage.setItem(KEY2, JSON.stringify(S)); } catch (e) {} }
+function saveLocal() { try { localStorage.setItem(KEY2, JSON.stringify(S)); } catch (e) {} }
+function save() { saveLocal(); if (window.CloudSync) window.CloudSync.touch(); }
+
+/* ========== 雲端同步：合併兩份進度（不同裝置各自練習時，兩邊的紀錄都保留）========== */
+const SYNC_KEY = "yifan-science-L5u8vJ6NqlqBwfEfrXSLd-41";
+const UIK = ["unit", "tab", "sub", "node", "nodes", "pm", "view", "forced", "anim", "rel"];
+function mergeS(a, b) {
+  if (!b || !b.st || !b.U) return a;
+  if (!a || !a.st || !a.U) return b;
+  const m = JSON.parse(JSON.stringify(b));
+  const n = x => (x && x.n) || 0;
+  const better = (x, y) => n(x) > n(y) || (n(x) === n(y) && (((x.rs || []).length > (y.rs || []).length) || (!!x.mastered && !y.mastered)));
+  for (const id in a.st) { const x = a.st[id], y = m.st[id]; if (!y || better(x, y)) m.st[id] = x; }
+  for (const u in a.U) {
+    const A = a.U[u], B = m.U[u];
+    if (!B) { m.U[u] = A; continue; }
+    const key = r => r.date + "|" + r.score + "|" + r.total;
+    const have = new Set(B.quizzes.map(key));
+    A.quizzes.forEach(r => { if (!have.has(key(r))) B.quizzes.push(r); });
+    B.quizzes.sort((p, q) => (p.date || 0) - (q.date || 0)); B.quizzes.forEach((r, i) => r.n = i + 1);
+    B.unlocked = !!(A.unlocked || B.unlocked);
+    const cnt = z => z ? Object.keys(z.ans || {}).length : -1;
+    const doneAt = new Set(B.quizzes.map(r => r.date));
+    if (A.qz && cnt(A.qz) > cnt(B.qz) && !B.quizzes.some(r => r.date >= A.qz.start)) B.qz = A.qz;
+    if (B.qz && B.quizzes.some(r => r.date >= B.qz.start && r.ids && r.ids.join() === B.qz.ids.join())) B.qz = null;
+  }
+  if ((a.cnt || 0) > (b.cnt || 0)) ["tf", "due", "extra", "last"].forEach(k => m[k] = a[k]);
+  m.cnt = Math.max(a.cnt || 0, b.cnt || 0);
+  ["tdone", "seen"].forEach(k => m[k] = Object.assign({}, b[k] || {}, a[k] || {}));
+  UIK.forEach(k => { if (a[k] !== undefined) m[k] = a[k]; });
+  return m;
+}
+function setFromCloud(d) {
+  const ui = {}; UIK.forEach(k => ui[k] = S[k]);
+  S = d; load2(); UIK.forEach(k => { if (ui[k] !== undefined) S[k] = ui[k]; });
+  saveLocal();
+}
+function syncBadge(st) {
+  const el = document.getElementById("sync"); if (!el) return;
+  const T = { sync: ["同步中…", "gray"], pending: ["同步中…", "gray"], ok: ["☁ 進度已存到雲端", "ok"], offline: ["離線中，連上網會自動同步", "warn"], err: ["暫時連不上雲端，進度先存在這台，稍後自動同步", "warn"] }[st] || ["", "gray"];
+  el.textContent = T[0]; el.className = "sync " + T[1];
+}
 
 /* ========== 引擎 ========== */
 const st = id => S.st[id] || (S.st[id] = { n: 0, ok: 0, streak: 0, wrong: false, rs: [] });
@@ -1638,6 +1756,7 @@ function vHome() {
   const rd = readiness(u);
   view.innerHTML = `<div class="section">
     ${S.rel !== REL ? `<div class="banner"><div class="label">本次更新（${REL_TXT}）</div><ul>
+      <li><b>進度改存雲端</b>：用任何手機、平板、電腦打開這個網址，都接著同一份進度練，不用重新開始；網站以後更新或加入其他科目，進度也都保留。畫面上方會顯示「☁ 進度已存到雲端」。</li>
       <li><b>加入歷屆會考、基測原題 65 題</b>：從民國 90～115 年的全國會考、基測中，挑出 3-4（16 題）和第 4 章（49 題）的原題，附原始圖表，題目下方標出年度、題號和全國答對率。放在各題型的「進階」練習和章節測驗裡。</li>
       <li><b>加入名校段考與會考題</b>：第 4 章新增 41 題、3-4 新增 15 題，改編自歷屆會考、臺北市民族／中山國中、桃園文昌、彰化大同段考，以及臺中市安和、大道、大甲國中題庫。每題下方都標出處。原本的進度和錯題都不變。</li>
       <li><b>新增第 4 章 運輸作用（4-1～4-3）</b>：點上方「第4章」。有知識架構、逐步圖解（莖的構造、水分與養分的路線、年輪、環狀剝皮、氣孔、心臟、血管、血液）、13 個題型和測驗。4-1 紅筆訂正的錯題、4-2 答錯的題目都已放進錯題本。</li>
@@ -1657,7 +1776,7 @@ function vHome() {
     <div class="sheet"><span class="pill ${rd[1]}">${rd[0]}</span>
       ${flags.length ? `<div class="label" style="margin-top:12px">待加強題型（點一下直接練）</div><div class="chips" style="margin-top:6px">${flags.map(t => `<button class="chip flag" data-ptype="${t.id}">${t.name}</button>`).join("")}</div>` : `<p class="muted" style="margin-top:8px">目前沒有待加強的題型。</p>`}</div>
     <div class="sheet"><div class="label">進度備份</div>
-      <p class="muted" style="margin-top:6px">進度存在這支手機的這個瀏覽器裡。請固定用同一支手機、同一個瀏覽器。要換手機、換瀏覽器或清除瀏覽資料前，先按「產生備份碼」，把備份碼傳給爸爸保存。</p>
+      <p class="muted" style="margin-top:6px">進度會自動存到雲端：用任何手機、平板、電腦或瀏覽器打開同一個網址，都會接續同一份進度，網站更新也不會影響。下面的備份碼是額外的保險，平常不用按。</p>
       <div class="row" style="margin-top:10px"><button class="btn sm" id="exp">產生備份碼</button><button class="btn sm ghost" id="imp">匯入備份碼</button>
         <label class="row" style="gap:6px;font-size:.9rem"><input type="checkbox" id="anim" ${S.anim ? "checked" : ""}> 播放動畫</label></div>
       <div id="bk"></div></div>
@@ -2090,6 +2209,7 @@ function mountAnims() { view.querySelectorAll("[data-anim]").forEach(el => { con
 load();
 if (S.tab === "practice" && S.sub.practice === "run" && !S.pm) S.sub.practice = "types";
 render();
+if (window.CloudSync) window.CloudSync.init({ key: SYNC_KEY, ls: KEY2, get: () => S, set: setFromCloud, merge: mergeS, onStatus: syncBadge, onChange: () => render() });
 }();
 
 </script>
