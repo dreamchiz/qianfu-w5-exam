@@ -1453,7 +1453,7 @@ window.CloudSync = (function () {
 "use strict";
 /* ========== 資料 ========== */
 const EXAM = new Date(2026, 11, 1), EXAM_TXT = "12/1（二）";
-const REL = "r7-cloud", REL_TXT = "11/15 更新";
+const REL = "r8-plan", REL_TXT = "11/15 更新";
 const MASTER_N = 3; // 自然是弱科：錯題連續答對 3 次才算熟練
 const KEY2 = "yf_sci_v2", KEY1 = "yf_sci_v1";
 const REASONS = ["觀念不懂", "記憶不牢", "題意誤讀", "粗心"];
@@ -1552,6 +1552,7 @@ function mergeS(a, b) {
   }
   if ((a.cnt || 0) > (b.cnt || 0)) ["tf", "due", "extra", "last"].forEach(k => m[k] = a[k]);
   m.cnt = Math.max(a.cnt || 0, b.cnt || 0);
+  if (a.tm && (!b.tm || a.tm.d > b.tm.d || (a.tm.d === b.tm.d && a.tm.s > b.tm.s))) m.tm = a.tm;
   ["tdone", "seen"].forEach(k => m[k] = Object.assign({}, b[k] || {}, a[k] || {}));
   UIK.forEach(k => { if (a[k] !== undefined) m[k] = a[k]; });
   return m;
@@ -1616,10 +1617,106 @@ function tstat(t) {
 function testUnlocked(u) {
   const U = S.U[u];
   if (!UNITS[u].gate || U.unlocked || U.quizzes.length) return true;
+  if (typeof mockActive === "function" && mockActive(u)) return true;
   if (typesU(u).every(t => { const s = tstat(t.id); return s.basicDone && s.advDone; })) { U.unlocked = true; save(); return true; }
   return false;
 }
+
+/* ========== 週末計畫：每天自然 60 分鐘，照優先順序練，不無限制 ========== */
+const DAY_MIN = 60;           // 每天自然科上限（週末每天 4 小時、自然占 25%）
+const MOCK_N = 30;            // 段考模擬卷題數（約 27 分鐘）
+const PLAN = [                // 日期到了才出現；沒做完的步驟自動排到下一次
+  { d: "2026-11-15", u: "3-4", k: "wrong" }, { d: "2026-11-15", u: "3-4", k: "core" },
+  { d: "2026-11-21", u: "4", k: "learn" }, { d: "2026-11-21", u: "4", k: "wrong" }, { d: "2026-11-21", u: "4", k: "core" },
+  { d: "2026-11-22", u: "*", k: "weak" },
+  { d: "2026-11-28", u: "3-4", k: "mock" }, { d: "2026-11-28", u: "*", k: "weak" },
+  { d: "2026-11-29", u: "4", k: "mock" }, { d: "2026-11-29", u: "*", k: "weak" }
+];
+const PLAN_DAYS = [["2026-11-15", "11/15（日）"], ["2026-11-21", "11/21（六）"], ["2026-11-22", "11/22（日）"], ["2026-11-28", "11/28（六）"], ["2026-11-29", "11/29（日）"]];
+const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const PU = ["3-4", "4"];
+const coreCache = {};
+function coreIds(u) { // 每個題型挑 3 題基礎層重點題（講義錯題另外練）
+  if (coreCache[u]) return coreCache[u];
+  const out = [];
+  typesU(u).forEach(t => bankU(u).filter(q => q.t === t.id && q.lv === "b" && !q.w).sort((a, b) => b.s - a.s || (a.k === "orig" ? -1 : 0) - (b.k === "orig" ? -1 : 0)).slice(0, 3).forEach(q => out.push(q.id)));
+  return coreCache[u] = out;
+}
+const answered = id => !!(S.st[id] && S.st[id].n > 0);
+const wrongIds = u => bankU(u).filter(q => q.w).map(q => q.id);
+function stepInfo(p) {
+  const nm = { "3-4": "3-4", "4": "第4章", "*": "兩課" }[p.u];
+  if (p.k === "wrong") { const a = wrongIds(p.u), n = a.filter(answered).length; return { name: `${nm} 講義錯題，每題先重做一次`, n, tot: a.length, done: n >= a.length, min: Math.ceil((a.length - n) * 1.2) }; }
+  if (p.k === "core") { const a = coreIds(p.u), n = a.filter(answered).length; return { name: `${nm} 各題型重點題（每型 3 題，錯了自動加練）`, n, tot: a.length, done: n >= a.length, min: Math.ceil((a.length - n) * 1) }; }
+  if (p.k === "learn") { const L = LEARN[p.u], a = L ? L.nodes : [], n = a.filter(x => S.seen[x.id]).length; return { name: `${nm} 先看知識架構和逐步圖解`, n, tot: a.length, done: n >= a.length, min: Math.ceil((a.length - n) * 1.5) }; }
+  if (p.k === "mock") { const r = S.U[p.u].quizzes.find(r => r.date >= new Date(p.d + "T00:00:00").getTime()); return { name: `${nm} 段考模擬卷（${MOCK_N} 題，限時 27 分鐘）`, n: r ? 1 : 0, tot: 1, done: !!r, min: r ? 0 : 30, score: r && r.score }; }
+  return { name: "錯題回測＋待加強題型（練到時間到）", n: 0, tot: 0, done: false, min: 0 };
+}
+function planSteps() { const t = today(); return PLAN.filter(p => p.d <= t).map(p => Object.assign({}, p, stepInfo(p))); }
+function curStep() { const a = planSteps().filter(p => !p.done && p.k !== "weak"); return a.find(p => p.k === "mock") || a[0] || { u: "*", k: "weak", d: today(), ...stepInfo({ u: "*", k: "weak" }) }; }
+function usedSec() { return S.tm && S.tm.d === today() ? S.tm.s : 0; }
+const leftMin = () => Math.max(0, Math.ceil((DAY_MIN * 60 - usedSec()) / 60));
+const timeUp = () => usedSec() >= DAY_MIN * 60;
+let lastInput = Date.now(), tmSaved = 0;
+["pointerdown", "keydown", "scroll", "touchstart"].forEach(e => window.addEventListener(e, () => lastInput = Date.now(), { passive: true }));
+setInterval(() => {
+  if (!S || document.visibilityState !== "visible") return;
+  const quiz = Object.values(S.U).some(U => U.qz) && S.tab === "quiz";
+  if (!quiz && Date.now() - lastInput > 90000) return;
+  if (!S.tm || S.tm.d !== today()) S.tm = { d: today(), s: 0 };
+  const was = timeUp(); S.tm.s += 5;
+  if (Date.now() - tmSaved > 60000 || (!was && timeUp())) { tmSaved = Date.now(); save(); } else saveLocal();
+  const el = document.getElementById("tleft"); if (el) el.textContent = leftMin();
+  if (!was && timeUp() && (S.tab === "home" || (S.tab === "practice" && !cur))) render();
+}, 5000);
+function timeUpCard() {
+  return `<div class="section qwrap"><div class="sheet"><h2>今天自然的 ${DAY_MIN} 分鐘到了 👍</h2><p style="margin-top:8px">今天到這裡就好，去複習其他科。剩下的步驟會自動排到下一次。</p><p class="muted" style="margin-top:6px">錯題本、筆記和成績還是可以看。</p></div></div>`;
+}
+function planCard() {
+  const st0 = planSteps(), cs = curStep(), up = timeUp();
+  const next = PLAN_DAYS.find(([d]) => d > today());
+  const rows = st0.map(p => `<li><b class="n">${p.done ? "✓" : "・"}</b><span${p.done ? ' class="muted"' : ""}>${p.name}${p.tot > 1 ? `（${p.n}/${p.tot}）` : ""}${p.score != null ? `：${p.score} 分` : ""}${!p.done && p.min ? `<span class="muted">　約 ${p.min} 分鐘</span>` : ""}</span>${(p.k === cs.k && p.u === cs.u && (p.d === cs.d || cs.k === "weak")) && !p.done && !(cs.k === "weak" && planSteps().filter(z => z.k === "weak").pop() !== p) ? `<button class="btn sm ${up ? "ghost" : ""}" id="planGo" ${up ? "disabled" : ""}>${p.k === "mock" ? "開始考" : p.k === "learn" ? "去看" : "開始"}</button>` : "<span></span>"}</li>`).join("");
+  return `<div class="sheet plan"><div class="row" style="justify-content:space-between"><div class="label">今天的自然任務</div><span class="pill ${up ? "ok" : "info"}">${up ? "今天時間到了" : `今天還剩 <b id="tleft">${leftMin()}</b> 分鐘`}</span></div>
+    <div class="bar" style="margin-top:8px"><i style="width:${Math.min(100, Math.round(usedSec() / (DAY_MIN * 0.6)))}%"></i></div>
+    <ul class="tasks" style="margin-top:8px">${rows || '<li><b class="n">・</b><span>週末計畫從 11/15 開始。</span><span></span></li>'}</ul>
+    <p class="muted" style="margin-top:6px">每天自然 ${DAY_MIN} 分鐘，按「開始」系統會照順序出題：先回測到期的錯題，再做今天的步驟。時間到就停，沒做完的自動排到下一次。${next ? `下一次：${next[1]}。` : ""}</p></div>`;
+}
+function goStep() {
+  const p = curStep();
+  if (p.k === "learn") { S.unit = p.u; S.sub.learn = (S.seen && LEARN[p.u].nodes.some(x => S.seen[x.id])) ? "study" : "map"; go("learn"); return; }
+  if (p.k === "mock") { S.unit = p.u; S.pm = null; cur = null; go("quiz", "test"); return; }
+  if (p.u !== "*") S.unit = p.u;
+  startPractice({ mode: "plan" });
+}
+function pickPlan() {
+  const p = curStep(), units = p.u === "*" ? PU : [p.u];
+  const inU = q => q && units.includes(q.u), inAll = q => q && PU.includes(q.u);
+  const recent = id => S.last[id] != null && S.cnt - S.last[id] < 3;
+  // 錯題回測分散到不同天：今天已經答對過的錯題，留到下一次再測（連續 3 次答對＝3 個不同的練習日）
+  const t0 = new Date(today() + "T00:00:00").getTime();
+  const okToday = id => { const x = S.st[id]; return !!(x && x.lastOk && x.at >= t0); };
+  const ready = id => isOpen(id) && !recent(id) && !okToday(id);
+  const di = S.due.findIndex(d => d.at <= S.cnt && inAll(Q[d.id]) && ready(d.id));
+  if (di >= 0) { const id = S.due[di].id; S.due.splice(di, 1); return { id, why: "錯題回測" }; }
+  if (p.k === "wrong") { const id = wrongIds(p.u).find(id => !answered(id) && !recent(id)); if (id) return { id, why: "講義錯題重做" }; }
+  if (p.k === "core") {
+    const ei = S.extra.findIndex(id => inU(Q[id]) && !recent(id) && Q[id].of);
+    if (ei >= 0) { const id = S.extra[ei]; S.extra.splice(ei, 1); return { id, why: "錯題類題" }; }
+    const id = coreIds(p.u).find(id => !answered(id) && !recent(id)); if (id) return { id, why: "題型重點題" };
+  }
+  const ei = S.extra.findIndex(id => inAll(Q[id]) && !recent(id));
+  if (ei >= 0) { const id = S.extra[ei]; S.extra.splice(ei, 1); return { id, why: Q[id].of ? "錯題類題" : "題型延伸題" }; }
+  const ow = openIn(inAll).filter(ready).sort((a, b) => st(a).streak - st(b).streak);
+  if (ow.length) return { id: ow[0], why: "錯題本" };
+  for (const u of PU) for (const t of typesU(u)) if (S.tf[t.id]) { const q = bankU(u).find(q => q.t === t.id && !answered(q.id) && !recent(q.id)); if (q) return { id: q.id, why: "待加強題型" }; }
+  for (const u of PU) { const id = coreIds(u).find(id => !answered(id) && !recent(id)); if (id) return { id, why: "題型重點題" }; }
+  const pool = PU.flatMap(u => bankU(u)).filter(q => !recent(q.id) && q.s >= 2).sort((a, b) => (answered(a.id) ? 1 : 0) - (answered(b.id) ? 1 : 0) || (st(a.id).lastOk ? 1 : 0) - (st(b.id).lastOk ? 1 : 0));
+  return pool.length ? { id: pool[0].id, why: "複習" } : null;
+}
+function mockActive(u) { const p = planSteps().find(p => p.k === "mock" && p.u === u && !p.done); return !!p; }
+
 function pickNext(pm) {
+  if (pm.mode === "plan") { const r = pickPlan(); if (r && Q[r.id].u !== S.unit) S.unit = Q[r.id].u; return r; }
   const u = S.unit, sc = q => q && q.u === u && (pm.mode !== "type" || q.t === pm.t);
   const recent = id => S.last[id] != null && S.cnt - S.last[id] < 3;
   if (S.forced && sc(Q[S.forced])) { const id = S.forced; S.forced = null; return { id, why: "錯題本" }; }
@@ -1655,8 +1752,8 @@ function orderFor(q) {
   if (q.o.every(s => s.length === 1 && K.includes(s))) return idx.sort((a, b) => K.indexOf(q.o[a]) - K.indexOf(q.o[b]));
   return shuffle(idx);
 }
-function buildQuiz(u) {
-  const bank = bankU(u), types = typesU(u), U = S.U[u], prev = U.quizzes[U.quizzes.length - 1], N = Math.min(50, bank.length);
+function buildQuiz(u, n) {
+  const bank = bankU(u), types = typesU(u), U = S.U[u], prev = U.quizzes[U.quizzes.length - 1], N = Math.min(n || 50, bank.length);
   const pick = [], has = new Set(), add = id => { if (id && Q[id] && !has.has(id) && pick.length < N) { has.add(id); pick.push(id); } };
   const rr = (pool, need) => { // 各題型輪流取題
     const by = {}; types.forEach(t => by[t.id] = pool.filter(q => q.t === t.id && !has.has(q.id)));
@@ -1756,6 +1853,7 @@ function vHome() {
   const rd = readiness(u);
   view.innerHTML = `<div class="section">
     ${S.rel !== REL ? `<div class="banner"><div class="label">本次更新（${REL_TXT}）</div><ul>
+      <li><b>週末計畫＋每天 60 分鐘</b>：首頁最上面是「今天的自然任務」，按「開始」就照順序練：講義錯題 → 各題型重點題 → 錯題回測 → 11/28、11/29 段考模擬卷。每天自然練滿 60 分鐘就停，去複習其他科，沒做完的自動排到下一次。</li>
       <li><b>進度改存雲端</b>：用任何手機、平板、電腦打開這個網址，都接著同一份進度練，不用重新開始；網站以後更新或加入其他科目，進度也都保留。畫面上方會顯示「☁ 進度已存到雲端」。</li>
       <li><b>加入歷屆會考、基測原題 65 題</b>：從民國 90～115 年的全國會考、基測中，挑出 3-4（16 題）和第 4 章（49 題）的原題，附原始圖表，題目下方標出年度、題號和全國答對率。放在各題型的「進階」練習和章節測驗裡。</li>
       <li><b>加入名校段考與會考題</b>：第 4 章新增 41 題、3-4 新增 15 題，改編自歷屆會考、臺北市民族／中山國中、桃園文昌、彰化大同段考，以及臺中市安和、大道、大甲國中題庫。每題下方都標出處。原本的進度和錯題都不變。</li>
@@ -1766,7 +1864,8 @@ function vHome() {
       <li>錯一題就會自動加練類題和同題型延伸題；每次測驗分數都保存在「測驗成績」。</li>
       <li>3-1～3-3 的進度、錯題本、測驗分數全部保留，點上方「3-1～3-3」就看得到。</li></ul>
       <div><button class="btn sm" id="relOk">知道了</button></div></div>` : ""}
-    <div class="sheet"><div class="label">今天先做這些（${UNITS[u].name}）</div>
+    ${planCard()}
+    <div class="sheet"><div class="label">自由練習（${UNITS[u].name}）</div>
       <ul class="tasks" style="margin-top:8px">${T.length ? T.map((t, i) => `<li><b class="n">${i + 1}</b><span>${t[0]}</span><button class="btn sm ghost" data-task="${i}">${t[1]}</button></li>`).join("") : "<li><b class='n'>✓</b><span>這一課都練完了，可以多考幾次測驗衝 100 分。</span><span></span></li>"}</ul></div>
     <div class="meter">
       <div><b>${open}</b><span>錯題本待熟練</span></div>
@@ -1783,6 +1882,7 @@ function vHome() {
   </div>`;
   const r = $("#relOk"); if (r) r.onclick = () => { S.rel = REL; save(); render(); };
   view.querySelectorAll("[data-task]").forEach(b => b.onclick = () => T[+b.dataset.task][2]());
+  const pg = $("#planGo"); if (pg) pg.onclick = goStep;
   view.querySelectorAll("[data-ptype]").forEach(b => b.onclick = () => startPractice({ mode: "type", t: b.dataset.ptype }));
   $("#anim").onchange = e => { S.anim = e.target.checked; save(); chrome(); };
   $("#exp").onclick = () => {
@@ -1878,19 +1978,20 @@ function typeCard(t) {
     <div id="ex${t.id}" hidden class="qcard" style="background:var(--paper)"><div class="qtext">${ex.q}</div>${fig(ex)}<div class="muted">答案：${ex.o[ex.a]}</div><div style="font-size:.93rem">${ex.e}</div></div></div>`;
 }
 function practiceRun() {
-  if (!S.pm || (S.pm.mode === "type" && TYPE[S.pm.t] && TYPE[S.pm.t].u !== S.unit)) {
+  if (!S.pm || (S.pm.mode === "type" && TYPE[S.pm.t] && TYPE[S.pm.t].u !== S.unit) || (S.pm.mode === "plan" && S.unit === "L")) {
     const open = openIn(q => q.u === S.unit).length;
     return `<div class="section"><div class="sheet"><div class="label">選一種練習</div><div class="row" style="margin-top:8px">${open ? `<button class="btn red" id="goWrong">錯題特訓（${open} 題）</button>` : '<span class="muted">錯題本是空的。</span>'}</div>
       <div class="tree" style="margin-top:12px">${typesU(S.unit).map(t => { const s = tstat(t.id); return `<button class="node ${t.main ? "main" : ""}" data-ptype="${t.id}"><span class="pill ${s.label[1]}">${s.label[0]}</span><span><span class="k">${t.name}</span><span class="s">熟練度 ${s.pct}%</span></span><span></span></button>`; }).join("")}</div></div></div>`;
   }
   const pm = S.pm;
+  if (!cur && timeUp()) return timeUpCard();
   if (!cur) {
     const nx = pickNext(pm);
     if (!nx) return `<div class="section"><div class="sheet"><h2>錯題本清空了！</h2><p style="margin-top:8px">所有錯題都已連續答對 ${MASTER_N} 次。可以回到題型練習，或去考一次測驗。</p><div class="row" style="margin-top:10px"><button class="btn" id="toTypes">回題型地圖</button></div></div></div>`;
     cur = { id: nx.id, why: nx.why, order: orderFor(Q[nx.id]), tries: 0, wrongs: [], done: false, res: null, reason: null };
   }
   const q = Q[cur.id], x = S.st[q.id] || {};
-  const head = pm.mode === "wrong" ? `錯題特訓｜剩 ${openIn(z => z.u === S.unit).length} 題` : (() => { const s = tstat(pm.t); return `${TYPE[pm.t].name}｜<span class="pill ${s.label[1]}">${s.label[0]}</span>　基礎 ${s.bAns}/${s.B.length}${s.A.length ? `　進階 ${s.basicDone ? s.aAns + "/" + s.A.length : "未開放"}` : ""}`; })();
+  const head = pm.mode === "plan" ? (() => { const p = curStep(), pr = p.k === "wrong" || p.k === "core"; return `今日任務｜${pr ? p.name : "錯題回測與待加強題型"}${pr && p.tot > 1 ? `（${p.n}/${p.tot}）` : ""}　<span class="muted">今天還剩 <b id="tleft">${leftMin()}</b> 分鐘</span>`; })() : pm.mode === "wrong" ? `錯題特訓｜剩 ${openIn(z => z.u === S.unit).length} 題` : (() => { const s = tstat(pm.t); return `${TYPE[pm.t].name}｜<span class="pill ${s.label[1]}">${s.label[0]}</span>　基礎 ${s.bAns}/${s.B.length}${s.A.length ? `　進階 ${s.basicDone ? s.aAns + "/" + s.A.length : "未開放"}` : ""}`; })();
   return `<div class="section qwrap"><div class="row" style="justify-content:space-between"><b style="font-size:.95rem">${head}</b><button class="btn sm ghost" id="pmExit">換練習</button></div>
     ${qCard(q, cur, x)}</div>`;
 }
@@ -1968,6 +2069,12 @@ function quizStart() {
     const rows = typesU(u).map(t => { const s = tstat(t.id); const ok = s.basicDone && s.advDone; return `<div class="wb"><div class="q">${t.name}</div><span class="pill ${ok ? "ok" : s.label[1]}">${ok ? "完成" : s.label[0]}</span></div>`; }).join("");
     return `<div class="section qwrap"><div class="lock"><h2>第 1 次測驗還沒開放</h2><p>每個題型的基礎層和進階層都練完（正確率 80% 以上、錯題清空）就會開放。先把題型一個一個練熟，測驗才考得出真實力。</p><div>${rows}</div><button class="btn" id="toPractice">去題型練習</button></div></div>`;
   }
+  if (timeUp()) return timeUpCard();
+  if (mockActive(u)) return `<div class="section qwrap"><div class="sheet"><h2>${UNITS[u].name}｜段考模擬卷</h2>
+    <p style="margin-top:8px">${MOCK_N} 題，每題的分數換算成 100 分。像段考一樣：不看筆記，<b>27 分鐘內寫完</b>，剩下的時間檢查。交卷後立刻批改，錯題自動進錯題本。</p>
+    <p class="muted" style="margin-top:6px">${last ? "會先考上次錯的題目和它們的類題，再補滿各題型重點題。" : "講義錯題＋各題型重點題，至少 20% 是拉分題。"}</p>
+    <div class="row" style="margin-top:10px"><button class="btn red" id="qStart" data-n="${MOCK_N}">開始段考模擬卷</button><span class="pill ${rd[1]}">${rd[0]}</span></div></div>
+    ${U.quizzes.length ? `<button class="btn ghost" id="toRec">看成績紀錄（${U.quizzes.length} 次）</button>` : ""}</div>`;
   return `<div class="section qwrap"><div class="sheet"><h2>${UNITS[u].name}｜第 ${U.quizzes.length + 1} 次測驗</h2>
     <p style="margin-top:8px">本課混合測驗，50 題、每題 2 分，滿分 100。全部寫完再交卷，交卷後立刻批改，錯題自動進錯題本。建議像段考一樣：不看筆記，45 分鐘內寫完。</p>
     <p class="muted" style="margin-top:6px">${last ? `這次會先考上次錯的 ${last.wrong.length} 題，再加它們的類題和同題型延伸題、錯題本還沒熟練的題目，最後補滿重點題。` : "第 1 次：講義錯題＋各題型重點題混合，至少 20% 是拉分題。"}</p>
@@ -2042,7 +2149,7 @@ function bindQuiz() {
   on("toPractice", () => go("practice", "types"));
   on("toRec", () => go("quiz", "rec"));
   on("toBook", () => go("book"));
-  on("qStart", () => { const ids = buildQuiz(u); U.qz = { ids, orders: ids.map(id => orderFor(Q[id])), ans: {}, start: Date.now(), cur: 0 }; save(); render(); });
+  on("qStart", () => { const b = $("#qStart"), ids = buildQuiz(u, b && b.dataset.n ? +b.dataset.n : 50); U.qz = { ids, orders: ids.map(id => orderFor(Q[id])), ans: {}, start: Date.now(), cur: 0 }; save(); render(); });
   view.querySelectorAll("[data-rec]").forEach(b => b.onclick = () => { S.view = +b.dataset.rec; S.sub.quiz = "result"; save(); render(); window.scrollTo(0, 0); });
   view.querySelectorAll("[data-qr]").forEach(b => b.onclick = () => { const x = st(b.dataset.qr); x.rs = x.rs || []; x.rs.push({ r: b.dataset.r, at: Date.now(), src: "測驗" + S.view }); save(); render(); });
   if (!U.qz || S.sub.quiz !== "test") { clearInterval(tick); return; }
