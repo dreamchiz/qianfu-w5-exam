@@ -1,0 +1,19 @@
+name: 長白山旅遊網站｜跨裝置品質驗收
+on:
+  push:
+    branches: [changbaishan-trip-2026]
+  workflow_dispatch:
+jobs:
+  responsive-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 安裝測試瀏覽器
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: 六種尺寸與行程功能驗收
+        run: python qa/check_trip_ui.py
