@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="意帆複習"><meta name="theme-color" content="#F6F8FB">
+<title>意帆複習總入口</title>
+<style>
+body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;background:#F6F8FB;color:#1b1f24}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.6rem;margin:0}.sub{color:#5b6470;margin:4px 0 16px}
+.cd{font-size:1.1rem;margin-bottom:16px}.cd b{font-size:1.8rem;color:#b3261e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+a.card{display:block;background:#fff;border:1px solid #d9dee5;border-radius:12px;padding:14px;text-decoration:none;color:inherit;min-height:96px}
+a.card b{font-size:1.2rem;display:block}a.card span{color:#5b6470;font-size:.92rem}
+.card.off{opacity:.5;pointer-events:none}.tag{display:inline-block;margin-top:6px;font-size:.8rem;padding:2px 8px;border-radius:999px;background:#eef2f7}
+.hot{background:#fde7e5;color:#b3261e}
+.note{margin-top:18px;font-size:.9rem;color:#5b6470;line-height:1.6}
+</style></head><body><div class="wrap">
+<h1>意帆複習總入口</h1><p class="sub">第二次段考：12/1（二）～12/2（三）</p>
+<p class="cd">距離段考 <b id="d"></b> 天</p>
+<div class="grid">
+<a class="card" href="../yifan-chinese/"><b>國文</b><span>論語選・背影・心囚・語文常識二</span><div class="tag" id="t-chi"></div></a>
+<a class="card" href="../yifan-science/"><b>自然</b><span>生物體的營養</span><div class="tag hot">弱科</div><div class="tag" id="t-sci"></div></a>
+<a class="card off"><b>地理</b><span>等資料上傳後開放</span><div class="tag hot">弱科</div></a>
+<a class="card off"><b>數學</b><span>等資料上傳後開放</span></a>
+<a class="card off"><b>歷史・公民</b><span>等資料上傳後開放</span></a>
+<a class="card off"><b>英文</b><span>等資料上傳後開放</span></a>
+</div>
+<p class="note">週末每天約 4 小時，各科照每科頁面的「今日任務」做，時間到就換下一科。平日不用上網，寫紙本練習卷。<br>建議把這一頁「加入主畫面」，以後從這裡進各科。</p>
+</div><script>
+var e=new Date(2026,11,1),n=new Date();n.setHours(0,0,0,0);document.getElementById("d").textContent=Math.max(0,Math.round((e-n)/864e5));
+function w(k,id){try{var s=JSON.parse(localStorage.getItem(k));if(!s||!s.st)return;var o=0;for(var q in s.st)if(s.st[q].wrong&&!s.st[q].mastered)o++;document.getElementById(id).textContent="錯題待練 "+o+" 題";}catch(x){}}
+w("yf_chi_v2","t-chi");w("yf_sci_v2","t-sci");
+</script></body></html>
