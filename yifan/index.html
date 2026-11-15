@@ -2,30 +2,147 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="意帆複習"><meta name="theme-color" content="#F6F8FB">
 <title>意帆複習總入口</title>
 <style>
-body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;background:#F6F8FB;color:#1b1f24}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:1.6rem;margin:0}.sub{color:#5b6470;margin:4px 0 16px}
-.cd{font-size:1.1rem;margin-bottom:16px}.cd b{font-size:1.8rem;color:#b3261e}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-a.card{display:block;background:#fff;border:1px solid #d9dee5;border-radius:12px;padding:14px;text-decoration:none;color:inherit;min-height:96px}
-a.card b{font-size:1.2rem;display:block}a.card span{color:#5b6470;font-size:.92rem}
-.card.off{opacity:.5;pointer-events:none}.tag{display:inline-block;margin-top:6px;font-size:.8rem;padding:2px 8px;border-radius:999px;background:#eef2f7}
-.hot{background:#fde7e5;color:#b3261e}
-.note{margin-top:18px;font-size:.9rem;color:#5b6470;line-height:1.6}
-</style></head><body><div class="wrap">
-<h1>意帆複習總入口</h1><p class="sub">第二次段考：12/1（二）～12/2（三）</p>
-<p class="cd">距離段考 <b id="d"></b> 天</p>
-<div class="grid">
-<a class="card" href="../yifan-chinese/"><b>國文</b><span>論語選・背影・心囚・語文常識二</span><div class="tag" id="t-chi"></div></a>
-<a class="card" href="../yifan-science/"><b>自然</b><span>生物體的營養</span><div class="tag hot">弱科</div><div class="tag" id="t-sci"></div></a>
-<a class="card off"><b>地理</b><span>等資料上傳後開放</span><div class="tag hot">弱科</div></a>
-<a class="card off"><b>數學</b><span>等資料上傳後開放</span></a>
-<a class="card off"><b>歷史・公民</b><span>等資料上傳後開放</span></a>
-<a class="card off"><b>英文</b><span>等資料上傳後開放</span></a>
-</div>
-<p class="note">週末每天約 4 小時，各科照每科頁面的「今日任務」做，時間到就換下一科。平日不用上網，寫紙本練習卷。<br>建議把這一頁「加入主畫面」，以後從這裡進各科。</p>
-</div><script>
-var e=new Date(2026,11,1),n=new Date();n.setHours(0,0,0,0);document.getElementById("d").textContent=Math.max(0,Math.round((e-n)/864e5));
-function w(k,id){try{var s=JSON.parse(localStorage.getItem(k));if(!s||!s.st)return;var o=0;for(var q in s.st)if(s.st[q].wrong&&!s.st[q].mastered)o++;document.getElementById(id).textContent="錯題待練 "+o+" 題";}catch(x){}}
-w("yf_chi_v2","t-chi");w("yf_sci_v2","t-sci");
+:root{--paper:#F6F8FB;--sheet:#fff;--line:#e6eaf0;--rule:#d5dbe4;--ink:#1b1f24;--ink2:#5b6470;--red:#C2362B;--blue:#2F5BD3;--ok:#1F8A55;--okbg:#E5F4EC;--warn:#A86A00;--warnbg:#FFF4DC;--sans:"Noto Sans TC",system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root{--paper:#11151D;--sheet:#181E29;--line:#252D3B;--rule:#303A4C;--ink:#E7EBF3;--ink2:#9AA5B8;--red:#FF6E68;--blue:#86A6FF;--ok:#4CC48C;--okbg:#173327;--warn:#F2B544;--warnbg:#382B12}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:1000px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 24px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:1.5rem;margin:0;line-height:1.2}h1 small{display:block;font-size:.9rem;color:var(--ink2);font-weight:500;margin-top:4px}
+.cd{text-align:right}.cd b{font-size:2rem;color:var(--red);line-height:1}.cd span{display:block;font-size:.8rem;color:var(--ink2)}
+h2{font-size:1.05rem;margin:18px 0 8px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.muted{color:var(--ink2)}.small{font-size:.86rem}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.bar.full i{background:var(--ok)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sp{justify-content:space-between}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:700;border:0;border-radius:10px;padding:9px 14px;background:var(--ink);color:var(--sheet);text-decoration:none;cursor:pointer;min-height:40px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}.btn.sm{padding:6px 11px;min-height:34px;font-size:.9rem}
+.pill{display:inline-block;font-size:.78rem;padding:2px 9px;border-radius:99px;background:var(--line);color:var(--ink2);white-space:nowrap}
+.pill.red{background:#fde7e5;color:var(--red)}.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}
+.subj{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1.2rem;background:var(--paper);border:1px solid var(--rule)}
+.subj.off{opacity:.55}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.stats div{background:var(--paper);border-radius:10px;padding:8px;text-align:center}.stats b{display:block;font-size:1.25rem}.stats span{font-size:.75rem;color:var(--ink2)}
+.units{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--line)}
+.units li{border-bottom:1px solid var(--line)}.units a{display:flex;justify-content:space-between;gap:8px;padding:10px 2px;color:var(--ink);text-decoration:none}
+.units a:hover{background:var(--paper)}.units a span:last-child{color:var(--ink2);font-size:.85rem;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:center}th:first-child,td:first-child{text-align:left}
+.tw{overflow-x:auto}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--sheet);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom,0)}
+nav.tabs button{font:inherit;background:none;border:0;color:var(--ink2);padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.78rem;cursor:pointer}
+nav.tabs button b{font-size:1.25rem;line-height:1}nav.tabs button[aria-current=true]{color:var(--red);font-weight:700}
+.sync{font-size:.75rem;color:var(--ink2)}
+@media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){body{padding-bottom:0;padding-left:104px}nav.tabs{top:0;bottom:0;right:auto;width:104px;grid-template-columns:1fr;grid-auto-rows:min-content;gap:4px;padding-top:24px;border-top:0;border-right:1px solid var(--rule)}nav.tabs button{padding:12px 4px;font-size:.9rem}h1{font-size:2rem}}
+</style></head><body>
+<div class="wrap"><header><h1>意帆複習總入口<small id="exName"></small></h1><div class="cd"><b id="cdN">–</b><span>天後段考</span></div></header>
+<div class="sync" id="sync">讀取各科進度中…</div>
+<main id="view"></main></div>
+<nav class="tabs" aria-label="總入口分頁">
+<button data-t="today"><b>☀︎</b>今天</button><button data-t="subj"><b>▦</b>科目</button><button data-t="exam"><b>✎</b>段考</button><button data-t="rec"><b>☰</b>記錄</button></nav>
+<script src="../shared/yifan-hub.js"></script>
+<script>
+(function () {
+const Y = window.YF, $ = s => document.querySelector(s), view = $("#view");
+const today = Y.dkey(), wd = new Date().getDay(), weekend = wd === 0 || wd === 6;
+const AFTER = "2026-12-03";
+/* 各科每天的安排（與各科頁面的計畫一致） */
+const PLANS = {
+  chi: { "2026-11-15": "背影錯題＋論語錯題", "2026-11-21": "心囚", "2026-11-22": "語文常識（二）＋錯題回測", "2026-11-28": "模擬考 1（50 題）", "2026-11-29": "錯題清零＋模擬考 2",
+    "2026-11-16": "紙本第 1 張：論語選 字音字形", "2026-11-17": "紙本第 2 張：論語選 解釋・改錯", "2026-11-18": "紙本第 3 張：背影 字音字形", "2026-11-19": "紙本第 4 張：背影 解釋・改錯", "2026-11-20": "紙本第 5 張：心囚 字音字形",
+    "2026-11-23": "紙本第 6 張：心囚 解釋・改錯", "2026-11-24": "紙本第 7 張：易混淆字（一）", "2026-11-25": "紙本第 8 張：易混淆字（二）", "2026-11-26": "紙本第 9 張：成語總複習", "2026-11-27": "紙本第 10 張：綜合測驗 A", "2026-11-30": "紙本第 11 張：考前必背" },
+  sci: { "2026-11-15": "3-4 題型基礎包", "2026-11-21": "第 4 章 題型基礎包", "2026-11-22": "兩課基礎測驗＋補強", "2026-11-28": "3-4 進階測驗＋補強", "2026-11-29": "第 4 章 進階測驗＋補強" }
+};
+const D = {}; // 各科資料
+let tab = "today";
+try { tab = sessionStorage.getItem("yf_portal_tab") || "today"; } catch (e) {}
+Y.SUBJECTS.forEach(s => { if (!s.ready) return; try { D[s.id] = JSON.parse(localStorage.getItem(s.ls)); } catch (e) {} });
+
+const url = (s, hash) => Y.BASE + s.path + (hash ? "#" + hash : "");
+const canHash = s => s.id === "chi";
+function stat(s) {
+  const d = D[s.id]; const r = { open: 0, done: 0, ans: 0, quizzes: [], last: null, mins: 0 };
+  if (d && d.st) for (const id in d.st) { const x = d.st[id]; if (x.n > 0) r.ans++; if (x.wrong && !x.mastered) r.open++; if (x.wrong && x.mastered) r.done++; }
+  if (d && d.U) for (const u in d.U) (d.U[u].quizzes || []).forEach(q => r.quizzes.push({ sub: s, u, date: q.date, score: q.score, n: q.n, total: q.total }));
+  r.quizzes.sort((a, b) => (a.date || 0) - (b.date || 0)); r.last = r.quizzes[r.quizzes.length - 1] || null;
+  let own = 0;
+  if (d && d.tm) { if (typeof d.tm[today] === "number") own = d.tm[today]; else if (d.tm.d === today) own = d.tm.s || 0; }
+  r.mins = Math.max(Math.floor(own / 60), Y.minutes(today, s.id));
+  return r;
+}
+const unitName = (s, u) => { const x = (s.units || []).find(z => z[0] === u); return x ? x[1] : u; };
+const fmtD = t => { const d = new Date(t); return (d.getMonth() + 1) + "/" + d.getDate(); };
+function unitStat(s, u) {
+  const d = D[s.id]; let q = null; if (d && d.U && d.U[u]) { const a = d.U[u].quizzes || []; q = a[a.length - 1] || null; }
+  return q ? `最近測驗 ${q.score} 分` : "";
+}
+
+function vToday() {
+  const ready = Y.SUBJECTS.filter(s => s.ready);
+  const total = ready.reduce((a, s) => a + stat(s).mins, 0);
+  const isWeb = today >= AFTER || weekend;
+  let h = `<div class="sheet"><div class="row sp"><b>${new Date().getMonth() + 1}/${new Date().getDate()}（${"日一二三四五六"[wd]}）${isWeb ? "週末：照下面順序複習" : "平日：不用上網，晚自習寫紙本練習卷"}</b><span class="pill">${isWeb ? `今天已用 ${total} / 240 分` : "平日"}</span></div>
+    ${isWeb ? `<div class="bar" style="margin-top:8px"><i style="width:${Math.min(100, total * 100 / 240)}%"></i></div><p class="small muted" style="margin:8px 0 0">一科做完（或時間到）按左上「🏠 總入口」回來，接著做下一科。弱科先做。</p>` : ""}</div>`;
+  const order = Y.SUBJECTS.slice().sort((a, b) => (b.ready || 0) - (a.ready || 0) || (b.weak || 0) - (a.weak || 0));
+  h += order.map(s => {
+    if (!s.ready) return `<div class="sheet subj off"><div class="ic">${s.icon}</div><div><div class="row sp"><b>${s.name}</b><span class="pill">尚未建立</span></div><div class="small muted">把這科段考範圍的講義、考卷拍給 Claude 後開放（每天上限 ${s.min} 分）</div></div></div>`;
+    const t = stat(s), plan = (PLANS[s.id] || {})[today], full = t.mins >= s.min;
+    return `<div class="sheet subj"><div class="ic">${s.icon}</div><div><div class="row sp"><b>${s.name}${s.weak ? ' <span class="pill red">弱科</span>' : ""}</b><span class="pill ${full ? "ok" : ""}">${isWeb ? `${Math.min(t.mins, s.min)} / ${s.min} 分` : "平日"}</span></div>
+      <div style="margin:4px 0 8px">${plan ? plan : (isWeb ? "照這一科首頁的建議做" : "今天沒有紙本")}</div>
+      ${isWeb ? `<div class="bar ${full ? "full" : ""}"><i style="width:${Math.min(100, t.mins * 100 / s.min)}%"></i></div>` : ""}
+      <div class="row" style="margin-top:10px"><a class="btn sm" href="${url(s, canHash(s) ? "tab=home" : "")}">${full ? "已完成，查看" : isWeb ? "開始" : "打開"}</a>${t.open ? `<span class="small muted">錯題待練 ${t.open} 題</span>` : ""}</div></div></div>`;
+  }).join("");
+  return h;
+}
+function vSubj() {
+  return `<div class="grid">` + Y.SUBJECTS.map(s => {
+    if (!s.ready) return `<div class="sheet subj off"><div class="ic">${s.icon}</div><div><b>${s.name}</b><div class="small muted">尚未建立。拍講義、考卷給 Claude 後，這裡會出現各課與練習。</div></div></div>`;
+    const t = stat(s);
+    return `<div class="sheet"><div class="subj"><div class="ic">${s.icon}</div><div><div class="row sp"><b style="font-size:1.1rem">${s.name}</b><a class="btn sm" href="${url(s, canHash(s) ? "tab=home" : "")}">進入 ›</a></div><div class="small muted">${s.scope}</div></div></div>
+      <div class="stats"><div><b>${t.ans}</b><span>已作答題數</span></div><div><b style="color:${t.open ? "var(--red)" : "inherit"}">${t.open}</b><span>錯題待練</span></div><div><b>${t.last ? t.last.score : "–"}</b><span>最近測驗</span></div></div>
+      <ul class="units">${(s.units || []).map(([u, n]) => `<li><a href="${url(s, canHash(s) ? "u=" + u + "&tab=" + (u === s.mock ? "quiz" : "home") : "")}"><span>${n}</span><span>${unitStat(s, u) || "›"}</span></a></li>`).join("")}</ul>
+      ${canHash(s) ? `<div class="row" style="margin-top:10px"><a class="btn sm ghost" href="${url(s, "tab=learn")}">學習</a><a class="btn sm ghost" href="${url(s, "tab=practice")}">練習</a><a class="btn sm ghost" href="${url(s, "tab=book")}">錯題本</a><a class="btn sm ghost" href="${url(s, "tab=quiz")}">測驗</a></div>` : ""}</div>`;
+  }).join("") + `</div>`;
+}
+function vExam() {
+  return `<div class="sheet"><b>${Y.EXAM.name}：${Y.EXAM.text}</b><p class="small muted" style="margin:6px 0 0">目標：全校第一。各科範圍與模擬考如下。</p></div>` +
+    Y.SUBJECTS.map(s => {
+      if (!s.ready) return `<div class="sheet subj off"><div class="ic">${s.icon}</div><div><b>${s.name}</b><div class="small muted">範圍待補：請拍講義給 Claude</div></div></div>`;
+      const t = stat(s), mk = s.mock && D[s.id] && D[s.id].U && D[s.id].U[s.mock] ? D[s.id].U[s.mock].quizzes || [] : [];
+      return `<div class="sheet subj"><div class="ic">${s.icon}</div><div><b>${s.name}</b><div class="small" style="margin:4px 0">${s.scope}</div>
+        <div class="small muted">${t.quizzes.length ? `已考 ${t.quizzes.length} 次測驗，最近 ${t.last.score} 分` : "還沒考過測驗"}${mk.length ? `；模擬考最近 ${mk[mk.length - 1].score} 分` : ""}</div>
+        <div class="row" style="margin-top:8px">${s.mock ? `<a class="btn sm" href="${url(s, "u=" + s.mock + "&tab=quiz")}">段考模擬考</a>` : `<a class="btn sm" href="${url(s)}">去測驗</a>`}</div></div></div>`;
+    }).join("");
+}
+function vRec() {
+  const ready = Y.SUBJECTS.filter(s => s.ready), H = Y.hub();
+  const days = []; for (let i = 0; i < 14; i++) { const d = new Date(); d.setDate(d.getDate() - i); days.push(Y.dkey(d)); }
+  const own = (s, d) => { const x = D[s.id]; if (!x || !x.tm) return 0; if (typeof x.tm[d] === "number") return Math.floor(x.tm[d] / 60); if (x.tm.d === d) return Math.floor((x.tm.s || 0) / 60); return 0; };
+  const m = (s, d) => Math.max(own(s, d), Y.minutes(d, s.id));
+  const rows = days.filter(d => ready.some(s => m(s, d) > 0) || d === today).map(d => { const dt = new Date(d + "T00:00:00"); const tot = ready.reduce((a, s) => a + m(s, d), 0);
+    return `<tr><td>${dt.getMonth() + 1}/${dt.getDate()}（${"日一二三四五六"[dt.getDay()]}）</td>${ready.map(s => `<td>${m(s, d) || "–"}</td>`).join("")}<td><b>${tot}</b></td></tr>`; }).join("");
+  const qs = ready.flatMap(s => stat(s).quizzes).sort((a, b) => (b.date || 0) - (a.date || 0));
+  return `<h2>每天複習時間（分鐘）</h2><div class="sheet tw"><table><tr><th>日期</th>${ready.map(s => `<th>${s.name}</th>`).join("")}<th>合計</th></tr>${rows}</table>
+      <p class="small muted" style="margin:8px 0 0">只算畫面開著、而且 90 秒內有操作的時間。</p></div>
+    <h2>測驗成績</h2><div class="sheet tw">${qs.length ? `<table><tr><th>日期</th><th>科目・單元</th><th>分數</th></tr>${qs.map(q => `<tr><td>${q.date ? fmtD(q.date) : "–"}</td><td style="text-align:left">${q.sub.name}・${unitName(q.sub, q.u)}（第 ${q.n} 次）</td><td><b style="color:${q.score >= 96 ? "var(--ok)" : q.score < 80 ? "var(--red)" : "inherit"}">${q.score}</b></td></tr>`).join("")}</table>` : '<p class="muted" style="margin:0">還沒有測驗成績。</p>'}</div>
+    <h2>錯題本</h2><div class="sheet">${ready.map(s => { const t = stat(s); return `<div class="row sp" style="padding:6px 0;border-bottom:1px solid var(--line)"><span>${s.name}</span><span class="small">待練 <b style="color:${t.open ? "var(--red)" : "inherit"}">${t.open}</b>・已熟練 ${t.done}</span></div>`; }).join("")}</div>
+    <p class="small muted">爸爸用自己的手機打開同一個網址，也能看到這些記錄（資料存在雲端）。</p>`;
+}
+function render() {
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-current", b.dataset.t === tab));
+  view.innerHTML = { today: vToday, subj: vSubj, exam: vExam, rec: vRec }[tab]();
+}
+document.querySelectorAll("nav.tabs button").forEach(b => b.onclick = () => { tab = b.dataset.t; try { sessionStorage.setItem("yf_portal_tab", tab); } catch (e) {} render(); window.scrollTo(0, 0); });
+$("#exName").textContent = Y.EXAM.name + "　" + Y.EXAM.text;
+const n0 = new Date(); n0.setHours(0, 0, 0, 0); $("#cdN").textContent = Math.max(0, Math.round((new Date(Y.EXAM.start + "T00:00:00") - n0) / 864e5));
+render();
+// 讀雲端（任何裝置都看到最新進度）
+Promise.all(Y.SUBJECTS.filter(s => s.ready).map(s => Y.getCloud(s.key).then(r => { if (r && r.data) D[s.id] = r.data; }).catch(() => "x"))).then(res => {
+  $("#sync").textContent = res.includes("x") ? "部分科目暫時連不上雲端，先顯示這台裝置的資料" : "☁ 各科進度已從雲端更新";
+  return Y.syncHub();
+}).then(render);
+})();
 </script></body></html>

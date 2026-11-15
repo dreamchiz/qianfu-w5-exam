@@ -203,6 +203,8 @@ textarea{width:100%;min-height:90px;font-family:var(--mono);font-size:.78rem;bor
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .noanim *{transition:none!important;animation:none!important}
 
+.sync{flex-basis:100%;font-size:.75rem;text-align:right;min-height:1em}.sync.ok{color:var(--ok,#2e7d32)}.sync.warn{color:#b26a00}.sync.gray{color:#888}
+
 /* 國文：逐步圖解 */
 .cw-fig{display:flex;flex-direction:column;gap:10px}
 .cw-fig [data-p]{cursor:pointer;transition:opacity .3s,background-color .3s,color .3s}
@@ -251,7 +253,7 @@ textarea{width:100%;min-height:90px;font-family:var(--mono);font-size:.78rem;bor
 </style>
 </head><body>
 <div class="wrap" id="app">
-  <header class="top"><h1>意帆的國文衝刺<small id="unitSub">第二次段考</small></h1><div class="count" id="count"></div></header>
+  <header class="top"><h1>意帆的國文衝刺<small id="unitSub">第二次段考</small></h1><div class="count" id="count"></div><div class="sync gray" id="sync"></div></header>
   <div class="units" id="units"></div>
   <main id="view"></main>
 </div>
@@ -1550,6 +1552,7 @@ Object.assign(window.LEARN_EXTRA, {
 })();
 
 </script>
+<script src="../shared/cloud-sync.js"></script>
 <script>
 !function () {
 "use strict";
@@ -1656,7 +1659,57 @@ function seed() {
     if (!S.tf[q.t]) S.tf[q.t] = { since: now, res: [] };
   });
 }
-function save() { try { localStorage.setItem(KEY2, JSON.stringify(S)); } catch (e) {} }
+function saveLocal() { try { localStorage.setItem(KEY2, JSON.stringify(S)); } catch (e) {} }
+function save() { saveLocal(); if (window.CloudSync) window.CloudSync.touch(); }
+
+/* ========== 雲端同步：兩台裝置各自練習時，兩邊紀錄都保留 ========== */
+const SYNC_KEY = "yifan-chinese-Tz4pW8qLx2Nf6Rk9Vb3m";
+const UIK = ["unit", "tab", "sub", "node", "nodes", "pm", "view", "forced", "anim", "rel", "task"];
+function mergeS(a, b) {
+  if (!b || !b.st || !b.U) return a;
+  if (!a || !a.st || !a.U) return b;
+  const m = JSON.parse(JSON.stringify(b));
+  const n = x => (x && x.n) || 0;
+  const better = (x, y) => n(x) > n(y) || (n(x) === n(y) && (((x.rs || []).length > (y.rs || []).length) || (!!x.mastered && !y.mastered)));
+  for (const id in a.st) { const x = a.st[id], y = m.st[id]; if (!y || better(x, y)) m.st[id] = x; }
+  for (const u in a.U) {
+    const A = a.U[u], B = m.U[u];
+    if (!B) { m.U[u] = A; continue; }
+    const key = r => r.date + "|" + r.score + "|" + r.total;
+    const have = new Set(B.quizzes.map(key));
+    A.quizzes.forEach(r => { if (!have.has(key(r))) B.quizzes.push(r); });
+    B.quizzes.sort((p, q) => (p.date || 0) - (q.date || 0)); B.quizzes.forEach((r, i) => r.n = i + 1);
+    B.unlocked = !!(A.unlocked || B.unlocked);
+    const cnt = z => z ? Object.keys(z.ans || {}).length : -1;
+    if (A.qz && cnt(A.qz) > cnt(B.qz) && !B.quizzes.some(r => r.date >= A.qz.start)) B.qz = A.qz;
+    if (B.qz && B.quizzes.some(r => r.date >= B.qz.start && r.ids && r.ids.join() === B.qz.ids.join())) B.qz = null;
+  }
+  if ((a.cnt || 0) > (b.cnt || 0)) ["tf", "due", "extra", "last"].forEach(k => m[k] = a[k]);
+  m.cnt = Math.max(a.cnt || 0, b.cnt || 0);
+  ["tdone", "seen"].forEach(k => m[k] = Object.assign({}, b[k] || {}, a[k] || {}));
+  ["tm", "xm", "tp"].forEach(k => { const o = Object.assign({}, b[k] || {}); for (const d in (a[k] || {})) o[d] = Math.max(o[d] || 0, a[k][d] || 0); m[k] = o; });
+  UIK.forEach(k => { if (a[k] !== undefined) m[k] = a[k]; });
+  return m;
+}
+function setFromCloud(d) {
+  const ui = {}; UIK.forEach(k => ui[k] = S[k]);
+  S = d; const f = fresh(); for (const k in f) if (S[k] === undefined) S[k] = f[k]; for (const u in f.U) if (!S.U[u]) S.U[u] = f.U[u];
+  UIK.forEach(k => { if (ui[k] !== undefined) S[k] = ui[k]; });
+  if (!UNITS[S.unit]) S.unit = "L4";
+  saveLocal();
+}
+function syncBadge(st) {
+  const el = document.getElementById("sync"); if (!el) return;
+  const T = { sync: ["同步中…", "gray"], pending: ["同步中…", "gray"], ok: ["☁ 進度已存到雲端", "ok"], offline: ["離線中，連上網會自動同步", "warn"], err: ["暫時連不上雲端，進度先存在這台，稍後自動同步", "warn"] }[st] || ["", "gray"];
+  el.textContent = T[0]; el.className = "sync " + T[1];
+}
+function applyHash() {
+  const h = new URLSearchParams((location.hash || "").slice(1)); if (!h.toString()) return;
+  const u = h.get("u"), tab = h.get("tab");
+  if (u && UNITS[u]) S.unit = u;
+  if (tab && ["home", "learn", "practice", "book", "quiz"].includes(tab)) { S.tab = tab; if (tab === "quiz") S.sub.quiz = "test"; if (tab === "practice") S.sub.practice = "types"; if (tab === "learn") S.sub.learn = "map"; }
+  S.pm = null; history.replaceState(null, "", location.pathname);
+}
 
 /* ========== 引擎 ========== */
 const st = id => S.st[id] || (S.st[id] = { n: 0, ok: 0, streak: 0, wrong: false, rs: [] });
@@ -2388,8 +2441,12 @@ function mountAnims() { view.querySelectorAll("[data-anim]").forEach(el => { con
 /* ========== 開始 ========== */
 load();
 if (S.tab === "practice" && S.sub.practice === "run" && !S.pm) S.sub.practice = "types";
+applyHash(); saveLocal();
 render();
+if (window.CloudSync) window.CloudSync.init({ key: SYNC_KEY, ls: KEY2, get: () => S, set: setFromCloud, merge: mergeS, onStatus: syncBadge, onChange: () => render() });
+window.addEventListener("hashchange", () => { applyHash(); save(); render(); });
 }();
 
 </script>
+<script src="../shared/yifan-hub.js" data-subject="chi"></script>
 </body></html>
